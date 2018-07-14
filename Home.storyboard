@@ -1,7 +1,159 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lcl-oa-qqh">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Boondocking-->
+        <scene sceneID="PmM-gF-P77">
+            <objects>
+                <viewController id="TRf-2r-fWH" userLabel="Boondocking" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qnw-pE-JKf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="fbh-Gg-2qS"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Boondocking" image="Boondocking" id="k3Q-X5-wgx" userLabel="Boondocking"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eyK-yk-SBV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="384" y="273"/>
+        </scene>
+        <!--Campgrounds-->
+        <scene sceneID="w1P-1c-l1G">
+            <objects>
+                <viewController id="dal-hB-xCm" userLabel="Campgrounds" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wdy-Cg-oZL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qsP-PG-kvu">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="The Campers Toolkit" id="s0s-QS-prC">
+                                        <barButtonItem key="rightBarButtonItem" title="Item" image="Filter" id="PRW-gV-LIR" userLabel="Filter Button">
+                                            <color key="tintColor" red="0.066862309640000006" green="0.066862309640000006" blue="0.066862309640000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <segue destination="Qw7-zG-ifi" kind="presentation" id="mhm-Tf-ZSD"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="OKE-OI-UwA">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                            </mapView>
+                            <searchBar contentMode="redraw" searchBarStyle="prominent" text="" translatesAutoresizingMaskIntoConstraints="NO" id="NrK-aI-BOm">
+                                <rect key="frame" x="0.0" y="80" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="qsP-PG-kvu" firstAttribute="top" secondItem="qEi-xO-dyu" secondAttribute="top" id="Fhy-4e-UTo"/>
+                            <constraint firstItem="OKE-OI-UwA" firstAttribute="leading" secondItem="qEi-xO-dyu" secondAttribute="leading" id="H9K-Ei-pl9"/>
+                            <constraint firstItem="qEi-xO-dyu" firstAttribute="bottom" secondItem="OKE-OI-UwA" secondAttribute="bottom" id="KVf-5e-tbV"/>
+                            <constraint firstItem="OKE-OI-UwA" firstAttribute="top" secondItem="NrK-aI-BOm" secondAttribute="bottom" constant="-72" id="N1t-Ln-wjk"/>
+                            <constraint firstItem="qEi-xO-dyu" firstAttribute="trailing" secondItem="OKE-OI-UwA" secondAttribute="trailing" id="XR1-4h-1a1"/>
+                            <constraint firstItem="qsP-PG-kvu" firstAttribute="trailing" secondItem="qEi-xO-dyu" secondAttribute="trailing" id="eBw-JF-KIv"/>
+                            <constraint firstItem="NrK-aI-BOm" firstAttribute="leading" secondItem="qEi-xO-dyu" secondAttribute="leading" id="fCT-lD-QcF"/>
+                            <constraint firstItem="NrK-aI-BOm" firstAttribute="trailing" secondItem="qEi-xO-dyu" secondAttribute="trailing" id="m14-eM-a96"/>
+                            <constraint firstItem="qsP-PG-kvu" firstAttribute="leading" secondItem="qEi-xO-dyu" secondAttribute="leading" id="mcr-xg-BO1"/>
+                            <constraint firstItem="NrK-aI-BOm" firstAttribute="centerX" secondItem="OKE-OI-UwA" secondAttribute="centerX" id="qtR-Ze-0ub"/>
+                            <constraint firstItem="OKE-OI-UwA" firstAttribute="top" secondItem="qsP-PG-kvu" secondAttribute="bottom" id="yfT-N6-GoV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qEi-xO-dyu"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Campgrounds" image="Camping" id="dee-9F-fQ6" userLabel="Campgrounds">
+                        <color key="badgeColor" red="0.99569717639999999" green="0.99569717639999999" blue="0.99569717639999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UaK-8L-0Uh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="384" y="-392"/>
+        </scene>
+        <!--Filter View Controller-->
+        <scene sceneID="JOK-iB-ncS">
+            <objects>
+                <viewController id="Qw7-zG-ifi" userLabel="Filter View Controller" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Fy-8F-VVA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4d9-gy-6ud">
+                                <rect key="frame" x="167" y="583" width="40" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Apply"/>
+                                <connections>
+                                    <segue destination="MF8-ZP-Tpi" kind="show" id="FiR-SA-kZm"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Cdc-sI-6oq"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ObY-RH-Kgi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1166" y="-393"/>
+        </scene>
+        <!--Filter Results TableView Controller-->
+        <scene sceneID="dzN-bt-CHk">
+            <objects>
+                <tableViewController id="MF8-ZP-Tpi" userLabel="Filter Results TableView Controller" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2bw-WK-b0K">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="124" id="3QN-Lq-SS4">
+                                <rect key="frame" x="0.0" y="28" width="375" height="124"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3QN-Lq-SS4" id="bqm-Io-m5P">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="123.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="MF8-ZP-Tpi" id="43X-AD-Gis"/>
+                            <outlet property="delegate" destination="MF8-ZP-Tpi" id="fpA-UB-sAp"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p4U-2d-jxq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1925.5999999999999" y="-394.45277361319341"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="rx3-Dq-VtH">
+            <objects>
+                <tabBarController id="lcl-oa-qqh" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vAd-Wo-xge">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="dal-hB-xCm" kind="relationship" relationship="viewControllers" id="FS2-Qv-5Ns"/>
+                        <segue destination="TRf-2r-fWH" kind="relationship" relationship="viewControllers" id="vMg-sB-HcY"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rJ3-aq-tOH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-569" y="-59"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Boondocking" width="24" height="24"/>
+        <image name="Camping" width="24" height="24"/>
+        <image name="Filter" width="24" height="24"/>
+    </resources>
 </document>

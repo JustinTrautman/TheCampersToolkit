@@ -12,6 +12,7 @@
 		D0C5E07D20F97FD900210FC1 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E07C20F97FD900210FC1 /* Home.storyboard */; };
 		D0C5E07F20F97FE200210FC1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E07E20F97FE200210FC1 /* HomeViewController.swift */; };
 		D0C5E08120F9801300210FC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */; };
+		D0C5E08320F9A5E300210FC1 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E08220F9A5E300210FC1 /* FilterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		D0C5E07C20F97FD900210FC1 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		D0C5E07E20F97FE200210FC1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D0C5E08220F9A5E300210FC1 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				D0C5E07E20F97FE200210FC1 /* HomeViewController.swift */,
+				D0C5E08220F9A5E300210FC1 /* FilterViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0C5E08320F9A5E300210FC1 /* FilterViewController.swift in Sources */,
 				D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */,
 				D0C5E07F20F97FE200210FC1 /* HomeViewController.swift in Sources */,
 			);
