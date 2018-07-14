@@ -10,20 +10,32 @@
 		D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */; };
 		D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E06520F97C0B00210FC1 /* Assets.xcassets */; };
 		D0C5E07D20F97FD900210FC1 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E07C20F97FD900210FC1 /* Home.storyboard */; };
-		D0C5E07F20F97FE200210FC1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E07E20F97FE200210FC1 /* HomeViewController.swift */; };
 		D0C5E08120F9801300210FC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */; };
-		D0C5E08320F9A5E300210FC1 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E08220F9A5E300210FC1 /* FilterViewController.swift */; };
+		D0C5E08B20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */; };
+		D0C5E08D20F9A6D900210FC1 /* FilterResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E08C20F9A6D900210FC1 /* FilterResultsTableViewController.swift */; };
+		D0C5E08F20F9A6EC00210FC1 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E08E20F9A6EC00210FC1 /* FilterViewController.swift */; };
+		D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */; };
+		D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */; };
+		D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */; };
+		D7A732D64A335AF81DEE748C /* Pods_TheCampersToolkit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A93247BEBFC3DCAA017F4D50 /* Pods-TheCampersToolkit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheCampersToolkit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit.debug.xcconfig"; sourceTree = "<group>"; };
+		AE93EAD54E211352B75928D7 /* Pods-TheCampersToolkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheCampersToolkit.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit.release.xcconfig"; sourceTree = "<group>"; };
+		CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheCampersToolkit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C5E05B20F97C0A00210FC1 /* TheCampersToolkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheCampersToolkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0C5E06520F97C0B00210FC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0C5E06A20F97C0B00210FC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0C5E07C20F97FD900210FC1 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
-		D0C5E07E20F97FE200210FC1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		D0C5E08220F9A5E300210FC1 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterResultsTableViewCell.swift; sourceTree = "<group>"; };
+		D0C5E08C20F9A6D900210FC1 /* FilterResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FilterResultsTableViewController.swift; path = Views/FilterResultsTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0C5E08E20F9A6EC00210FC1 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FilterViewController.swift; path = Views/FilterViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Views/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoondockingViewController.swift; path = Views/BoondockingViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampgroundDetailViewController.swift; path = Views/CampgroundDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,12 +43,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7A732D64A335AF81DEE748C /* Pods_TheCampersToolkit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A663817BA373CA6432F7E17 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A93247BEBFC3DCAA017F4D50 /* Pods-TheCampersToolkit.debug.xcconfig */,
+				AE93EAD54E211352B75928D7 /* Pods-TheCampersToolkit.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		58E70B8EBD3F235D322F67D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D0C5E05220F97C0A00210FC1 = {
 			isa = PBXGroup;
 			children = (
@@ -50,6 +80,8 @@
 				D0C5E07020F97C1400210FC1 /* Helpers */,
 				D0C5E05D20F97C0A00210FC1 /* TheCampersToolkit */,
 				D0C5E05C20F97C0A00210FC1 /* Products */,
+				3A663817BA373CA6432F7E17 /* Pods */,
+				58E70B8EBD3F235D322F67D3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,6 +127,7 @@
 		D0C5E07320F97C3400210FC1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -125,8 +158,11 @@
 		D0C5E07720F97C5700210FC1 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D0C5E07E20F97FE200210FC1 /* HomeViewController.swift */,
-				D0C5E08220F9A5E300210FC1 /* FilterViewController.swift */,
+				D0C5E08C20F9A6D900210FC1 /* FilterResultsTableViewController.swift */,
+				D0C5E08E20F9A6EC00210FC1 /* FilterViewController.swift */,
+				D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */,
+				D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */,
+				D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -138,9 +174,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0C5E06D20F97C0B00210FC1 /* Build configuration list for PBXNativeTarget "TheCampersToolkit" */;
 			buildPhases = (
+				DE6BDF4655D9BED1C5C6D6AF /* [CP] Check Pods Manifest.lock */,
 				D0C5E05720F97C0A00210FC1 /* Sources */,
 				D0C5E05820F97C0A00210FC1 /* Frameworks */,
 				D0C5E05920F97C0A00210FC1 /* Resources */,
+				AE809DED3F4845D167CDCE25 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -197,14 +235,59 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		AE809DED3F4845D167CDCE25 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE6BDF4655D9BED1C5C6D6AF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TheCampersToolkit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D0C5E05720F97C0A00210FC1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0C5E08320F9A5E300210FC1 /* FilterViewController.swift in Sources */,
+				D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */,
+				D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */,
+				D0C5E08D20F9A6D900210FC1 /* FilterResultsTableViewController.swift in Sources */,
+				D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */,
 				D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */,
-				D0C5E07F20F97FE200210FC1 /* HomeViewController.swift in Sources */,
+				D0C5E08B20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift in Sources */,
+				D0C5E08F20F9A6EC00210FC1 /* FilterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +410,7 @@
 		};
 		D0C5E06E20F97C0B00210FC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A93247BEBFC3DCAA017F4D50 /* Pods-TheCampersToolkit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -345,6 +429,7 @@
 		};
 		D0C5E06F20F97C0B00210FC1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE93EAD54E211352B75928D7 /* Pods-TheCampersToolkit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
