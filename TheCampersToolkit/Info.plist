@@ -51,6 +51,6 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Show your location on the map</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Show campgrounds on map</string>
 </dict>
 </plist>

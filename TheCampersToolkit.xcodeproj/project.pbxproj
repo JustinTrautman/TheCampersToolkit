@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D022B1E420FD23420012025A /* GoogleDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022B1E320FD23420012025A /* GoogleDetail.swift */; };
+		D022B1E620FD2ADF0012025A /* GoogleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */; };
 		D098E06C20FD0B8700DB4866 /* GoogleDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */; };
 		D098E06E20FD0BEB00DB4866 /* GooglePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06D20FD0BEB00DB4866 /* GooglePlace.swift */; };
 		D098E07020FD0C1E00DB4866 /* PlaceMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06F20FD0C1E00DB4866 /* PlaceMarker.swift */; };
 		D098E07220FD0C5100DB4866 /* MarkerInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D098E07120FD0C5100DB4866 /* MarkerInfoView.xib */; };
 		D098E07420FD0C7900DB4866 /* MarkerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E07320FD0C7900DB4866 /* MarkerInfoView.swift */; };
+		D098E07620FD110000DB4866 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E07520FD110000DB4866 /* UIView.swift */; };
 		D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */; };
 		D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E06520F97C0B00210FC1 /* Assets.xcassets */; };
 		D0C5E07D20F97FD900210FC1 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E07C20F97FD900210FC1 /* Home.storyboard */; };
@@ -29,11 +32,14 @@
 		A93247BEBFC3DCAA017F4D50 /* Pods-TheCampersToolkit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheCampersToolkit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit.debug.xcconfig"; sourceTree = "<group>"; };
 		AE93EAD54E211352B75928D7 /* Pods-TheCampersToolkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheCampersToolkit.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit.release.xcconfig"; sourceTree = "<group>"; };
 		CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheCampersToolkit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D022B1E320FD23420012025A /* GoogleDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDetail.swift; sourceTree = "<group>"; };
+		D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDetailController.swift; sourceTree = "<group>"; };
 		D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDataProvider.swift; sourceTree = "<group>"; };
 		D098E06D20FD0BEB00DB4866 /* GooglePlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlace.swift; sourceTree = "<group>"; };
 		D098E06F20FD0C1E00DB4866 /* PlaceMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMarker.swift; sourceTree = "<group>"; };
 		D098E07120FD0C5100DB4866 /* MarkerInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarkerInfoView.xib; sourceTree = "<group>"; };
 		D098E07320FD0C7900DB4866 /* MarkerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerInfoView.swift; sourceTree = "<group>"; };
+		D098E07520FD110000DB4866 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		D0C5E05B20F97C0A00210FC1 /* TheCampersToolkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheCampersToolkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0C5E06520F97C0B00210FC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -140,6 +146,7 @@
 				D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */,
 				D098E07120FD0C5100DB4866 /* MarkerInfoView.xib */,
 				D098E07320FD0C7900DB4866 /* MarkerInfoView.swift */,
+				D098E07520FD110000DB4866 /* UIView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -158,6 +165,7 @@
 			children = (
 				D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */,
 				D098E06D20FD0BEB00DB4866 /* GooglePlace.swift */,
+				D022B1E320FD23420012025A /* GoogleDetail.swift */,
 				D098E06F20FD0C1E00DB4866 /* PlaceMarker.swift */,
 			);
 			path = Models;
@@ -166,6 +174,7 @@
 		D0C5E07620F97C5000210FC1 /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -320,8 +329,11 @@
 			files = (
 				D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */,
 				D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */,
+				D022B1E420FD23420012025A /* GoogleDetail.swift in Sources */,
 				D0C5E08D20F9A6D900210FC1 /* FilterResultsTableViewController.swift in Sources */,
 				D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */,
+				D022B1E620FD2ADF0012025A /* GoogleDetailController.swift in Sources */,
+				D098E07620FD110000DB4866 /* UIView.swift in Sources */,
 				D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */,
 				D098E07020FD0C1E00DB4866 /* PlaceMarker.swift in Sources */,
 				D098E06C20FD0B8700DB4866 /* GoogleDataProvider.swift in Sources */,

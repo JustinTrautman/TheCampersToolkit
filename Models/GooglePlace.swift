@@ -12,6 +12,7 @@ import CoreLocation
 import SwiftyJSON
 
 class GooglePlace {
+    let id: String
     let name: String
     let address: String
     let coordinate: CLLocationCoordinate2D
@@ -22,6 +23,7 @@ class GooglePlace {
     init(dictionary: [String: Any], acceptedTypes: [String])
     {
         let json = JSON(dictionary)
+        id = json["place_id"].stringValue
         name = json["name"].stringValue
         address = json["vicinity"].stringValue
         
@@ -31,7 +33,7 @@ class GooglePlace {
         
         photoReference = json["photos"][0]["photo_reference"].string
         
-        var foundType = "restaurant"
+        var foundType = "campground"
         let possibleTypes = acceptedTypes.count > 0 ? acceptedTypes : ["campground"]
         
         if let types = json["types"].arrayObject as? [String] {

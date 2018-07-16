@@ -10,12 +10,28 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 import GooglePlacePicker
+import SwiftyJSON
 
-class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, UISearchControllerDelegate, UISearchBarDelegate {
+class HomeViewController: UIViewController, UISearchControllerDelegate {
     
     // MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    private var searchedTypes = ["campground"]
+    private let locationManager = CLLocationManager()
+    private let dataProvider = GoogleDataProvider()
+    private let searchRadius: Double = 321869
+    
+    // MARK: - View Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        mapView.delegate = self
+        searchBar.delegate = self
+    }
     
     // MARK: - Actions
     @IBAction func searchIconTapped(_ sender: UIBarButtonItem) {
@@ -27,90 +43,131 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, GMSMapVie
         searchBar.isHidden = true
         self.navigationController?.isNavigationBarHidden = false
     }
-
-    // MARK: - Properties
-    var locationManager = CLLocationManager()
-    var currentLocation: CLLocation?
     
-    var placesClient: GMSPlacesClient!
-    var zoomLevel: Float = 15.0
-    // The currently selected place
-    var selectedPlace: GMSPlace?
-    let defaultLocation = CLLocation(latitude: 44.6368, longitude: -124.0535)
-    
-    // MARK: - View Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    public func getLocationFromAddress(address : String) -> CLLocationCoordinate2D {
+        var lat : Double = 0.0
+        var lon : Double = 0.0
         
-        searchBar.delegate = self
-
-        // Creates a marker in the center of the map.
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: 44.6368, longitude: -124.0535)
-        marker.title = "Newport"
-        marker.snippet = "Oregon"
-        marker.map = mapView
-        mapView.delegate = self
+        do {
+            
+            let url = String(format: "https://maps.google.com/maps/api/geocode/json?sensor=false&address=%@&key=AIzaSyDUtXqYOXGy6xyKGwCHi9YGUpxM2fY9V-c", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
+            let result = try Data(contentsOf: URL(string: url)!)
+            let json = try JSON(data: result)
+            
+            lat = json["results"][0]["geometry"]["location"]["lat"].doubleValue
+            lon = json["results"][0]["geometry"]["location"]["lng"].doubleValue
+            
+            print(lat)
+            print(lon)
+            
+        }
+        catch let error{
+            print(error)
+        }
         
-        // Camera
-        let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude, longitude: defaultLocation.coordinate.longitude, zoom: zoomLevel)
-        mapView.settings.myLocationButton = true
-        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.isMyLocationEnabled = true
-        
-        view.addSubview(mapView)
-        
-        // Location Manager
-        locationManager = CLLocationManager()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        locationManager.distanceFilter = 50
-        locationManager.startUpdatingLocation()
-        locationManager.delegate = self
-        
-        placesClient = GMSPlacesClient.shared()
+        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
     
-    // Handle incoming location events
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location: CLLocation = locations.last!
-        print("Location: \(location)")
+    func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
+        mapView.clear()
         
-        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: 117.4260, zoom: zoomLevel)
+        guard let searchText = searchBar.text,
+            let location = locationManager.location?.coordinate else { return }
         
-        if mapView.isHidden {
-            mapView.isHidden = false
-            mapView.camera = camera
-        } else {
-            mapView.animate(to: camera)
+        var coordinates = getLocationFromAddress(address: searchText)
+        
+        if searchText == "" {
+            coordinates = location
+        }
+        
+        dataProvider.fetchPlacesNearCoordinate(latitude: coordinates.latitude, longitude: coordinates.longitude, radius: searchRadius, types: searchedTypes) { places in
+            places.forEach {
+                let marker = PlaceMarker(place: $0)
+                marker.map = self.mapView
+                self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 10, bearing: 0, viewingAngle: 0)
+            }
         }
     }
     
-    // Handle authorization for the location manager
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .restricted:
-            print("Location access was restricted.")
-        case .denied:
-            print("User denied access to location.")
-            // Display the map using the default location
-            mapView.isHidden = false
-        case .notDetermined:
-            print("Location status not determined.")
-        case .authorizedAlways: fallthrough
-        case .authorizedWhenInUse:
-            print("Location status is OK.")
-        }
+    @IBAction func refreshPlaces(_ sender: Any) {
+        
+        guard let searchText = searchBar.text else { return }
+        
+        let coordinates = getLocationFromAddress(address: searchText)
+        fetchNearbyPlaces(coordinate: coordinates)
+        
     }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        locationManager.stopUpdatingLocation()
-        print("Error: \(error)")
-    }
-    
-//
-//    // MARK: - Navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-//    }
 }
+
+// MARK: - CLLocationManagerDelegate
+extension HomeViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        guard status == .authorizedWhenInUse else {
+            return
+        }
+        
+        locationManager.startUpdatingLocation()
+        mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else {
+            return
+        }
+        
+        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 10, bearing: 0, viewingAngle: 0)
+        locationManager.stopUpdatingLocation()
+        fetchNearbyPlaces(coordinate: location.coordinate)
+    }
+}
+
+// MARK: - GMSMapViewDelegate
+extension HomeViewController: GMSMapViewDelegate {
+    
+    func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
+        guard let placeMarker = marker as? PlaceMarker else {
+            return nil
+        }
+        guard let infoView = UIView.viewFromNibName("MarkerInfoView") as? MarkerInfoView else {
+            return nil
+        }
+        
+        infoView.nameLabel.text = placeMarker.place.name
+        if let photo = placeMarker.place.photo {
+            infoView.placePhoto.image = photo
+        } else {
+            infoView.placePhoto.image = UIImage(named: "campground_pin")
+        }
+        
+        return infoView
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
+        return false
+    }
+    
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        guard let coordinate = locationManager.location?.coordinate else { return false }
+        
+        mapView.selectedMarker = nil
+        searchBar.text = ""
+        fetchNearbyPlaces(coordinate: coordinate)
+        return false
+    }
+}
+
+extension HomeViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        
+        guard let searchText = searchBar.text else { return }
+        
+        let coordinates = getLocationFromAddress(address: searchText)
+        fetchNearbyPlaces(coordinate: coordinates)
+    }
+}
+

@@ -12,13 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-        </view>
-        <view contentMode="scaleToFill" id="NN2-Qc-66l" customClass="MarkerInfoView" customModule="Feed_Me" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="NN2-Qc-66l" customClass="MarkerInfoView" customModule="TheCampersToolkit" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="150" height="106"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
