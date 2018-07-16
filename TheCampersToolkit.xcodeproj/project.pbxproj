@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D098E06C20FD0B8700DB4866 /* GoogleDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */; };
+		D098E06E20FD0BEB00DB4866 /* GooglePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06D20FD0BEB00DB4866 /* GooglePlace.swift */; };
+		D098E07020FD0C1E00DB4866 /* PlaceMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06F20FD0C1E00DB4866 /* PlaceMarker.swift */; };
+		D098E07220FD0C5100DB4866 /* MarkerInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D098E07120FD0C5100DB4866 /* MarkerInfoView.xib */; };
+		D098E07420FD0C7900DB4866 /* MarkerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E07320FD0C7900DB4866 /* MarkerInfoView.swift */; };
 		D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */; };
 		D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E06520F97C0B00210FC1 /* Assets.xcassets */; };
 		D0C5E07D20F97FD900210FC1 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E07C20F97FD900210FC1 /* Home.storyboard */; };
@@ -24,6 +29,11 @@
 		A93247BEBFC3DCAA017F4D50 /* Pods-TheCampersToolkit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheCampersToolkit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit.debug.xcconfig"; sourceTree = "<group>"; };
 		AE93EAD54E211352B75928D7 /* Pods-TheCampersToolkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheCampersToolkit.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit.release.xcconfig"; sourceTree = "<group>"; };
 		CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheCampersToolkit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDataProvider.swift; sourceTree = "<group>"; };
+		D098E06D20FD0BEB00DB4866 /* GooglePlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlace.swift; sourceTree = "<group>"; };
+		D098E06F20FD0C1E00DB4866 /* PlaceMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMarker.swift; sourceTree = "<group>"; };
+		D098E07120FD0C5100DB4866 /* MarkerInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarkerInfoView.xib; sourceTree = "<group>"; };
+		D098E07320FD0C7900DB4866 /* MarkerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerInfoView.swift; sourceTree = "<group>"; };
 		D0C5E05B20F97C0A00210FC1 /* TheCampersToolkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheCampersToolkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0C5E06520F97C0B00210FC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -128,6 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */,
+				D098E07120FD0C5100DB4866 /* MarkerInfoView.xib */,
+				D098E07320FD0C7900DB4866 /* MarkerInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -144,6 +156,9 @@
 		D0C5E07520F97C4B00210FC1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */,
+				D098E06D20FD0BEB00DB4866 /* GooglePlace.swift */,
+				D098E06F20FD0C1E00DB4866 /* PlaceMarker.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -179,6 +194,7 @@
 				D0C5E05820F97C0A00210FC1 /* Frameworks */,
 				D0C5E05920F97C0A00210FC1 /* Resources */,
 				AE809DED3F4845D167CDCE25 /* [CP] Copy Pods Resources */,
+				0BF382F366962F2DAB928995 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -227,6 +243,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D098E07220FD0C5100DB4866 /* MarkerInfoView.xib in Resources */,
 				D0C5E08120F9801300210FC1 /* LaunchScreen.storyboard in Resources */,
 				D0C5E07D20F97FD900210FC1 /* Home.storyboard in Resources */,
 				D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */,
@@ -236,6 +253,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0BF382F366962F2DAB928995 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AE809DED3F4845D167CDCE25 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -244,11 +279,13 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,8 +323,12 @@
 				D0C5E08D20F9A6D900210FC1 /* FilterResultsTableViewController.swift in Sources */,
 				D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */,
 				D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */,
+				D098E07020FD0C1E00DB4866 /* PlaceMarker.swift in Sources */,
+				D098E06C20FD0B8700DB4866 /* GoogleDataProvider.swift in Sources */,
 				D0C5E08B20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift in Sources */,
+				D098E07420FD0C7900DB4866 /* MarkerInfoView.swift in Sources */,
 				D0C5E08F20F9A6EC00210FC1 /* FilterViewController.swift in Sources */,
+				D098E06E20FD0BEB00DB4866 /* GooglePlace.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

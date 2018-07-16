@@ -6,8 +6,11 @@ target 'TheCampersToolkit' do
   use_frameworks!
 
   # Pods for TheCampersToolkit
-
+  
+use_frameworks!
 pod 'GoogleMaps'
 pod 'GooglePlaces'
+pod 'GooglePlacePicker'
+pod 'SwiftyJSON'
 
 end
