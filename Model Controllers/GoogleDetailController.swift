@@ -13,7 +13,7 @@ class GoogleDetailController {
     static let shared = GoogleDetailController()
     static var campgrounds: [Result] = []
     
-    static func fetchCampgroundDetailsFrom(placeID: String, completion: @escaping () -> Void ) {
+    static func fetchCampgroundDetailsFrom(placeID: String, completion: @escaping ([Result]?) -> Void ) {
         
         let baseURL = URL(string: "https://maps.googleapis.com/maps/api/place/details/json")
         
@@ -27,5 +27,28 @@ class GoogleDetailController {
         let queryArray = [placeIDQuery, fieldsQuery, apiKeyQuery]
         
         components?.queryItems = queryArray
+        
+        guard let completeURL = components?.url else { completion(nil) ; return }
+        
+        print(completeURL)
+        
+        URLSession.shared.dataTask(with: completeURL) { (data, _, error) in
+            if let error = error {
+                print("DataTask had an issue reaching the network. Exiting with error: \(error) \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            guard let data = data else { completion(nil) ; return }
+            let jsonDecoder = JSONDecoder()
+            
+            do {
+                let campground = try jsonDecoder.decode([Result].self, from: data)
+                self.campgrounds = campground
+                completion(campground)
+            } catch let error {
+                print("Error decoding campground data: \(error) \(error.localizedDescription)")
+            }
+        }.resume()
     }
 }

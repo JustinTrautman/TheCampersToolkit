@@ -21,6 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey("AIzaSyDUtXqYOXGy6xyKGwCHi9YGUpxM2fY9V-c")
         GMSPlacesClient.provideAPIKey("AIzaSyDUtXqYOXGy6xyKGwCHi9YGUpxM2fY9V-c")
         
+        GoogleDetailController.fetchCampgroundDetailsFrom(placeID: "ChIJ28rRIc_MwVQR6o7hThke0Qc") { (campground) in
+            if let campground = campground {
+                print("Doesn't matter really")
+            }
+        }
+        
         return true
     }
 

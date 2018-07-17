@@ -148,6 +148,17 @@ extension HomeViewController: GMSMapViewDelegate {
         return false
     }
     
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        print("Did tap")
+        
+        let campgroundMarker = marker as? PlaceMarker
+        performSegue(withIdentifier: "campgroundDetail", sender: campgroundMarker?.place)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        var campgroundDetailVC = segue.destination as? CampgroundDetailViewController
+        campgroundDetailVC = sender as? CampgroundDetailViewController
+    }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         guard let coordinate = locationManager.location?.coordinate else { return false }

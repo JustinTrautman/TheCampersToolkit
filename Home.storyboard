@@ -100,6 +100,7 @@
                     <connections>
                         <outlet property="mapView" destination="oKk-gq-Gfq" id="mpf-Sp-yKS"/>
                         <outlet property="searchBar" destination="Acf-LY-7x5" id="wHn-8g-udB"/>
+                        <segue destination="Xwp-tn-Wjf" kind="show" identifier="campgroundDetail" id="KD9-pq-MRg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UaK-8L-0Uh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -242,20 +243,20 @@
                                     <navigationItem title="(Campground)" id="GT5-6l-Qeo"/>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Camping Large" translatesAutoresizingMaskIntoConstraints="NO" id="wn5-dL-TYc">
-                                <rect key="frame" x="5" y="64" width="365" height="189"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Camping Large" translatesAutoresizingMaskIntoConstraints="NO" id="wn5-dL-TYc">
+                                <rect key="frame" x="14" y="72" width="347" height="210"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="wn5-dL-TYc" firstAttribute="leading" secondItem="F6V-01-TkD" secondAttribute="leading" constant="5" id="7qT-2r-8bn"/>
-                            <constraint firstItem="wn5-dL-TYc" firstAttribute="leading" secondItem="F6V-01-TkD" secondAttribute="leading" constant="5" id="ER0-c2-UxX"/>
-                            <constraint firstItem="wn5-dL-TYc" firstAttribute="trailing" secondItem="F6V-01-TkD" secondAttribute="trailing" constant="5" id="KAJ-8W-wTK"/>
+                            <constraint firstItem="F6V-01-TkD" firstAttribute="bottom" secondItem="wn5-dL-TYc" secondAttribute="bottom" constant="385" id="7bZ-qs-tVB"/>
+                            <constraint firstItem="wn5-dL-TYc" firstAttribute="leading" secondItem="F6V-01-TkD" secondAttribute="leading" constant="14" id="Edt-vp-46E"/>
                             <constraint firstItem="552-PE-e2G" firstAttribute="trailing" secondItem="F6V-01-TkD" secondAttribute="trailing" id="RRj-fr-JRE"/>
                             <constraint firstItem="552-PE-e2G" firstAttribute="leading" secondItem="F6V-01-TkD" secondAttribute="leading" id="WXR-DM-ckL"/>
+                            <constraint firstItem="wn5-dL-TYc" firstAttribute="leading" secondItem="F6V-01-TkD" secondAttribute="leading" constant="14" id="bUO-JG-q42"/>
                             <constraint firstItem="552-PE-e2G" firstAttribute="top" secondItem="F6V-01-TkD" secondAttribute="top" id="mG0-bq-XK6"/>
-                            <constraint firstItem="F6V-01-TkD" firstAttribute="trailing" secondItem="wn5-dL-TYc" secondAttribute="trailing" constant="5" id="tig-t2-owI"/>
-                            <constraint firstItem="wn5-dL-TYc" firstAttribute="top" secondItem="552-PE-e2G" secondAttribute="bottom" id="vGi-uV-S80"/>
+                            <constraint firstItem="F6V-01-TkD" firstAttribute="trailing" secondItem="wn5-dL-TYc" secondAttribute="trailing" constant="14" id="oAW-H2-4CS"/>
+                            <constraint firstItem="wn5-dL-TYc" firstAttribute="top" secondItem="F6V-01-TkD" secondAttribute="top" constant="52" id="qRp-Q7-YwC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="F6V-01-TkD"/>
                     </view>
@@ -293,4 +294,7 @@
         <image name="Filter" width="24" height="24"/>
         <image name="Hiking" width="24" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="KD9-pq-MRg"/>
+    </inferredMetricsTieBreakers>
 </document>
