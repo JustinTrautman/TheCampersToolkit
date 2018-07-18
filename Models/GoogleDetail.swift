@@ -8,6 +8,11 @@
 
 import Foundation
 
+struct TopLevelData : Codable {
+    
+    let html_attributions: [Result]
+}
+
 struct Result : Codable {
     let campgroundName: String
     let campgroundRating: Double?

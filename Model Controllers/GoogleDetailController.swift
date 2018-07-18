@@ -11,9 +11,9 @@ import Foundation
 class GoogleDetailController {
     
     static let shared = GoogleDetailController()
-    static var campgrounds: [Result] = []
+    static var campgrounds: [TopLevelData] = []
     
-    static func fetchCampgroundDetailsFrom(placeID: String, completion: @escaping ([Result]?) -> Void ) {
+    static func fetchCampgroundDetailsFrom(placeID: String, completion: @escaping ([TopLevelData]?) -> Void ) {
         
         let baseURL = URL(string: "https://maps.googleapis.com/maps/api/place/details/json")
         
@@ -43,7 +43,7 @@ class GoogleDetailController {
             let jsonDecoder = JSONDecoder()
             
             do {
-                let campground = try jsonDecoder.decode([Result].self, from: data)
+                let campground = try jsonDecoder.decode([TopLevelData].self, from: data)
                 self.campgrounds = campground
                 completion(campground)
             } catch let error {

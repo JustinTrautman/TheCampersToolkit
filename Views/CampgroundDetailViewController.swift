@@ -9,11 +9,29 @@
 import UIKit
 
 class CampgroundDetailViewController: UIViewController {
-
+    
+    var campground: GooglePlace?
+    
+    // MARK: - Outlets
+    @IBOutlet weak var campgroundNameLabel: UILabel!
+    @IBOutlet weak var campgroundImageView: UIImageView!
+    
+    var campgrounds: GooglePlace?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateViews()
     }
     
+    func updateViews() {
+        guard let campgroundName = campground?.name,
+              let campgroundImage = campground?.photo else { return }
+        
+        campgroundNameLabel.text = campgroundName
+        campgroundImageView.image = campgroundImage
+        
+    }
     /*
     // MARK: - Navigation
 

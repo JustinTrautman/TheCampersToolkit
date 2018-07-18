@@ -18,15 +18,17 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    // MARK: - Properties
     private var searchedTypes = ["campground"]
     private let locationManager = CLLocationManager()
     private let dataProvider = GoogleDataProvider()
     private let searchRadius: Double = 321869
+    var campground: GooglePlace?
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         mapView.delegate = self
@@ -148,19 +150,26 @@ extension HomeViewController: GMSMapViewDelegate {
         return false
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "campgroundDetail" {
+            guard let detailVC = segue.destination as? CampgroundDetailViewController else { return }
+            detailVC.campground = self.campground
+            print(campground?.name)
+           
+        }
+    }
+    
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        
         print("Did tap")
         
         let campgroundMarker = marker as? PlaceMarker
         performSegue(withIdentifier: "campgroundDetail", sender: campgroundMarker?.place)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        var campgroundDetailVC = segue.destination as? CampgroundDetailViewController
-        campgroundDetailVC = sender as? CampgroundDetailViewController
-    }
-    
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        
         guard let coordinate = locationManager.location?.coordinate else { return false }
         
         mapView.selectedMarker = nil
@@ -173,6 +182,7 @@ extension HomeViewController: GMSMapViewDelegate {
 extension HomeViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
         searchBar.resignFirstResponder()
         
         guard let searchText = searchBar.text else { return }

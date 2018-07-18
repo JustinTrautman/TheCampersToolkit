@@ -246,6 +246,12 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Camping Large" translatesAutoresizingMaskIntoConstraints="NO" id="wn5-dL-TYc">
                                 <rect key="frame" x="14" y="72" width="347" height="210"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Campground name)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qf-QS-Sxs">
+                                <rect key="frame" x="16" y="290" width="345" height="37"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -253,13 +259,21 @@
                             <constraint firstItem="wn5-dL-TYc" firstAttribute="leading" secondItem="F6V-01-TkD" secondAttribute="leading" constant="14" id="Edt-vp-46E"/>
                             <constraint firstItem="552-PE-e2G" firstAttribute="trailing" secondItem="F6V-01-TkD" secondAttribute="trailing" id="RRj-fr-JRE"/>
                             <constraint firstItem="552-PE-e2G" firstAttribute="leading" secondItem="F6V-01-TkD" secondAttribute="leading" id="WXR-DM-ckL"/>
+                            <constraint firstItem="F6V-01-TkD" firstAttribute="bottom" secondItem="9qf-QS-Sxs" secondAttribute="bottom" constant="340" id="Xcx-tC-gig"/>
                             <constraint firstItem="wn5-dL-TYc" firstAttribute="leading" secondItem="F6V-01-TkD" secondAttribute="leading" constant="14" id="bUO-JG-q42"/>
+                            <constraint firstItem="9qf-QS-Sxs" firstAttribute="top" secondItem="wn5-dL-TYc" secondAttribute="bottom" constant="8" id="iTz-Nx-vet"/>
+                            <constraint firstItem="9qf-QS-Sxs" firstAttribute="leading" secondItem="F6V-01-TkD" secondAttribute="leading" constant="16" id="klX-Hv-WiZ"/>
                             <constraint firstItem="552-PE-e2G" firstAttribute="top" secondItem="F6V-01-TkD" secondAttribute="top" id="mG0-bq-XK6"/>
                             <constraint firstItem="F6V-01-TkD" firstAttribute="trailing" secondItem="wn5-dL-TYc" secondAttribute="trailing" constant="14" id="oAW-H2-4CS"/>
                             <constraint firstItem="wn5-dL-TYc" firstAttribute="top" secondItem="F6V-01-TkD" secondAttribute="top" constant="52" id="qRp-Q7-YwC"/>
+                            <constraint firstItem="F6V-01-TkD" firstAttribute="trailing" secondItem="9qf-QS-Sxs" secondAttribute="trailing" constant="14" id="tBF-kX-iz3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="F6V-01-TkD"/>
                     </view>
+                    <connections>
+                        <outlet property="campgroundImageView" destination="wn5-dL-TYc" id="Dq1-pF-hWY"/>
+                        <outlet property="campgroundNameLabel" destination="9qf-QS-Sxs" id="MAh-Ye-5cd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SAm-Ma-AS8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
