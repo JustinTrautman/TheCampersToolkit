@@ -52,7 +52,7 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
         
         do {
             
-            let url = String(format: "https://maps.google.com/maps/api/geocode/json?sensor=false&address=%@&key=AIzaSyDUtXqYOXGy6xyKGwCHi9YGUpxM2fY9V-c", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
+            let url = String(format: "https://maps.google.com/maps/api/geocode/json?sensor=false&address=%@&key=\(Constants.apiKey)", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
             let result = try Data(contentsOf: URL(string: url)!)
             let json = try JSON(data: result)
             
@@ -150,13 +150,18 @@ extension HomeViewController: GMSMapViewDelegate {
         return false
     }
     
+//    // when user tap the info window of store marker, pass selected store to the product list controller
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        let controller = segue.destinationViewController as ProductMenuController
+//        controller.store = sender as Store
+//    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "campgroundDetail" {
             guard let detailVC = segue.destination as? CampgroundDetailViewController else { return }
-            detailVC.campground = self.campground
-            print(campground?.name)
-           
+            detailVC.campground = sender as? GooglePlace
+            detailVC.campgrounds = sender as? Result
         }
     }
     
@@ -166,6 +171,8 @@ extension HomeViewController: GMSMapViewDelegate {
         
         let campgroundMarker = marker as? PlaceMarker
         performSegue(withIdentifier: "campgroundDetail", sender: campgroundMarker?.place)
+        
+        print(campgroundMarker?.place.name)
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
@@ -184,6 +191,7 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         searchBar.resignFirstResponder()
+        searchBar.isHidden = true
         
         guard let searchText = searchBar.text else { return }
         
