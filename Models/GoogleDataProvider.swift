@@ -21,7 +21,7 @@ class GoogleDataProvider {
     }
     
     func fetchPlacesNearCoordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees, radius: Double, types: [String], completion: @escaping PlacesCompletion) -> Void {
-        var urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(latitude),\(longitude)&radius=\(radius)&rankby=prominence&sensor=true&key=\(Constants.apiKey)"
+        var urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(latitude),\(longitude)&radius=\(radius)&rankby=prominence&sensor=true&key=\(Constants.googleApiKey)"
         let typesString =  types.joined(separator: "|")
         urlString += "&types=\(typesString)"
         urlString = urlString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? urlString
@@ -70,7 +70,7 @@ class GoogleDataProvider {
         if let photo = photoCache[reference] {
             completion(photo)
         } else {
-            let urlString = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=\(reference)&key=\(Constants.apiKey)"
+            let urlString = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=\(reference)&key=\(Constants.googleApiKey)"
             guard let url = URL(string: urlString) else {
                 completion(nil)
                 return

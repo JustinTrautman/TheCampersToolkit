@@ -6,11 +6,10 @@
 //  Copyright © 2018 Justin Trautman. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class GoogleDetailController {
-    
-    static let shared = GoogleDetailController()
+
     static let baseURL = URL(string: "https://maps.googleapis.com/maps/api/place/details/json")
     static let detailFields = "formatted_address,opening_hours,photo,name,website,rating,price_level,review,formatted_phone_number"
     static var campgrounds: Result?
@@ -22,7 +21,7 @@ class GoogleDetailController {
         
         let placeIdQuery = URLQueryItem(name: "placeid", value: placeId)
         let fieldsQuery = URLQueryItem(name: "fields", value: detailFields)
-        let apiKeyQuery = URLQueryItem(name: "key", value: Constants.apiKey)
+        let apiKeyQuery = URLQueryItem(name: "key", value: Constants.googleApiKey)
         
         let queryArray = [placeIdQuery, fieldsQuery, apiKeyQuery]
         components?.queryItems = queryArray
@@ -47,6 +46,23 @@ class GoogleDetailController {
             } catch let error {
                 print("Error decoding campground data. Exiting with error: \(error) \(error.localizedDescription)")
             }
+        }.resume()
+    }
+    
+    static func fetchReviewerProfilePhotoWith(photoUrl: String, completion: @escaping ((UIImage?)) -> Void) {
+        
+        guard let url = URL(string: photoUrl) else { completion(nil) ; return }
+        
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            if let error = error {
+                print("DataTask had an issue getting an image from the network. Exiting with error: \(error) \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            guard let data = data else { completion(nil) ; return }
+            let image = UIImage(data: data)
+            completion(image)
         }.resume()
     }
 }

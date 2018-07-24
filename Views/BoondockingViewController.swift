@@ -1,10 +1,15 @@
-//
-//  BoondockingViewController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/13/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ BoondockingViewController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/13/18.
+ Copyright © 2018 Modular Mobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 import GooglePlacePicker

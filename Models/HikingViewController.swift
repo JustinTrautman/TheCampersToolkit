@@ -1,31 +1,28 @@
 /*
  ----------------------------------------------------------------------------------------
  
-   FilterViewController.swift
-   TheCampersToolkit
+ HikingViewController.swift
+ TheCampersToolkit
  
-   Created by Justin Trautman on 7/13/18.
-   Copyright © 2018 Modular Mobile LLC. All rights reserved.
-   Justin@modularmobile.net
+ Created by Justin Trautman on 7/23/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
  
  ----------------------------------------------------------------------------------------
  */
 
 import UIKit
 
-class FilterViewController: UIViewController {
-
+class HikingViewController: UIViewController {
+    
+    // MARK: - Outlets
+    
+    // MARK: - Properties
+    
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     /*
     // MARK: - Navigation

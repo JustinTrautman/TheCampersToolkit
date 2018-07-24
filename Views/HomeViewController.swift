@@ -1,10 +1,15 @@
-//
-//  HomeViewController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/13/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ HomeViewController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/13/18.
+ Copyright © 2018 Modular Mobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 import GoogleMaps
@@ -28,7 +33,7 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         mapView.delegate = self
@@ -52,7 +57,7 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
         
         do {
             
-            let url = String(format: "https://maps.google.com/maps/api/geocode/json?sensor=false&address=%@&key=\(Constants.apiKey)", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
+            let url = String(format: "https://maps.google.com/maps/api/geocode/json?sensor=false&address=%@&key=\(Constants.googleApiKey)", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
             let result = try Data(contentsOf: URL(string: url)!)
             let json = try JSON(data: result)
             
@@ -150,11 +155,11 @@ extension HomeViewController: GMSMapViewDelegate {
         return false
     }
     
-//    // when user tap the info window of store marker, pass selected store to the product list controller
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        let controller = segue.destinationViewController as ProductMenuController
-//        controller.store = sender as Store
-//    }
+    //    // when user tap the info window of store marker, pass selected store to the product list controller
+    //    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    //        let controller = segue.destinationViewController as ProductMenuController
+    //        controller.store = sender as Store
+    //    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
