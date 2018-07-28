@@ -1,10 +1,19 @@
-//
-//  GoogleDetail.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/16/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ GoogleDetail.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/16/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ Campground Detail Data pulled from Google Place Details API:
+ https://developers.google.com/places/web-service/details
+ 
+ ----------------------------------------------------------------------------------------
+ */
+
 
 import Foundation
 

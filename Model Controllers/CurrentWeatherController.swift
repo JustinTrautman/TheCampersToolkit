@@ -24,8 +24,9 @@ class CurrentWeatherController {
         let latitudeQuery = URLQueryItem(name: "lat", value: latitude)
         let longitudeQuery = URLQueryItem(name: "lon", value: longitude)
         let apiKeyQuery = URLQueryItem(name: "appid", value: Constants.openWeatherApiKey)
+        let unitsQuery = URLQueryItem(name: "units", value: "imperial")
         
-        let queryArray = [latitudeQuery, longitudeQuery, apiKeyQuery]
+        let queryArray = [latitudeQuery, longitudeQuery, apiKeyQuery, unitsQuery]
         components?.queryItems = queryArray
         
         guard let completeURL = components?.url else { completion(nil) ; return }

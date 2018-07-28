@@ -1,10 +1,21 @@
-//
-//  GooglePlace.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/16/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ GooglePlace.swift
+ TheCampersToolkit
+
+ Created by Justin Trautman on 7/16/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ Google Place Data pulled from Google Place Search API:
+ https://developers.google.com/places/web-service/search
+ 
+ * JSON parsed using SwiftyJSON
+ * TODO: Switch to Codable
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 import Foundation

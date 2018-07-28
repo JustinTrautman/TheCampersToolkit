@@ -47,8 +47,8 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.isHidden = true
         self.navigationController?.isNavigationBarHidden = false
+        searchBar.isHidden = true
     }
     
     public func getLocationFromAddress(address : String) -> CLLocationCoordinate2D {
@@ -57,7 +57,7 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
         
         do {
             
-            let url = String(format: "https://maps.google.com/maps/api/geocode/json?sensor=false&address=%@&key=\(Constants.googleApiKey)", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
+            let url = String(format: "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=%@&key=\(Constants.googleApiKey)", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
             let result = try Data(contentsOf: URL(string: url)!)
             let json = try JSON(data: result)
             
@@ -116,6 +116,7 @@ extension HomeViewController: CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -154,13 +155,7 @@ extension HomeViewController: GMSMapViewDelegate {
         
         return false
     }
-    
-    //    // when user tap the info window of store marker, pass selected store to the product list controller
-    //    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    //        let controller = segue.destinationViewController as ProductMenuController
-    //        controller.store = sender as Store
-    //    }
-    
+ 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "campgroundDetail" {
@@ -196,6 +191,7 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         searchBar.resignFirstResponder()
+        self.navigationController?.isNavigationBarHidden = false
         searchBar.isHidden = true
         
         guard let searchText = searchBar.text else { return }

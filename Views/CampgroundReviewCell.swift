@@ -32,8 +32,8 @@ class CampgroundReviewCell: UITableViewCell {
         reviewTextLabel.text = reviews.text
         
         guard let rating = reviews.rating,
-            let profilePhotoUrl = reviews.profilePhotoUrl else { return }
-        let reviewRating = Double(rating)
+              let profilePhotoUrl = reviews.profilePhotoUrl else { return }
+              let reviewRating = Double(rating)
         
         switch reviewRating {
         case 1:

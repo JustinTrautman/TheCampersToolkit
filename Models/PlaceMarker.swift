@@ -1,10 +1,16 @@
-//
-//  PlaceMarker.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/16/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ PlaceMarker.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/16/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+
+ ----------------------------------------------------------------------------------------
+ */
+
 
 import UIKit
 import GoogleMaps

@@ -1,12 +1,12 @@
 /*
  ----------------------------------------------------------------------------------------
  
- //  CurrentWeather.swift
- //  TheCampersToolkit
- //
- //  Created by Justin Trautman on 7/22/18.
- //  Copyright © 2018 Modular Mobile LLC. All rights reserved.
- //  Justin@modularmobile.net
+ CurrentWeather.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/22/18.
+ Copyright © 2018 Modular Mobile LLC. All rights reserved.
+ Justin@modularmobile.net
 
  Current weather data pulled from https://openweathermap.org/
  Weather types:
@@ -35,7 +35,7 @@ struct CampgroundWeatherData : Codable {
     let sys : Sys?
     let id : Int?
     let name : String?
-    let cod : Int?
+    let cod : Double?
     
     enum CodingKeys: String, CodingKey {
         
@@ -82,8 +82,8 @@ struct Weather : Codable {
 
 struct Main : Codable {
     let temp : Double?
-    let pressure : Int?
-    let humidity : Int?
+    let pressure : Double?
+    let humidity : Double?
     let tempMin : Double?
     let tempMax : Double?
     
@@ -99,7 +99,7 @@ struct Main : Codable {
 
 struct Wind : Codable {
     let speed : Double?
-    let windDirection : Int?
+    let windDirection : Double?
     let gust : Double?
     
     enum CodingKeys: String, CodingKey {

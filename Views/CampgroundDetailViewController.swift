@@ -35,10 +35,14 @@ class CampgroundDetailViewController: UIViewController {
     @IBAction func weatherButtonTapped(_ sender: UIButton) {
     }
     
+    @IBAction func hikingButtonTapped(_ sender: UIButton) {
+        
+    }
+    
     // MARK: - Properties
     var campground: GooglePlace?
     var campgrounds: Result?
-    var reviews: [Reviews]? = []
+    var reviews: [Reviews]? 
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -48,6 +52,12 @@ class CampgroundDetailViewController: UIViewController {
         
         reviewTableView.delegate = self
         reviewTableView.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loadReviews()
     }
     
     func updateViews() {
@@ -61,21 +71,25 @@ class CampgroundDetailViewController: UIViewController {
         campgroundWebsiteLabel.addGestureRecognizer(tap)
         
         // Updates from Google Place API
-        guard let campgroundName = campground?.name,
-        let campgroundImage = campground?.photo,
-        let campgroundId = campground?.id else { return }
+        guard let campgroundId = campground?.id else { return }
         
-        navigationBar.topItem?.title = campgroundName
-        campgroundNameLabel.text = campgroundName
-        campgroundImageView.image = campgroundImage
+        if let campgroundImage = campground?.photo {
+            campgroundImageView.image = campgroundImage
+        }
         
         // Updates from Google Place Details API
         GoogleDetailController.fetchCampgroundDetailsWith(placeId: campgroundId) { (campground) in
             if let campground = campground {
                 self.campgrounds = campground
                 
-                
                 DispatchQueue.main.async {
+                    
+                    self.loadReviews()
+                    
+                    if let campgroundName = campground.name {
+                        self.campgroundNameLabel.text = campgroundName
+                        self.navigationBar.topItem?.title = campgroundName
+                    }
                     
                     if let campgroundPhone = self.campgrounds?.formattedPhoneNumber {
                         self.phoneNumberLabel.text = campgroundPhone
@@ -133,31 +147,70 @@ class CampgroundDetailViewController: UIViewController {
                     case 5:
                         self.campgroundRatingImageView.image = UIImage(named: "5Stars")
                     default:
-                        self.campgroundRatingImageView.image = UIImage(named: "0Star")
+                        self.campgroundRatingImageView.image = UIImage(named: "0Stars")
                     }
                     
                     guard let monday = self.campgrounds?.openingHours?.weekdayText else { return }
                     
-                   self.mondayLabel.text = "\(monday)"
+                    self.mondayLabel.text = "\(monday)"
                     
                 }
             }
         }
     }
     
+    func loadReviews() {
+        
+        DispatchQueue.main.async {
+            self.reviewTableView.reloadData()
+        }
+    }
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "reviewDetail" {
-            guard let detailVC = segue.destination as?
-                ReviewDetailViewController else { return }
-            detailVC.review = sender as? Reviews
+            if let indexPath = self.reviewTableView.indexPathForSelectedRow {
+                guard let detailVC = segue.destination as?
+                    ReviewDetailViewController else { return }
+                
+                guard let googleReviews = GoogleDetailController.campgrounds?.reviews else { return }
+                let review = googleReviews[indexPath.row]
+                
+                detailVC.reviews = review
+            }
         }
         
         if segue.identifier == "weatherDetail" {
             guard let detailVC = segue.destination as?
                 WeatherViewController else { return }
-            detailVC.weather = sender as? Weather
             detailVC.campgrounds = sender as? Result
+            detailVC.weather = sender as? CampgroundWeatherData
+            detailVC.address = campgrounds?.formattedAddress
+        }
+        
+        if segue.identifier == "toHikingResults" {
+            guard let detailVC = segue.destination as? HikingViewController else { return }
+            
+            guard let searchText = campgroundAddressLabel.text else { return }
+            let address = HikingViewController.shared.getLocationFromAddress(address: searchText)
+            let latitude = "\(address.latitude)"
+            let longitude = "\(address.longitude)"
+            
+            HikingTrailController.fetchHikingTrailsNear(latitude: latitude, longitude: longitude) { (trails) in
+                if let trails = trails {
+                    DispatchQueue.main.async {
+                        detailVC.hikingSearchBar.text = searchText
+                    }
+                    
+                    guard let searchBar = HikingViewController.shared.hikingSearchBar else { return }
+                    HikingViewController.shared.searchBarSearchButtonClicked(searchBar)
+                }
+            }
+        }
+        
+        if segue.identifier == "photoDetail" {
+            guard let detailVC = segue.destination as? CampgroundPhotosViewController else { return }
+            detailVC.photos = sender as? Result
         }
     }
     
@@ -175,8 +228,8 @@ class CampgroundDetailViewController: UIViewController {
     }
 }
 
-extension Double{
-    func roundToClosestHalf() -> Double{
+extension Double {
+    func roundToClosestHalf() -> Double {
         return Double(Int(self * 2)) / 2
     }
 }

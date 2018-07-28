@@ -10,6 +10,6 @@ import Foundation
 
 struct Constants {
     
-    static let googleApiKey = "apiKey"
-    static let openWeatherApiKey = "apiKey"
+    static let googleApiKey = "apikey"
+    static let openWeatherApiKey = "apikey"
 }
