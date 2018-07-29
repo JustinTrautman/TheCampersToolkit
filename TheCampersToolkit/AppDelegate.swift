@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GMSServices.provideAPIKey("\(Constants.googleApiKey)")
         GMSPlacesClient.provideAPIKey("\(Constants.googleApiKey)")
-                                
+                
         return true
     }
 

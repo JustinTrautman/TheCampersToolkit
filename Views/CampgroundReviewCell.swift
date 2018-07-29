@@ -37,7 +37,7 @@ class CampgroundReviewCell: UITableViewCell {
         
         switch reviewRating {
         case 1:
-            reviewRatingImageView.image = UIImage(named: "1Star")
+            reviewRatingImageView.image = UIImage(named: "1Stars")
         case 1.5:
             reviewRatingImageView.image = UIImage(named: "1.5Stars")
         case 2:

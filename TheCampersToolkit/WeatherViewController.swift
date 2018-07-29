@@ -35,6 +35,8 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var windSpeedImageView: UIImageView!
     @IBOutlet weak var windDegreesLabel: UILabel!
+    @IBOutlet weak var sunriseLabel: UILabel!
+    @IBOutlet weak var sunsetLabel: UILabel!
     
     // MARK: - Actions
     
@@ -68,6 +70,10 @@ class WeatherViewController: UIViewController {
             
             let latitude = "\(coordinatesFromAddress.latitude)"
             let longitude = "\(coordinatesFromAddress.longitude)"
+            
+            // Convert from UNIX time to human readable time
+            let date = NSDate(timeIntervalSince1970: 1532607646)
+            print(date)
             
             CurrentWeatherController.fetchCurrentWeatherOf(latitude: latitude, longitude: longitude) { (weather) in
                 if let weather = weather {
@@ -103,6 +109,10 @@ class WeatherViewController: UIViewController {
                                     
                                     if longWeatherDescription == "thunderstorm with heavy rain" {
                                         self.weatherImageView.image = UIImage(named: "thunderWithRain")
+                                    }
+                                    
+                                    if shortWeatherDescription == "Drizzle" {
+                                        self.weatherImageView.image = UIImage(named: "lightRain")
                                     }
                                     
                                     if shortWeatherDescription == "snow" {

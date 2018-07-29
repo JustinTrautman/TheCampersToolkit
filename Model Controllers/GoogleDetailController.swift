@@ -68,14 +68,14 @@ class GoogleDetailController {
         }.resume()
     }
     
-    static func fetchCampgroundPhotosWith(photoReference: String, completion: @escaping (([Photos]?)) -> Void) {
+    static func fetchCampgroundPhotosWith(photoReference: String, completion: @escaping ((UIImage?)) -> Void) {
         
         guard let url = photosBaseURL else { completion(nil) ; return }
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         
         let photoreferenceQuery = URLQueryItem(name: "photoreference", value: photoReference)
-        let maxWidthQuery = URLQueryItem(name: "maxwidth", value: "400")
-        let maxHeightQuery = URLQueryItem(name: "maxheight", value: "400")
+        let maxWidthQuery = URLQueryItem(name: "maxwidth", value: "700")
+        let maxHeightQuery = URLQueryItem(name: "maxheight", value: "700")
         let apiKeyQuery = URLQueryItem(name: "key", value: Constants.googleApiKey)
         
         let queryArray = [photoreferenceQuery, maxWidthQuery, maxHeightQuery, apiKeyQuery]
@@ -91,16 +91,8 @@ class GoogleDetailController {
             
             guard let data = data else { completion(nil) ; return }
             
-            let jsonDecoder = JSONDecoder()
-            do {
-                if let photos = try jsonDecoder.decode(Result.self, from: data).photos {
-                self.photos = photos
-                completion(photos)
-                }
-            } catch let error {
-                 print("Error decoding campground data. Exiting with error: \(error) \(error.localizedDescription)")
-            }
-            
+            let image = UIImage(data: data)
+            completion(image)
         }.resume()
     }
 }

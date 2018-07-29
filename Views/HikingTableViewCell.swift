@@ -46,8 +46,18 @@ class HikingTableViewCell: UITableViewCell {
         
         trailNameLabel.text = trails?.name
         trailLocationLabel.text = trails?.location
-        voteCounterLabel.text = "\(voteCounter) votes"
-        summaryLabel.text = trails?.summary
+        
+        if trails?.summary == "Needs Summary" {
+            summaryLabel.text = "No Summary"
+        } else {
+            summaryLabel.text = trails?.summary
+        }
+        
+        if voteCounter == 1 {
+            voteCounterLabel.text = "\(voteCounter) vote"
+        } else {
+            voteCounterLabel.text = "\(voteCounter) votes"
+        }
         
          let roundedRating = Double(trailRating).roundToClosestHalf()
         

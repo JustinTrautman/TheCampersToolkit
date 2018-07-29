@@ -24,7 +24,7 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     // MARK: - Properties
-    private var searchedTypes = ["campground"]
+    private var searchedTypes = "campground"
     private let locationManager = CLLocationManager()
     private let dataProvider = GoogleDataProvider()
     private let searchRadius: Double = 321869
@@ -87,7 +87,7 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
             coordinates = location
         }
         
-        dataProvider.fetchPlacesNearCoordinate(latitude: coordinates.latitude, longitude: coordinates.longitude, radius: searchRadius, types: searchedTypes) { places in
+        dataProvider.fetchPlacesNearCoordinate(latitude: coordinates.latitude, longitude: coordinates.longitude, radius: searchRadius, types: [searchedTypes]) { places in
             places.forEach {
                 let marker = PlaceMarker(place: $0)
                 marker.map = self.mapView

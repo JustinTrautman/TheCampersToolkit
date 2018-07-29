@@ -74,7 +74,12 @@ class HikingDetailViewController: UIViewController {
             }
             
             if let voteCounter = trail.starVotes {
-                self.voteCounterLabel.text = "(\(voteCounter) votes)"
+                
+                if voteCounter == 1 {
+                    self.voteCounterLabel.text = "(\(voteCounter) vote)"
+                } else {
+                    self.voteCounterLabel.text = "(\(voteCounter) votes)"
+                }
             }
             
             if let conditionStatus = trail.conditionStatus  {
@@ -82,11 +87,16 @@ class HikingDetailViewController: UIViewController {
                 self.trailConditionLabel.text = "\(conditionStatus) \(conditionDetails)"
                 }
             }
-            
+                
             if let trailSummary = trail.summary {
-                self.trailSummaryLabel.text = trailSummary
+                    
+                if trailSummary == "Needs Summary" {
+                    self.trailSummaryLabel.text = "No Summary"
+                } else {
+                    self.trailSummaryLabel.text = trailSummary
+                }
             }
-            
+                    
             if let trailLength = trail.length {
                 self.trailLengthLabel.text = "\(trailLength) miles"
             }

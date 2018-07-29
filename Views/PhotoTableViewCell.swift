@@ -10,10 +10,10 @@ import UIKit
 
 class PhotoTableViewCell: UITableViewCell {
     
+    static let shared = PhotoTableViewCell()
+    
     // MARK: - Outlets
     @IBOutlet weak var headerImageView: UIImageView!
-    @IBOutlet weak var subview1: UIImageView!
-    @IBOutlet weak var subview2: UIImageView!
     
     // MARK: - Properties
     var photos: Photos? {
@@ -22,22 +22,24 @@ class PhotoTableViewCell: UITableViewCell {
         }
     }
     
-    var campgrounds: Result? {
-        didSet {
-        updateViews()
-        }
-    }
-    
     func updateViews() {
         
-        guard let photoArray = photos?.photoReference else { return }
-        GoogleDetailController.fetchCampgroundPhotosWith(photoReference: photoArray) { (photos) in
-            if let photos = photos {
+        guard let unwrappedPhotos = self.photos else { return }
+        
+        guard let photoReference = unwrappedPhotos.photoReference else { return }
+        
+        GoogleDetailController.fetchCampgroundPhotosWith(photoReference: "\(photoReference)", completion: { (photo) in
+            if let photo = photo {
                 DispatchQueue.main.async {
-//                    self.headerImageView.image = UIImage(photos)
+                    self.headerImageView.image = photo
                 }
             }
-        }
+        })
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
         
+        headerImageView.image = nil
     }
 }

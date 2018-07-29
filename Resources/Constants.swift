@@ -12,4 +12,5 @@ struct Constants {
     
     static let googleApiKey = "apikey"
     static let openWeatherApiKey = "apikey"
+    static let activeApiKey = "apikey"
 }

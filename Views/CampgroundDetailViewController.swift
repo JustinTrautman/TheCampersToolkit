@@ -27,6 +27,14 @@ class CampgroundDetailViewController: UIViewController {
     @IBOutlet weak var campgroundWebsiteLabel: UILabel!
     @IBOutlet weak var reviewTableView: UITableView!
     @IBOutlet weak var mondayLabel: UILabel!
+    @IBOutlet weak var availabilityStatusLabel: UILabel!
+    @IBOutlet weak var reservationTypeLabel: UILabel!
+    @IBOutlet weak var campgroundTypeLabel: UILabel!
+    @IBOutlet weak var powerHookupsLabel: UILabel!
+    @IBOutlet weak var sewerHookupsLabel: UILabel!
+    @IBOutlet weak var waterHookupsLabel: UILabel!
+    @IBOutlet weak var waterViewsLabel: UILabel!
+    @IBOutlet weak var petsAllowedLabel: UILabel!
     
     // MARK: - Actions
     @IBAction func photosButtonTapped(_ sender: UIButton) {
@@ -42,13 +50,18 @@ class CampgroundDetailViewController: UIViewController {
     // MARK: - Properties
     var campground: GooglePlace?
     var campgrounds: Result?
-    var reviews: [Reviews]? 
+    var reviews: [Reviews]?
+    var photos: [Photos]?
+    
+    var xmlCampgrounds: [Campgroundxml]?
+    var test: Campgroundxml!
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         updateViews()
+        fetchData()
         
         reviewTableView.delegate = self
         reviewTableView.dataSource = self
@@ -58,6 +71,20 @@ class CampgroundDetailViewController: UIViewController {
         super.viewWillAppear(animated)
         
         loadReviews()
+        
+    }
+
+    
+    func fetchData() {
+        
+        guard let campgroundName = campground?.name else { return }
+        
+        let campgroundParser = CampgroundParser()
+        campgroundParser.parseCampground(url: "http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)") { (campgroundxml) in
+        
+            print(campgroundxml)
+            self.xmlCampgrounds = campgroundxml
+        }
     }
     
     func updateViews() {
@@ -154,6 +181,10 @@ class CampgroundDetailViewController: UIViewController {
                     
                     self.mondayLabel.text = "\(monday)"
                     
+//                    guard let availabilityStatus = self.test.availabilityStatus else { return }
+//
+//                    self.availabilityStatusLabel.text  = availabilityStatus
+//
                 }
             }
         }
@@ -210,7 +241,8 @@ class CampgroundDetailViewController: UIViewController {
         
         if segue.identifier == "photoDetail" {
             guard let detailVC = segue.destination as? CampgroundPhotosViewController else { return }
-            detailVC.photos = sender as? Result
+            
+            detailVC.photos = campgrounds?.photos
         }
     }
     
