@@ -12,57 +12,30 @@
  */
 
 import UIKit
-import GooglePlacePicker
-import GoogleMaps
-import GooglePlaces
+import WebKit
 
-class PlacePickerVC: UIViewController, CLLocationManagerDelegate {
+class BoondockingViewController: UIViewController, WKNavigationDelegate {
     
-    @IBOutlet var lblName:UILabel!
-    @IBOutlet var lblAddress:UILabel!
-    @IBOutlet var lblLatitude:UILabel!
-    @IBOutlet var lblLongitude:UILabel!
-    @IBOutlet var indicatorView:UIActivityIndicatorView!
+    // MARK: Properties
+    var webView: WKWebView!
     
-    
-    @IBOutlet weak var viewContainer: UIView!
+    override func loadView() {
+        webView = WKWebView()
+        webView.navigationDelegate = self
+        view = webView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.getPlacePickerView()
+        let url = URL(string: "https://drive.google.com/open?id=1X961m_UTUq8piVbRbB8btwbQQM4mUQ4T&usp=sharing")!
+        webView.load(URLRequest(url: url))
         
-    }
-    func getPlacePickerView() {
-        
-        let config = GMSPlacePickerConfig(viewport: nil)
-        let placePicker = GMSPlacePickerViewController(config: config)
-        placePicker.delegate = self
-        present(placePicker, animated: true, completion: nil)
-    }
-}
-
-extension PlacePickerVC : GMSPlacePickerViewControllerDelegate
-{
-    // GMSPlacePickerViewControllerDelegate and implement this code.
-    func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
-        self.viewContainer.isHidden = false
-        self.indicatorView.isHidden = true
-        
-        viewController.dismiss(animated: true, completion: nil)
-        
-        self.lblName.text = place.name
-        self.lblAddress.text = place.formattedAddress?.components(separatedBy: ", ")
-            .joined(separator: "\n")
-        self.lblLatitude.text = String(place.coordinate.latitude)
-        self.lblLongitude.text = String(place.coordinate.longitude)
+        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
+        toolbarItems = [refresh]
+        navigationController?.isToolbarHidden = false
     }
     
-    func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
-        
-        viewController.dismiss(animated: true, completion: nil)
-        
-        self.viewContainer.isHidden = true
-        self.indicatorView.isHidden = true
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
     }
 }

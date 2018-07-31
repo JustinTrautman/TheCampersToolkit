@@ -10,7 +10,7 @@
  
  TODO: Implement visibility on the weather screen. Convert meters to miles...
  TODO: Implement air pressure on the weather screen if room...
- TODO: Implement Sunrise and sunset times. Convert from Unix time to human time...
+ ✔ TODO: Implement Sunrise and sunset times. Convert from Unix time to human time...
  TODO: Implement 5 day forcast...
  
  ----------------------------------------------------------------------------------------
@@ -70,11 +70,7 @@ class WeatherViewController: UIViewController {
             
             let latitude = "\(coordinatesFromAddress.latitude)"
             let longitude = "\(coordinatesFromAddress.longitude)"
-            
-            // Convert from UNIX time to human readable time
-            let date = NSDate(timeIntervalSince1970: 1532607646)
-            print(date)
-            
+
             CurrentWeatherController.fetchCurrentWeatherOf(latitude: latitude, longitude: longitude) { (weather) in
                 if let weather = weather {
                     self.campgroundWeatherData = weather
@@ -115,8 +111,12 @@ class WeatherViewController: UIViewController {
                                         self.weatherImageView.image = UIImage(named: "lightRain")
                                     }
                                     
-                                    if shortWeatherDescription == "snow" {
+                                    if shortWeatherDescription == "Snow" {
                                         self.weatherImageView.image = UIImage(named: "snow")
+                                    }
+                                    
+                                    if shortWeatherDescription == "Haze" {
+                                        self.weatherImageView.image = UIImage(named: "haze")
                                     }
                                 }
                             }
@@ -185,6 +185,37 @@ class WeatherViewController: UIViewController {
                             if windDirection <= 270 {
                                 self.windDegreesLabel.text = "°W"
                             }
+                        }
+                        
+                        // Sunset and Sunrise
+                        if let sunrise = weather.sys?.sunrise {
+                            
+                            // Convert from UNIX time to human readable time
+                            let date = NSDate(timeIntervalSince1970: Double(sunrise))
+                            
+                            let dateFormatter = DateFormatter()
+                            
+                            dateFormatter.dateFormat = "hh:mm a"
+                            
+                            let dateString = dateFormatter.string(from: date as Date)
+                            
+                            print("The sunrise for \(campgroundsAddress) happens at \(dateString)")
+                            self.sunriseLabel.text = dateString
+                        }
+                        
+                        if let sunset = weather.sys?.sunset {
+                            
+                            // Convert from UNIX time to human readable time
+                            let date = NSDate(timeIntervalSince1970: Double(sunset))
+                            
+                            let dateFormatter = DateFormatter()
+                            
+                            dateFormatter.dateFormat = "hh:mm a"
+                            
+                            let dateString = dateFormatter.string(from: date as Date)
+                            
+                            print("The sunset for \(campgroundsAddress) happens at \(dateString)")
+                            self.sunsetLabel.text = dateString
                         }
                     }
                 }

@@ -13,19 +13,26 @@ import GooglePlacePicker
 
 class TravelMapViewController: UIViewController {
     
+    static let shared = TravelMapViewController()
+    
     // MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
     
     // MARK: - Properties
-    private var selectedType = TravelViewController.shared.selectedType
+    var selectedType: String?
     private var locationManager = CLLocationManager()
     private let dataProvider = GoogleDataProvider()
-    private let searchRadius: Double = 16094
+   // private let searchRadius: Double = 16094
+    private let searchRadius: Double = 5000
     var pointOfInterest: GooglePlace?
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let selectedType = selectedType else { return }
+        
+        print(selectedType)
         
         locationManager.delegate = self
         mapView.delegate = self
@@ -36,7 +43,7 @@ class TravelMapViewController: UIViewController {
     func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
         mapView.clear()
         
-        let selectedType = TravelViewController.shared.selectedType
+        guard let selectedType = self.selectedType else { return }
         
         dataProvider.fetchPlacesNearCoordinate(latitude: coordinate.latitude, longitude: coordinate.longitude, radius: searchRadius, types: [selectedType]) { places in
             places.forEach {
@@ -45,7 +52,6 @@ class TravelMapViewController: UIViewController {
             }
         }
     }
-    
     
     /*
     // MARK: - Navigation

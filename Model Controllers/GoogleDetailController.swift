@@ -30,7 +30,6 @@ class GoogleDetailController {
         
         guard let completeURL = components?.url else { completion(nil) ; return }
         
-        print(completeURL)
         
         URLSession.shared.dataTask(with: completeURL) { (data, _, error) in
             if let error = error {

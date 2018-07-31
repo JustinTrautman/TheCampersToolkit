@@ -28,8 +28,6 @@ class HikingTrailController {
         
         guard let completeURL = components?.url else { completion(nil) ; return }
         
-        print(completeURL)
-        
         URLSession.shared.dataTask(with: completeURL) { (data, _, error) in
             if let error = error {
                 print("DataTask had an issue reaching the network. Exiting with error: \(error) \(error.localizedDescription)")

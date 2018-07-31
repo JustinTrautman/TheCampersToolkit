@@ -10,38 +10,32 @@ import UIKit
 
 class TravelViewController: UIViewController {
     
-    static let shared = TravelViewController()
-    
     // MARK: - Properties
-    var selectedType = "store"
+    var selectedType = ""
     
     // MARK: - Actions
     @IBAction func gasButtonTapped(_ sender: Any) {
-        selectedType = ""
-        
+  
         selectedType = "gas_station"
         print(selectedType)
     }
     
     @IBAction func propaneButtonTapped(_ sender: Any) {
-        selectedType = ""
         
         selectedType = "store"
         print(selectedType)
     }
     
     @IBAction func supermarketButtonTapped(_ sender: Any) {
-        selectedType = ""
         
         selectedType = "supermarket"
-        print(selectedType)
+         print(selectedType)
     }
     
     @IBAction func carRepairButtonTapped(_ sender: Any) {
-        selectedType = ""
         
         selectedType = "car_repair"
-        print(selectedType)
+         print(selectedType)
     }
     
     override func viewDidLoad() {
@@ -50,5 +44,8 @@ class TravelViewController: UIViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   
+        guard let detailVC = segue.destination as? TravelMapViewController else { return }
+        detailVC.selectedType = selectedType
     }
 }

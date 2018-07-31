@@ -16,9 +16,10 @@ import UIKit
 class CampgroundDetailViewController: UIViewController {
     
     // MARK: - Outlets
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var campgroundImageView: UIImageView!
     @IBOutlet weak var campgroundNameLabel: UILabel!
-    @IBOutlet weak var navigationBar: UINavigationBar!
+    @IBOutlet weak var navigationTitle: UINavigationItem!
     @IBOutlet weak var campgroundRatingImageView: UIImageView!
     @IBOutlet weak var reviewCountLabel: UILabel!
     @IBOutlet weak var isOfficeOpenLabel: UILabel!
@@ -37,6 +38,13 @@ class CampgroundDetailViewController: UIViewController {
     @IBOutlet weak var petsAllowedLabel: UILabel!
     
     // MARK: - Actions
+    @IBAction func reviewButtonTapped(_ sender: Any) {
+        
+        let tableViewCenter = Int(scrollView.center.y) + 550
+        
+        scrollView.setContentOffset(CGPoint(x: 0, y: tableViewCenter), animated: true)
+    }
+    
     @IBAction func photosButtonTapped(_ sender: UIButton) {
     }
     
@@ -115,7 +123,7 @@ class CampgroundDetailViewController: UIViewController {
                     
                     if let campgroundName = campground.name {
                         self.campgroundNameLabel.text = campgroundName
-                        self.navigationBar.topItem?.title = campgroundName
+                        self.navigationTitle.title = campgroundName
                     }
                     
                     if let campgroundPhone = self.campgrounds?.formattedPhoneNumber {
@@ -177,9 +185,11 @@ class CampgroundDetailViewController: UIViewController {
                         self.campgroundRatingImageView.image = UIImage(named: "0Stars")
                     }
                     
-                    guard let monday = self.campgrounds?.openingHours?.weekdayText else { return }
+                    guard let hoursText = self.campgrounds?.openingHours?.weekdayText else { return }
                     
-                    self.mondayLabel.text = "\(monday)"
+                    let cleanHoursString = "\(hoursText)".replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: "\"", with: "")
+                    
+                    self.mondayLabel.text = cleanHoursString
                     
 //                    guard let availabilityStatus = self.test.availabilityStatus else { return }
 //
@@ -228,7 +238,7 @@ class CampgroundDetailViewController: UIViewController {
             let longitude = "\(address.longitude)"
             
             HikingTrailController.fetchHikingTrailsNear(latitude: latitude, longitude: longitude) { (trails) in
-                if let trails = trails {
+                if let _ = trails {
                     DispatchQueue.main.async {
                         detailVC.hikingSearchBar.text = searchText
                     }

@@ -22,13 +22,11 @@ class GoogleDataProvider {
     
     func fetchPlacesNearCoordinate(latitude: CLLocationDegrees, longitude: CLLocationDegrees, radius: Double, types: [String], completion: @escaping PlacesCompletion) -> Void {
         
-        let selectedType = TravelViewController.shared.selectedType
-        
         var urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(latitude),\(longitude)&radius=\(radius)&rankby=prominence&sensor=true&key=\(Constants.googleApiKey)"
-        let typesString =  types.joined(separator: "|")
+        let typesString = types.joined(separator: "|")
         urlString += "&types=\(typesString)"
         
-        if selectedType == "store" {
+        if typesString == "store" {
             urlString += "&keyword=propane"
         }
         

@@ -27,8 +27,14 @@ struct Campgroundxml {
 
 class CampgroundParser: NSObject, XMLParserDelegate {
     
+    var campground: Campgroundxml?
+    
     private var campgrounds: [Campgroundxml] = []
-    private var currentElement = ""
+    private var currentElement = "" {
+        didSet {
+            print("\(currentElement)<<<<<<<<<<<<<<,")
+        }
+    }
     private var currentAvailabilityStatus: String = ""
     private var currentContractType: String = ""
     private var currentFacilityID: String = ""
@@ -40,7 +46,7 @@ class CampgroundParser: NSObject, XMLParserDelegate {
     private var currentSitesWithPetsAllowed: String = ""
     private var currentSitesWithSewerHookup: String = ""
     private var currentSitesWithWaterHookup: String = ""
-    private var currentSitesWithWaterFront: String = ""
+    private var currentSitesWithWaterfront: String = ""
     private var currentState: String = ""
     private var parserCompletionHandler: (([Campgroundxml]) -> Void)?
     
@@ -48,7 +54,7 @@ class CampgroundParser: NSObject, XMLParserDelegate {
         
         self.parserCompletionHandler = completionHandler
         
-        let urlString = "http://api.amp.active.com/camping/campgrounds/?pname=Alderwood+RV+Express&api_key=r6up4xpsz8eban6zcgr52vh8"
+        let urlString = "\(url.utf8)".replacingOccurrences(of: " ", with: "+")
         let request = URLRequest(url: URL(string: urlString)!)
         let urlSession = URLSession.shared
         let task = urlSession.dataTask(with: request) { (data, response, error) in
@@ -72,9 +78,10 @@ class CampgroundParser: NSObject, XMLParserDelegate {
     // MARK: - XML Parser Delegate
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        
         currentElement = elementName
+
         if currentElement == "result" {
+//            campground = Campgroundxml(stringDictionary: attributeDict)
             currentAvailabilityStatus = ""
             currentContractType = ""
             currentFacilityID = ""
@@ -85,13 +92,12 @@ class CampgroundParser: NSObject, XMLParserDelegate {
             currentSitesWithAmps = ""
             currentSitesWithPetsAllowed = ""
             currentSitesWithSewerHookup = ""
-            currentSitesWithWaterFront = ""
+            currentSitesWithWaterfront = ""
             currentState = ""
         }
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-        
         switch currentElement {
         case "availabilityStatus": currentAvailabilityStatus += string
         case "contractType": currentContractType += string
@@ -104,18 +110,18 @@ class CampgroundParser: NSObject, XMLParserDelegate {
         case "sitesWithPetsAllowed": currentSitesWithPetsAllowed += string
         case "sitesWithSewerHookup": currentSitesWithSewerHookup += string
         case "sitesWithWaterHookup": currentSitesWithWaterHookup += string
-        case "sitesWithWaterfront": currentSitesWithWaterFront += string
+        case "sitesWithWaterfront": currentSitesWithWaterfront += string
         case "state": currentState += string
         default: break
         }
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        
+
         if elementName == "result" {
-            let campground = Campgroundxml(availabilityStatus: currentAvailabilityStatus, contractType: currentContractType, facilityID: currentFacilityID, facilityName: currentFacilityName, latitude: currentLatitude, longitude: currentLongitude, reservationChannel: currentReservatingChannel, sitesWithAmps: currentSitesWithAmps, sitesWithPetsAllowed: currentSitesWithPetsAllowed, sitesWithSewerHookup: currentSitesWithSewerHookup, sitesWithWaterHookup: currentSitesWithWaterHookup, sitesWithWaterfront: currentSitesWithWaterFront, state: currentState)
-            campgrounds += [campground]
-//             self.campgrounds.append(campground)
+            let campground = Campgroundxml(availabilityStatus: currentAvailabilityStatus, contractType: currentContractType, facilityID: currentFacilityID, facilityName: currentFacilityName, latitude: currentLatitude, longitude: currentLongitude, reservationChannel: currentReservatingChannel, sitesWithAmps: currentSitesWithAmps, sitesWithPetsAllowed: currentSitesWithPetsAllowed, sitesWithSewerHookup: currentSitesWithSewerHookup, sitesWithWaterHookup: currentSitesWithWaterHookup, sitesWithWaterfront: currentSitesWithWaterfront, state: currentState)
+
+            self.campgrounds.append(campground)
         }
     }
     
