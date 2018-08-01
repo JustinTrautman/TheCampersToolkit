@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Jld-lw-Sf3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="iAx-Wt-qu5">
+            <objects>
+                <viewController id="Jld-lw-Sf3" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="igM-4a-qrG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tent" translatesAutoresizingMaskIntoConstraints="NO" id="A7h-wC-RJQ">
+                                <rect key="frame" x="0.0" y="130" width="375" height="363"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="A7h-wC-RJQ" firstAttribute="leading" secondItem="pWW-F7-dcD" secondAttribute="leading" id="BoL-Xi-Vvg"/>
+                            <constraint firstItem="pWW-F7-dcD" firstAttribute="bottom" secondItem="A7h-wC-RJQ" secondAttribute="bottom" constant="174" id="TXh-jg-84d"/>
+                            <constraint firstItem="A7h-wC-RJQ" firstAttribute="top" secondItem="pWW-F7-dcD" secondAttribute="top" constant="110" id="XV0-Wh-b24"/>
+                            <constraint firstItem="pWW-F7-dcD" firstAttribute="trailing" secondItem="A7h-wC-RJQ" secondAttribute="trailing" id="wyC-mI-RhI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="pWW-F7-dcD"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="enk-uD-Dcp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1836" y="694.90254872563719"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="tent" width="512" height="512"/>
+    </resources>
 </document>

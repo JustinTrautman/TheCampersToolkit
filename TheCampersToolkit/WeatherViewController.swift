@@ -122,7 +122,7 @@ class WeatherViewController: UIViewController {
                             }
                         }
                         
-                        if let temp = weather.main?.temp?.roundToClosestHalf() {
+                        if let temp = weather.main?.temp?.roundToPlaces(places: 1) {
                             self.temperatureLabel.text = "\(temp) ℉"
                             
                             if temp >= 90.0 {
@@ -140,15 +140,15 @@ class WeatherViewController: UIViewController {
                         }
                         
                         if let highTemp = weather.main?.tempMax {
-                            self.highTempLabel.text = "\(highTemp) ℉"
+                            self.highTempLabel.text = "\(highTemp.roundToPlaces(places: 1)) ℉"
                         }
                         
                         if let lowTemp = weather.main?.tempMin {
-                            self.lowTempLabel.text = "\(lowTemp) ℉"
+                            self.lowTempLabel.text = "\(lowTemp.roundToPlaces(places: 1)) ℉"
                         }
                         
                         if let humidity = weather.main?.humidity {
-                            self.humidityLabel.text = "\(humidity) %"
+                            self.humidityLabel.text = "humidity \(humidity) %"
                         }
                         
                         if let wind = weather.wind?.speed {
@@ -242,5 +242,13 @@ class WeatherViewController: UIViewController {
         }
         
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+    }
+}
+
+extension Double {
+    
+    func roundToPlaces(places: Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
     }
 }
