@@ -91,7 +91,6 @@ extension HikingViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         hikingSearchBar.resignFirstResponder()
-        
         guard let searchText = hikingSearchBar.text else { return }
         
         let address = getLocationFromAddress(address: searchText)

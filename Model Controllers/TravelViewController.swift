@@ -11,7 +11,7 @@ import UIKit
 class TravelViewController: UIViewController {
     
     // MARK: - Properties
-    var selectedType = ""
+    var selectedType = "store"
     
     // MARK: - Actions
     @IBAction func gasButtonTapped(_ sender: Any) {

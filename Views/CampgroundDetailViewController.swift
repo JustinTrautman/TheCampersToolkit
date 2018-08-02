@@ -241,10 +241,8 @@ class CampgroundDetailViewController: UIViewController {
                 if let _ = trails {
                     DispatchQueue.main.async {
                         detailVC.hikingSearchBar.text = searchText
+                        detailVC.searchBarSearchButtonClicked(detailVC.hikingSearchBar)
                     }
-                    
-                    guard let searchBar = HikingViewController.shared.hikingSearchBar else { return }
-                    HikingViewController.shared.searchBarSearchButtonClicked(searchBar)
                 }
             }
         }
