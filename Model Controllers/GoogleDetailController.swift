@@ -1,15 +1,20 @@
-//
-//  GoogleDetailController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/16/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ GoogleDetailController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/16/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 
 class GoogleDetailController {
-
+    
     static let detailsBaseURL = URL(string: "https://maps.googleapis.com/maps/api/place/details/json")
     static let photosBaseURL = URL(string: "https://maps.googleapis.com/maps/api/place/photo?")
     static let detailFields = "formatted_address,opening_hours,photo,name,website,rating,price_level,review,formatted_phone_number"

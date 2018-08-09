@@ -54,22 +54,21 @@ class HikingViewController: UIViewController {
             print(lat)
             print(lon)
             
-        }
-        catch let error{
+        } catch let error {
             print(error)
         }
         
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
     
-//     MARK: - Navigation
+    //     MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+        
         if segue.identifier == "hikingDetail" {
             if let indexPath = self.hikingTableView.indexPathForSelectedRow {
                 guard let detailVC = segue.destination as? HikingDetailViewController else { return }
                 
-                 guard let trails = trails else { return }
+                guard let trails = trails else { return }
                 
                 let trail = trails[indexPath.row]
                 

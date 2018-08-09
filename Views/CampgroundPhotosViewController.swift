@@ -1,11 +1,3 @@
-//
-//  CampgroundPhotosViewController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/22/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
-
 /*
  ----------------------------------------------------------------------------------------
  
@@ -44,7 +36,6 @@ class CampgroundPhotosViewController: UIViewController {
     func reloadTableView() {
         DispatchQueue.main.async {
         self.photosTableView.reloadData()
-            
         }
     }
     

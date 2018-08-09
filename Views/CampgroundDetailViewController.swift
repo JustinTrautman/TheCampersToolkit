@@ -27,7 +27,7 @@ class CampgroundDetailViewController: UIViewController {
     @IBOutlet weak var campgroundAddressLabel: UILabel!
     @IBOutlet weak var campgroundWebsiteLabel: UILabel!
     @IBOutlet weak var reviewTableView: UITableView!
-    @IBOutlet weak var mondayLabel: UILabel!
+    @IBOutlet weak var dailyHoursLabel: UILabel!
     @IBOutlet weak var availabilityStatusLabel: UILabel!
     @IBOutlet weak var reservationTypeLabel: UILabel!
     @IBOutlet weak var campgroundTypeLabel: UILabel!
@@ -62,7 +62,6 @@ class CampgroundDetailViewController: UIViewController {
     var photos: [Photos]?
     
     var xmlCampgrounds: [Campgroundxml]?
-    var test: Campgroundxml!
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -189,12 +188,7 @@ class CampgroundDetailViewController: UIViewController {
                     
                     let cleanHoursString = "\(hoursText)".replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: "\"", with: "")
                     
-                    self.mondayLabel.text = cleanHoursString
-                    
-//                    guard let availabilityStatus = self.test.availabilityStatus else { return }
-//
-//                    self.availabilityStatusLabel.text  = availabilityStatus
-//
+                    self.dailyHoursLabel.text = cleanHoursString
                 }
             }
         }
@@ -265,12 +259,6 @@ class CampgroundDetailViewController: UIViewController {
         if let url = NSURL(string: url) {
             UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
         }
-    }
-}
-
-extension Double {
-    func roundToClosestHalf() -> Double {
-        return Double(Int(self * 2)) / 2
     }
 }
 

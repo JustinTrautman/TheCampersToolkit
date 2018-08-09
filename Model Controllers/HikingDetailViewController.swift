@@ -30,9 +30,7 @@ class HikingDetailViewController: UIViewController {
     @IBOutlet weak var trailLowPointLabel: UILabel!
     @IBOutlet weak var trailConditionLabel: UILabel!
     @IBOutlet weak var conditionsUpdatedLabel: UILabel!
-    
-    // MARK: - Actions
-    
+ 
     // MARK: - Properties
     let scrollViewSize = CGSize(width: 375, height: 900)
     

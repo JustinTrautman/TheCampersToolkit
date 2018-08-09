@@ -1,10 +1,15 @@
-//
-//  HikingTableViewCell.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/23/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ HikingTableViewCell.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/23/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 
@@ -104,7 +109,6 @@ class HikingTableViewCell: UITableViewCell {
         if difficulty == "" {
             difficultyLabel.text = ""
         }
-       
     }
 
     override func prepareForReuse() {

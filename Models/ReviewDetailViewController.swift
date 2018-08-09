@@ -23,8 +23,6 @@ class ReviewDetailViewController: UIViewController {
     @IBOutlet weak var reviewTimestamp: UILabel!
     @IBOutlet weak var reviewTextView: UITextView!
 
-
-
     // MARK: Properties
     var reviews: Reviews?
 

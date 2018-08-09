@@ -38,8 +38,6 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var sunriseLabel: UILabel!
     @IBOutlet weak var sunsetLabel: UILabel!
     
-    // MARK: - Actions
-    
     // MARK: - Properties
     var campgrounds: Result?
     var weather: CampgroundWeatherData?
@@ -70,7 +68,7 @@ class WeatherViewController: UIViewController {
             
             let latitude = "\(coordinatesFromAddress.latitude)"
             let longitude = "\(coordinatesFromAddress.longitude)"
-
+            
             CurrentWeatherController.fetchCurrentWeatherOf(latitude: latitude, longitude: longitude) { (weather) in
                 if let weather = weather {
                     self.campgroundWeatherData = weather
@@ -169,7 +167,7 @@ class WeatherViewController: UIViewController {
                         
                         if let windDirection = weather.wind?.windDirection {
                             
-                            if windDirection == nil {
+                            if windDirection == 0 {
                                 self.windDegreesLabel.text = ""
                             }
                             
@@ -181,7 +179,6 @@ class WeatherViewController: UIViewController {
                                 self.windDegreesLabel.text = "°E"
                             }
                             
-                            
                             if windDirection <= 270 {
                                 self.windDegreesLabel.text = "°W"
                             }
@@ -192,7 +189,6 @@ class WeatherViewController: UIViewController {
                             
                             // Convert from UNIX time to human readable time
                             let date = NSDate(timeIntervalSince1970: Double(sunrise))
-                            
                             let dateFormatter = DateFormatter()
                             
                             dateFormatter.dateFormat = "hh:mm a"
@@ -207,7 +203,6 @@ class WeatherViewController: UIViewController {
                             
                             // Convert from UNIX time to human readable time
                             let date = NSDate(timeIntervalSince1970: Double(sunset))
-                            
                             let dateFormatter = DateFormatter()
                             
                             dateFormatter.dateFormat = "hh:mm a"
@@ -222,7 +217,7 @@ class WeatherViewController: UIViewController {
             }
         }
     }
-        
+    
     public func getLocationFromAddress(address : String) -> CLLocationCoordinate2D {
         var lat : Double = 0.0
         var lon : Double = 0.0
@@ -242,13 +237,5 @@ class WeatherViewController: UIViewController {
         }
         
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
-    }
-}
-
-extension Double {
-    
-    func roundToPlaces(places: Int) -> Double {
-        let divisor = pow(10.0, Double(places))
-        return (self * divisor).rounded() / divisor
     }
 }

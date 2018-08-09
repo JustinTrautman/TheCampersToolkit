@@ -1,10 +1,16 @@
-//
-//  PhotoTableViewCell.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/27/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ PhotoTableViewCell.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/27/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
+
 
 import UIKit
 

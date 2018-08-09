@@ -1,10 +1,15 @@
-//
-//  TravelViewController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/28/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ TravelViewController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/28/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 
@@ -38,6 +43,7 @@ class TravelViewController: UIViewController {
          print(selectedType)
     }
     
+    // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }

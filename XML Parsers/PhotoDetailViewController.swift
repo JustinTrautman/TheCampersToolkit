@@ -1,10 +1,15 @@
-//
-//  PhotoDetailViewController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/29/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ PhotoDetailViewController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/29/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 
@@ -15,7 +20,7 @@ class PhotoDetailViewController: UIViewController {
     
     // MARK: - Properties
     var photo: Photos?
-
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()

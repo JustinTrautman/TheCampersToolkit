@@ -1,10 +1,15 @@
-//
-//  TravelMapViewController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/28/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ TravelMapViewController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/28/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 import GoogleMaps
@@ -54,14 +59,14 @@ class TravelMapViewController: UIViewController {
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
 }
 
 extension TravelMapViewController: CLLocationManagerDelegate {
@@ -72,7 +77,6 @@ extension TravelMapViewController: CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -107,7 +111,7 @@ extension TravelMapViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-       
+        
         return false
     }
     
@@ -116,5 +120,4 @@ extension TravelMapViewController: GMSMapViewDelegate {
         mapView.selectedMarker = nil
         return false
     }
-
 }

@@ -29,7 +29,7 @@ class CampgroundParser: NSObject, XMLParserDelegate {
     
     var campground: Campgroundxml?
     
-    private var campgrounds: [Campgroundxml] = []
+    private var campgroundsxml: [Campgroundxml] = []
     private var currentElement = "" {
         didSet {
             print("\(currentElement)<<<<<<<<<<<<<<,")
@@ -76,7 +76,6 @@ class CampgroundParser: NSObject, XMLParserDelegate {
     }
     
     // MARK: - XML Parser Delegate
-    
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
 
@@ -121,18 +120,17 @@ class CampgroundParser: NSObject, XMLParserDelegate {
         if elementName == "result" {
             let campground = Campgroundxml(availabilityStatus: currentAvailabilityStatus, contractType: currentContractType, facilityID: currentFacilityID, facilityName: currentFacilityName, latitude: currentLatitude, longitude: currentLongitude, reservationChannel: currentReservatingChannel, sitesWithAmps: currentSitesWithAmps, sitesWithPetsAllowed: currentSitesWithPetsAllowed, sitesWithSewerHookup: currentSitesWithSewerHookup, sitesWithWaterHookup: currentSitesWithWaterHookup, sitesWithWaterfront: currentSitesWithWaterfront, state: currentState)
 
-            self.campgrounds.append(campground)
+            self.campgroundsxml.append(campground)
         }
     }
     
     func parserDidEndDocument(_ parser: XMLParser) {
         
-        parserCompletionHandler?(campgrounds)
+        parserCompletionHandler?(campgroundsxml)
     }
     
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         
         print(parseError.localizedDescription)
     }
-    
 }

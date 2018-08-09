@@ -20,17 +20,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j5C-eu-jRC">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hBv-xG-O6G">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="j5C-eu-jRC" firstAttribute="top" secondItem="fbh-Gg-2qS" secondAttribute="top" id="Dir-dP-iNc"/>
-                            <constraint firstItem="fbh-Gg-2qS" firstAttribute="bottom" secondItem="j5C-eu-jRC" secondAttribute="bottom" id="LNm-Hk-zP0"/>
-                            <constraint firstItem="fbh-Gg-2qS" firstAttribute="trailing" secondItem="j5C-eu-jRC" secondAttribute="trailing" id="iT5-VK-xMv"/>
-                            <constraint firstItem="j5C-eu-jRC" firstAttribute="leading" secondItem="fbh-Gg-2qS" secondAttribute="leading" id="q19-Ee-JyI"/>
+                            <constraint firstItem="hBv-xG-O6G" firstAttribute="top" secondItem="fbh-Gg-2qS" secondAttribute="top" id="4uL-aj-9Rr"/>
+                            <constraint firstItem="hBv-xG-O6G" firstAttribute="leading" secondItem="fbh-Gg-2qS" secondAttribute="leading" id="IJU-xp-SAn"/>
+                            <constraint firstItem="fbh-Gg-2qS" firstAttribute="trailing" secondItem="hBv-xG-O6G" secondAttribute="trailing" id="enL-0Z-aZf"/>
+                            <constraint firstItem="fbh-Gg-2qS" firstAttribute="bottom" secondItem="hBv-xG-O6G" secondAttribute="bottom" id="gOc-g2-iwn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fbh-Gg-2qS"/>
                     </view>
@@ -1409,8 +1413,11 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unknown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yhi-ba-zIb">
-                                        <rect key="frame" x="83" y="452" width="230" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unknown" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yhi-ba-zIb">
+                                        <rect key="frame" x="83" y="452" width="229" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Yhi-ba-zIb" secondAttribute="height" multiplier="229:21" id="910-ms-C1l"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1662,7 +1669,6 @@
                                     <constraint firstItem="dTn-BP-fa4" firstAttribute="top" secondItem="AGT-4o-qyq" secondAttribute="bottom" constant="8" id="nta-Y6-VRV"/>
                                     <constraint firstAttribute="bottom" secondItem="iJr-5R-baW" secondAttribute="bottom" id="pgU-9n-Xgy"/>
                                     <constraint firstItem="Wvs-87-BcX" firstAttribute="leading" secondItem="q3t-O9-dEn" secondAttribute="trailing" constant="8" id="qD1-d9-d4N"/>
-                                    <constraint firstItem="Yhi-ba-zIb" firstAttribute="width" secondItem="4R2-0w-ZmR" secondAttribute="width" constant="2" id="rKc-ag-svb"/>
                                     <constraint firstItem="gbt-d2-wKu" firstAttribute="top" secondItem="pqT-nW-7pD" secondAttribute="bottom" constant="34.5" id="rso-me-5BK"/>
                                     <constraint firstItem="Wvs-87-BcX" firstAttribute="top" secondItem="dTn-BP-fa4" secondAttribute="bottom" constant="22" id="sPr-Pq-rAh"/>
                                     <constraint firstItem="dTn-BP-fa4" firstAttribute="centerX" secondItem="B1q-H9-8Fc" secondAttribute="centerX" id="tDo-sM-8pk"/>
@@ -1693,8 +1699,8 @@
                         <outlet property="campgroundRatingImageView" destination="jYB-b7-6yM" id="NTG-86-slL"/>
                         <outlet property="campgroundTypeLabel" destination="OgK-Sp-ZLh" id="GOQ-oQ-5EJ"/>
                         <outlet property="campgroundWebsiteLabel" destination="Yhi-ba-zIb" id="aiX-F9-dTA"/>
+                        <outlet property="dailyHoursLabel" destination="gbt-d2-wKu" id="c5H-V9-eU0"/>
                         <outlet property="isOfficeOpenLabel" destination="Wvs-87-BcX" id="6aw-fh-deh"/>
-                        <outlet property="mondayLabel" destination="gbt-d2-wKu" id="e20-Cq-Mfq"/>
                         <outlet property="navigationTitle" destination="zpF-Zt-qhH" id="XaY-ld-pKa"/>
                         <outlet property="petsAllowedLabel" destination="Td7-Vr-urI" id="I6w-Q8-Kxd"/>
                         <outlet property="phoneNumberLabel" destination="4R2-0w-ZmR" id="Ffd-JI-ZA5"/>
