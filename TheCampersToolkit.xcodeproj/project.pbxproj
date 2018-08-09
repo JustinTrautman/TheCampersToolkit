@@ -7,21 +7,102 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D010EE372104FE0D007EE483 /* CampgroundReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D010EE362104FE0D007EE483 /* CampgroundReviewCell.swift */; };
+		D022B1E420FD23420012025A /* GoogleDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022B1E320FD23420012025A /* GoogleDetail.swift */; };
+		D022B1E620FD2ADF0012025A /* GoogleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */; };
+		D0234C15210D00B500038CAF /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0234C14210D00B500038CAF /* XMLParser.swift */; };
+		D0234C17210E22C800038CAF /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0234C16210E22C800038CAF /* PhotoDetailViewController.swift */; };
+		D04D3FE9210536AD00629B02 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D3FE8210536AD00629B02 /* WeatherViewController.swift */; };
+		D04D3FEB21053A7C00629B02 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D3FEA21053A7C00629B02 /* CurrentWeather.swift */; };
+		D04D3FED2105413F00629B02 /* CurrentWeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D3FEC2105413F00629B02 /* CurrentWeatherController.swift */; };
+		D066C0F22106206E00B71E41 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0F12106206E00B71E41 /* ReviewDetailViewController.swift */; };
+		D066C0F42106BD7400B71E41 /* HikingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0F32106BD7400B71E41 /* HikingViewController.swift */; };
+		D066C0F62106BE9400B71E41 /* HikingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0F52106BE9400B71E41 /* HikingTableViewCell.swift */; };
+		D066C0F82106C2DC00B71E41 /* HikingTrail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0F72106C2DC00B71E41 /* HikingTrail.swift */; };
+		D066C0FA2106C44100B71E41 /* HikingTrailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0F92106C44100B71E41 /* HikingTrailController.swift */; };
+		D066C0FC210762A300B71E41 /* HikingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0FB210762A300B71E41 /* HikingDetailViewController.swift */; };
+		D06AA8412105295C00B74FCB /* CampgroundPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */; };
+		D08FDCA0210BF76B007F6C5F /* Boondocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FDC9F210BF76B007F6C5F /* Boondocking.swift */; };
+		D08FDCA2210BF828007F6C5F /* BoondockingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FDCA1210BF828007F6C5F /* BoondockingController.swift */; };
+		D098E06C20FD0B8700DB4866 /* GoogleDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */; };
+		D098E06E20FD0BEB00DB4866 /* GooglePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06D20FD0BEB00DB4866 /* GooglePlace.swift */; };
+		D098E07020FD0C1E00DB4866 /* PlaceMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06F20FD0C1E00DB4866 /* PlaceMarker.swift */; };
+		D098E07220FD0C5100DB4866 /* MarkerInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D098E07120FD0C5100DB4866 /* MarkerInfoView.xib */; };
+		D098E07420FD0C7900DB4866 /* MarkerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E07320FD0C7900DB4866 /* MarkerInfoView.swift */; };
+		D098E07620FD110000DB4866 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E07520FD110000DB4866 /* UIView.swift */; };
+		D0A63BDA210B9B5700DC5850 /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A63BD9210B9B5700DC5850 /* PhotoTableViewCell.swift */; };
+		D0A991E72103992400698EF1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A991E62103992400698EF1 /* Constants.swift */; };
+		D0AD4AE6211343F4001EB1B6 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD4AE5211343F4001EB1B6 /* DoubleExtension.swift */; };
 		D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */; };
 		D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E06520F97C0B00210FC1 /* Assets.xcassets */; };
+<<<<<<< HEAD
 		D0C5E06920F97C0B00210FC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E06720F97C0B00210FC1 /* LaunchScreen.storyboard */; };
 		D0C5E07920F97C8800210FC1 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E07820F97C8800210FC1 /* Home.storyboard */; };
 		D0C5E07B20F97CA300210FC1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E07A20F97CA300210FC1 /* HomeViewController.swift */; };
+=======
+		D0C5E07D20F97FD900210FC1 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E07C20F97FD900210FC1 /* Home.storyboard */; };
+		D0C5E08120F9801300210FC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */; };
+		D0C5E08B20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */; };
+		D0C5E08D20F9A6D900210FC1 /* FilterResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E08C20F9A6D900210FC1 /* FilterResultsTableViewController.swift */; };
+		D0C5E08F20F9A6EC00210FC1 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E08E20F9A6EC00210FC1 /* FilterViewController.swift */; };
+		D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */; };
+		D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */; };
+		D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */; };
+		D0E5295D210CAEDC009E6435 /* TravelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5295C210CAEDC009E6435 /* TravelViewController.swift */; };
+		D0E5295F210CB6EE009E6435 /* TravelMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5295E210CB6EE009E6435 /* TravelMapViewController.swift */; };
+		D7A732D64A335AF81DEE748C /* Pods_TheCampersToolkit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */; };
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A93247BEBFC3DCAA017F4D50 /* Pods-TheCampersToolkit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheCampersToolkit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit.debug.xcconfig"; sourceTree = "<group>"; };
+		AE93EAD54E211352B75928D7 /* Pods-TheCampersToolkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheCampersToolkit.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit.release.xcconfig"; sourceTree = "<group>"; };
+		CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheCampersToolkit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D010EE362104FE0D007EE483 /* CampgroundReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundReviewCell.swift; sourceTree = "<group>"; };
+		D022B1E320FD23420012025A /* GoogleDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDetail.swift; sourceTree = "<group>"; };
+		D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDetailController.swift; sourceTree = "<group>"; };
+		D0234C14210D00B500038CAF /* XMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLParser.swift; sourceTree = "<group>"; };
+		D0234C16210E22C800038CAF /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoDetailViewController.swift; path = "XML Parsers/PhotoDetailViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D04D3FE8210536AD00629B02 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherViewController.swift; path = TheCampersToolkit/WeatherViewController.swift; sourceTree = SOURCE_ROOT; };
+		D04D3FEA21053A7C00629B02 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
+		D04D3FEC2105413F00629B02 /* CurrentWeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherController.swift; sourceTree = "<group>"; };
+		D066C0F12106206E00B71E41 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReviewDetailViewController.swift; path = Models/ReviewDetailViewController.swift; sourceTree = SOURCE_ROOT; };
+		D066C0F32106BD7400B71E41 /* HikingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HikingViewController.swift; path = Models/HikingViewController.swift; sourceTree = SOURCE_ROOT; };
+		D066C0F52106BE9400B71E41 /* HikingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingTableViewCell.swift; sourceTree = "<group>"; };
+		D066C0F72106C2DC00B71E41 /* HikingTrail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingTrail.swift; sourceTree = "<group>"; };
+		D066C0F92106C44100B71E41 /* HikingTrailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingTrailController.swift; sourceTree = "<group>"; };
+		D066C0FB210762A300B71E41 /* HikingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HikingDetailViewController.swift; path = "Model Controllers/HikingDetailViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampgroundPhotosViewController.swift; path = Views/CampgroundPhotosViewController.swift; sourceTree = SOURCE_ROOT; };
+		D08FDC9F210BF76B007F6C5F /* Boondocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boondocking.swift; sourceTree = "<group>"; };
+		D08FDCA1210BF828007F6C5F /* BoondockingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoondockingController.swift; sourceTree = "<group>"; };
+		D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDataProvider.swift; sourceTree = "<group>"; };
+		D098E06D20FD0BEB00DB4866 /* GooglePlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlace.swift; sourceTree = "<group>"; };
+		D098E06F20FD0C1E00DB4866 /* PlaceMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMarker.swift; sourceTree = "<group>"; };
+		D098E07120FD0C5100DB4866 /* MarkerInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarkerInfoView.xib; sourceTree = "<group>"; };
+		D098E07320FD0C7900DB4866 /* MarkerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerInfoView.swift; sourceTree = "<group>"; };
+		D098E07520FD110000DB4866 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		D0A63BD9210B9B5700DC5850 /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
+		D0A991E62103992400698EF1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D0AD4AE5211343F4001EB1B6 /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		D0C5E05B20F97C0A00210FC1 /* TheCampersToolkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheCampersToolkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0C5E06520F97C0B00210FC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D0C5E06820F97C0B00210FC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0C5E06A20F97C0B00210FC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		D0C5E07820F97C8800210FC1 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		D0C5E07A20F97CA300210FC1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+=======
+		D0C5E07C20F97FD900210FC1 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterResultsTableViewCell.swift; sourceTree = "<group>"; };
+		D0C5E08C20F9A6D900210FC1 /* FilterResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FilterResultsTableViewController.swift; path = Views/FilterResultsTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0C5E08E20F9A6EC00210FC1 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FilterViewController.swift; path = Views/FilterViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Views/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoondockingViewController.swift; path = Views/BoondockingViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampgroundDetailViewController.swift; path = Views/CampgroundDetailViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0E5295C210CAEDC009E6435 /* TravelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelViewController.swift; path = "Model Controllers/TravelViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D0E5295E210CB6EE009E6435 /* TravelMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelMapViewController.swift; path = "Model Controllers/TravelMapViewController.swift"; sourceTree = SOURCE_ROOT; };
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,12 +110,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7A732D64A335AF81DEE748C /* Pods_TheCampersToolkit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A663817BA373CA6432F7E17 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A93247BEBFC3DCAA017F4D50 /* Pods-TheCampersToolkit.debug.xcconfig */,
+				AE93EAD54E211352B75928D7 /* Pods-TheCampersToolkit.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		58E70B8EBD3F235D322F67D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D0C5E05220F97C0A00210FC1 = {
 			isa = PBXGroup;
 			children = (
@@ -45,9 +144,15 @@
 				D0C5E07320F97C3400210FC1 /* Views */,
 				D0C5E07220F97C2B00210FC1 /* Resources */,
 				D0C5E07120F97C1C00210FC1 /* XML Parsers */,
+<<<<<<< HEAD
 				D0C5E07020F97C1400210FC1 /* Helpers */,
+=======
+				D0C5E07020F97C1400210FC1 /* Extensions */,
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 				D0C5E05D20F97C0A00210FC1 /* TheCampersToolkit */,
 				D0C5E05C20F97C0A00210FC1 /* Products */,
+				3A663817BA373CA6432F7E17 /* Pods */,
+				58E70B8EBD3F235D322F67D3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,16 +174,29 @@
 			path = TheCampersToolkit;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		D0C5E07020F97C1400210FC1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = Helpers;
+=======
+		D0C5E07020F97C1400210FC1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D0AD4AE5211343F4001EB1B6 /* DoubleExtension.swift */,
+			);
+			path = Extensions;
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 			sourceTree = "<group>";
 		};
 		D0C5E07120F97C1C00210FC1 /* XML Parsers */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+=======
+				D0234C14210D00B500038CAF /* XMLParser.swift */,
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 			);
 			path = "XML Parsers";
 			sourceTree = "<group>";
@@ -86,6 +204,10 @@
 		D0C5E07220F97C2B00210FC1 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+=======
+				D0A991E62103992400698EF1 /* Constants.swift */,
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -93,6 +215,16 @@
 		D0C5E07320F97C3400210FC1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+=======
+				D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */,
+				D098E07120FD0C5100DB4866 /* MarkerInfoView.xib */,
+				D098E07320FD0C7900DB4866 /* MarkerInfoView.swift */,
+				D098E07520FD110000DB4866 /* UIView.swift */,
+				D010EE362104FE0D007EE483 /* CampgroundReviewCell.swift */,
+				D066C0F52106BE9400B71E41 /* HikingTableViewCell.swift */,
+				D0A63BD9210B9B5700DC5850 /* PhotoTableViewCell.swift */,
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -100,8 +232,13 @@
 		D0C5E07420F97C3D00210FC1 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				D0C5E07820F97C8800210FC1 /* Home.storyboard */,
 				D0C5E06720F97C0B00210FC1 /* LaunchScreen.storyboard */,
+=======
+				D0C5E07C20F97FD900210FC1 /* Home.storyboard */,
+				D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */,
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -109,6 +246,16 @@
 		D0C5E07520F97C4B00210FC1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+=======
+				D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */,
+				D098E06D20FD0BEB00DB4866 /* GooglePlace.swift */,
+				D022B1E320FD23420012025A /* GoogleDetail.swift */,
+				D098E06F20FD0C1E00DB4866 /* PlaceMarker.swift */,
+				D04D3FEA21053A7C00629B02 /* CurrentWeather.swift */,
+				D066C0F72106C2DC00B71E41 /* HikingTrail.swift */,
+				D08FDC9F210BF76B007F6C5F /* Boondocking.swift */,
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -116,6 +263,13 @@
 		D0C5E07620F97C5000210FC1 /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+=======
+				D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */,
+				D04D3FEC2105413F00629B02 /* CurrentWeatherController.swift */,
+				D066C0F92106C44100B71E41 /* HikingTrailController.swift */,
+				D08FDCA1210BF828007F6C5F /* BoondockingController.swift */,
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -123,7 +277,23 @@
 		D0C5E07720F97C5700210FC1 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				D0C5E07A20F97CA300210FC1 /* HomeViewController.swift */,
+=======
+				D0C5E08C20F9A6D900210FC1 /* FilterResultsTableViewController.swift */,
+				D0C5E08E20F9A6EC00210FC1 /* FilterViewController.swift */,
+				D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */,
+				D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */,
+				D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */,
+				D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */,
+				D04D3FE8210536AD00629B02 /* WeatherViewController.swift */,
+				D066C0F12106206E00B71E41 /* ReviewDetailViewController.swift */,
+				D066C0F32106BD7400B71E41 /* HikingViewController.swift */,
+				D066C0FB210762A300B71E41 /* HikingDetailViewController.swift */,
+				D0E5295C210CAEDC009E6435 /* TravelViewController.swift */,
+				D0E5295E210CB6EE009E6435 /* TravelMapViewController.swift */,
+				D0234C16210E22C800038CAF /* PhotoDetailViewController.swift */,
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -135,9 +305,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0C5E06D20F97C0B00210FC1 /* Build configuration list for PBXNativeTarget "TheCampersToolkit" */;
 			buildPhases = (
+				DE6BDF4655D9BED1C5C6D6AF /* [CP] Check Pods Manifest.lock */,
 				D0C5E05720F97C0A00210FC1 /* Sources */,
 				D0C5E05820F97C0A00210FC1 /* Frameworks */,
 				D0C5E05920F97C0A00210FC1 /* Resources */,
+				AE809DED3F4845D167CDCE25 /* [CP] Copy Pods Resources */,
+				0BF382F366962F2DAB928995 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -186,26 +359,131 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
 				D0C5E07920F97C8800210FC1 /* Home.storyboard in Resources */,
 				D0C5E06920F97C0B00210FC1 /* LaunchScreen.storyboard in Resources */,
+=======
+				D098E07220FD0C5100DB4866 /* MarkerInfoView.xib in Resources */,
+				D0C5E08120F9801300210FC1 /* LaunchScreen.storyboard in Resources */,
+				D0C5E07D20F97FD900210FC1 /* Home.storyboard in Resources */,
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 				D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0BF382F366962F2DAB928995 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AE809DED3F4845D167CDCE25 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DE6BDF4655D9BED1C5C6D6AF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TheCampersToolkit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D0C5E05720F97C0A00210FC1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
 				D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */,
 				D0C5E07B20F97CA300210FC1 /* HomeViewController.swift in Sources */,
+=======
+				D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */,
+				D04D3FE9210536AD00629B02 /* WeatherViewController.swift in Sources */,
+				D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */,
+				D066C0F22106206E00B71E41 /* ReviewDetailViewController.swift in Sources */,
+				D022B1E420FD23420012025A /* GoogleDetail.swift in Sources */,
+				D0C5E08D20F9A6D900210FC1 /* FilterResultsTableViewController.swift in Sources */,
+				D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */,
+				D022B1E620FD2ADF0012025A /* GoogleDetailController.swift in Sources */,
+				D0234C15210D00B500038CAF /* XMLParser.swift in Sources */,
+				D098E07620FD110000DB4866 /* UIView.swift in Sources */,
+				D0E5295F210CB6EE009E6435 /* TravelMapViewController.swift in Sources */,
+				D04D3FED2105413F00629B02 /* CurrentWeatherController.swift in Sources */,
+				D010EE372104FE0D007EE483 /* CampgroundReviewCell.swift in Sources */,
+				D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */,
+				D08FDCA2210BF828007F6C5F /* BoondockingController.swift in Sources */,
+				D098E07020FD0C1E00DB4866 /* PlaceMarker.swift in Sources */,
+				D08FDCA0210BF76B007F6C5F /* Boondocking.swift in Sources */,
+				D04D3FEB21053A7C00629B02 /* CurrentWeather.swift in Sources */,
+				D0AD4AE6211343F4001EB1B6 /* DoubleExtension.swift in Sources */,
+				D0A63BDA210B9B5700DC5850 /* PhotoTableViewCell.swift in Sources */,
+				D098E06C20FD0B8700DB4866 /* GoogleDataProvider.swift in Sources */,
+				D0A991E72103992400698EF1 /* Constants.swift in Sources */,
+				D066C0FA2106C44100B71E41 /* HikingTrailController.swift in Sources */,
+				D0C5E08B20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift in Sources */,
+				D098E07420FD0C7900DB4866 /* MarkerInfoView.swift in Sources */,
+				D066C0F82106C2DC00B71E41 /* HikingTrail.swift in Sources */,
+				D0C5E08F20F9A6EC00210FC1 /* FilterViewController.swift in Sources */,
+				D0E5295D210CAEDC009E6435 /* TravelViewController.swift in Sources */,
+				D0234C17210E22C800038CAF /* PhotoDetailViewController.swift in Sources */,
+				D098E06E20FD0BEB00DB4866 /* GooglePlace.swift in Sources */,
+				D066C0F42106BD7400B71E41 /* HikingViewController.swift in Sources */,
+				D066C0F62106BE9400B71E41 /* HikingTableViewCell.swift in Sources */,
+				D066C0FC210762A300B71E41 /* HikingDetailViewController.swift in Sources */,
+				D06AA8412105295C00B74FCB /* CampgroundPhotosViewController.swift in Sources */,
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+<<<<<<< HEAD
 /* Begin PBXVariantGroup section */
 		D0C5E06720F97C0B00210FC1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -217,6 +495,8 @@
 		};
 /* End PBXVariantGroup section */
 
+=======
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 /* Begin XCBuildConfiguration section */
 		D0C5E06B20F97C0B00210FC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -334,6 +614,7 @@
 		};
 		D0C5E06E20F97C0B00210FC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A93247BEBFC3DCAA017F4D50 /* Pods-TheCampersToolkit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -352,6 +633,7 @@
 		};
 		D0C5E06F20F97C0B00210FC1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE93EAD54E211352B75928D7 /* Pods-TheCampersToolkit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
