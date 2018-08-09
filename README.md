@@ -2,7 +2,7 @@
 
 The Camper's Toolkit offers valuable tools for campers and outdoorsy people of all types. The Camper's Toolkit gives campers the ability search for the perfect campgrounds and hiking trails all over the country. The Camper's Toolkit also connects campers to the largest database of dry camping sites; that is, government or other public lands that are free to camp on for a certain amount of time without any hookups. Lastly, The Camper's Toolkit gives campers the ability to view nearby amenities important to campers like propane refill stations and auto repair shops.
 
-![Demo](https://github.com/JustinTrautman/TheCampersToolkit/blob/master/ezgif.com-resize.mov)
+![Output sample](https://github.com/JustinTrautman/TheCampersToolkit/blob/master/ezgif.com-resize.mov)
 
 Current Version: 1.0
 Next Version: Weather forcasting and cell service data.
