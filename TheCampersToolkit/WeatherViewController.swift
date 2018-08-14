@@ -116,6 +116,10 @@ class WeatherViewController: UIViewController {
                                     if shortWeatherDescription == "Haze" {
                                         self.weatherImageView.image = UIImage(named: "haze")
                                     }
+                                    
+                                    if shortWeatherDescription == "Smoke" {
+                                        self.weatherImageView.image = UIImage(named: "smoke")
+                                    }
                                 }
                             }
                         }

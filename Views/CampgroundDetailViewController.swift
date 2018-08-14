@@ -80,10 +80,8 @@ class CampgroundDetailViewController: UIViewController {
         loadReviews()
         
     }
-
     
     func fetchData() {
-        
         guard let campgroundName = campground?.name else { return }
         
         let campgroundParser = CampgroundParser()
@@ -103,6 +101,7 @@ class CampgroundDetailViewController: UIViewController {
         campgroundWebsiteLabel.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(CampgroundDetailViewController.tapFunction))
         campgroundWebsiteLabel.addGestureRecognizer(tap)
+        
         
         // Updates from Google Place API
         guard let campgroundId = campground?.id else { return }
@@ -195,7 +194,6 @@ class CampgroundDetailViewController: UIViewController {
     }
     
     func loadReviews() {
-        
         DispatchQueue.main.async {
             self.reviewTableView.reloadData()
         }
@@ -270,6 +268,11 @@ extension CampgroundDetailViewController: UITableViewDelegate, UITableViewDataSo
 
         return unwrappedReviews.count
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as?

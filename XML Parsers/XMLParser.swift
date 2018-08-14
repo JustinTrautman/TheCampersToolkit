@@ -125,12 +125,10 @@ class CampgroundParser: NSObject, XMLParserDelegate {
     }
     
     func parserDidEndDocument(_ parser: XMLParser) {
-        
         parserCompletionHandler?(campgroundsxml)
     }
     
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        
         print(parseError.localizedDescription)
     }
 }

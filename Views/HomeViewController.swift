@@ -167,6 +167,8 @@ extension HomeViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         
+        self.navigationController?.isNavigationBarHidden = false
+        
         let campgroundMarker = marker as? PlaceMarker
         performSegue(withIdentifier: "campgroundDetail", sender: campgroundMarker?.place)
     }

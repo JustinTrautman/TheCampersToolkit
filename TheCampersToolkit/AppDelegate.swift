@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
+import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GMSServices.provideAPIKey("\(Constants.googleApiKey)")
         GMSPlacesClient.provideAPIKey("\(Constants.googleApiKey)")
+        
+        // Initialize the Google Mobile Ads SDK.
+        GADMobileAds.configure(withApplicationID: Constants.applicationID)
                 
         return true
     }

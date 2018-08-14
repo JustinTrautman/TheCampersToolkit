@@ -14,6 +14,7 @@
 import UIKit
 import SwiftyJSON
 import GoogleMaps
+import GoogleMobileAds
 
 class HikingViewController: UIViewController {
     
@@ -24,6 +25,16 @@ class HikingViewController: UIViewController {
     // MARK: - Properties
     static let shared = HikingViewController()
     var trails: [Trails]?
+    
+    lazy var adBannerView: GADBannerView = {
+        
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = Constants.adUnitID
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -36,6 +47,13 @@ class HikingViewController: UIViewController {
         hikingTableView.tableFooterView = UIView()
 
         reloadTableView()
+        
+        adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = Constants.adUnitID
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        adBannerView.load(GADRequest())
     }
     
     public func getLocationFromAddress(address : String) -> CLLocationCoordinate2D {
@@ -76,19 +94,37 @@ class HikingViewController: UIViewController {
             }
         }
     }
-            
+    
     func reloadTableView() {
-        
         DispatchQueue.main.async {
             self.hikingTableView.reloadData()
         }
     }
 }
 
+// MARK: - Google adView Protocol Methods
+extension HikingViewController: GADBannerViewDelegate {
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView!) {
+        print("Ad banner loaded successfully")
+        
+        // Reposition the banner ad to create a slide down effect
+        let translateTransform = CGAffineTransform(translationX: 0, y: -bannerView.bounds.size.height)
+        bannerView.transform = translateTransform
+        
+        UIView.animate(withDuration: 0.5) {
+            bannerView.transform = CGAffineTransform.identity
+        }
+    }
+    
+    func adView(_ bannerView: GADBannerView!, didFailToReceiveAdWithError error: GADRequestError!) {
+        print("Failed to receive ads. Exiting with error \(error) \(error.localizedDescription)")
+    }
+}
+
 extension HikingViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
         hikingSearchBar.resignFirstResponder()
         guard let searchText = hikingSearchBar.text else { return }
         
@@ -100,6 +136,7 @@ extension HikingViewController: UISearchBarDelegate {
             if let trails = trails {
                 self.trails = trails
             }
+            
             self.reloadTableView()
         }
     }
@@ -107,8 +144,15 @@ extension HikingViewController: UISearchBarDelegate {
 
 extension HikingViewController : UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return adBannerView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return adBannerView.frame.height
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         guard let trails = trails else { return 0 }
         
         return trails.count
