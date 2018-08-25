@@ -72,13 +72,12 @@ class CampgroundDetailViewController: UIViewController {
         
         reviewTableView.delegate = self
         reviewTableView.dataSource = self
-    }
+}
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         loadReviews()
-        
     }
     
     func fetchData() {
@@ -97,11 +96,12 @@ class CampgroundDetailViewController: UIViewController {
         // Some initial setup
         campgroundNameLabel.numberOfLines = 0
         campgroundAddressLabel.numberOfLines = 0
+        
         reviewTableView.tableFooterView = UIView()
+        
         campgroundWebsiteLabel.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(CampgroundDetailViewController.tapFunction))
         campgroundWebsiteLabel.addGestureRecognizer(tap)
-        
         
         // Updates from Google Place API
         guard let campgroundId = campground?.id else { return }
