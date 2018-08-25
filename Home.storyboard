@@ -523,7 +523,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="UkC-gk-HAe">
                                                 <rect key="frame" x="154" y="0.0" width="124" height="337"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zn5-Ya-GL4">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zn5-Ya-GL4">
                                                         <rect key="frame" x="0.0" y="0.0" width="124" height="145.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EwN-BL-YuS">
@@ -538,7 +538,7 @@
                                                                     <segue destination="lOu-l6-Ukv" kind="show" identifier="propaneMapVC" id="GXe-3P-WvH"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Propane" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQ8-9i-ijA">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Propane" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQ8-9i-ijA">
                                                                 <rect key="frame" x="0.0" y="125" width="124" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
@@ -549,10 +549,10 @@
                                                             <constraint firstItem="aQ8-9i-ijA" firstAttribute="width" secondItem="EwN-BL-YuS" secondAttribute="width" id="4L4-Az-y56"/>
                                                         </constraints>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E8g-Hd-wex">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E8g-Hd-wex">
                                                         <rect key="frame" x="0.0" y="191.5" width="124" height="145.5"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZE-tO-Kzg">
+                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZE-tO-Kzg">
                                                                 <rect key="frame" x="0.0" y="0.0" width="124" height="117"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="124" id="Iz6-ym-f2L"/>
@@ -564,7 +564,7 @@
                                                                     <segue destination="lOu-l6-Ukv" kind="show" identifier="carRepairMapVC" id="u4g-Di-r5e"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Car Repair" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTr-uF-HVA">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Car Repair" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTr-uF-HVA">
                                                                 <rect key="frame" x="0.0" y="125" width="124" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
