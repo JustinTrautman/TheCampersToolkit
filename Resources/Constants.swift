@@ -16,6 +16,6 @@ struct Constants {
     static let activeApiKey = "apikey"
     
     // Google ad IDs
-    static let adUnitID = "apikey"
-    static let applicationID = "apikey"
+    static let adUnitID = "unitID"
+    static let applicationID = "unitID"
 }
