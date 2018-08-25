@@ -48,11 +48,7 @@ class HikingViewController: UIViewController {
 
         reloadTableView()
         
-        adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = Constants.adUnitID
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
+        // Load Ad Banner
         adBannerView.load(GADRequest())
     }
     
@@ -109,12 +105,10 @@ extension HikingViewController: GADBannerViewDelegate {
         print("Ad banner loaded successfully")
         
         // Reposition the banner ad to create a slide down effect
-        let translateTransform = CGAffineTransform(translationX: 0, y: -bannerView.bounds.size.height)
-        bannerView.transform = translateTransform
-        
-        UIView.animate(withDuration: 0.5) {
-            bannerView.transform = CGAffineTransform.identity
-        }
+        bannerView.alpha = 0
+        UIView.animate(withDuration: 1, animations: {
+            bannerView.alpha = 1
+        })
     }
     
     func adView(_ bannerView: GADBannerView!, didFailToReceiveAdWithError error: GADRequestError!) {
