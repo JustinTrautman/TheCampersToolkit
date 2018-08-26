@@ -13,7 +13,7 @@ struct Constants {
     // API Keys
     static let googleApiKey = "apikey"
     static let openWeatherApiKey = "apikey"
-    static let activeApiKey = "apikey"
+    static let activeApiKey = "apki"
     
     // Google ad IDs
     static let adUnitID = "unitID"
