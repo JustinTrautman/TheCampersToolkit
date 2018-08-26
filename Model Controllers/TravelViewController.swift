@@ -15,34 +15,15 @@ import UIKit
 
 class TravelViewController: UIViewController {
     
+    // MARK: - Outlets
+    @IBOutlet weak var gasStationButton: UIButton!
+    @IBOutlet weak var propaneButton: UIButton!
+    @IBOutlet weak var supermarketButton: UIButton!
+    @IBOutlet weak var carRepairButton: UIButton!
+    
     // MARK: - Properties
-    var selectedType = "store"
-    
-    // MARK: - Actions
-    @IBAction func gasButtonTapped(_ sender: Any) {
-  
-        selectedType = "gas_station"
-        print(selectedType)
-    }
-    
-    @IBAction func propaneButtonTapped(_ sender: Any) {
-        
-        selectedType = "store"
-        print(selectedType)
-    }
-    
-    @IBAction func supermarketButtonTapped(_ sender: Any) {
-        
-        selectedType = "supermarket"
-         print(selectedType)
-    }
-    
-    @IBAction func carRepairButtonTapped(_ sender: Any) {
-        
-        selectedType = "car_repair"
-         print(selectedType)
-    }
-    
+    var selectedType = ""
+
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +33,23 @@ class TravelViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
    
         guard let detailVC = segue.destination as? TravelMapViewController else { return }
+        
+        if segue.identifier == "toGasMap" {
+            selectedType = "gas_station"
+        }
+        
+        if segue.identifier == "toPropaneMap" {
+            selectedType = "store"
+        }
+        
+        if segue.identifier == "toStoreMap" {
+            selectedType = "supermarket"
+        }
+        
+        if segue.identifier == "toCarRepairMap" {
+            selectedType = "car_repair"
+        }
+     
         detailVC.selectedType = selectedType
     }
 }
