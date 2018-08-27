@@ -25,9 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize the Google Mobile Ads SDK.
         GADMobileAds.configure(withApplicationID: Constants.applicationID)
         
-        ForeCastedWeaterController.fetchForecastedWeatherFrom(latitude: "47.6588", longitude: "-117.426") { (weather) in
-            if let weather = weather {
-                print("📡 Yo, I got data back.")
+        GoogleGeocodingController.getCoordinatesFrom(adress: "33111 N Rimrose Dr. Chattaroy, WA") { (coordinates) in
+            if let coordinates = coordinates {
+                print("Yo, got some coordinates for ya")
             }
         }
                 

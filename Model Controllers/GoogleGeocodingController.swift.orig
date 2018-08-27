@@ -42,6 +42,13 @@ class GoogleGeocodingController {
             } catch let error {
                 print("Error decoding geocoding data. Exiting with error: \(error) \(error.localizedDescription)")
             }
+<<<<<<< HEAD
+            }.resume()
+    }
+}
+
+=======
         }.resume()
     }
 }
+>>>>>>> develop

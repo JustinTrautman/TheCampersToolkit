@@ -53,3 +53,7 @@ struct Location : Codable {
         case lng = "lng"
     }
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> develop

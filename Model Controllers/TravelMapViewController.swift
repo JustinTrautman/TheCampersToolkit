@@ -28,7 +28,7 @@ class TravelMapViewController: UIViewController {
     private var locationManager = CLLocationManager()
     private let dataProvider = GoogleDataProvider()
    // private let searchRadius: Double = 16094
-    private let searchRadius: Double = 5000
+    private let searchRadius: Double = 8047
     var pointOfInterest: GooglePlace?
 
     // MARK: - View Lifecycle
@@ -55,7 +55,37 @@ class TravelMapViewController: UIViewController {
                 let marker = PlaceMarker(place: $0)
                 marker.map = self.mapView
             }
+            
+            if places.count == 0 {
+                self.showNoAmenitiesAlert()
+            }
         }
+    }
+    
+    func stringFormatter(originalString: String) -> String {
+        
+        let formattedString = originalString.replacingOccurrences(of: "_", with: " ")
+        
+        if formattedString == "car repair" {
+            return "car repair shop"
+        }
+        
+        if formattedString == "store" {
+            return "propane service"
+        }
+    
+        return formattedString
+    }
+    
+    func showNoAmenitiesAlert() {
+        let noAmenitiesAlert = UIAlertController(title: nil, message: "There are no \(stringFormatter(originalString: selectedType!))s within 5 miles of you", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        
+        noAmenitiesAlert.addAction(okAction)
+        self.present(noAmenitiesAlert, animated: true)
     }
     
     /*

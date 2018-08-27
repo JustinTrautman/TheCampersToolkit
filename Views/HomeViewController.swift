@@ -187,4 +187,3 @@ extension HomeViewController: UISearchBarDelegate {
         fetchNearbyPlaces(coordinate: coordinates)
     }
 }
-
