@@ -7,10 +7,29 @@
 //
 
 import Foundation
+import GoogleMaps
+import SwiftyJSON
 
 class GetCoordinates {
     
-    static func getLocationFromAddress() {
+    static func getLocationFromAddress(address : String) -> CLLocationCoordinate2D {
+        var lat : Double = 0.0
+        var lon : Double = 0.0
         
+        do {
+            
+            let url = String(format: "https://maps.googleapis.com/maps/api/geocode/json?&sensor=false&address=%@", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
+            let result = try Data(contentsOf: URL(string: url)!)
+            let json = try JSON(data: result)
+            
+            lat = json["results"][0]["geometry"]["location"]["lat"].doubleValue
+            lon = json["results"][0]["geometry"]["location"]["lng"].doubleValue
+            
+        }
+        catch let error{
+            print(error)
+        }
+        
+        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
 }
