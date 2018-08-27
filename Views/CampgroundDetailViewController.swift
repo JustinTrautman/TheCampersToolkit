@@ -225,7 +225,7 @@ class CampgroundDetailViewController: UIViewController {
             guard let detailVC = segue.destination as? HikingViewController else { return }
             
             guard let searchText = campgroundAddressLabel.text else { return }
-            let address = HikingViewController.shared.getLocationFromAddress(address: searchText)
+            let address = GetCoordinates.getLocationFromAddress(address: searchText)
             let latitude = "\(address.latitude)"
             let longitude = "\(address.longitude)"
             

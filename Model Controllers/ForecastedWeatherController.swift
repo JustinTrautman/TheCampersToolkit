@@ -25,11 +25,9 @@ class ForeCastedWeaterController {
         
         guard let completeURL = components?.url else { completion(nil) ; return }
         
-        print(completeURL)
-        
         URLSession.shared.dataTask(with: completeURL) { (data, road, error) in
             if let error = error {
-                print("DataTask has an issue reaching the network. Exiting with error: \(error) \(error.localizedDescription)")
+                print("DataTask had an issue reaching the network. Exiting with error: \(error) \(error.localizedDescription)")
                 completion(nil) ; return
             }
             
