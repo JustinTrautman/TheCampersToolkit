@@ -26,6 +26,8 @@ class HikingViewController: UIViewController {
     static let shared = HikingViewController()
     var trails: [Trails]?
     
+    var coordinates: [Results]?
+    
     lazy var adBannerView: GADBannerView = {
         
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -50,29 +52,6 @@ class HikingViewController: UIViewController {
         
         // Load Ad Banner
         adBannerView.load(GADRequest())
-    }
-    
-    public func getLocationFromAddress(address : String) -> CLLocationCoordinate2D {
-        var lat : Double = 0.0
-        var lon : Double = 0.0
-        
-        do {
-            
-            let url = String(format: "https://maps.google.com/maps/api/geocode/json?sensor=false&address=%@&key=\(Constants.googleApiKey)", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
-            let result = try Data(contentsOf: URL(string: url)!)
-            let json = try JSON(data: result)
-            
-            lat = json["results"][0]["geometry"]["location"]["lat"].doubleValue
-            lon = json["results"][0]["geometry"]["location"]["lng"].doubleValue
-            
-            print(lat)
-            print(lon)
-            
-        } catch let error {
-            print(error)
-        }
-        
-        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
     
     //     MARK: - Navigation
@@ -122,16 +101,23 @@ extension HikingViewController: UISearchBarDelegate {
         hikingSearchBar.resignFirstResponder()
         guard let searchText = hikingSearchBar.text else { return }
         
-        let address = getLocationFromAddress(address: searchText)
-        let latitude = "\(address.latitude)"
-        let longitude = "\(address.longitude)"
+        GoogleGeocodingController.getCoordinatesFrom(adress: searchText) { (coordinates) in
+
+            if let coordinates = coordinates {
+                if let location = coordinates[0].geometry?.location {
+                    self.coordinates = coordinates
+
+                    guard let latitude = location.lat,
+                        let longitude = location.lng else { return }
         
-        HikingTrailController.fetchHikingTrailsNear(latitude: latitude, longitude: longitude) { (trails) in
-            if let trails = trails {
-                self.trails = trails
+                    HikingTrailController.fetchHikingTrailsNear(latitude: "\(latitude)", longitude: "\(longitude)") { (trails) in
+                        if let trails = trails {
+                            self.trails = trails
+                        }
+                        self.reloadTableView()
+                    }
+                }
             }
-            
-            self.reloadTableView()
         }
     }
 }

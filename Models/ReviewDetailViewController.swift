@@ -26,9 +26,10 @@ class ReviewDetailViewController: UIViewController {
 
     // MARK: Properties
     var reviews: Reviews?
-    var bannerView: GADBannerView!
     
     // Banner Ad Setup
+    var bannerView: GADBannerView!
+    
     lazy var adBannerView: GADBannerView = {
         
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)

@@ -11,7 +11,7 @@
  TODO: Implement visibility on the weather screen. Convert meters to miles...
  TODO: Implement air pressure on the weather screen if room...
  ✔ TODO: Implement Sunrise and sunset times. Convert from Unix time to human time...
- TODO: Implement 5 day forcast...
+ TODO: Implement weekly forcast...
  
  ----------------------------------------------------------------------------------------
  */
@@ -20,6 +20,7 @@
 import UIKit
 import GoogleMaps
 import SwiftyJSON
+import GoogleMobileAds
 
 class WeatherViewController: UIViewController {
     
@@ -34,7 +35,6 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var windSpeedImageView: UIImageView!
-    @IBOutlet weak var windDegreesLabel: UILabel!
     @IBOutlet weak var sunriseLabel: UILabel!
     @IBOutlet weak var sunsetLabel: UILabel!
     
@@ -44,10 +44,32 @@ class WeatherViewController: UIViewController {
     var address: String?
 
     var campgroundWeatherData: CampgroundWeatherData?
+    var forecastedWeatherData: ForecastedWeatherData?
+    
+    // Banner Ad Setup
+    var bannerView: GADBannerView!
+    
+    lazy var adBannerView: GADBannerView = {
+        
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = Constants.adUnitID
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
     
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup Ad Banner
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        
+        addBannerViewToView(bannerView)
+        
+        // Load Ad Banner
+        adBannerView.load(GADRequest())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,22 +82,22 @@ class WeatherViewController: UIViewController {
         
         if let campgroundsAddress = address {
             
-            let address = campgroundsAddress
-            let coordinatesFromAddress = getLocationFromAddress(address: address)
+            GoogleGeocodingController.getCoordinatesFrom(adress: campgroundsAddress) { (coordinates) in
+                if let coordinates = coordinates {
+                    let coordinatesFromAddress = coordinates[0].geometry?.location
             
-            print(address)
             print(coordinatesFromAddress)
             
-            let latitude = "\(coordinatesFromAddress.latitude)"
-            let longitude = "\(coordinatesFromAddress.longitude)"
+                    guard let latitude = coordinatesFromAddress?.lat,
+                    let longitude = coordinatesFromAddress?.lng else { return }
             
-            CurrentWeatherController.fetchCurrentWeatherOf(latitude: latitude, longitude: longitude) { (weather) in
+            CurrentWeatherController.fetchCurrentWeatherOf(latitude: "\(latitude)", longitude: "\(longitude)") { (weather) in
                 if let weather = weather {
                     self.campgroundWeatherData = weather
                     
                     DispatchQueue.main.async {
                         
-                        self.addressLabel.text = address
+                        self.addressLabel.text = self.address
                         
                         if let weather = weather.weather {
                             
@@ -169,25 +191,6 @@ class WeatherViewController: UIViewController {
                             }
                         }
                         
-                        if let windDirection = weather.wind?.windDirection {
-                            
-                            if windDirection == 0 {
-                                self.windDegreesLabel.text = ""
-                            }
-                            
-                            if windDirection <= 22.5 || windDirection >= 337.5 {
-                                self.windDegreesLabel.text = "°N"
-                            }
-                            
-                            if windDirection <= 90 {
-                                self.windDegreesLabel.text = "°E"
-                            }
-                            
-                            if windDirection <= 270 {
-                                self.windDegreesLabel.text = "°W"
-                            }
-                        }
-                        
                         // Sunset and Sunrise
                         if let sunrise = weather.sys?.sunrise {
                             
@@ -215,31 +218,53 @@ class WeatherViewController: UIViewController {
                             
                             print("The sunset for \(campgroundsAddress) happens at \(dateString)")
                             self.sunsetLabel.text = dateString
-                        }
                     }
                 }
             }
         }
     }
+}
+//            ForeCastedWeaterController.fetchForecastedWeatherFrom(latitude: latitude, longitude: longitude) { (forecast) in
+//                if let forecast = forecast {
+//
+//                }
+//            }
+        }
+    }
     
-    public func getLocationFromAddress(address : String) -> CLLocationCoordinate2D {
-        var lat : Double = 0.0
-        var lon : Double = 0.0
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
+    }
+}
+
+extension WeatherViewController : GADBannerViewDelegate {
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView!) {
+        print("Ad banner loaded successfully")
         
-        do {
-            
-            let url = String(format: "https://maps.googleapis.com/maps/api/geocode/json?&sensor=false&address=%@", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
-            let result = try Data(contentsOf: URL(string: url)!)
-            let json = try JSON(data: result)
-            
-            lat = json["results"][0]["geometry"]["location"]["lat"].doubleValue
-            lon = json["results"][0]["geometry"]["location"]["lng"].doubleValue
-            
-        }
-        catch let error{
-            print(error)
-        }
+        addBannerViewToView(bannerView)
         
-        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        // Reposition the banner ad to create a slide down effect
+        bannerView.alpha = 0
+        UIView.animate(withDuration: 0.5, animations: {
+            bannerView.alpha = 1
+        })
     }
 }
