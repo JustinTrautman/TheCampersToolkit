@@ -72,7 +72,7 @@ class CampgroundDetailViewController: UIViewController {
         
         reviewTableView.delegate = self
         reviewTableView.dataSource = self
-}
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -85,7 +85,7 @@ class CampgroundDetailViewController: UIViewController {
         
         let campgroundParser = CampgroundParser()
         campgroundParser.parseCampground(url: "http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)") { (campgroundxml) in
-        
+            
             print(campgroundxml)
             self.xmlCampgrounds = campgroundxml
         }
@@ -147,7 +147,7 @@ class CampgroundDetailViewController: UIViewController {
                     
                     if self.campgrounds?.openingHours?.openNow == false {
                         self.isOfficeOpenLabel.text = "Office closed now"
-                    
+                        
                     }
                     
                     if self.campgrounds?.openingHours?.openNow == nil {
@@ -225,15 +225,20 @@ class CampgroundDetailViewController: UIViewController {
             guard let detailVC = segue.destination as? HikingViewController else { return }
             
             guard let searchText = campgroundAddressLabel.text else { return }
-            let address = HikingViewController.shared.getLocationFromAddress(address: searchText)
-            let latitude = "\(address.latitude)"
-            let longitude = "\(address.longitude)"
+            GoogleGeocodingController.getCoordinatesFrom(adress: searchText) { (coord) in
+                if let coord = coord {
+                    let address = coord[0].geometry?.location
+                    
+            guard let latitude = address?.lat,
+                let longitude = address?.lng else { return }
             
-            HikingTrailController.fetchHikingTrailsNear(latitude: latitude, longitude: longitude) { (trails) in
+            HikingTrailController.fetchHikingTrailsNear(latitude: "\(latitude)", longitude: "\(longitude)") { (trails) in
                 if let _ = trails {
                     DispatchQueue.main.async {
                         detailVC.hikingSearchBar.text = searchText
                         detailVC.searchBarSearchButtonClicked(detailVC.hikingSearchBar)
+                            }
+                        }
                     }
                 }
             }
@@ -265,7 +270,7 @@ extension CampgroundDetailViewController: UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         guard let unwrappedReviews = GoogleDetailController.campgrounds?.reviews else { return 0 }
-
+        
         return unwrappedReviews.count
     }
     
@@ -285,3 +290,4 @@ extension CampgroundDetailViewController: UITableViewDelegate, UITableViewDataSo
         return cell
     }
 }
+

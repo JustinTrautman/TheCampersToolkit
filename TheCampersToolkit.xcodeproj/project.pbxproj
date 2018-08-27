@@ -26,6 +26,7 @@
 		D06AA8412105295C00B74FCB /* CampgroundPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */; };
 		D0705AA621337B9A00E6F8D5 /* GoogleGeocodingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0705AA521337B9A00E6F8D5 /* GoogleGeocodingController.swift */; };
 		D0705AA821337BCD00E6F8D5 /* GoogleGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0705AA721337BCD00E6F8D5 /* GoogleGeocoding.swift */; };
+		D0705AAA21337E5A00E6F8D5 /* GetCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0705AA921337E5A00E6F8D5 /* GetCoordinates.swift */; };
 		D08FDCA0210BF76B007F6C5F /* Boondocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FDC9F210BF76B007F6C5F /* Boondocking.swift */; };
 		D08FDCA2210BF828007F6C5F /* BoondockingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FDCA1210BF828007F6C5F /* BoondockingController.swift */; };
 		D098E06C20FD0B8700DB4866 /* GoogleDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */; };
@@ -75,6 +76,7 @@
 		D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampgroundPhotosViewController.swift; path = Views/CampgroundPhotosViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0705AA521337B9A00E6F8D5 /* GoogleGeocodingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleGeocodingController.swift; sourceTree = "<group>"; };
 		D0705AA721337BCD00E6F8D5 /* GoogleGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleGeocoding.swift; sourceTree = "<group>"; };
+		D0705AA921337E5A00E6F8D5 /* GetCoordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCoordinates.swift; sourceTree = "<group>"; };
 		D08FDC9F210BF76B007F6C5F /* Boondocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boondocking.swift; sourceTree = "<group>"; };
 		D08FDCA1210BF828007F6C5F /* BoondockingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoondockingController.swift; sourceTree = "<group>"; };
 		D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDataProvider.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				D0A991E62103992400698EF1 /* Constants.swift */,
+				D0705AA921337E5A00E6F8D5 /* GetCoordinates.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				D098E06C20FD0B8700DB4866 /* GoogleDataProvider.swift in Sources */,
 				D0A991E72103992400698EF1 /* Constants.swift in Sources */,
 				D066C0FA2106C44100B71E41 /* HikingTrailController.swift in Sources */,
+				D0705AAA21337E5A00E6F8D5 /* GetCoordinates.swift in Sources */,
 				D0C5E08B20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift in Sources */,
 				D098E07420FD0C7900DB4866 /* MarkerInfoView.swift in Sources */,
 				D066C0F82106C2DC00B71E41 /* HikingTrail.swift in Sources */,
