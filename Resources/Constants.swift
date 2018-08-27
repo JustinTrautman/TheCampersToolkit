@@ -18,16 +18,16 @@ import Foundation
 struct Constants {
     
     // API Keys
-    static let googleApiKey = "AIzaSyA9RgT5S0loqGv-FjWWTPhewZCJNPz15cU"
-    static let openWeatherApiKey = "a8bddda5d09b2ccee3558a1696c13e46"
-    static let activeApiKey = "94wwegsv6du7p8gtxqy8k45j"
+    static let googleApiKey = "apikey"
+    static let openWeatherApiKey = "apikey"
+    static let activeApiKey = "apikey"
     
     // Google ad IDs
-    static let applicationID = "ca-app-pub-9858721852306266~1154748272"
+    static let applicationID = "appID"
     
     // Real Ad Unit ID
-//  static let adUnitID = "ca-app-pub-9858721852306266/6079771892"
+//  static let adUnitID = "unitID"
     
     // Testing ad Unit ID
-    static let adUnitID = "ca-app-pub-3940256099942544/2934735716"
+    static let adUnitID = "unitID"
 }
