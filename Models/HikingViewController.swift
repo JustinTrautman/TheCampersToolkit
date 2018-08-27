@@ -26,6 +26,8 @@ class HikingViewController: UIViewController {
     static let shared = HikingViewController()
     var trails: [Trails]?
     
+    var coordinates: [Results]?
+    
     lazy var adBannerView: GADBannerView = {
         
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -45,34 +47,11 @@ class HikingViewController: UIViewController {
         hikingTableView.dataSource = self
         
         hikingTableView.tableFooterView = UIView()
-
+        
         reloadTableView()
         
         // Load Ad Banner
         adBannerView.load(GADRequest())
-    }
-    
-    public func getLocationFromAddress(address : String) -> CLLocationCoordinate2D {
-        var lat : Double = 0.0
-        var lon : Double = 0.0
-        
-        do {
-            
-            let url = String(format: "https://maps.google.com/maps/api/geocode/json?sensor=false&address=%@&key=\(Constants.googleApiKey)", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
-            let result = try Data(contentsOf: URL(string: url)!)
-            let json = try JSON(data: result)
-            
-            lat = json["results"][0]["geometry"]["location"]["lat"].doubleValue
-            lon = json["results"][0]["geometry"]["location"]["lng"].doubleValue
-            
-            print(lat)
-            print(lon)
-            
-        } catch let error {
-            print(error)
-        }
-        
-        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
     
     //     MARK: - Navigation
@@ -122,16 +101,23 @@ extension HikingViewController: UISearchBarDelegate {
         hikingSearchBar.resignFirstResponder()
         guard let searchText = hikingSearchBar.text else { return }
         
-        let address = getLocationFromAddress(address: searchText)
-        let latitude = "\(address.latitude)"
-        let longitude = "\(address.longitude)"
-        
-        HikingTrailController.fetchHikingTrailsNear(latitude: latitude, longitude: longitude) { (trails) in
-            if let trails = trails {
-                self.trails = trails
-            }
+        GoogleGeocodingController.getCoordinatesFrom(adress: searchText) { (coordinates) in
             
-            self.reloadTableView()
+            if let coordinates = coordinates {
+                if let location = coordinates[0].geometry?.location {
+                    self.coordinates = coordinates
+                    
+                    guard let latitude = location.lat,
+                        let longitude = location.lng else { return }
+                    
+                    HikingTrailController.fetchHikingTrailsNear(latitude: "\(latitude)", longitude: "\(longitude)") { (trails) in
+                        if let trails = trails {
+                            self.trails = trails
+                        }
+                        self.reloadTableView()
+                    }
+                }
+            }
         }
     }
 }
@@ -141,11 +127,11 @@ extension HikingViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return adBannerView
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return adBannerView.frame.height
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let trails = trails else { return 0 }
         
@@ -166,4 +152,3 @@ extension HikingViewController : UITableViewDelegate, UITableViewDataSource {
         hikingTableView.deselectRow(at: indexPath, animated: true)
     }
 }
-

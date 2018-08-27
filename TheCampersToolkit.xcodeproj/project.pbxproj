@@ -24,6 +24,8 @@
 		D066C0FA2106C44100B71E41 /* HikingTrailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0F92106C44100B71E41 /* HikingTrailController.swift */; };
 		D066C0FC210762A300B71E41 /* HikingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0FB210762A300B71E41 /* HikingDetailViewController.swift */; };
 		D06AA8412105295C00B74FCB /* CampgroundPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */; };
+		D0705AA621337B9A00E6F8D5 /* GoogleGeocodingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0705AA521337B9A00E6F8D5 /* GoogleGeocodingController.swift */; };
+		D0705AA821337BCD00E6F8D5 /* GoogleGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0705AA721337BCD00E6F8D5 /* GoogleGeocoding.swift */; };
 		D08FDCA0210BF76B007F6C5F /* Boondocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FDC9F210BF76B007F6C5F /* Boondocking.swift */; };
 		D08FDCA2210BF828007F6C5F /* BoondockingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FDCA1210BF828007F6C5F /* BoondockingController.swift */; };
 		D098E06C20FD0B8700DB4866 /* GoogleDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */; };
@@ -71,6 +73,8 @@
 		D066C0F92106C44100B71E41 /* HikingTrailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingTrailController.swift; sourceTree = "<group>"; };
 		D066C0FB210762A300B71E41 /* HikingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HikingDetailViewController.swift; path = "Model Controllers/HikingDetailViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampgroundPhotosViewController.swift; path = Views/CampgroundPhotosViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0705AA521337B9A00E6F8D5 /* GoogleGeocodingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleGeocodingController.swift; sourceTree = "<group>"; };
+		D0705AA721337BCD00E6F8D5 /* GoogleGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleGeocoding.swift; sourceTree = "<group>"; };
 		D08FDC9F210BF76B007F6C5F /* Boondocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boondocking.swift; sourceTree = "<group>"; };
 		D08FDCA1210BF828007F6C5F /* BoondockingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoondockingController.swift; sourceTree = "<group>"; };
 		D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDataProvider.swift; sourceTree = "<group>"; };
@@ -221,6 +225,7 @@
 				D03DAD25213249FC009B4DAB /* ForecastedWeather.swift */,
 				D066C0F72106C2DC00B71E41 /* HikingTrail.swift */,
 				D08FDC9F210BF76B007F6C5F /* Boondocking.swift */,
+				D0705AA721337BCD00E6F8D5 /* GoogleGeocoding.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -233,6 +238,7 @@
 				D066C0F92106C44100B71E41 /* HikingTrailController.swift */,
 				D08FDCA1210BF828007F6C5F /* BoondockingController.swift */,
 				D03DAD2721324E63009B4DAB /* ForecastedWeatherController.swift */,
+				D0705AA521337B9A00E6F8D5 /* GoogleGeocodingController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -395,6 +401,7 @@
 			files = (
 				D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */,
 				D04D3FE9210536AD00629B02 /* WeatherViewController.swift in Sources */,
+				D0705AA821337BCD00E6F8D5 /* GoogleGeocoding.swift in Sources */,
 				D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */,
 				D03DAD26213249FC009B4DAB /* ForecastedWeather.swift in Sources */,
 				D066C0F22106206E00B71E41 /* ReviewDetailViewController.swift in Sources */,
@@ -405,6 +412,7 @@
 				D022B1E620FD2ADF0012025A /* GoogleDetailController.swift in Sources */,
 				D0234C15210D00B500038CAF /* XMLParser.swift in Sources */,
 				D098E07620FD110000DB4866 /* UIView.swift in Sources */,
+				D0705AA621337B9A00E6F8D5 /* GoogleGeocodingController.swift in Sources */,
 				D0E5295F210CB6EE009E6435 /* TravelMapViewController.swift in Sources */,
 				D04D3FED2105413F00629B02 /* CurrentWeatherController.swift in Sources */,
 				D010EE372104FE0D007EE483 /* CampgroundReviewCell.swift in Sources */,

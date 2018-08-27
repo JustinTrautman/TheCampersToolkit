@@ -11,7 +11,7 @@
  TODO: Implement visibility on the weather screen. Convert meters to miles...
  TODO: Implement air pressure on the weather screen if room...
  ✔ TODO: Implement Sunrise and sunset times. Convert from Unix time to human time...
- TODO: Implement 5 day forcast...
+ TODO: Implement weekly forcast...
  
  ----------------------------------------------------------------------------------------
  */
@@ -20,6 +20,7 @@
 import UIKit
 import GoogleMaps
 import SwiftyJSON
+import GoogleMobileAds
 
 class WeatherViewController: UIViewController {
     
@@ -34,7 +35,6 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var humidityLabel: UILabel!
     @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var windSpeedImageView: UIImageView!
-    @IBOutlet weak var windDegreesLabel: UILabel!
     @IBOutlet weak var sunriseLabel: UILabel!
     @IBOutlet weak var sunsetLabel: UILabel!
     
@@ -42,12 +42,34 @@ class WeatherViewController: UIViewController {
     var campgrounds: Result?
     var weather: CampgroundWeatherData?
     var address: String?
-
+    
     var campgroundWeatherData: CampgroundWeatherData?
+    var forecastedWeatherData: ForecastedWeatherData?
+    
+    // Banner Ad Setup
+    var bannerView: GADBannerView!
+    
+    lazy var adBannerView: GADBannerView = {
+        
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = Constants.adUnitID
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
     
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup Ad Banner
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        
+        addBannerViewToView(bannerView)
+        
+        // Load Ad Banner
+        adBannerView.load(GADRequest())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,186 +82,190 @@ class WeatherViewController: UIViewController {
         
         if let campgroundsAddress = address {
             
-            let address = campgroundsAddress
-            let coordinatesFromAddress = getLocationFromAddress(address: address)
-            
-            print(address)
-            print(coordinatesFromAddress)
-            
-            let latitude = "\(coordinatesFromAddress.latitude)"
-            let longitude = "\(coordinatesFromAddress.longitude)"
-            
-            CurrentWeatherController.fetchCurrentWeatherOf(latitude: latitude, longitude: longitude) { (weather) in
-                if let weather = weather {
-                    self.campgroundWeatherData = weather
+            GoogleGeocodingController.getCoordinatesFrom(adress: campgroundsAddress) { (coordinates) in
+                if let coordinates = coordinates {
+                    let coordinatesFromAddress = coordinates[0].geometry?.location
                     
-                    DispatchQueue.main.async {
-                        
-                        self.addressLabel.text = address
-                        
-                        if let weather = weather.weather {
+                    print(coordinatesFromAddress)
+                    
+                    guard let latitude = coordinatesFromAddress?.lat,
+                        let longitude = coordinatesFromAddress?.lng else { return }
+                    
+                    CurrentWeatherController.fetchCurrentWeatherOf(latitude: "\(latitude)", longitude: "\(longitude)") { (weather) in
+                        if let weather = weather {
+                            self.campgroundWeatherData = weather
                             
-                            let weatherIndex = weather[0]
-                            if let shortWeatherDescription = weatherIndex.main {
-                                if let longWeatherDescription = weatherIndex.description {
+                            DispatchQueue.main.async {
+                                
+                                self.addressLabel.text = self.address
+                                
+                                if let weather = weather.weather {
                                     
-                                    self.weatherDescriptionLabel.text = "\(shortWeatherDescription); \(longWeatherDescription)"
-                                    
-                                    if shortWeatherDescription == "Clear" {
-                                        self.weatherImageView.image = UIImage(named: "sunny")
-                                    }
-                                    
-                                    if shortWeatherDescription == "Clouds" {
-                                        self.weatherImageView.image = UIImage(named: "cloudy")
-                                    }
-                                    
-                                    if shortWeatherDescription == "Rain" {
-                                        self.weatherImageView.image = UIImage(named: "rain")
-                                    }
-                                    
-                                    if longWeatherDescription == "thunderstorm" {
-                                        self.weatherImageView.image = UIImage(named: "thunder")
-                                    }
-                                    
-                                    if longWeatherDescription == "thunderstorm with heavy rain" {
-                                        self.weatherImageView.image = UIImage(named: "thunderWithRain")
-                                    }
-                                    
-                                    if shortWeatherDescription == "Drizzle" {
-                                        self.weatherImageView.image = UIImage(named: "lightRain")
-                                    }
-                                    
-                                    if shortWeatherDescription == "Snow" {
-                                        self.weatherImageView.image = UIImage(named: "snow")
-                                    }
-                                    
-                                    if shortWeatherDescription == "Haze" {
-                                        self.weatherImageView.image = UIImage(named: "haze")
-                                    }
-                                    
-                                    if shortWeatherDescription == "Smoke" {
-                                        self.weatherImageView.image = UIImage(named: "smoke")
+                                    let weatherIndex = weather[0]
+                                    if let shortWeatherDescription = weatherIndex.main {
+                                        if let longWeatherDescription = weatherIndex.description {
+                                            
+                                            self.weatherDescriptionLabel.text = "\(shortWeatherDescription); \(longWeatherDescription)"
+                                            
+                                            if shortWeatherDescription == "Clear" {
+                                                self.weatherImageView.image = UIImage(named: "sunny")
+                                            }
+                                            
+                                            if shortWeatherDescription == "Clouds" {
+                                                self.weatherImageView.image = UIImage(named: "cloudy")
+                                            }
+                                            
+                                            if shortWeatherDescription == "Rain" {
+                                                self.weatherImageView.image = UIImage(named: "rain")
+                                            }
+                                            
+                                            if longWeatherDescription == "thunderstorm" {
+                                                self.weatherImageView.image = UIImage(named: "thunder")
+                                            }
+                                            
+                                            if longWeatherDescription == "thunderstorm with heavy rain" {
+                                                self.weatherImageView.image = UIImage(named: "thunderWithRain")
+                                            }
+                                            
+                                            if shortWeatherDescription == "Drizzle" {
+                                                self.weatherImageView.image = UIImage(named: "lightRain")
+                                            }
+                                            
+                                            if shortWeatherDescription == "Snow" {
+                                                self.weatherImageView.image = UIImage(named: "snow")
+                                            }
+                                            
+                                            if shortWeatherDescription == "Haze" {
+                                                self.weatherImageView.image = UIImage(named: "haze")
+                                            }
+                                            
+                                            if shortWeatherDescription == "Smoke" {
+                                                self.weatherImageView.image = UIImage(named: "smoke")
+                                            }
+                                        }
                                     }
                                 }
-                            }
-                        }
-                        
-                        if let temp = weather.main?.temp?.roundToPlaces(places: 1) {
-                            self.temperatureLabel.text = "\(temp) ℉"
-                            
-                            if temp >= 90.0 {
-                                self.thermometerImageView.image = UIImage(named: "hot")
-                            }
-                            
-                            if temp <= 60.0 {
-                                self.thermometerImageView.image = UIImage(named: "lowTemp")
-                            }
-                            
-                            if temp <= 32.0 {
-                                self.thermometerImageView.image = UIImage(named: "cold")
                                 
+                                if let temp = weather.main?.temp?.roundToPlaces(places: 1) {
+                                    self.temperatureLabel.text = "\(temp) ℉"
+                                    
+                                    if temp >= 90.0 {
+                                        self.thermometerImageView.image = UIImage(named: "hot")
+                                    }
+                                    
+                                    if temp <= 60.0 {
+                                        self.thermometerImageView.image = UIImage(named: "lowTemp")
+                                    }
+                                    
+                                    if temp <= 32.0 {
+                                        self.thermometerImageView.image = UIImage(named: "cold")
+                                        
+                                    }
+                                }
+                                
+                                if let highTemp = weather.main?.tempMax {
+                                    self.highTempLabel.text = "\(highTemp.roundToPlaces(places: 1)) ℉"
+                                }
+                                
+                                if let lowTemp = weather.main?.tempMin {
+                                    self.lowTempLabel.text = "\(lowTemp.roundToPlaces(places: 1)) ℉"
+                                }
+                                
+                                if let humidity = weather.main?.humidity {
+                                    self.humidityLabel.text = "humidity \(humidity) %"
+                                }
+                                
+                                if let wind = weather.wind?.speed {
+                                    self.windLabel.text = "\(wind) mph"
+                                    
+                                    if wind <= 13 {
+                                        self.windSpeedImageView.image = UIImage(named: "windLow")
+                                    }
+                                    
+                                    if wind >= 13 {
+                                        self.windSpeedImageView.image = UIImage(named: "windMed")
+                                    }
+                                    
+                                    if wind >= 24 {
+                                        self.windSpeedImageView.image  = UIImage(named: "windHigh")
+                                    }
+                                }
+                                
+                                // Sunset and Sunrise
+                                if let sunrise = weather.sys?.sunrise {
+                                    
+                                    // Convert from UNIX time to human readable time
+                                    let date = NSDate(timeIntervalSince1970: Double(sunrise))
+                                    let dateFormatter = DateFormatter()
+                                    
+                                    dateFormatter.dateFormat = "hh:mm a"
+                                    
+                                    let dateString = dateFormatter.string(from: date as Date)
+                                    
+                                    print("The sunrise for \(campgroundsAddress) happens at \(dateString)")
+                                    self.sunriseLabel.text = dateString
+                                }
+                                
+                                if let sunset = weather.sys?.sunset {
+                                    
+                                    // Convert from UNIX time to human readable time
+                                    let date = NSDate(timeIntervalSince1970: Double(sunset))
+                                    let dateFormatter = DateFormatter()
+                                    
+                                    dateFormatter.dateFormat = "hh:mm a"
+                                    
+                                    let dateString = dateFormatter.string(from: date as Date)
+                                    
+                                    print("The sunset for \(campgroundsAddress) happens at \(dateString)")
+                                    self.sunsetLabel.text = dateString
+                                }
                             }
-                        }
-                        
-                        if let highTemp = weather.main?.tempMax {
-                            self.highTempLabel.text = "\(highTemp.roundToPlaces(places: 1)) ℉"
-                        }
-                        
-                        if let lowTemp = weather.main?.tempMin {
-                            self.lowTempLabel.text = "\(lowTemp.roundToPlaces(places: 1)) ℉"
-                        }
-                        
-                        if let humidity = weather.main?.humidity {
-                            self.humidityLabel.text = "humidity \(humidity) %"
-                        }
-                        
-                        if let wind = weather.wind?.speed {
-                            self.windLabel.text = "\(wind) mph"
-                            
-                            if wind <= 13 {
-                                self.windSpeedImageView.image = UIImage(named: "windLow")
-                            }
-                            
-                            if wind >= 13 {
-                                self.windSpeedImageView.image = UIImage(named: "windMed")
-                            }
-                            
-                            if wind >= 24 {
-                                self.windSpeedImageView.image  = UIImage(named: "windHigh")
-                            }
-                        }
-                        
-                        if let windDirection = weather.wind?.windDirection {
-                            
-                            if windDirection == 0 {
-                                self.windDegreesLabel.text = ""
-                            }
-                            
-                            if windDirection <= 22.5 || windDirection >= 337.5 {
-                                self.windDegreesLabel.text = "°N"
-                            }
-                            
-                            if windDirection <= 90 {
-                                self.windDegreesLabel.text = "°E"
-                            }
-                            
-                            if windDirection <= 270 {
-                                self.windDegreesLabel.text = "°W"
-                            }
-                        }
-                        
-                        // Sunset and Sunrise
-                        if let sunrise = weather.sys?.sunrise {
-                            
-                            // Convert from UNIX time to human readable time
-                            let date = NSDate(timeIntervalSince1970: Double(sunrise))
-                            let dateFormatter = DateFormatter()
-                            
-                            dateFormatter.dateFormat = "hh:mm a"
-                            
-                            let dateString = dateFormatter.string(from: date as Date)
-                            
-                            print("The sunrise for \(campgroundsAddress) happens at \(dateString)")
-                            self.sunriseLabel.text = dateString
-                        }
-                        
-                        if let sunset = weather.sys?.sunset {
-                            
-                            // Convert from UNIX time to human readable time
-                            let date = NSDate(timeIntervalSince1970: Double(sunset))
-                            let dateFormatter = DateFormatter()
-                            
-                            dateFormatter.dateFormat = "hh:mm a"
-                            
-                            let dateString = dateFormatter.string(from: date as Date)
-                            
-                            print("The sunset for \(campgroundsAddress) happens at \(dateString)")
-                            self.sunsetLabel.text = dateString
                         }
                     }
                 }
             }
+            //            ForeCastedWeaterController.fetchForecastedWeatherFrom(latitude: latitude, longitude: longitude) { (forecast) in
+            //                if let forecast = forecast {
+            //
+            //                }
+            //            }
         }
     }
     
-    public func getLocationFromAddress(address : String) -> CLLocationCoordinate2D {
-        var lat : Double = 0.0
-        var lon : Double = 0.0
-        
-        do {
-            
-            let url = String(format: "https://maps.googleapis.com/maps/api/geocode/json?&sensor=false&address=%@", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
-            let result = try Data(contentsOf: URL(string: url)!)
-            let json = try JSON(data: result)
-            
-            lat = json["results"][0]["geometry"]["location"]["lat"].doubleValue
-            lon = json["results"][0]["geometry"]["location"]["lng"].doubleValue
-            
-        }
-        catch let error{
-            print(error)
-        }
-        
-        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
     }
 }
+
+extension WeatherViewController : GADBannerViewDelegate {
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView!) {
+        print("Ad banner loaded successfully")
+        
+        addBannerViewToView(bannerView)
+        
+        // Reposition the banner ad to create a slide down effect
+        bannerView.alpha = 0
+        UIView.animate(withDuration: 0.5, animations: {
+            bannerView.alpha = 1
+        })
+    }
+}
+
