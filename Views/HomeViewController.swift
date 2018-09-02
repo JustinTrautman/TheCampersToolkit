@@ -22,7 +22,6 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
     // MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var searchThisAreaButton: UIButton!
     
     // MARK: - Properties
     private var searchedTypes = "campground"
@@ -54,17 +53,18 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
         searchBar.isHidden = true
     }
     
-    @IBAction func searchThisAreaButtonTapped(_ sender: Any) {
-    }
-    
     func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
         mapView.clear()
         
-        guard let searchText = searchBar.text,
+        guard var searchText = searchBar.text,
             let location = locationManager.location?.coordinate else { return }
         
-        var coordinates = GetCoordinates.getLocationFromAddress(address: searchText)
+        if searchText == "" {
+            searchText = "\(location.latitude) \(location.longitude)"
+            print(location)
+        }
         
+        var coordinates = GetCoordinates.getLocationFromAddress(address: searchText)
         
         if searchText == "" {
             coordinates = location
@@ -77,15 +77,6 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
                 self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 10, bearing: 0, viewingAngle: 0)
             }
         }
-    }
-    
-    @IBAction func refreshPlaces(_ sender: Any) {
-        
-        guard let searchText = searchBar.text else { return }
-        
-        let coordinates = GetCoordinates.getLocationFromAddress(address: searchText)
-        fetchNearbyPlaces(coordinate: coordinates)
-        
     }
 }
 

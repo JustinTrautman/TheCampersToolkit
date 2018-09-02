@@ -52,7 +52,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Hiking trails near..." translatesAutoresizingMaskIntoConstraints="NO" id="P0D-5B-SAa">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Hiking trails near..." showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P0D-5B-SAa">
                                 <rect key="frame" x="0.0" y="64" width="320" height="56"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                             </searchBar>
@@ -1079,19 +1079,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fW6-xh-0Yi">
-                                <rect key="frame" x="0.0" y="82" width="320" height="418"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="fW6-xh-0Yi" secondAttribute="height" multiplier="64:91" constant="26.021978021977986" id="HgT-4E-rVj"/>
-                                </constraints>
+                            <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fW6-xh-0Yi">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fW6-xh-0Yi" firstAttribute="leading" secondItem="2ep-bg-9B1" secondAttribute="leading" id="LIS-Qv-Dnk"/>
-                            <constraint firstItem="2ep-bg-9B1" firstAttribute="trailing" secondItem="fW6-xh-0Yi" secondAttribute="trailing" id="VF2-o0-xFz"/>
-                            <constraint firstItem="2ep-bg-9B1" firstAttribute="bottom" secondItem="fW6-xh-0Yi" secondAttribute="bottom" constant="19" id="pPH-4q-CMO"/>
-                            <constraint firstItem="fW6-xh-0Yi" firstAttribute="top" secondItem="2ep-bg-9B1" secondAttribute="top" constant="18" id="ydn-ss-av5"/>
+                            <constraint firstItem="fW6-xh-0Yi" firstAttribute="leading" secondItem="2ep-bg-9B1" secondAttribute="leading" id="Fx7-cR-WU5"/>
+                            <constraint firstItem="fW6-xh-0Yi" firstAttribute="top" secondItem="2ep-bg-9B1" secondAttribute="top" id="GES-kS-u5v"/>
+                            <constraint firstItem="2ep-bg-9B1" firstAttribute="bottom" secondItem="fW6-xh-0Yi" secondAttribute="bottom" id="QkA-UB-xh3"/>
+                            <constraint firstItem="fW6-xh-0Yi" firstAttribute="trailing" secondItem="2ep-bg-9B1" secondAttribute="trailing" id="jpc-lS-89A"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2ep-bg-9B1"/>
                     </view>

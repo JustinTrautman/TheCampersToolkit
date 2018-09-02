@@ -120,6 +120,10 @@ extension HikingViewController: UISearchBarDelegate {
             }
         }
     }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        hikingSearchBar.resignFirstResponder()
+    }
 }
 
 extension HikingViewController : UITableViewDelegate, UITableViewDataSource {

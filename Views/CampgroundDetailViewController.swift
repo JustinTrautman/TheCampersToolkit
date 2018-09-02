@@ -248,6 +248,10 @@ class CampgroundDetailViewController: UIViewController {
             guard let detailVC = segue.destination as? CampgroundPhotosViewController else { return }
             
             detailVC.photos = campgrounds?.photos
+            
+            if campgrounds?.photos?.count == nil {
+                showNoPhotosAlert()
+            }
         }
     }
     
@@ -261,6 +265,17 @@ class CampgroundDetailViewController: UIViewController {
     func openWebsiteUrl(url: String) {
         if let url = NSURL(string: url) {
             UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        }
+    }
+    
+    func showNoPhotosAlert() {
+        
+        if let campgroundName = campgrounds?.name {
+        
+        let noPhotosAlert = UIAlertController(title: nil, message: "\(campgroundName) has no photos", preferredStyle: .alert)
+        noPhotosAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        self.present(noPhotosAlert, animated: true)
         }
     }
 }
