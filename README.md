@@ -4,5 +4,4 @@ The Camper’s Toolkit offers valuable tools for campers and outdoorsy people of
 
 ![Output sample](https://github.com/JustinTrautman/TheCampersToolkit/blob/master/tct.gif)
 
-Current version: 1.0
-Next version: Weather forcasting and cell signal data.
+Current version: 1.1
