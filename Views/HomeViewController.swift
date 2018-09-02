@@ -27,7 +27,8 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
     private var searchedTypes = "campground"
     private let locationManager = CLLocationManager()
     private let dataProvider = GoogleDataProvider()
-    private let searchRadius: Double = 321869
+    private let searchRadius: Double = 50000
+    
     var campground: GooglePlace?
     
     // MARK: - View Lifecycle
@@ -38,6 +39,7 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
         locationManager.requestWhenInUseAuthorization()
         mapView.delegate = self
         searchBar.delegate = self
+        
     }
     
     // MARK: - Actions
@@ -51,37 +53,18 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
         searchBar.isHidden = true
     }
     
-    public func getLocationFromAddress(address : String) -> CLLocationCoordinate2D {
-        var lat : Double = 0.0
-        var lon : Double = 0.0
-        
-        do {
-            
-            let url = String(format: "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=%@&key=\(Constants.googleApiKey)", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
-            let result = try Data(contentsOf: URL(string: url)!)
-            let json = try JSON(data: result)
-            
-            lat = json["results"][0]["geometry"]["location"]["lat"].doubleValue
-            lon = json["results"][0]["geometry"]["location"]["lng"].doubleValue
-            
-            print(lat)
-            print(lon)
-            
-        }
-        catch let error{
-            print(error)
-        }
-        
-        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
-    }
-    
     func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
         mapView.clear()
         
-        guard let searchText = searchBar.text,
+        guard var searchText = searchBar.text,
             let location = locationManager.location?.coordinate else { return }
         
-        var coordinates = getLocationFromAddress(address: searchText)
+        if searchText == "" {
+            searchText = "\(location.latitude) \(location.longitude)"
+            print(location)
+        }
+        
+        var coordinates = GetCoordinates.getLocationFromAddress(address: searchText)
         
         if searchText == "" {
             coordinates = location
@@ -94,15 +77,6 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
                 self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 10, bearing: 0, viewingAngle: 0)
             }
         }
-    }
-    
-    @IBAction func refreshPlaces(_ sender: Any) {
-        
-        guard let searchText = searchBar.text else { return }
-        
-        let coordinates = getLocationFromAddress(address: searchText)
-        fetchNearbyPlaces(coordinate: coordinates)
-        
     }
 }
 
@@ -155,7 +129,7 @@ extension HomeViewController: GMSMapViewDelegate {
         
         return false
     }
- 
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "campgroundDetail" {
@@ -166,6 +140,8 @@ extension HomeViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        
+        self.navigationController?.isNavigationBarHidden = false
         
         let campgroundMarker = marker as? PlaceMarker
         performSegue(withIdentifier: "campgroundDetail", sender: campgroundMarker?.place)
@@ -180,6 +156,12 @@ extension HomeViewController: GMSMapViewDelegate {
         fetchNearbyPlaces(coordinate: coordinate)
         return false
     }
+    
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        print("Changed Position")
+        
+        // TODO: Feature in V. 1.5 - Allow user to update their search based on where they scrolled to on the map.
+    }
 }
 
 extension HomeViewController: UISearchBarDelegate {
@@ -192,8 +174,7 @@ extension HomeViewController: UISearchBarDelegate {
         
         guard let searchText = searchBar.text else { return }
         
-        let coordinates = getLocationFromAddress(address: searchText)
+        let coordinates = GetCoordinates.getLocationFromAddress(address: searchText)
         fetchNearbyPlaces(coordinate: coordinates)
     }
 }
-

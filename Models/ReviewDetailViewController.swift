@@ -13,6 +13,7 @@
 
 
 import UIKit
+import GoogleMobileAds
 
 class ReviewDetailViewController: UIViewController {
 
@@ -25,15 +26,57 @@ class ReviewDetailViewController: UIViewController {
 
     // MARK: Properties
     var reviews: Reviews?
-
+    
+    // Banner Ad Setup
+    var bannerView: GADBannerView!
+    
+    lazy var adBannerView: GADBannerView = {
+        
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        adBannerView.adUnitID = Constants.adUnitID
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Setup Ad Banner
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        
+        addBannerViewToView(bannerView)
+        
+        // Load Ad Banner
+        adBannerView.load(GADRequest())
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateViews()
+    }
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
     }
 
     func updateViews() {
@@ -83,5 +126,20 @@ class ReviewDetailViewController: UIViewController {
         reviewerNameLabel.text = reviews.authorName
         reviewTextView.text = reviews.text
         reviewTimestamp.text = reviews.relativeTimeDescription
+    }
+}
+
+extension ReviewDetailViewController : GADBannerViewDelegate {
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView!) {
+        print("Ad banner loaded successfully")
+        
+        addBannerViewToView(bannerView)
+        
+        // Reposition the banner ad to create a slide down effect
+        bannerView.alpha = 0
+        UIView.animate(withDuration: 0.5, animations: {
+            bannerView.alpha = 1
+        })
     }
 }

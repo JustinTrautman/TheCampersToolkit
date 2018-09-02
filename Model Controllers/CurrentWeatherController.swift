@@ -50,7 +50,7 @@ class CurrentWeatherController {
                 self.currentWeather = currentWeather
                 completion(currentWeather)
             } catch let error {
-                print("Error decoding campground data. Exiting with error: \(error) \(error.localizedDescription)")
+                print("Error decoding weather data. Exiting with error: \(error) \(error.localizedDescription)")
             }
         }.resume()
     }

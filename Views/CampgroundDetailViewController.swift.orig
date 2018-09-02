@@ -225,12 +225,18 @@ class CampgroundDetailViewController: UIViewController {
             guard let detailVC = segue.destination as? HikingViewController else { return }
             
             guard let searchText = campgroundAddressLabel.text else { return }
+<<<<<<< HEAD
             GoogleGeocodingController.getCoordinatesFrom(adress: searchText) { (coord) in
                 if let coord = coord {
                     let address = coord[0].geometry?.location
                     
             guard let latitude = address?.lat,
                 let longitude = address?.lng else { return }
+=======
+            let address = GetCoordinates.getLocationFromAddress(address: searchText)
+            let latitude = "\(address.latitude)"
+            let longitude = "\(address.longitude)"
+>>>>>>> develop
             
             HikingTrailController.fetchHikingTrailsNear(latitude: "\(latitude)", longitude: "\(longitude)") { (trails) in
                 if let _ = trails {
@@ -248,10 +254,6 @@ class CampgroundDetailViewController: UIViewController {
             guard let detailVC = segue.destination as? CampgroundPhotosViewController else { return }
             
             detailVC.photos = campgrounds?.photos
-            
-            if campgrounds?.photos?.count == nil {
-                showNoPhotosAlert()
-            }
         }
     }
     
@@ -265,17 +267,6 @@ class CampgroundDetailViewController: UIViewController {
     func openWebsiteUrl(url: String) {
         if let url = NSURL(string: url) {
             UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
-        }
-    }
-    
-    func showNoPhotosAlert() {
-        
-        if let campgroundName = campgrounds?.name {
-        
-        let noPhotosAlert = UIAlertController(title: nil, message: "\(campgroundName) has no photos", preferredStyle: .alert)
-        noPhotosAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
-        self.present(noPhotosAlert, animated: true)
         }
     }
 }

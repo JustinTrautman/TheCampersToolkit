@@ -85,6 +85,17 @@ class WeatherViewController: UIViewController {
             GoogleGeocodingController.getCoordinatesFrom(adress: campgroundsAddress) { (coordinates) in
                 if let coordinates = coordinates {
                     let coordinatesFromAddress = coordinates[0].geometry?.location
+<<<<<<< HEAD
+                    
+                    print(coordinatesFromAddress)
+                    
+                    guard let latitude = coordinatesFromAddress?.lat,
+                        let longitude = coordinatesFromAddress?.lng else { return }
+                    
+                    CurrentWeatherController.fetchCurrentWeatherOf(latitude: "\(latitude)", longitude: "\(longitude)") { (weather) in
+                        if let weather = weather {
+                            self.campgroundWeatherData = weather
+=======
             
             print(coordinatesFromAddress)
             
@@ -100,68 +111,136 @@ class WeatherViewController: UIViewController {
                         self.addressLabel.text = self.address
                         
                         if let weather = weather.weather {
+>>>>>>> develop
                             
-                            let weatherIndex = weather[0]
-                            if let shortWeatherDescription = weatherIndex.main {
-                                if let longWeatherDescription = weatherIndex.description {
+                            DispatchQueue.main.async {
+                                
+                                self.addressLabel.text = self.address
+                                
+                                if let weather = weather.weather {
                                     
-                                    self.weatherDescriptionLabel.text = "\(shortWeatherDescription); \(longWeatherDescription)"
+                                    let weatherIndex = weather[0]
+                                    if let shortWeatherDescription = weatherIndex.main {
+                                        if let longWeatherDescription = weatherIndex.description {
+                                            
+                                            self.weatherDescriptionLabel.text = "\(shortWeatherDescription); \(longWeatherDescription)"
+                                            
+                                            if shortWeatherDescription == "Clear" {
+                                                self.weatherImageView.image = UIImage(named: "sunny")
+                                            }
+                                            
+                                            if shortWeatherDescription == "Clouds" {
+                                                self.weatherImageView.image = UIImage(named: "cloudy")
+                                            }
+                                            
+                                            if shortWeatherDescription == "Rain" {
+                                                self.weatherImageView.image = UIImage(named: "rain")
+                                            }
+                                            
+                                            if longWeatherDescription == "thunderstorm" {
+                                                self.weatherImageView.image = UIImage(named: "thunder")
+                                            }
+                                            
+                                            if longWeatherDescription == "thunderstorm with heavy rain" {
+                                                self.weatherImageView.image = UIImage(named: "thunderWithRain")
+                                            }
+                                            
+                                            if shortWeatherDescription == "Drizzle" {
+                                                self.weatherImageView.image = UIImage(named: "lightRain")
+                                            }
+                                            
+                                            if shortWeatherDescription == "Snow" {
+                                                self.weatherImageView.image = UIImage(named: "snow")
+                                            }
+                                            
+                                            if shortWeatherDescription == "Haze" {
+                                                self.weatherImageView.image = UIImage(named: "haze")
+                                            }
+                                            
+                                            if shortWeatherDescription == "Smoke" {
+                                                self.weatherImageView.image = UIImage(named: "smoke")
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                if let temp = weather.main?.temp?.roundToPlaces(places: 1) {
+                                    self.temperatureLabel.text = "\(temp) ℉"
                                     
-                                    if shortWeatherDescription == "Clear" {
-                                        self.weatherImageView.image = UIImage(named: "sunny")
+                                    if temp >= 90.0 {
+                                        self.thermometerImageView.image = UIImage(named: "hot")
                                     }
                                     
-                                    if shortWeatherDescription == "Clouds" {
-                                        self.weatherImageView.image = UIImage(named: "cloudy")
+                                    if temp <= 60.0 {
+                                        self.thermometerImageView.image = UIImage(named: "lowTemp")
                                     }
                                     
-                                    if shortWeatherDescription == "Rain" {
-                                        self.weatherImageView.image = UIImage(named: "rain")
+                                    if temp <= 32.0 {
+                                        self.thermometerImageView.image = UIImage(named: "cold")
+                                        
+                                    }
+                                }
+                                
+                                if let highTemp = weather.main?.tempMax {
+                                    self.highTempLabel.text = "\(highTemp.roundToPlaces(places: 1)) ℉"
+                                }
+                                
+                                if let lowTemp = weather.main?.tempMin {
+                                    self.lowTempLabel.text = "\(lowTemp.roundToPlaces(places: 1)) ℉"
+                                }
+                                
+                                if let humidity = weather.main?.humidity {
+                                    self.humidityLabel.text = "humidity \(humidity) %"
+                                }
+                                
+                                if let wind = weather.wind?.speed {
+                                    self.windLabel.text = "\(wind) mph"
+                                    
+                                    if wind <= 13 {
+                                        self.windSpeedImageView.image = UIImage(named: "windLow")
                                     }
                                     
-                                    if longWeatherDescription == "thunderstorm" {
-                                        self.weatherImageView.image = UIImage(named: "thunder")
+                                    if wind >= 13 {
+                                        self.windSpeedImageView.image = UIImage(named: "windMed")
                                     }
                                     
-                                    if longWeatherDescription == "thunderstorm with heavy rain" {
-                                        self.weatherImageView.image = UIImage(named: "thunderWithRain")
+                                    if wind >= 24 {
+                                        self.windSpeedImageView.image  = UIImage(named: "windHigh")
                                     }
+                                }
+                                
+                                // Sunset and Sunrise
+                                if let sunrise = weather.sys?.sunrise {
                                     
-                                    if shortWeatherDescription == "Drizzle" {
-                                        self.weatherImageView.image = UIImage(named: "lightRain")
-                                    }
+                                    // Convert from UNIX time to human readable time
+                                    let date = NSDate(timeIntervalSince1970: Double(sunrise))
+                                    let dateFormatter = DateFormatter()
                                     
-                                    if shortWeatherDescription == "Snow" {
-                                        self.weatherImageView.image = UIImage(named: "snow")
-                                    }
+                                    dateFormatter.dateFormat = "hh:mm a"
                                     
-                                    if shortWeatherDescription == "Haze" {
-                                        self.weatherImageView.image = UIImage(named: "haze")
-                                    }
+                                    let dateString = dateFormatter.string(from: date as Date)
                                     
-                                    if shortWeatherDescription == "Smoke" {
-                                        self.weatherImageView.image = UIImage(named: "smoke")
-                                    }
+                                    print("The sunrise for \(campgroundsAddress) happens at \(dateString)")
+                                    self.sunriseLabel.text = dateString
+                                }
+                                
+                                if let sunset = weather.sys?.sunset {
+                                    
+                                    // Convert from UNIX time to human readable time
+                                    let date = NSDate(timeIntervalSince1970: Double(sunset))
+                                    let dateFormatter = DateFormatter()
+                                    
+                                    dateFormatter.dateFormat = "hh:mm a"
+                                    
+                                    let dateString = dateFormatter.string(from: date as Date)
+                                    
+                                    print("The sunset for \(campgroundsAddress) happens at \(dateString)")
+                                    self.sunsetLabel.text = dateString
                                 }
                             }
                         }
-                        
-                        if let temp = weather.main?.temp?.roundToPlaces(places: 1) {
-                            self.temperatureLabel.text = "\(temp) ℉"
-                            
-                            if temp >= 90.0 {
-                                self.thermometerImageView.image = UIImage(named: "hot")
-                            }
-                            
-                            if temp <= 60.0 {
-                                self.thermometerImageView.image = UIImage(named: "lowTemp")
-                            }
-                            
-                            if temp <= 32.0 {
-                                self.thermometerImageView.image = UIImage(named: "cold")
-                                
-                            }
-                        }
+<<<<<<< HEAD
+=======
                         
                         if let highTemp = weather.main?.tempMax {
                             self.highTempLabel.text = "\(highTemp.roundToPlaces(places: 1)) ℉"
@@ -218,9 +297,15 @@ class WeatherViewController: UIViewController {
                             
                             print("The sunset for \(campgroundsAddress) happens at \(dateString)")
                             self.sunsetLabel.text = dateString
+>>>>>>> develop
                     }
                 }
             }
+            //            ForeCastedWeaterController.fetchForecastedWeatherFrom(latitude: latitude, longitude: longitude) { (forecast) in
+            //                if let forecast = forecast {
+            //
+            //                }
+            //            }
         }
     }
 }
@@ -268,3 +353,4 @@ extension WeatherViewController : GADBannerViewDelegate {
         })
     }
 }
+

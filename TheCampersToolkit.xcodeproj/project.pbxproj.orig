@@ -213,7 +213,11 @@
 <<<<<<< HEAD
 =======
 				D0A991E62103992400698EF1 /* Constants.swift */,
+<<<<<<< HEAD
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
+=======
 				D0763E1D2133004D00EE5210 /* GetCoordinates.swift */,
+>>>>>>> a4a81f91d0c3c6dcfa8efc1f68be6135c69ebf05
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -262,8 +266,11 @@
 				D03DAD25213249FC009B4DAB /* ForecastedWeather.swift */,
 				D066C0F72106C2DC00B71E41 /* HikingTrail.swift */,
 				D08FDC9F210BF76B007F6C5F /* Boondocking.swift */,
-				D0763E1F213304E100EE5210 /* GoogleGeocoding.swift */,
+<<<<<<< HEAD
 >>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
+=======
+				D0763E1F213304E100EE5210 /* GoogleGeocoding.swift */,
+>>>>>>> a4a81f91d0c3c6dcfa8efc1f68be6135c69ebf05
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -277,9 +284,12 @@
 				D04D3FEC2105413F00629B02 /* CurrentWeatherController.swift */,
 				D066C0F92106C44100B71E41 /* HikingTrailController.swift */,
 				D08FDCA1210BF828007F6C5F /* BoondockingController.swift */,
+<<<<<<< HEAD
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
+=======
 				D03DAD2721324E63009B4DAB /* ForecastedWeatherController.swift */,
 				D0763E2121330AB200EE5210 /* GoogleGeocodingController.swift */,
->>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
+>>>>>>> a4a81f91d0c3c6dcfa8efc1f68be6135c69ebf05
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -288,10 +298,13 @@
 			isa = PBXGroup;
 			children = (
 <<<<<<< HEAD
+<<<<<<< HEAD
 				D0C5E07A20F97CA300210FC1 /* HomeViewController.swift */,
 =======
 				D0C5E08C20F9A6D900210FC1 /* FilterResultsTableViewController.swift */,
 				D0C5E08E20F9A6EC00210FC1 /* FilterViewController.swift */,
+=======
+>>>>>>> a4a81f91d0c3c6dcfa8efc1f68be6135c69ebf05
 				D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */,
 				D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */,
 				D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */,
@@ -449,11 +462,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0763E20213304E100EE5210 /* GoogleGeocoding.swift in Sources */,
+<<<<<<< HEAD
 <<<<<<< HEAD
 				D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */,
 				D0C5E07B20F97CA300210FC1 /* HomeViewController.swift in Sources */,
 =======
+=======
+				D0763E20213304E100EE5210 /* GoogleGeocoding.swift in Sources */,
+>>>>>>> a4a81f91d0c3c6dcfa8efc1f68be6135c69ebf05
 				D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */,
 				D04D3FE9210536AD00629B02 /* WeatherViewController.swift in Sources */,
 				D0705AA821337BCD00E6F8D5 /* GoogleGeocoding.swift in Sources */,

@@ -34,16 +34,11 @@ class HikingDetailViewController: UIViewController {
     // MARK: - Properties
     let scrollViewSize = CGSize(width: 375, height: 900)
     
-    var trails: Trails? {
-        didSet {
-            print("trail was set")
-        }
-    }
+    var trails: Trails?
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("called first")
         
         scrollView.isDirectionalLockEnabled = true
         scrollView.contentOffset.x = 0
@@ -52,7 +47,7 @@ class HikingDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("the will appear")
+        
         updateViews()
     }
     
