@@ -57,7 +57,6 @@ class CampgroundPhotosViewController: UIViewController {
 extension CampgroundPhotosViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         guard let unwrappedPhotos = GoogleDetailController.campgrounds?.photos else { return 0 }
         
         return unwrappedPhotos.count

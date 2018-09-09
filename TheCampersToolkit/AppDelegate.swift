@@ -24,12 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Initialize the Google Mobile Ads SDK.
         GADMobileAds.configure(withApplicationID: Constants.applicationID)
-        
-        GoogleGeocodingController.getCoordinatesFrom(adress: "33111 N Rimrose Dr. Chattaroy, WA") { (coordinates) in
-            if let coordinates = coordinates {
-                print("Yo, got some coordinates for ya")
-            }
-        }
                 
         return true
     }

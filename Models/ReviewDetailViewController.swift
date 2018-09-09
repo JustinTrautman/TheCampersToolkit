@@ -46,7 +46,6 @@ class ReviewDetailViewController: UIViewController {
         
         // Setup Ad Banner
         bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-        
         addBannerViewToView(bannerView)
         
         // Load Ad Banner

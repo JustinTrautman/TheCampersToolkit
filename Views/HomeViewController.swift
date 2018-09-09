@@ -14,10 +14,8 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
-import GooglePlacePicker
-import SwiftyJSON
 
-class HomeViewController: UIViewController, UISearchControllerDelegate {
+class HomeViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
@@ -27,7 +25,7 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
     private var searchedTypes = "campground"
     private let locationManager = CLLocationManager()
     private let dataProvider = GoogleDataProvider()
-    private let searchRadius: Double = 50000
+    private let searchRadius: Double = 50000 // <<< 31 Miles. Max allowed by Google.
     
     var campground: GooglePlace?
     
@@ -39,18 +37,12 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
         locationManager.requestWhenInUseAuthorization()
         mapView.delegate = self
         searchBar.delegate = self
-        
     }
     
     // MARK: - Actions
     @IBAction func searchIconTapped(_ sender: UIBarButtonItem) {
-        self.navigationController?.isNavigationBarHidden = true
+        navigationController?.isNavigationBarHidden = true
         searchBar.isHidden = false
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.navigationController?.isNavigationBarHidden = false
-        searchBar.isHidden = true
     }
     
     func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
@@ -61,7 +53,6 @@ class HomeViewController: UIViewController, UISearchControllerDelegate {
         
         if searchText == "" {
             searchText = "\(location.latitude) \(location.longitude)"
-            print(location)
         }
         
         var coordinates = GetCoordinates.getLocationFromAddress(address: searchText)
@@ -159,7 +150,6 @@ extension HomeViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         print("Changed Position")
-        
         // TODO: Feature in V. 1.5 - Allow user to update their search based on where they scrolled to on the map.
     }
 }
@@ -167,7 +157,6 @@ extension HomeViewController: GMSMapViewDelegate {
 extension HomeViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
         searchBar.resignFirstResponder()
         self.navigationController?.isNavigationBarHidden = false
         searchBar.isHidden = true
@@ -176,5 +165,12 @@ extension HomeViewController: UISearchBarDelegate {
         
         let coordinates = GetCoordinates.getLocationFromAddress(address: searchText)
         fetchNearbyPlaces(coordinate: coordinates)
+        
+        navigationItem.title = searchText
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.navigationController?.isNavigationBarHidden = false
+        searchBar.isHidden = true
     }
 }

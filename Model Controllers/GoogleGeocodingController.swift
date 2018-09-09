@@ -15,7 +15,7 @@ class GoogleGeocodingController {
     
     static func getCoordinatesFrom(adress: String, completion: @escaping([Results]?) -> Void) {
         
-        guard var url = baseURL else { completion(nil) ; return }
+        guard let url = baseURL else { completion(nil) ; return }
         let addressQuery = URLQueryItem(name: "address", value: adress)
         let apiKeyQuery = URLQueryItem(name: "key", value: Constants.googleApiKey)
         
@@ -42,6 +42,6 @@ class GoogleGeocodingController {
             } catch let error {
                 print("Error decoding geocoding data. Exiting with error: \(error) \(error.localizedDescription)")
             }
-        }.resume()
+            }.resume()
     }
 }

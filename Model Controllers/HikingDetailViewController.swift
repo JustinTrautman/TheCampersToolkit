@@ -30,12 +30,12 @@ class HikingDetailViewController: UIViewController {
     @IBOutlet weak var trailLowPointLabel: UILabel!
     @IBOutlet weak var trailConditionLabel: UILabel!
     @IBOutlet weak var conditionsUpdatedLabel: UILabel!
- 
+    
     // MARK: - Properties
     let scrollViewSize = CGSize(width: 375, height: 900)
     
     var trails: Trails?
-
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,25 +77,25 @@ class HikingDetailViewController: UIViewController {
             
             if let conditionStatus = trail.conditionStatus  {
                 if let conditionDetails = trail.conditionDetails {
-                self.trailConditionLabel.text = "\(conditionStatus) \(conditionDetails)"
+                    self.trailConditionLabel.text = "\(conditionStatus) \(conditionDetails)"
                 }
             }
-                
+            
             if let trailSummary = trail.summary {
-                    
+                
                 if trailSummary == "Needs Summary" {
                     self.trailSummaryLabel.text = "No Summary"
                 } else {
                     self.trailSummaryLabel.text = trailSummary
                 }
             }
-                    
+            
             if let trailLength = trail.length {
                 self.trailLengthLabel.text = "\(trailLength) miles"
             }
             
             if let trailAscent = trail.ascent {
-                 self.trailAscentLabel.text = "\(trailAscent) ft."
+                self.trailAscentLabel.text = "\(trailAscent) ft."
             }
             
             if let trailDescent = trail.descent {

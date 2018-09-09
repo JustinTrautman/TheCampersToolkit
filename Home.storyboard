@@ -1177,7 +1177,6 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="66" height="64"/>
                                                         <state key="normal" title="Button" image="Weather"/>
                                                         <connections>
-                                                            <action selector="weatherButtonTapped:" destination="nDG-sT-ICW" eventType="touchUpInside" id="KgY-SP-A7m"/>
                                                             <segue destination="jlN-lC-jjF" kind="show" identifier="weatherDetail" id="MnT-DQ-xEt"/>
                                                         </connections>
                                                     </button>
@@ -1199,7 +1198,6 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="69" height="64"/>
                                                         <state key="normal" title="Button" image="Photos"/>
                                                         <connections>
-                                                            <action selector="photosButtonTapped:" destination="nDG-sT-ICW" eventType="touchUpInside" id="PqR-po-EmN"/>
                                                             <segue destination="6MK-9b-RJf" kind="show" identifier="photoDetail" id="Lna-Qu-Y4g"/>
                                                         </connections>
                                                     </button>
@@ -1224,7 +1222,6 @@
                                                         </constraints>
                                                         <state key="normal" title="Button" image="hikingIcon"/>
                                                         <connections>
-                                                            <action selector="hikingButtonTapped:" destination="nDG-sT-ICW" eventType="touchUpInside" id="DGC-lY-mjo"/>
                                                             <segue destination="l9n-0q-2xe" kind="show" identifier="toHikingResults" id="ghD-RQ-FOO"/>
                                                         </connections>
                                                     </button>

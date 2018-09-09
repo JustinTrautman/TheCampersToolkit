@@ -19,7 +19,6 @@
 
 import UIKit
 import GoogleMaps
-import SwiftyJSON
 import GoogleMobileAds
 
 class WeatherViewController: UIViewController {
@@ -79,14 +78,11 @@ class WeatherViewController: UIViewController {
     }
     
     func updateViews() {
-        
         if let campgroundsAddress = address {
             
             GoogleGeocodingController.getCoordinatesFrom(adress: campgroundsAddress) { (coordinates) in
                 if let coordinates = coordinates {
                     let coordinatesFromAddress = coordinates[0].geometry?.location
-            
-            print(coordinatesFromAddress)
             
                     guard let latitude = coordinatesFromAddress?.lat,
                     let longitude = coordinatesFromAddress?.lng else { return }
@@ -224,6 +220,8 @@ class WeatherViewController: UIViewController {
         }
     }
 }
+            // TODO: Version 1.5 Implement forcasted weather
+            
 //            ForeCastedWeaterController.fetchForecastedWeatherFrom(latitude: latitude, longitude: longitude) { (forecast) in
 //                if let forecast = forecast {
 //

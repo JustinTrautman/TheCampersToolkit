@@ -52,6 +52,6 @@ class CurrentWeatherController {
             } catch let error {
                 print("Error decoding weather data. Exiting with error: \(error) \(error.localizedDescription)")
             }
-        }.resume()
+            }.resume()
     }
 }

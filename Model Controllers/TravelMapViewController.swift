@@ -27,17 +27,16 @@ class TravelMapViewController: UIViewController {
     var selectedType: String?
     private var locationManager = CLLocationManager()
     private let dataProvider = GoogleDataProvider()
-   // private let searchRadius: Double = 16094
-    private let searchRadius: Double = 8047
+    private let searchRadius: Double = 8047 // Searches with 5 mile radius.
     var pointOfInterest: GooglePlace?
-
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         guard let selectedType = selectedType else { return }
         
-        print(selectedType)
+        print("Searching for \(selectedType)")
         
         locationManager.delegate = self
         mapView.delegate = self
@@ -63,7 +62,6 @@ class TravelMapViewController: UIViewController {
     }
     
     func stringFormatter(originalString: String) -> String {
-        
         let formattedString = originalString.replacingOccurrences(of: "_", with: " ")
         
         if formattedString == "car repair" {
@@ -73,7 +71,7 @@ class TravelMapViewController: UIViewController {
         if formattedString == "store" {
             return "propane service"
         }
-    
+        
         return formattedString
     }
     
@@ -141,12 +139,10 @@ extension TravelMapViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
         return false
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        
         mapView.selectedMarker = nil
         return false
     }

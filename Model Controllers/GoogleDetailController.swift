@@ -43,7 +43,7 @@ class GoogleDetailController {
             }
             
             guard let data = data else { completion(nil) ; return }
-                
+            
             let jsonDecoder = JSONDecoder()
             do {
                 let campgrounds = try jsonDecoder.decode(CampgroundDetailData.self, from: data).result
@@ -52,7 +52,7 @@ class GoogleDetailController {
             } catch let error {
                 print("Error decoding campground data. Exiting with error: \(error) \(error.localizedDescription)")
             }
-        }.resume()
+            }.resume()
     }
     
     static func fetchReviewerProfilePhotoWith(photoUrl: String, completion: @escaping ((UIImage?)) -> Void) {
@@ -69,11 +69,10 @@ class GoogleDetailController {
             guard let data = data else { completion(nil) ; return }
             let image = UIImage(data: data)
             completion(image)
-        }.resume()
+            }.resume()
     }
     
     static func fetchCampgroundPhotosWith(photoReference: String, completion: @escaping ((UIImage?)) -> Void) {
-        
         guard let url = photosBaseURL else { completion(nil) ; return }
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         
@@ -97,6 +96,6 @@ class GoogleDetailController {
             
             let image = UIImage(data: data)
             completion(image)
-        }.resume()
+            }.resume()
     }
 }

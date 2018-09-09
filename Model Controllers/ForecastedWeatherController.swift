@@ -21,7 +21,7 @@ class ForeCastedWeaterController {
         url.appendPathComponent("\(latitude),\(longitude)")
         url.appendPathComponent("forecast")
         
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         
         guard let completeURL = components?.url else { completion(nil) ; return }
         
@@ -42,6 +42,6 @@ class ForeCastedWeaterController {
             } catch let error {
                 print("Error decoding forecasted weather data. Exiting with error: \(error) \(error.localizedDescription)")
             }
-        }.resume()
+            }.resume()
     }
 }

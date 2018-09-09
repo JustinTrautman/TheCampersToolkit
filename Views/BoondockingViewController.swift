@@ -8,6 +8,8 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
+ TODO: - Version 1.5 replace webview with custom API on Firebase.
+ 
  ----------------------------------------------------------------------------------------
  */
 
@@ -34,8 +36,5 @@ class BoondockingViewController: UIViewController, WKNavigationDelegate {
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
         toolbarItems = [refresh]
         navigationController?.isToolbarHidden = false
-    }
-    
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
     }
 }

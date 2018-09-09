@@ -39,20 +39,9 @@ class CampgroundDetailViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func reviewButtonTapped(_ sender: Any) {
-        
         let tableViewCenter = Int(scrollView.center.y) + 550
         
         scrollView.setContentOffset(CGPoint(x: 0, y: tableViewCenter), animated: true)
-    }
-    
-    @IBAction func photosButtonTapped(_ sender: UIButton) {
-    }
-    
-    @IBAction func weatherButtonTapped(_ sender: UIButton) {
-    }
-    
-    @IBAction func hikingButtonTapped(_ sender: UIButton) {
-        
     }
     
     // MARK: - Properties
@@ -92,8 +81,7 @@ class CampgroundDetailViewController: UIViewController {
     }
     
     func updateViews() {
-        
-        // Some initial setup
+        // Some initial view setup
         campgroundNameLabel.numberOfLines = 0
         campgroundAddressLabel.numberOfLines = 0
         
@@ -255,8 +243,8 @@ class CampgroundDetailViewController: UIViewController {
         }
     }
     
+    // Gesture recogizer for campground URL. Opens URL with in-app browser.
     @objc func tapFunction(sender: UITapGestureRecognizer) {
-        
         guard let website = campgroundWebsiteLabel.text else { return }
         
         openWebsiteUrl(url: website)
@@ -269,7 +257,6 @@ class CampgroundDetailViewController: UIViewController {
     }
     
     func showNoPhotosAlert() {
-        
         if let campgroundName = campgrounds?.name {
         
         let noPhotosAlert = UIAlertController(title: nil, message: "\(campgroundName) has no photos", preferredStyle: .alert)
@@ -283,7 +270,6 @@ class CampgroundDetailViewController: UIViewController {
 extension CampgroundDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         guard let unwrappedReviews = GoogleDetailController.campgrounds?.reviews else { return 0 }
         
         return unwrappedReviews.count

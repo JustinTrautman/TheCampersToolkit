@@ -102,14 +102,14 @@ extension HikingViewController: UISearchBarDelegate {
         guard let searchText = hikingSearchBar.text else { return }
         
         GoogleGeocodingController.getCoordinatesFrom(adress: searchText) { (coordinates) in
-
+            
             if let coordinates = coordinates {
                 if let location = coordinates[0].geometry?.location {
                     self.coordinates = coordinates
-
+                    
                     guard let latitude = location.lat,
                         let longitude = location.lng else { return }
-        
+                    
                     HikingTrailController.fetchHikingTrailsNear(latitude: "\(latitude)", longitude: "\(longitude)") { (trails) in
                         if let trails = trails {
                             self.trails = trails
