@@ -9,7 +9,6 @@
 import Foundation
 
 struct Boondocking : Codable {
-    
     let dateLastUpdated : String?
     let description : String?
     let fireRing : String?

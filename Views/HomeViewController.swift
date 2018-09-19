@@ -102,7 +102,7 @@ extension HomeViewController: GMSMapViewDelegate {
         guard let placeMarker = marker as? PlaceMarker else {
             return nil
         }
-        guard let infoView = UIView.viewFromNibName("MarkerInfoView") as? MarkerInfoView else {
+        guard let infoView = UIView.viewFromNibName("CampgroundMarkerView") as? CampgroundMarkerView else {
             return nil
         }
         
@@ -117,12 +117,10 @@ extension HomeViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
         return false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "campgroundDetail" {
             guard let detailVC = segue.destination as? CampgroundDetailViewController else { return }
             detailVC.campground = sender as? GooglePlace
@@ -131,7 +129,6 @@ extension HomeViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        
         self.navigationController?.isNavigationBarHidden = false
         
         let campgroundMarker = marker as? PlaceMarker
@@ -139,7 +136,6 @@ extension HomeViewController: GMSMapViewDelegate {
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        
         guard let coordinate = locationManager.location?.coordinate else { return false }
         
         mapView.selectedMarker = nil

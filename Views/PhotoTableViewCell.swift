@@ -29,7 +29,6 @@ class PhotoTableViewCell: UITableViewCell {
     }
     
     func updateViews() {
-        
         guard let unwrappedPhotos = self.photos else { return }
         
         guard let photoReference = unwrappedPhotos.photoReference else { return }

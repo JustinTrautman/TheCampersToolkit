@@ -23,6 +23,7 @@ import CoreLocation
 import SwiftyJSON
 
 class GooglePlace {
+    
     let id: String
     let name: String
     let address: String
@@ -31,8 +32,7 @@ class GooglePlace {
     var photoReference: String?
     var photo: UIImage?
     
-    init(dictionary: [String: Any], acceptedTypes: [String])
-    {
+    init(dictionary: [String: Any], acceptedTypes: [String]) {
         let json = JSON(dictionary)
         id = json["place_id"].stringValue
         name = json["name"].stringValue

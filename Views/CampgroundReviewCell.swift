@@ -30,7 +30,6 @@ class CampgroundReviewCell: UITableViewCell {
     }
     
     func updateViews() {
-        
         guard let reviews = reviews else { return }
         
         reviewerNameLabel.text = reviews.authorName

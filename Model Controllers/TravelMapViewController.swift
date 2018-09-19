@@ -28,7 +28,11 @@ class TravelMapViewController: UIViewController {
     private var locationManager = CLLocationManager()
     private let dataProvider = GoogleDataProvider()
     private let searchRadius: Double = 8047 // Searches with 5 mile radius.
-    var pointOfInterest: GooglePlace?
+    
+    var pointOfInterest: Result?
+    var ammenityImage: UIImage?
+    var placeID: String?
+    var placePhotoReference: String?
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -49,15 +53,32 @@ class TravelMapViewController: UIViewController {
         
         guard let selectedType = self.selectedType else { return }
         
+        GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinate.latitude)", longitude: "\(coordinate.longitude)", radius: searchRadius, type: selectedType) { (places) in
+
+            if let places = places {
+            for place in places {
+                DispatchQueue.main.async {
+                    let marker = AmmenityMarker(googlePlace: place)
+                    self.placeID = marker.googlePlace.placeID
+                    marker.map = self.mapView
+                    }
+                }
+            }
+        }
+        
         dataProvider.fetchPlacesNearCoordinate(latitude: coordinate.latitude, longitude: coordinate.longitude, radius: searchRadius, types: [selectedType]) { places in
             places.forEach {
                 let marker = PlaceMarker(place: $0)
-                marker.map = self.mapView
+                
+//                self.placeID = marker.place.id
+//                marker.map = self.mapView
             }
             
             if places.count == 0 {
                 self.showNoAmenitiesAlert()
             }
+            self.fetchAmmenityDetails()
+            self.fetchAmmenityPhoto()
         }
     }
     
@@ -86,15 +107,36 @@ class TravelMapViewController: UIViewController {
         self.present(noAmenitiesAlert, animated: true)
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    // New function that fetches ammenity details from Google PlaceID using GoogleDetailController. Phasing out SwiftyJSON model.
+    func fetchAmmenityDetails() {
+        guard let placeID = placeID else { return }
+        
+        GoogleDetailController.fetchCampgroundDetailsWith(placeId: placeID) { (details) in
+            if let details = details {
+                self.pointOfInterest = details
+            }
+        }
+    }
+    
+    func fetchAmmenityPhoto() {
+        guard let photoReference = placePhotoReference else { return }
+        
+        GoogleDetailController.fetchCampgroundPhotosWith(photoReference: photoReference) { (fetchedImage) in
+            if let fetchedImage = fetchedImage {
+                self.ammenityImage = fetchedImage
+            }
+        }
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toAmmenityDetail" {
+            guard let detailVC = segue.destination as? AmmenityDetailViewController else { return }
+            
+            detailVC.ammenitieDetails = pointOfInterest
+            detailVC.ammenityImage = ammenityImage
+        }
+    }
 }
 
 extension TravelMapViewController: CLLocationManagerDelegate {
@@ -112,7 +154,7 @@ extension TravelMapViewController: CLLocationManagerDelegate {
             return
         }
         
-        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 12, bearing: 0, viewingAngle: 0)
+        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 11, bearing: 0, viewingAngle: 0)
         locationManager.stopUpdatingLocation()
         fetchNearbyPlaces(coordinate: location.coordinate)
     }
@@ -121,21 +163,52 @@ extension TravelMapViewController: CLLocationManagerDelegate {
 extension TravelMapViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-        guard let placeMarker = marker as? PlaceMarker else {
-            return nil
-        }
-        guard let infoView = UIView.viewFromNibName("MarkerInfoView") as? MarkerInfoView else {
+        guard let placeMarker = marker as? PlaceMarker else { return nil }
+        
+        guard let infoView = UIView.viewFromNibName("AmmenityMarkerView") as? AmmenityMarkerView else {
             return nil
         }
         
-        infoView.nameLabel.text = placeMarker.place.name
-        if let photo = placeMarker.place.photo {
-            infoView.placePhoto.image = photo
+        if let name = pointOfInterest?.name {
+            infoView.ammenityNameLabel.text = name
+        }
+        
+        if let price = pointOfInterest?.priceLevel {
+            if price <= 1 {
+                infoView.priceLevelLabel.text = "$"
+            }
+            
+            if price == 2 {
+                infoView.priceLevelLabel.text = "$$"
+            }
+            
+            if price > 2 {
+                infoView.priceLevelLabel.text = "$$$"
+            }
+        }
+        
+        if let openNow = pointOfInterest?.openingHours?.openNow {
+            print(openNow)
+            if openNow == true {
+                infoView.isOpenLabel.text = "Open now"
+            } else {
+                infoView.isOpenLabel.text = "Closed now"
+            }
+        }
+        
+        if let photo = ammenityImage {
+            infoView.ammenityImageView.image = photo
+            
         } else {
-            infoView.placePhoto.image = UIImage(named: "\(placeMarker.place.placeType)_pin")
+            infoView.ammenityImageView.image = UIImage(named: "\(placeMarker.place.placeType)_pin")
         }
         
         return infoView
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        let ammenityMarker = marker as? PlaceMarker
+        performSegue(withIdentifier: "toAmmenityDetail", sender: ammenityMarker?.place)
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {

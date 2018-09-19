@@ -56,7 +56,6 @@ class HikingViewController: UIViewController {
     
     //     MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "hikingDetail" {
             if let indexPath = self.hikingTableView.indexPathForSelectedRow {
                 guard let detailVC = segue.destination as? HikingDetailViewController else { return }

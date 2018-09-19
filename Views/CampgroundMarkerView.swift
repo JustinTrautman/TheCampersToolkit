@@ -1,5 +1,5 @@
 //
-//  MarkerInfoView.swift
+//  CampgroundMarkerView.swift
 //  TheCampersToolkit
 //
 //  Created by Justin Trautman on 7/16/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MarkerInfoView: UIView {
+class CampgroundMarkerView: UIView {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var placePhoto: UIImageView!

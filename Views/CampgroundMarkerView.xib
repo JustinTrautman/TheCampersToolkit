@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="NN2-Qc-66l" customClass="MarkerInfoView" customModule="TheCampersToolkit" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="NN2-Qc-66l" customClass="CampgroundMarkerView" customModule="TheCampersToolkit" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="150" height="106"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -45,8 +45,8 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="YvN-K3-mcN"/>
             <connections>
-                <outlet property="nameLabel" destination="Eso-K7-qTq" id="fFa-gb-lYQ"/>
-                <outlet property="placePhoto" destination="KWz-yv-zm1" id="9Bx-bw-5NL"/>
+                <outlet property="nameLabel" destination="Eso-K7-qTq" id="pzu-nc-Td7"/>
+                <outlet property="placePhoto" destination="KWz-yv-zm1" id="ZVz-3G-cee"/>
             </connections>
             <point key="canvasLocation" x="536" y="357"/>
         </view>

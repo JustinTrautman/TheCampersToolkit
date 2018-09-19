@@ -71,7 +71,6 @@ class GoogleDataProvider {
         placesTask?.resume()
     }
     
-    
     func fetchPhotoFromReference(_ reference: String, completion: @escaping PhotoCompletion) -> Void {
         if let photo = photoCache[reference] {
             completion(photo)
@@ -94,12 +93,15 @@ class GoogleDataProvider {
                         completion(downloadedPhoto)
                     }
                 }
+                
                 guard let url = url else {
                     return
                 }
+                
                 guard let imageData = try? Data(contentsOf: url) else {
                     return
                 }
+                
                 downloadedPhoto = UIImage(data: imageData)
                 self.photoCache[reference] = downloadedPhoto
                 }

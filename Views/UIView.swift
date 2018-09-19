@@ -12,7 +12,6 @@ extension UIView {
     
     func lock() {
         if let _ = viewWithTag(10) {
-            //View is already locked
         }
         else {
             let lockView = UIView(frame: bounds)
