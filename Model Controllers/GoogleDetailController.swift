@@ -35,6 +35,7 @@ class GoogleDetailController {
         
         guard let completeURL = components?.url else { completion(nil) ; return }
         
+        print(completeURL) // TODO: -  Remove print statement (Testing only)
         
         URLSession.shared.dataTask(with: completeURL) { (data, _, error) in
             if let error = error {
@@ -50,13 +51,12 @@ class GoogleDetailController {
                 self.campgrounds = campgrounds
                 completion(campgrounds)
             } catch let error {
-                print("Error decoding campground data. Exiting with error: \(error) \(error.localizedDescription)")
+                print("Error decoding Google Place data. Exiting with error: \(error) \(error.localizedDescription)")
             }
             }.resume()
     }
     
     static func fetchReviewerProfilePhotoWith(photoUrl: String, completion: @escaping ((UIImage?)) -> Void) {
-        
         guard let url = URL(string: photoUrl) else { completion(nil) ; return }
         
         URLSession.shared.dataTask(with: url) { (data, _, error) in

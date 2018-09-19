@@ -36,6 +36,8 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var windSpeedImageView: UIImageView!
     @IBOutlet weak var sunriseLabel: UILabel!
     @IBOutlet weak var sunsetLabel: UILabel!
+    @IBOutlet weak var cloudStatusImageView: UIImageView!
+    @IBOutlet weak var cloudStatusLabel: UILabel!
     
     // MARK: - Properties
     var campgrounds: Result?
@@ -77,6 +79,7 @@ class WeatherViewController: UIViewController {
         updateViews()
     }
     
+    // TODO: - Keep this pyramid of if lets from becoming the worlds 8th wonder.
     func updateViews() {
         if let campgroundsAddress = address {
             
@@ -155,7 +158,6 @@ class WeatherViewController: UIViewController {
                             
                             if temp <= 32.0 {
                                 self.thermometerImageView.image = UIImage(named: "cold")
-                                
                             }
                         }
                         
@@ -168,7 +170,7 @@ class WeatherViewController: UIViewController {
                         }
                         
                         if let humidity = weather.main?.humidity {
-                            self.humidityLabel.text = "humidity \(humidity) %"
+                            self.humidityLabel.text = "\(humidity) % humidity"
                         }
                         
                         if let wind = weather.wind?.speed {
@@ -214,6 +216,23 @@ class WeatherViewController: UIViewController {
                             
                             print("The sunset for \(campgroundsAddress) happens at \(dateString)")
                             self.sunsetLabel.text = dateString
+                    }
+                        
+                        if let clouds = weather.clouds?.all {
+                            if clouds < 10 {
+                                self.cloudStatusLabel.text = "Light clouds"
+                                self.cloudStatusImageView.image = UIImage(named: "lightClouds")
+                        }
+                            
+                            if clouds < 50 && clouds > 10 {
+                                self.cloudStatusLabel.text = "Mild clouds"
+                                self.cloudStatusImageView.image = UIImage(named: "mildClouds")
+                            }
+                            
+                            if clouds > 50 {
+                                self.cloudStatusLabel.text = "Heavy clouds"
+                                self.cloudStatusImageView.image = UIImage(named: "heavyClouds")
+                        }
                     }
                 }
             }

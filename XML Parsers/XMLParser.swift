@@ -9,7 +9,6 @@
 import Foundation
 
 struct Campgroundxml {
-    
     var availabilityStatus: String?
     var contractType: String?
     var facilityID: String?
@@ -35,6 +34,7 @@ class CampgroundParser: NSObject, XMLParserDelegate {
             print("\(currentElement)<<<<<<<<<<<<<<,")
         }
     }
+    
     private var currentAvailabilityStatus: String = ""
     private var currentContractType: String = ""
     private var currentFacilityID: String = ""
@@ -51,7 +51,6 @@ class CampgroundParser: NSObject, XMLParserDelegate {
     private var parserCompletionHandler: (([Campgroundxml]) -> Void)?
     
     func parseCampground(url: String, completionHandler: (([Campgroundxml]) -> Void)?) {
-        
         self.parserCompletionHandler = completionHandler
         
         let urlString = "\(url.utf8)".replacingOccurrences(of: " ", with: "+")
@@ -78,9 +77,9 @@ class CampgroundParser: NSObject, XMLParserDelegate {
     // MARK: - XML Parser Delegate
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
-
+        
         if currentElement == "result" {
-//            campground = Campgroundxml(stringDictionary: attributeDict)
+            //            campground = Campgroundxml(stringDictionary: attributeDict)
             currentAvailabilityStatus = ""
             currentContractType = ""
             currentFacilityID = ""
@@ -116,10 +115,9 @@ class CampgroundParser: NSObject, XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-
         if elementName == "result" {
             let campground = Campgroundxml(availabilityStatus: currentAvailabilityStatus, contractType: currentContractType, facilityID: currentFacilityID, facilityName: currentFacilityName, latitude: currentLatitude, longitude: currentLongitude, reservationChannel: currentReservatingChannel, sitesWithAmps: currentSitesWithAmps, sitesWithPetsAllowed: currentSitesWithPetsAllowed, sitesWithSewerHookup: currentSitesWithSewerHookup, sitesWithWaterHookup: currentSitesWithWaterHookup, sitesWithWaterfront: currentSitesWithWaterfront, state: currentState)
-
+            
             self.campgroundsxml.append(campground)
         }
     }

@@ -22,6 +22,8 @@ struct GeocodingData : Codable {
 struct Results : Codable {
     let formattedAddress : String?
     let geometry : Geometry?
+    // Google Place API
+    let name: String?
     let placeID : String?
     
     enum CodingKeys: String, CodingKey {
@@ -29,6 +31,7 @@ struct Results : Codable {
         case formattedAddress = "formatted_address"
         case geometry = "geometry"
         case placeID = "place_id"
+        case name
     }
 }
 

@@ -31,7 +31,6 @@ class TravelViewController: UIViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   
         guard let detailVC = segue.destination as? TravelMapViewController else { return }
         
         if segue.identifier == "toGasMap" {

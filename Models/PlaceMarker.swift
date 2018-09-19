@@ -28,3 +28,18 @@ class PlaceMarker: GMSMarker {
         appearAnimation = .pop
     }
 }
+
+// Testing only - remove
+class AmmenityMarker: GMSMarker {
+    let googlePlace: Results
+    
+    init(googlePlace: Results) {
+        self.googlePlace = googlePlace
+        super.init()
+        
+//        position = googlePlace.coordinate
+//        icon = UIImage(named: googlePlace.placeType+"_pin")
+        groundAnchor = CGPoint(x: 0.5, y: 1)
+        appearAnimation = .pop
+    }
+}

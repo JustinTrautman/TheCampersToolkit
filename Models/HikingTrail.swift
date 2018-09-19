@@ -16,7 +16,6 @@
 import Foundation
 
 struct HikingTrailData : Codable {
-    
     let trails : [Trails]
     let success : Int?
     
@@ -28,7 +27,6 @@ struct HikingTrailData : Codable {
 }
     
     struct Trails : Codable {
-        
         let id : Int?
         let name : String?
         let type : String?
