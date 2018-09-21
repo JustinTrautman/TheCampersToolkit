@@ -23,6 +23,7 @@ class TravelViewController: UIViewController {
     
     // MARK: - Properties
     var selectedType = ""
+    var ammenityMarker: AmmenityMarker?
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {

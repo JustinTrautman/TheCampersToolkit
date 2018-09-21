@@ -17,11 +17,11 @@ import GoogleMaps
 
 class PlaceMarker: GMSMarker {
     let place: GooglePlace
-    
+
     init(place: GooglePlace) {
         self.place = place
         super.init()
-        
+
         position = place.coordinate
         icon = UIImage(named: place.placeType+"_pin")
         groundAnchor = CGPoint(x: 0.5, y: 1)
@@ -31,14 +31,22 @@ class PlaceMarker: GMSMarker {
 
 // Testing only - remove
 class AmmenityMarker: GMSMarker {
+    
     let googlePlace: Results
     
     init(googlePlace: Results) {
         self.googlePlace = googlePlace
         super.init()
         
-//        position = googlePlace.coordinate
+        guard let latitude = googlePlace.geometry?.location?.lat,
+            let longitude = googlePlace.geometry?.location?.lng else { return }
+        
+        let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        position = coordinates
+        
+        icon = UIImage(named: "gas_station_pin")
 //        icon = UIImage(named: googlePlace.placeType+"_pin")
+        
         groundAnchor = CGPoint(x: 0.5, y: 1)
         appearAnimation = .pop
     }
