@@ -39,7 +39,6 @@ class TravelMapViewController: UIViewController {
         super.viewDidLoad()
         
         guard let selectedType = selectedType else { return }
-        
         print("Searching for \(selectedType)")
         
         locationManager.delegate = self
@@ -50,36 +49,39 @@ class TravelMapViewController: UIViewController {
     
     func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
         mapView.clear()
-        
         guard let selectedType = self.selectedType else { return }
         
         GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinate.latitude)", longitude: "\(coordinate.longitude)", radius: searchRadius, type: selectedType) { (places) in
 
             if let places = places {
-            for place in places {
                 DispatchQueue.main.async {
-                    let marker = AmmenityMarker(googlePlace: place)
-                    self.placeID = marker.googlePlace.placeID
-                    marker.map = self.mapView
+                    for place in places {
+                        let marker = AmmenityMarker(googlePlace: place)
+                        self.placeID = marker.googlePlace.placeID
+                        self.fetchAmmenityDetails()
+                        self.fetchAmmenityPhoto()
+                        marker.map = self.mapView
                     }
+                }
+
+                if places.count == 0 {
+                    self.showNoAmenitiesAlert()
                 }
             }
         }
         
-        dataProvider.fetchPlacesNearCoordinate(latitude: coordinate.latitude, longitude: coordinate.longitude, radius: searchRadius, types: [selectedType]) { places in
-            places.forEach {
-                let marker = PlaceMarker(place: $0)
-                
+//        dataProvider.fetchPlacesNearCoordinate(latitude: coordinate.latitude, longitude: coordinate.longitude, radius: searchRadius, types: [selectedType]) { places in
+//            places.forEach {
+//                let marker = PlaceMarker(place: $0)
+//
 //                self.placeID = marker.place.id
 //                marker.map = self.mapView
-            }
-            
-            if places.count == 0 {
-                self.showNoAmenitiesAlert()
-            }
-            self.fetchAmmenityDetails()
-            self.fetchAmmenityPhoto()
-        }
+//            }
+//
+//            if places.count == 0 {
+//                self.showNoAmenitiesAlert()
+//            }
+//        }
     }
     
     func stringFormatter(originalString: String) -> String {
@@ -163,8 +165,6 @@ extension TravelMapViewController: CLLocationManagerDelegate {
 extension TravelMapViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-        guard let placeMarker = marker as? PlaceMarker else { return nil }
-        
         guard let infoView = UIView.viewFromNibName("AmmenityMarkerView") as? AmmenityMarkerView else {
             return nil
         }
@@ -200,15 +200,16 @@ extension TravelMapViewController: GMSMapViewDelegate {
             infoView.ammenityImageView.image = photo
             
         } else {
-            infoView.ammenityImageView.image = UIImage(named: "\(placeMarker.place.placeType)_pin")
+            guard let selectedType = selectedType else { return nil }
+            infoView.ammenityImageView.image = UIImage(named: "\(selectedType)_pin")
         }
         
         return infoView
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        let ammenityMarker = marker as? PlaceMarker
-        performSegue(withIdentifier: "toAmmenityDetail", sender: ammenityMarker?.place)
+        let ammenityMarker = marker as? AmmenityMarker
+        performSegue(withIdentifier: "toAmmenityDetail", sender: ammenityMarker?.googlePlace)
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {

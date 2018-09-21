@@ -12,6 +12,8 @@
  */
 
 import UIKit
+import GoogleMaps
+import MapKit
 
 class HikingDetailViewController: UIViewController {
     
@@ -30,6 +32,7 @@ class HikingDetailViewController: UIViewController {
     @IBOutlet weak var trailLowPointLabel: UILabel!
     @IBOutlet weak var trailConditionLabel: UILabel!
     @IBOutlet weak var conditionsUpdatedLabel: UILabel!
+    @IBOutlet weak var directionsToTrailsButton: UIButton!
     
     // MARK: - Properties
     let scrollViewSize = CGSize(width: 375, height: 900)
@@ -43,6 +46,8 @@ class HikingDetailViewController: UIViewController {
         scrollView.isDirectionalLockEnabled = true
         scrollView.contentOffset.x = 0
         scrollView.contentSize = scrollViewSize
+        
+        initializeTrailDirectionsButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,11 +56,33 @@ class HikingDetailViewController: UIViewController {
         updateViews()
     }
     
+    // MARK: - Actions
+    @IBAction func directionsToTrailButtonTapped(_ sender: Any) {
+        guard let latidude = trails?.latitude,
+            let longitude = trails?.longitude,
+            let trailName = trails?.name else { return }
+        
+        if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
+            UIApplication.shared.openURL(NSURL(string: "comgooglemaps://?daddr=\(latidude),\(longitude)&directionsmode=driving")! as URL)
+        } else {
+            print("Opening in Apple Maps")
+            
+            let coordinates = CLLocationCoordinate2DMake(latidude, longitude)
+            let region = MKCoordinateRegionMake(coordinates, MKCoordinateSpanMake(0.01, 0.02))
+            let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+            let mapItem = MKMapItem(placemark: placemark)
+            let options = [
+                MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
+                MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
+            mapItem.name = trailName
+            mapItem.openInMaps(launchOptions: options)
+        }
+    }
+    
     func updateViews() {
         guard let trail = trails else { return }
         
         DispatchQueue.main.async {
-            
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             
             if let trailName = trail.name {
@@ -155,6 +182,21 @@ class HikingDetailViewController: UIViewController {
         default:
             self.ratingImageView.image = UIImage(named: "0Stars")
         }
+    }
+    
+    func initializeTrailDirectionsButton() {
+        directionsToTrailsButton.layer.cornerRadius = 10.0
+        directionsToTrailsButton.clipsToBounds = true
+        directionsToTrailsButton.layer.shadowRadius = 3.0
+        directionsToTrailsButton?.layer.shadowColor = UIColor.black.cgColor
+        directionsToTrailsButton?.layer.shadowOpacity = 1.0
+        directionsToTrailsButton?.layer.shadowOffset = CGSize(width: 5, height: 5)
+        directionsToTrailsButton?.layer.masksToBounds = false
+        directionsToTrailsButton?.backgroundColor = UIColor(displayP3Red: 0.88, green: 0.61, blue: 0.08, alpha: 1)
+        directionsToTrailsButton?.setTitle("Directions to trail", for: .normal)
+        directionsToTrailsButton?.setTitleColor(.white, for: .normal)
+        directionsToTrailsButton?.titleLabel?.font = UIFont(name: "Helvetica", size: 16)
+        
     }
 }
 
