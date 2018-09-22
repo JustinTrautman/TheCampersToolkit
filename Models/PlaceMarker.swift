@@ -29,7 +29,6 @@ class PlaceMarker: GMSMarker {
     }
 }
 
-// Testing only - remove
 class AmmenityMarker: GMSMarker {
     
     let googlePlace: Results
@@ -46,6 +45,35 @@ class AmmenityMarker: GMSMarker {
         
         icon = UIImage(named: "gas_station_pin")
 //        icon = UIImage(named: googlePlace.placeType+"_pin")
+        
+        groundAnchor = CGPoint(x: 0.5, y: 1)
+        appearAnimation = .pop
+    }
+}
+
+class BoondockingMarker: GMSMarker {
+    
+    let boondocking: [Boondocking]
+    
+    init(boondocking: [Boondocking]) {
+        self.boondocking = boondocking
+        super.init()
+        
+        for boondocks in boondocking {
+            guard let latitude = boondocks.latitude,
+                let longitude = boondocks.longitude else { return }
+            
+            if let lat = Double(latitude) {
+                if let lon = Double(longitude) {
+                    
+                    print("\(lat),\(lon)")
+                    
+                    let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                    position = coordinates
+                }
+            }
+        }
+        icon = UIImage(named: "boondocking_pin")
         
         groundAnchor = CGPoint(x: 0.5, y: 1)
         appearAnimation = .pop

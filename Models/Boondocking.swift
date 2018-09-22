@@ -45,4 +45,24 @@ struct Boondocking : Codable {
         case registrationRequired = "RegistrationRequired"
         case width = "Width"
     }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        dateLastUpdated = try values.decodeIfPresent(String.self, forKey: .dateLastUpdated)
+        description = try values.decodeIfPresent(String.self, forKey: .description)
+        fireRing = try values.decodeIfPresent(String.self, forKey: .fireRing)
+        flat = try values.decodeIfPresent(String.self, forKey: .flat)
+        flushToilet = try values.decodeIfPresent(String.self, forKey: .flushToilet)
+        grill = try values.decodeIfPresent(String.self, forKey: .grill)
+        latitude = try values.decodeIfPresent(String.self, forKey: .latitude)
+        length = try values.decodeIfPresent(String.self, forKey: .length)
+        longitude = try values.decodeIfPresent(String.self, forKey: .longitude)
+        nonPotableWater = try values.decodeIfPresent(String.self, forKey: .nonPotableWater)
+        pOIID = try values.decodeIfPresent(String.self, forKey: .pOIID)
+        picnicTable = try values.decodeIfPresent(String.self, forKey: .picnicTable)
+        pitToilet = try values.decodeIfPresent(String.self, forKey: .pitToilet)
+        portableWater = try values.decodeIfPresent(String.self, forKey: .portableWater)
+        registrationRequired = try values.decodeIfPresent(String.self, forKey: .registrationRequired)
+        width = try values.decodeIfPresent(String.self, forKey: .width)
+    }
 }
