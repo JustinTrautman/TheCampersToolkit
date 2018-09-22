@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D010EE372104FE0D007EE483 /* CampgroundReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D010EE362104FE0D007EE483 /* CampgroundReviewCell.swift */; };
+		D01F8E352156DD54004CF886 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */; };
 		D022B1E420FD23420012025A /* GoogleDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022B1E320FD23420012025A /* GoogleDetail.swift */; };
 		D022B1E620FD2ADF0012025A /* GoogleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */; };
 		D0234C15210D00B500038CAF /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0234C14210D00B500038CAF /* XMLParser.swift */; };
@@ -40,7 +41,6 @@
 		D0A63BDA210B9B5700DC5850 /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A63BD9210B9B5700DC5850 /* PhotoTableViewCell.swift */; };
 		D0A991E72103992400698EF1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A991E62103992400698EF1 /* Constants.swift */; };
 		D0AD4AE6211343F4001EB1B6 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD4AE5211343F4001EB1B6 /* DoubleExtension.swift */; };
-		D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */; };
 		D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E06520F97C0B00210FC1 /* Assets.xcassets */; };
 		D0C5E07D20F97FD900210FC1 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E07C20F97FD900210FC1 /* Home.storyboard */; };
 		D0C5E08120F9801300210FC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */; };
@@ -61,6 +61,7 @@
 		AE93EAD54E211352B75928D7 /* Pods-TheCampersToolkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheCampersToolkit.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit.release.xcconfig"; sourceTree = "<group>"; };
 		CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheCampersToolkit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D010EE362104FE0D007EE483 /* CampgroundReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundReviewCell.swift; sourceTree = "<group>"; };
+		D01F89CA2156CD9F004CF886 /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D022B1E320FD23420012025A /* GoogleDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDetail.swift; sourceTree = "<group>"; };
 		D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDetailController.swift; sourceTree = "<group>"; };
 		D0234C14210D00B500038CAF /* XMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLParser.swift; sourceTree = "<group>"; };
@@ -134,6 +135,7 @@
 		58E70B8EBD3F235D322F67D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D01F89CA2156CD9F004CF886 /* GoogleUtilities.framework */,
 				CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */,
 			);
 			name = Frameworks;
@@ -320,6 +322,47 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				he,
+				en_AU,
+				ar,
+				el,
+				ja,
+				uk,
+				es_419,
+				es_MX,
+				zh_CN,
+				nb,
+				es,
+				pt_BR,
+				da,
+				it,
+				sk,
+				pt_PT,
+				ms,
+				sv,
+				cs,
+				en_IN,
+				ko,
+				hu,
+				zh_HK,
+				tr,
+				pl,
+				zh_TW,
+				en_GB,
+				vi,
+				ru,
+				fr_CA,
+				fr,
+				fi,
+				id,
+				nl,
+				th,
+				pt,
+				ro,
+				hr,
+				hi,
+				ca,
 			);
 			mainGroup = D0C5E05220F97C0A00210FC1;
 			productRefGroup = D0C5E05C20F97C0A00210FC1 /* Products */;
@@ -354,11 +397,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -412,6 +461,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D01F8E352156DD54004CF886 /* AppDelegate.swift in Sources */,
 				D0763E20213304E100EE5210 /* GoogleGeocoding.swift in Sources */,
 				D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */,
 				D04D3FE9210536AD00629B02 /* WeatherViewController.swift in Sources */,
@@ -430,7 +480,6 @@
 				D0E5295F210CB6EE009E6435 /* TravelMapViewController.swift in Sources */,
 				D04D3FED2105413F00629B02 /* CurrentWeatherController.swift in Sources */,
 				D010EE372104FE0D007EE483 /* CampgroundReviewCell.swift in Sources */,
-				D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */,
 				D08FDCA2210BF828007F6C5F /* BoondockingController.swift in Sources */,
 				D098E07020FD0C1E00DB4866 /* PlaceMarker.swift in Sources */,
 				D08FDCA0210BF76B007F6C5F /* Boondocking.swift in Sources */,
@@ -587,7 +636,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.justintrautman.TheCampersToolkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -606,7 +656,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.justintrautman.TheCampersToolkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

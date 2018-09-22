@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         GMSServices.provideAPIKey("\(Constants.googleApiKey)")
         GMSPlacesClient.provideAPIKey("\(Constants.googleApiKey)")
@@ -24,12 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize the Google Mobile Ads SDK.
         GADMobileAds.configure(withApplicationID: Constants.applicationID)
         
-        GooglePlaceSearchController.fetchPlacesNearby(latitude: "47.8896", longitude: "-117.3577", radius: 5000, type: "gas_station") { (place) in
-            if let _ = place {
-                print("📡 Got some places for ya 📡")
-            }
-        }
-                
+//        BoondockingController.fetchAllBoondockingLocations { (boons) in
+//            if let boons = boons {
+//                print("📡 Got some boondocking data for ya 📡")
+//            }
+//        }
+        
         return true
     }
 

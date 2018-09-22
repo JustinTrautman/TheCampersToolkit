@@ -24,7 +24,7 @@ struct Constants {
     static let gasFeedApiKey = "apikey"
     
     // Google ad IDs
-    static let applicationID = "unitID"
+    static let applicationID = "appID"
     
     // Real Ad Unit ID
 //  static let adUnitID = "unitID"

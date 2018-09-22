@@ -68,7 +68,7 @@ class HikingDetailViewController: UIViewController {
             print("Opening in Apple Maps")
             
             let coordinates = CLLocationCoordinate2DMake(latidude, longitude)
-            let region = MKCoordinateRegionMake(coordinates, MKCoordinateSpanMake(0.01, 0.02))
+            let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
             let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
             let mapItem = MKMapItem(placemark: placemark)
             let options = [
