@@ -24,12 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize the Google Mobile Ads SDK.
         GADMobileAds.configure(withApplicationID: Constants.applicationID)
         
-//        BoondockingController.fetchAllBoondockingLocations { (boons) in
-//            if let boons = boons {
-//                print("📡 Got some boondocking data for ya 📡")
-//            }
-//        }
-        
         return true
     }
 

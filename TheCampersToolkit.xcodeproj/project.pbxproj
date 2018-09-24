@@ -53,6 +53,9 @@
 		D0D2C8102146B5480003C883 /* AmmenityMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D2C80F2146B5480003C883 /* AmmenityMarkerView.xib */; };
 		D0E5295D210CAEDC009E6435 /* TravelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5295C210CAEDC009E6435 /* TravelViewController.swift */; };
 		D0E5295F210CB6EE009E6435 /* TravelMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5295E210CB6EE009E6435 /* TravelMapViewController.swift */; };
+		D0EAF86C21581C9500086643 /* BoondockingMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EAF86B21581C9500086643 /* BoondockingMarkerView.xib */; };
+		D0EAF86E2158242F00086643 /* BoondockingMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF86D2158242F00086643 /* BoondockingMarkerView.swift */; };
+		D0EAF87021583C6A00086643 /* BoondockingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF86F21583C6A00086643 /* BoondockingDetailViewController.swift */; };
 		D7A732D64A335AF81DEE748C /* Pods_TheCampersToolkit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +112,9 @@
 		D0D2C80F2146B5480003C883 /* AmmenityMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmmenityMarkerView.xib; sourceTree = "<group>"; };
 		D0E5295C210CAEDC009E6435 /* TravelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelViewController.swift; path = "Model Controllers/TravelViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D0E5295E210CB6EE009E6435 /* TravelMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelMapViewController.swift; path = "Model Controllers/TravelMapViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D0EAF86B21581C9500086643 /* BoondockingMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoondockingMarkerView.xib; sourceTree = "<group>"; };
+		D0EAF86D2158242F00086643 /* BoondockingMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoondockingMarkerView.swift; sourceTree = "<group>"; };
+		D0EAF86F21583C6A00086643 /* BoondockingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoondockingDetailViewController.swift; path = Views/BoondockingDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */,
+				D0EAF86B21581C9500086643 /* BoondockingMarkerView.xib */,
 				D098E07120FD0C5100DB4866 /* CampgroundMarkerView.xib */,
 				D0D2C80F2146B5480003C883 /* AmmenityMarkerView.xib */,
 				D098E07320FD0C7900DB4866 /* CampgroundMarkerView.swift */,
@@ -214,6 +221,7 @@
 				D010EE362104FE0D007EE483 /* CampgroundReviewCell.swift */,
 				D066C0F52106BE9400B71E41 /* HikingTableViewCell.swift */,
 				D0A63BD9210B9B5700DC5850 /* PhotoTableViewCell.swift */,
+				D0EAF86D2158242F00086643 /* BoondockingMarkerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -273,6 +281,7 @@
 				D0E5295E210CB6EE009E6435 /* TravelMapViewController.swift */,
 				D0234C16210E22C800038CAF /* PhotoDetailViewController.swift */,
 				D0D2C80B214600E20003C883 /* AmmenityDetailViewController.swift */,
+				D0EAF86F21583C6A00086643 /* BoondockingDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -382,6 +391,7 @@
 				D098E07220FD0C5100DB4866 /* CampgroundMarkerView.xib in Resources */,
 				D0D2C8102146B5480003C883 /* AmmenityMarkerView.xib in Resources */,
 				D0C5E08120F9801300210FC1 /* LaunchScreen.storyboard in Resources */,
+				D0EAF86C21581C9500086643 /* BoondockingMarkerView.xib in Resources */,
 				D0C5E07D20F97FD900210FC1 /* Home.storyboard in Resources */,
 				D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */,
 			);
@@ -482,6 +492,7 @@
 				D010EE372104FE0D007EE483 /* CampgroundReviewCell.swift in Sources */,
 				D08FDCA2210BF828007F6C5F /* BoondockingController.swift in Sources */,
 				D098E07020FD0C1E00DB4866 /* PlaceMarker.swift in Sources */,
+				D0EAF87021583C6A00086643 /* BoondockingDetailViewController.swift in Sources */,
 				D08FDCA0210BF76B007F6C5F /* Boondocking.swift in Sources */,
 				D04D3FEB21053A7C00629B02 /* CurrentWeather.swift in Sources */,
 				D0AD4AE6211343F4001EB1B6 /* DoubleExtension.swift in Sources */,
@@ -493,6 +504,7 @@
 				D0C5E08B20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift in Sources */,
 				D098E07420FD0C7900DB4866 /* CampgroundMarkerView.swift in Sources */,
 				D066C0F82106C2DC00B71E41 /* HikingTrail.swift in Sources */,
+				D0EAF86E2158242F00086643 /* BoondockingMarkerView.swift in Sources */,
 				D0E5295D210CAEDC009E6435 /* TravelViewController.swift in Sources */,
 				D0234C17210E22C800038CAF /* PhotoDetailViewController.swift in Sources */,
 				D0763E1E2133004D00EE5210 /* GetCoordinates.swift in Sources */,
