@@ -100,7 +100,7 @@ extension HomeViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
         guard let placeMarker = marker as? PlaceMarker else {
             return nil
-        }
+}
         guard let infoView = UIView.viewFromNibName("CampgroundMarkerView") as? CampgroundMarkerView else {
             return nil
         }

@@ -17,51 +17,19 @@ import UIKit
 import WebKit
 import GoogleMaps
 
-class BoondockingViewController: UIViewController, WKNavigationDelegate {
-    
-//    // MARK: Properties
-//    var webView: WKWebView!
-//    var beenAlerted: Bool = false
-//    
-//    override func loadView() {
-//        webView = WKWebView()
-//        webView.navigationDelegate = self
-//        view = webView
-//
-//        if !beenAlerted {
-//            showAccuracyAlert() // User must agree to accuracy terms before using.
-//        }
-//    }
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        let url = URL(string: "https://drive.google.com/open?id=1X961m_UTUq8piVbRbB8btwbQQM4mUQ4T&usp=sharing")!
-//        webView.load(URLRequest(url: url))
-//
-//        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
-//        toolbarItems = [refresh]
-//        navigationController?.isToolbarHidden = false
-//    }
-//
-//    func showAccuracyAlert() {
-//        let accuracyAlert = UIAlertController(title: nil, message: "The Camper's Toolkit cannot guarentee the accuracy of all boondocking information and locations. Always check with the site owner to verify boondocking is allowed", preferredStyle: .alert)
-//
-//        let iAgreeAction = UIAlertAction(title: "I Agree", style: .default, handler: nil)
-//
-//        accuracyAlert.addAction(iAgreeAction)
-//        self.present(accuracyAlert, animated: true)
-//
-//        beenAlerted = true
-//    }
+class BoondockingViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
     
     // MARK: - Properties
     private let locationManager = CLLocationManager()
-    var boondockingLocations: [Boondocking]?
     
+    var boondockingLocations: [Boondocking]?
+    var selectedBoondock: Boondocking?
+    var beenAlerted: Bool = false
+    
+    // MARK: - View Lifecylce
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,24 +37,39 @@ class BoondockingViewController: UIViewController, WKNavigationDelegate {
         locationManager.requestWhenInUseAuthorization()
         mapView.delegate = self
         
-         fetchBoondockingLocations()
+        if !beenAlerted {
+            showAccuracyAlert() // User must agree to accuracy terms before using.
+            
+            fetchBoondockingLocations()
+        }
     }
     
     func fetchBoondockingLocations() {
-            BoondockingController.fetchAllBoondockingLocations { (boondocking) in
-                if let boondocking = boondocking {
-                    let coordinates = CLLocationCoordinate2D(latitude: 39.828175, longitude: -98.5795)
-                    self.boondockingLocations = boondocking
-                    
-                    DispatchQueue.main.async {
-                        for boondocks in boondocking {
+        BoondockingController.fetchAllBoondockingLocations { (boondocking) in
+            if let boondocking = boondocking {
+                let coordinates = CLLocationCoordinate2D(latitude: 39.828175, longitude: -98.5795)
+                self.boondockingLocations = boondocking
+                
+                DispatchQueue.main.async {
+                    for boondocks in boondocking {
                         let marker = BoondockingMarker(boondocking: [boondocks])
                         marker.map = self.mapView
-                    self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 3, bearing: 0, viewingAngle: 0)
+                        self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 3, bearing: 0, viewingAngle: 0)
                     }
                 }
             }
         }
+    }
+    
+    func showAccuracyAlert() {
+        let accuracyAlert = UIAlertController(title: nil, message: "The Camper's Toolkit cannot guarentee the accuracy of all boondocking information and locations. Always check with the site owner to verify boondocking is allowed", preferredStyle: .alert)
+        
+        let iAgreeAction = UIAlertAction(title: "I Agree", style: .default, handler: nil)
+        
+        accuracyAlert.addAction(iAgreeAction)
+        self.present(accuracyAlert, animated: true)
+        
+        beenAlerted = true
     }
 }
 
@@ -116,28 +99,58 @@ extension BoondockingViewController: CLLocationManagerDelegate {
 extension BoondockingViewController: GMSMapViewDelegate {
     
     // MARK: - Marker Cluster
-//    class POItem: NSObject, GMUClusterItem {
-//        
-//        
-//    }
+    //    class POItem: NSObject, GMUClusterItem {
+    //
+    //
+    //    }
     
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-        guard let placeMarker = marker as? PlaceMarker else { return nil }
+        guard let placeMarker = marker as? BoondockingMarker else { return nil }
         
-        guard let infoView = UIView.viewFromNibName("CampgroundMarkerView") as? CampgroundMarkerView else {
+        guard let infoView = UIView.viewFromNibName("BoondockingMarkerView") as? BoondockingMarkerView else {
             return nil
         }
         
-        infoView.nameLabel.text = "name"
-        if let photo = UIImage(named: "campground_pin") {
-            infoView.placePhoto.image = photo
-        } else {
-            infoView.placePhoto.image = UIImage(named: "campground_pin")
-        }
+        for boondock in placeMarker.boondocking {
+            infoView.descriptionLabel.text = boondock.description
+            
+            guard let latitude = boondock.latitude,
+                let longitude = boondock.longitude else { return  UIView() }
+            
+            let latitudeInDouble = Double("\(latitude)") ?? 0
+            let longitudeInDouble = Double("\(longitude)") ?? 0
+            print(latitudeInDouble)
+            print(longitudeInDouble)
+            
+                    let coordinates = CLLocationCoordinate2D(latitude: latitudeInDouble, longitude: longitudeInDouble)
+            
+            selectedBoondock = boondock
+
+                    let camera = GMSCameraPosition.camera(withTarget: coordinates, zoom: 14)
+                    infoView.boondockingMapView.camera = camera
+                    infoView.boondockingMapView.mapType = GMSMapViewType.satellite
+                }
+        
         return infoView
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         return false
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toBoondockDetail" {
+            guard let detailVC = segue.destination as? BoondockingDetailViewController else { return }
+            
+            // TODO: - Pass information to detail VC
+            detailVC.boondockingLocations = boondockingLocations
+            detailVC.selectedBoondock = selectedBoondock
+        }
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        
+        let boondockMarker = marker as? BoondockingMarker
+        performSegue(withIdentifier: "toBoondockDetail", sender: BoondockingMarker.self)
     }
 }
