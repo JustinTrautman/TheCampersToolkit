@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import MapKit
 
 class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate {
     
@@ -41,6 +42,31 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate {
     
     // MARK: - Actions
     @IBAction func directionsButtonTapped(_ sender: Any) {
+    print("Directions Button Tapped")
+        guard let latitude = selectedBoondock?.latitude,
+            let longitude = selectedBoondock?.longitude,
+        let title = selectedBoondock?.description else { return }
+        
+        if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
+            UIApplication.shared.canOpenURL(NSURL(string: "comgooglemaps://?daddr=\(latitude),\(longitude)&directionsmode=driving")! as URL)
+        } else {
+            print("Opening in Apple Maps")
+            
+            let latAsDouble = Double("\(latitude)") ?? 0
+            let lonAsDouble = Double("\(longitude)") ?? 0
+            let lat = CLLocationDegrees(exactly: latAsDouble) ?? 0
+            let lon = CLLocationDegrees(exactly: lonAsDouble) ?? 0
+            
+            let coordinates = CLLocationCoordinate2DMake(lat, lon)
+            let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
+            let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+            let mapItem = MKMapItem(placemark: placemark)
+            let options = [
+                MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
+                MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
+            mapItem.name = title
+            mapItem.openInMaps(launchOptions: options)
+        }
     }
     
     func setupMapView() {
@@ -70,8 +96,8 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate {
         if let lastUpdated = selectedBoondock?.dateLastUpdated {
             
             if let range = lastUpdated.range(of: ":") {
-            let formattedDate = lastUpdated[(lastUpdated.startIndex)..<range.lowerBound]
-            lastUpdatedLabel.text = "\(formattedDate)"
+                let formattedDate = lastUpdated[(lastUpdated.startIndex)..<range.lowerBound]
+                lastUpdatedLabel.text = "\(formattedDate)"
             }
         }
         
@@ -111,15 +137,4 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate {
             pitToiletLabel.text = pitToilet
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

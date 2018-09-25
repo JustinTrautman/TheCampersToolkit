@@ -17,19 +17,23 @@ class GooglePlaceSearchController {
         
         guard let url = googlePlaceBaseURL else { completion(nil) ; return }
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        
+
         let locationQuery = URLQueryItem(name: "location", value: "\(latitude),\(longitude)")
         let typeQuery = URLQueryItem(name: "type", value: type)
         let radiusQuery = URLQueryItem(name: "radius", value: "\(radius)")
         let rankByQuery = URLQueryItem(name: "rankby", value: "prominence")
         let apiQuery = URLQueryItem(name: "key", value: Constants.googleApiKey)
         
-        let queryArray = [locationQuery, typeQuery, radiusQuery, rankByQuery, apiQuery]
+        var queryArray = [locationQuery, typeQuery, radiusQuery, rankByQuery, apiQuery]
+        
+        if type == "store" {
+            let keywordQuery = URLQueryItem(name: "keyword", value: "propane")
+            queryArray.insert(keywordQuery, at: 4)
+        }
+        
         components?.queryItems = queryArray
         
         guard let completeURL = components?.url else { completion(nil) ; return }
-        
-        print(completeURL)
         
         URLSession.shared.dataTask(with: completeURL) { (data, _, error) in
             if let error = error {
@@ -47,6 +51,6 @@ class GooglePlaceSearchController {
             } catch let error {
                 print("Error decoding campground data. Exiting with error: \(error) \(error.localizedDescription)")
             }
-        }.resume()
+            }.resume()
     }
 }
