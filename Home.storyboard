@@ -151,7 +151,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xgn-d1-ZTm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1854" y="1107"/>
+            <point key="canvasLocation" x="1853" y="1282"/>
         </scene>
         <!--Hiking Detail View Controller-->
         <scene sceneID="beg-xs-3wo">
@@ -439,7 +439,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="ek7-zS-9Ie">
                                                 <rect key="frame" x="0.0" y="0.0" width="124" height="337"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8Dy-NC-IVx">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8Dy-NC-IVx">
                                                         <rect key="frame" x="0.0" y="0.0" width="124" height="145.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B3H-hP-U3d">
@@ -453,7 +453,7 @@
                                                                     <segue destination="lOu-l6-Ukv" kind="show" identifier="toGasMap" id="aEG-vA-0cv"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Gas Station" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0eW-N1-Vny">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gas Station" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0eW-N1-Vny">
                                                                 <rect key="frame" x="0.0" y="125" width="124" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
@@ -464,7 +464,7 @@
                                                             <constraint firstItem="0eW-N1-Vny" firstAttribute="width" secondItem="B3H-hP-U3d" secondAttribute="width" id="ZPx-o5-gi5"/>
                                                         </constraints>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0t9-vp-Jjz">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0t9-vp-Jjz">
                                                         <rect key="frame" x="0.0" y="191.5" width="124" height="145.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qux-63-bDw">
@@ -478,7 +478,7 @@
                                                                     <segue destination="lOu-l6-Ukv" kind="show" identifier="toStoreMap" id="4j2-oP-0DO"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J4A-n2-qZR">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J4A-n2-qZR">
                                                                 <rect key="frame" x="0.0" y="125" width="124" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
@@ -1947,11 +1947,11 @@
             <objects>
                 <viewController id="xZy-Z3-PV8" customClass="BoondockingDetailViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dkj-g9-bgN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="900"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dEC-zI-1Vh">
-                                <rect key="frame" x="0.0" y="64" width="320" height="787"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="987"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VS2-DW-59j" customClass="GMSMapView">
                                         <rect key="frame" x="8" y="0.0" width="304" height="232"/>
@@ -2131,33 +2131,33 @@
                                             <constraint firstItem="EUC-8V-LAb" firstAttribute="leading" secondItem="3j1-VL-MCJ" secondAttribute="leading" constant="235" id="ORe-uD-ZPK"/>
                                         </constraints>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8xC-07-Ujo">
+                                        <rect key="frame" x="8" y="912" width="304" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Directions to this site"/>
+                                        <connections>
+                                            <action selector="directionsButtonTapped:" destination="xZy-Z3-PV8" eventType="touchUpInside" id="dCM-Kb-KAn"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GUB-B7-HRz">
-                                        <rect key="frame" x="8" y="614" width="304" height="112"/>
+                                        <rect key="frame" x="8" y="651" width="304" height="153"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ih2-w8-OKB">
-                                        <rect key="frame" x="8" y="734" width="304" height="38"/>
-                                        <state key="normal" title="Directions to this site"/>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="3j1-VL-MCJ" firstAttribute="leading" secondItem="dEC-zI-1Vh" secondAttribute="leading" constant="8" id="0w8-eR-Fmz"/>
-                                    <constraint firstAttribute="bottom" secondItem="Ih2-w8-OKB" secondAttribute="bottom" constant="15" id="4dM-mX-kHj"/>
+                                    <constraint firstItem="GUB-B7-HRz" firstAttribute="leading" secondItem="dEC-zI-1Vh" secondAttribute="leading" constant="8" id="4dP-bj-3dC"/>
                                     <constraint firstItem="3j1-VL-MCJ" firstAttribute="top" secondItem="VS2-DW-59j" secondAttribute="bottom" constant="28" id="CGa-u9-b65"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ih2-w8-OKB" secondAttribute="trailing" constant="8" id="Hms-bP-DZo"/>
+                                    <constraint firstItem="GUB-B7-HRz" firstAttribute="top" secondItem="3j1-VL-MCJ" secondAttribute="bottom" constant="51" id="HiW-Lp-SNd"/>
                                     <constraint firstItem="VS2-DW-59j" firstAttribute="leading" secondItem="3j1-VL-MCJ" secondAttribute="leading" id="OU0-25-yfY"/>
                                     <constraint firstAttribute="trailing" secondItem="VS2-DW-59j" secondAttribute="trailing" constant="8" id="ObP-8T-GvU"/>
-                                    <constraint firstItem="Ih2-w8-OKB" firstAttribute="leading" secondItem="dEC-zI-1Vh" secondAttribute="leading" constant="8" id="R7m-xT-bk9"/>
                                     <constraint firstAttribute="bottom" secondItem="3j1-VL-MCJ" secondAttribute="bottom" constant="187" id="RnJ-ha-bHq"/>
                                     <constraint firstItem="VS2-DW-59j" firstAttribute="leading" secondItem="dEC-zI-1Vh" secondAttribute="leading" constant="8" id="S4y-GF-tlx"/>
-                                    <constraint firstItem="Ih2-w8-OKB" firstAttribute="top" secondItem="GUB-B7-HRz" secondAttribute="bottom" constant="8" id="ZdI-hc-UhN"/>
                                     <constraint firstItem="3j1-VL-MCJ" firstAttribute="centerX" secondItem="dEC-zI-1Vh" secondAttribute="centerX" id="bE7-Z5-F4y"/>
-                                    <constraint firstItem="GUB-B7-HRz" firstAttribute="top" secondItem="3j1-VL-MCJ" secondAttribute="bottom" constant="14" id="bLG-5F-kYc"/>
                                     <constraint firstItem="VS2-DW-59j" firstAttribute="top" secondItem="dEC-zI-1Vh" secondAttribute="top" id="dw8-Nq-24d"/>
-                                    <constraint firstAttribute="trailing" secondItem="GUB-B7-HRz" secondAttribute="trailing" constant="8" id="hd2-ge-nQM"/>
-                                    <constraint firstItem="GUB-B7-HRz" firstAttribute="leading" secondItem="dEC-zI-1Vh" secondAttribute="leading" constant="8" id="uWF-zP-iYr"/>
+                                    <constraint firstAttribute="trailing" secondItem="GUB-B7-HRz" secondAttribute="trailing" constant="8" id="pGl-0D-N1a"/>
                                     <constraint firstAttribute="trailing" secondItem="3j1-VL-MCJ" secondAttribute="trailing" constant="8" id="w7d-Xh-TC5"/>
                                 </constraints>
                             </scrollView>
@@ -2171,10 +2171,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VcO-yH-5qM"/>
                     </view>
-                    <size key="freeformSize" width="320" height="900"/>
+                    <size key="freeformSize" width="320" height="1100"/>
                     <connections>
                         <outlet property="descriptionLabel" destination="GUB-B7-HRz" id="F8g-Eg-q0m"/>
-                        <outlet property="directionsButton" destination="Ih2-w8-OKB" id="Bbs-fu-K60"/>
                         <outlet property="fireringLabel" destination="wo5-zO-la9" id="oag-5c-F5O"/>
                         <outlet property="flatLabel" destination="3AQ-Dd-9ey" id="E8e-Yp-2cv"/>
                         <outlet property="flushTiolet" destination="dLq-ju-Ln3" id="cPc-8l-Bjm"/>
@@ -2190,7 +2189,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ue-oP-N9h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1852.5" y="91.901408450704224"/>
+            <point key="canvasLocation" x="1853" y="279"/>
         </scene>
     </scenes>
     <resources>

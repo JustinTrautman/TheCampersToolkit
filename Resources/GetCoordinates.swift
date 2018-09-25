@@ -17,8 +17,7 @@ class GetCoordinates {
         var lon : Double = 0.0
         
         do {
-            
-            let url = String(format: "https://maps.googleapis.com/maps/api/geocode/json?&address=%@&key=AIzaSyA9RgT5S0loqGv-FjWWTPhewZCJNPz15cU", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
+            let url = String(format: "https://maps.googleapis.com/maps/api/geocode/json?&address=%@&key=\(Constants.googleApiKey)", (address.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!))
             let result = try Data(contentsOf: URL(string: url)!)
             let json = try JSON(data: result)
             

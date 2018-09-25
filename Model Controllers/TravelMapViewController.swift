@@ -30,6 +30,7 @@ class TravelMapViewController: UIViewController {
     private let searchRadius: Double = 8047 // Searches with 5 mile radius.
     
     var pointOfInterest: Result?
+    var results: [Results]?
     var ammenityImage: UIImage?
     var placeID: String?
     var placePhotoReference: String?
@@ -52,36 +53,24 @@ class TravelMapViewController: UIViewController {
         guard let selectedType = self.selectedType else { return }
         
         GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinate.latitude)", longitude: "\(coordinate.longitude)", radius: searchRadius, type: selectedType) { (places) in
-
+            
             if let places = places {
                 DispatchQueue.main.async {
                     for place in places {
                         let marker = AmmenityMarker(googlePlace: place)
                         self.placeID = marker.googlePlace.placeID
                         self.fetchAmmenityDetails()
-                        self.fetchAmmenityPhoto()
                         marker.map = self.mapView
+                        self.mapView.camera = GMSCameraPosition(target: coordinate, zoom: 10, bearing: 0, viewingAngle: 0)
+                        self.results = places
                     }
                 }
-
+                
                 if places.count == 0 {
                     self.showNoAmenitiesAlert()
                 }
             }
         }
-        
-//        dataProvider.fetchPlacesNearCoordinate(latitude: coordinate.latitude, longitude: coordinate.longitude, radius: searchRadius, types: [selectedType]) { places in
-//            places.forEach {
-//                let marker = PlaceMarker(place: $0)
-//
-//                self.placeID = marker.place.id
-//                marker.map = self.mapView
-//            }
-//
-//            if places.count == 0 {
-//                self.showNoAmenitiesAlert()
-//            }
-//        }
     }
     
     func stringFormatter(originalString: String) -> String {
@@ -116,6 +105,12 @@ class TravelMapViewController: UIViewController {
         GoogleDetailController.fetchCampgroundDetailsWith(placeId: placeID) { (details) in
             if let details = details {
                 self.pointOfInterest = details
+                
+                if let photos = details.photos {
+                    for photo in photos {
+                        self.placePhotoReference = photo.photoReference
+                    }
+                }
             }
         }
     }
@@ -165,13 +160,14 @@ extension TravelMapViewController: CLLocationManagerDelegate {
 extension TravelMapViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
+        fetchAmmenityPhoto()
+        guard let ammenityMarker = marker as? AmmenityMarker else { return nil }
+        
         guard let infoView = UIView.viewFromNibName("AmmenityMarkerView") as? AmmenityMarkerView else {
             return nil
         }
         
-        if let name = pointOfInterest?.name {
-            infoView.ammenityNameLabel.text = name
-        }
+        infoView.ammenityNameLabel.text = ammenityMarker.googlePlace.name
         
         if let price = pointOfInterest?.priceLevel {
             if price <= 1 {
