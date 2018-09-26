@@ -12,6 +12,7 @@ class GooglePlaceSearchController {
     
     static let googlePlaceBaseURL = URL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?")
     static var places: [Results]?
+    static var selectedType: String?
     
     static func fetchPlacesNearby(latitude: String, longitude: String, radius: Double, type: String, completion: @escaping ([Results]?) -> Void) {
         
@@ -26,9 +27,11 @@ class GooglePlaceSearchController {
         
         var queryArray = [locationQuery, typeQuery, radiusQuery, rankByQuery, apiQuery]
         
+        self.selectedType = type
+        
         if type == "store" {
-            let keywordQuery = URLQueryItem(name: "keyword", value: "propane")
-            queryArray.insert(keywordQuery, at: 4)
+            let keywordQuery = URLQueryItem(name: "keyword", value: "propane refill")
+            queryArray.insert(keywordQuery, at: 2)
         }
         
         components?.queryItems = queryArray

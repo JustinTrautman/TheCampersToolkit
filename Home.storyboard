@@ -44,13 +44,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="goA-uE-Hly">
                                                     <rect key="frame" x="109" y="24" width="196" height="72"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="(Trail name)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K37-8g-A0W">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Trail name)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K37-8g-A0W">
                                                             <rect key="frame" x="0.0" y="0.0" width="98.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="(Trail location)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ppe-g2-RfC">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Trail location)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ppe-g2-RfC">
                                                             <rect key="frame" x="0.0" y="25.5" width="109" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -638,7 +638,7 @@
                     <viewLayoutGuide key="safeArea" id="FWh-A3-Fg2"/>
                 </stackView>
             </objects>
-            <point key="canvasLocation" x="1089" y="1832"/>
+            <point key="canvasLocation" x="1089" y="1940"/>
         </scene>
         <!--Travel Map View Controller-->
         <scene sceneID="Aj8-NN-eqM">
@@ -669,7 +669,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0cd-Oe-RHi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1856" y="1832"/>
+            <point key="canvasLocation" x="1853" y="1939"/>
         </scene>
         <!--Ammenity Detail View Controller-->
         <scene sceneID="I8C-BH-2U5">
@@ -682,7 +682,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eue-H7-aml">
                                 <rect key="frame" x="8" y="74" width="304" height="192.5"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noImageAvailable" translatesAutoresizingMaskIntoConstraints="NO" id="SJM-9N-4c9">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gasStationPlaceholderImage" translatesAutoresizingMaskIntoConstraints="NO" id="SJM-9N-4c9">
                                         <rect key="frame" x="0.0" y="0.0" width="304" height="162"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="304" id="LDn-vb-Qd5"/>
@@ -691,7 +691,7 @@
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Place Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dNr-UZ-DU8">
                                         <rect key="frame" x="0.0" y="172" width="304" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -723,7 +723,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="58" translatesAutoresizingMaskIntoConstraints="NO" id="aM3-Ct-XaO">
                                 <rect key="frame" x="8" y="323.5" width="304" height="22"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="5Stars" translatesAutoresizingMaskIntoConstraints="NO" id="ORa-Ca-74n">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0Stars" translatesAutoresizingMaskIntoConstraints="NO" id="ORa-Ca-74n">
                                         <rect key="frame" x="0.0" y="0.0" width="99" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="99" id="J9U-3y-waL"/>
@@ -745,12 +745,12 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qys-oh-xGd" userLabel="navigationButton">
-                                <rect key="frame" x="16" y="473" width="288" height="36"/>
-                                <color key="backgroundColor" red="0.58630042627893952" green="1" blue="0.41234788943857226" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="16" y="477" width="288" height="32"/>
+                                <color key="backgroundColor" red="0.066666666666666666" green="0.67843137254901964" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="288" id="UBK-sL-0Ti"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="OriyaSangamMN-Bold" family="Oriya Sangam MN" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
                                 <state key="normal" title="Take me here">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -764,7 +764,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1iD-Fw-siI" customClass="GMSMapView">
-                                <rect key="frame" x="41" y="351.5" width="239" height="113.5"/>
+                                <rect key="frame" x="8" y="351.5" width="304" height="118.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -772,13 +772,13 @@
                         <constraints>
                             <constraint firstItem="pMv-CJ-3jo" firstAttribute="bottom" secondItem="qys-oh-xGd" secondAttribute="bottom" constant="10" id="6zv-Uk-DMk"/>
                             <constraint firstItem="pMv-CJ-3jo" firstAttribute="trailing" secondItem="xKI-lR-4C0" secondAttribute="trailing" constant="8" id="7eY-wN-udz"/>
-                            <constraint firstItem="1iD-Fw-siI" firstAttribute="leading" secondItem="pMv-CJ-3jo" secondAttribute="leading" constant="41" id="8Y8-dh-0gg"/>
+                            <constraint firstItem="1iD-Fw-siI" firstAttribute="leading" secondItem="pMv-CJ-3jo" secondAttribute="leading" constant="8" id="8Y8-dh-0gg"/>
                             <constraint firstItem="xKI-lR-4C0" firstAttribute="top" secondItem="eue-H7-aml" secondAttribute="bottom" constant="13.5" id="9X5-Nd-eX7"/>
                             <constraint firstItem="1iD-Fw-siI" firstAttribute="top" secondItem="aM3-Ct-XaO" secondAttribute="bottom" constant="6" id="Hlb-Ey-q1Q"/>
                             <constraint firstItem="pMv-CJ-3jo" firstAttribute="trailing" secondItem="aM3-Ct-XaO" secondAttribute="trailing" constant="8" id="ITd-hW-9d4"/>
                             <constraint firstItem="pMv-CJ-3jo" firstAttribute="trailing" secondItem="eue-H7-aml" secondAttribute="trailing" constant="8" id="KZi-rP-G14"/>
-                            <constraint firstItem="pMv-CJ-3jo" firstAttribute="trailing" secondItem="1iD-Fw-siI" secondAttribute="trailing" constant="40" id="Tgb-Mh-43q"/>
-                            <constraint firstItem="qys-oh-xGd" firstAttribute="top" secondItem="1iD-Fw-siI" secondAttribute="bottom" constant="8" id="Xtl-Ck-IYP"/>
+                            <constraint firstItem="pMv-CJ-3jo" firstAttribute="trailing" secondItem="1iD-Fw-siI" secondAttribute="trailing" constant="8" id="Tgb-Mh-43q"/>
+                            <constraint firstItem="qys-oh-xGd" firstAttribute="top" secondItem="1iD-Fw-siI" secondAttribute="bottom" constant="7" id="Xtl-Ck-IYP"/>
                             <constraint firstItem="aM3-Ct-XaO" firstAttribute="leading" secondItem="pMv-CJ-3jo" secondAttribute="leading" constant="8" id="ZEK-dS-r5B"/>
                             <constraint firstItem="eue-H7-aml" firstAttribute="top" secondItem="pMv-CJ-3jo" secondAttribute="top" constant="10" id="Zpc-QB-Zwt"/>
                             <constraint firstItem="aM3-Ct-XaO" firstAttribute="top" secondItem="xKI-lR-4C0" secondAttribute="bottom" constant="13.5" id="cKC-qi-YbI"/>
@@ -802,7 +802,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yhe-aB-JIC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2661" y="1832"/>
+            <point key="canvasLocation" x="2660.625" y="1938.3802816901409"/>
         </scene>
         <!--Campgrounds-->
         <scene sceneID="w1P-1c-l1G">
@@ -1244,11 +1244,11 @@
         <scene sceneID="Vt4-zQ-hSs">
             <objects>
                 <viewController id="nDG-sT-ICW" customClass="CampgroundDetailViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="cS8-X9-Ezh">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="cS8-X9-Ezh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1804"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1q-H9-8Fc">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1q-H9-8Fc">
                                 <rect key="frame" x="0.0" y="64" width="320" height="1690"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default-1" translatesAutoresizingMaskIntoConstraints="NO" id="AGT-4o-qyq">
@@ -1286,7 +1286,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="acA-S7-XRr">
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="acA-S7-XRr">
                                         <rect key="frame" x="7" y="298" width="306" height="85"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="DOA-K1-fHH">
@@ -1446,7 +1446,7 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Office Hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqT-nW-7pD">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Office Hours" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqT-nW-7pD">
                                         <rect key="frame" x="108.5" y="508" width="103.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -1458,7 +1458,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Campground Information" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vW2-Hh-i75">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Campground Information" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vW2-Hh-i75">
                                         <rect key="frame" x="65" y="610.5" width="206" height="20.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -1889,7 +1889,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Scd-zM-skh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="381" y="1832"/>
+            <point key="canvasLocation" x="381" y="1940"/>
         </scene>
         <!--Boondocking-->
         <scene sceneID="q8Y-bg-p2p">
@@ -2205,6 +2205,7 @@
         <image name="Weather" width="64" height="64"/>
         <image name="carRepair" width="512" height="512"/>
         <image name="gasStation" width="512" height="512"/>
+        <image name="gasStationPlaceholderImage" width="512" height="512"/>
         <image name="high" width="512" height="512"/>
         <image name="hikingDefault" width="512" height="512"/>
         <image name="hikingIcon" width="128" height="128"/>

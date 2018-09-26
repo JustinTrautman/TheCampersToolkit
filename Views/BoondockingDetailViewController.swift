@@ -110,7 +110,11 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate {
         }
         
         if let length = selectedBoondock?.length {
-            lengthLabel.text = length
+            lengthLabel.text = "\(length) ft."
+            
+            if length == "" {
+                lengthLabel.text = "unknown"
+            }
         }
         
         if let flushToilet = selectedBoondock?.flushToilet {
