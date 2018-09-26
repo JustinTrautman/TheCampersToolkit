@@ -43,8 +43,8 @@ class AmmenityMarker: GMSMarker {
         let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         position = coordinates
         
-        icon = UIImage(named: "gas_station_pin")
-//        icon = UIImage(named: googlePlace.placeType+"_pin")
+        guard let selectedType = GooglePlaceSearchController.selectedType else { print("Couldn't identify selected type") ; return }
+        icon = UIImage(named: "\(selectedType)"+"_pin")
         
         groundAnchor = CGPoint(x: 0.5, y: 1)
         appearAnimation = .pop

@@ -25,7 +25,9 @@ class AmmenityDetailViewController: UIViewController {
     // MARK: - Properties
     var ammenities: GooglePlace?
     var ammenitieDetails: Result?
-    var ammenityImage: UIImage?
+    var photoReference: String?
+//    var ammenityImage: UIImage?
+    var selectedAmmenity: String?
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -34,8 +36,7 @@ class AmmenityDetailViewController: UIViewController {
         // Button will be disabled unless ammenity has a url from Google
         visitWebsiteButton.isEnabled = false
         
-        updateViews()
-        loadMiniMap()
+        fetchAmmenityDetails()
     }
     
     // MARK: - Actions
@@ -78,68 +79,172 @@ class AmmenityDetailViewController: UIViewController {
         openWebsiteUrl(url: url)
     }
     
+    // New function that fetches ammenity details from Google PlaceID using GoogleDetailController. Phasing out SwiftyJSON
+    func fetchAmmenityDetails() {
+        guard let placeID = selectedAmmenity else { return }
+
+        GoogleDetailController.fetchCampgroundDetailsWith(placeId: placeID) { (details) in
+            if let details = details {
+                self.ammenitieDetails = details
+                
+                if let photos = details.photos {
+                    for photo in photos {
+                        self.photoReference = photo.photoReference
+                    }
+                }
+                self.updateViews()
+                self.loadMiniMap()
+            }
+        }
+    }
+    
+    func fetchAmmenityPhoto() {
+        guard let photoReference = photoReference else { return }
+        
+        GoogleDetailController.fetchCampgroundPhotosWith(photoReference: photoReference) { (fetchedImage) in
+            DispatchQueue.main.async {
+                // TODO: - Change to selected type placeholder image.
+                self.ammenityImageView.image = #imageLiteral(resourceName: "gasStationPlaceholderImage")
+            }
+            
+            if let fetchedImage = fetchedImage {
+                DispatchQueue.main.async {
+                    self.ammenityImageView.image = fetchedImage
+                }
+            }
+        }
+    }
+    
     func updateViews() {
-        ammenityImageView.image = ammenityImage
+        // Take me here button setup
+        DispatchQueue.main.async {
+            self.takeMeHereButton?.layer.cornerRadius = 5
+            self.takeMeHereButton?.clipsToBounds = true
+            self.takeMeHereButton?.layer.shadowRadius = 3.0
+            self.takeMeHereButton?.layer.shadowColor = UIColor.black.cgColor
+            self.takeMeHereButton?.layer.shadowOpacity = 1.0
+            self.takeMeHereButton?.layer.shadowOffset = CGSize(width: 5, height: 5)
+            self.takeMeHereButton?.layer.masksToBounds = false
+            self.takeMeHereButton?.backgroundColor = UIColor(displayP3Red: 0.07, green: 0.68, blue: 0.63, alpha: 1.00)
+            self.takeMeHereButton?.setTitle("Take Me Here", for: .normal)
+            self.takeMeHereButton?.setTitleColor(.black, for: .normal)
+            self.takeMeHereButton?.titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 17)
+        }
+        
+        // UI updated from network configuration
+         self.fetchAmmenityPhoto()
+        
+//        DispatchQueue.main.async {
+//            self.ammenityImageView.image = self.ammenityImage
+//        }
         
         if let name = ammenitieDetails?.name {
-            placeNameLabel.text = name
+            DispatchQueue.main.async {
+            self.placeNameLabel.text = name
+            }
         }
         
         if let phoneNumber = ammenitieDetails?.formattedPhoneNumber {
-            ammenityPhoneNumberButton.setTitle(phoneNumber, for: .normal)
-            ammenityPhoneNumberButton.setTitleColor(.blue, for: .normal)
+            DispatchQueue.main.async {
+                self.ammenityPhoneNumberButton.setTitle(phoneNumber, for: .normal)
+                self.ammenityPhoneNumberButton.setTitleColor(.blue, for: .normal)
+            }
         }
         
         if let _ = ammenitieDetails?.website {
-            visitWebsiteButton.isEnabled = true
-            visitWebsiteButton.setTitleColor(.black, for: .normal)
+            DispatchQueue.main.async {
+                self.visitWebsiteButton.isEnabled = true
+                self.visitWebsiteButton.setTitleColor(.black, for: .normal)
+            }
         }
         
         guard let hoursOfOperation = ammenitieDetails?.openingHours else { return }
         
         let dayOfWeek = Date().dayOfWeek()!
         
-        if let weeklyHours = hoursOfOperation.weekdayText {
+        if let _ = hoursOfOperation.weekdayText {
             print("Showing hours for \(dayOfWeek)")
             
             if dayOfWeek == "Sunday" {
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
-                openUntilLabel.text = "\(closingTime)"
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
             }
             
             if dayOfWeek == "Monday" {
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
-                openUntilLabel.text = "\(closingTime)"
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
             }
             
             if dayOfWeek == "Tuesday" {
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
-                openUntilLabel.text = "\(closingTime)"
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
             }
             
             if dayOfWeek == "Wednesday" {
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
-                openUntilLabel.text = "\(closingTime)"
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
             }
             
             if dayOfWeek == "Thursday" {
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
-                openUntilLabel.text = "\(closingTime)"
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
             }
             
             if dayOfWeek == "Friday" {
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
-                openUntilLabel.text = "\(closingTime)"
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
             }
             
             if dayOfWeek == "Saturday" {
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
-                openUntilLabel.text = "\(closingTime)"
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
             }
         }
         
-        if let _ = ammenitieDetails?.rating {
-            ammenityRatingImageView.image = UIImage(named: "2Stars")
+        if let ammenityRating = ammenitieDetails?.rating {
+            let roundedRating = Double(ammenityRating).roundToClosestHalf()
+            
+            // TODO: - Move Switch statement off of main thread.
+            DispatchQueue.main.async {
+            switch roundedRating {
+            case 0:
+                self.ammenityRatingImageView.image = UIImage(named: "0Stars")
+            case 1:
+                self.ammenityRatingImageView.image = UIImage(named: "1Stars")
+            case 1.5:
+                self.ammenityRatingImageView.image = UIImage(named: "1.5Stars")
+            case 2:
+                self.ammenityRatingImageView.image = UIImage(named: "2Stars")
+            case 2.5:
+                self.ammenityRatingImageView.image = UIImage(named: "2.5Stars")
+            case 3:
+                self.ammenityRatingImageView.image = UIImage(named: "3Stars")
+            case 3.5:
+                self.ammenityRatingImageView.image = UIImage(named: "3.5Stars")
+            case 4:
+                self.ammenityRatingImageView.image = UIImage(named: "4Stars")
+            case 4.5:
+                self.ammenityRatingImageView.image = UIImage(named: "4.5Stars")
+            case 5:
+                self.ammenityRatingImageView.image = UIImage(named: "5Stars")
+            default:
+                self.ammenityRatingImageView.image = UIImage(named: "0Stars")
+                }
+            }
         }
     }
     
@@ -211,6 +316,8 @@ class AmmenityDetailViewController: UIViewController {
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             marker.title = title
             marker.snippet = address
+            // TODO: - Change to selected type + pin
+            marker.icon = UIImage(named: "gas_station_pin")
             marker.map = self.ammenityMapView
         }
     }
