@@ -15,6 +15,6 @@ class AmmenityMarkerView: UIView {
     // MARK: - Outlets
     @IBOutlet weak var ammenityNameLabel: UILabel!
     @IBOutlet weak var ammenityImageView: UIImageView!
-    @IBOutlet weak var isOpenLabel: UILabel!
-    @IBOutlet weak var priceLevelLabel: UILabel!
+    @IBOutlet weak var milesAwayLabel: UILabel!
+    
 }

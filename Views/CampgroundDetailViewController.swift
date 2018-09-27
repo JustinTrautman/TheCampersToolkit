@@ -8,7 +8,8 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
- ----------------------------------------------------------------------------------------
+ TODO: - do didTap() functions for phoneNumberLabel and directionsLabel
+  ----------------------------------------------------------------------------------------
  */
 
 import UIKit
@@ -26,6 +27,7 @@ class CampgroundDetailViewController: UIViewController {
     @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var campgroundAddressLabel: UILabel!
     @IBOutlet weak var campgroundWebsiteLabel: UILabel!
+    @IBOutlet weak var directionsLabel: UIButton!
     @IBOutlet weak var reviewTableView: UITableView!
     @IBOutlet weak var dailyHoursLabel: UILabel!
     @IBOutlet weak var availabilityStatusLabel: UILabel!
@@ -42,6 +44,9 @@ class CampgroundDetailViewController: UIViewController {
         let tableViewCenter = Int(scrollView.center.y) + 550
         
         scrollView.setContentOffset(CGPoint(x: 0, y: tableViewCenter), animated: true)
+    }
+    
+    @IBAction func directionsButtonTapped(_ sender: Any) {
     }
     
     // MARK: - Properties
@@ -74,6 +79,7 @@ class CampgroundDetailViewController: UIViewController {
         
         let campgroundParser = CampgroundParser()
         campgroundParser.parseCampground(url: "http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)") { (campgroundxml) in
+            print("http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)")
             
             print(campgroundxml)
             self.xmlCampgrounds = campgroundxml

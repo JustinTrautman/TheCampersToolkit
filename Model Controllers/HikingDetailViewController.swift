@@ -192,11 +192,10 @@ class HikingDetailViewController: UIViewController {
         directionsToTrailsButton?.layer.shadowOpacity = 1.0
         directionsToTrailsButton?.layer.shadowOffset = CGSize(width: 5, height: 5)
         directionsToTrailsButton?.layer.masksToBounds = false
-        directionsToTrailsButton?.backgroundColor = UIColor(displayP3Red: 0.88, green: 0.61, blue: 0.08, alpha: 1)
-        directionsToTrailsButton?.setTitle("Directions to trail", for: .normal)
+        directionsToTrailsButton?.backgroundColor = UIColor(displayP3Red: 0.07, green: 0.68, blue: 0.63, alpha: 1.00)
+        directionsToTrailsButton?.setTitle("Directions to this trail", for: .normal)
         directionsToTrailsButton?.setTitleColor(.white, for: .normal)
         directionsToTrailsButton?.titleLabel?.font = UIFont(name: "Helvetica", size: 16)
-        
     }
 }
 
