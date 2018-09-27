@@ -101,9 +101,12 @@ extension HomeViewController: GMSMapViewDelegate {
         guard let placeMarker = marker as? PlaceMarker else {
             return nil
 }
-        guard let infoView = UIView.viewFromNibName("CampgroundMarkerView") as? CampgroundMarkerView else {
-            return nil
-        }
+        guard let infoView = UIView.viewFromNibName("CampgroundMarkerView") as? CampgroundMarkerView,
+            let usersLatitude = locationManager.location?.coordinate.latitude,
+            let usersLongitude = locationManager.location?.coordinate.longitude else { return nil }
+        
+        let destinationLatitude = placeMarker.place.coordinate.latitude
+        let destinationLongitude = placeMarker.place.coordinate.longitude
         
         infoView.nameLabel.text = placeMarker.place.name
         if let photo = placeMarker.place.photo {
@@ -112,6 +115,12 @@ extension HomeViewController: GMSMapViewDelegate {
             infoView.placePhoto.image = UIImage(named: "campground_pin")
         }
         
+        // Calculates distance to ammenity
+        let usersLocation = CLLocation(latitude: usersLatitude, longitude: usersLongitude)
+        let destination = CLLocation(latitude: destinationLatitude, longitude: destinationLongitude)
+        let distanceInMeters = usersLocation.distance(from: destination)
+        let distanceInMiles = Double(distanceInMeters) * 0.000621371
+        infoView.milesAwayLabel.text = "\(distanceInMiles.roundToPlaces(places: 2)) miles away"
         return infoView
     }
     

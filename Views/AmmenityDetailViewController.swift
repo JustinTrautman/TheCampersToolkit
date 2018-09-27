@@ -26,7 +26,6 @@ class AmmenityDetailViewController: UIViewController {
     var ammenities: GooglePlace?
     var ammenitieDetails: Result?
     var photoReference: String?
-//    var ammenityImage: UIImage?
     var selectedAmmenity: String?
     
     // MARK: - View Lifecycle
@@ -82,7 +81,7 @@ class AmmenityDetailViewController: UIViewController {
     // New function that fetches ammenity details from Google PlaceID using GoogleDetailController. Phasing out SwiftyJSON
     func fetchAmmenityDetails() {
         guard let placeID = selectedAmmenity else { return }
-
+        
         GoogleDetailController.fetchCampgroundDetailsWith(placeId: placeID) { (details) in
             if let details = details {
                 self.ammenitieDetails = details
@@ -99,17 +98,21 @@ class AmmenityDetailViewController: UIViewController {
     }
     
     func fetchAmmenityPhoto() {
-        guard let photoReference = photoReference else { return }
+        guard let selectedType = GooglePlaceSearchController.selectedType else { return }
+        print(selectedType)
         
-        GoogleDetailController.fetchCampgroundPhotosWith(photoReference: photoReference) { (fetchedImage) in
-            DispatchQueue.main.async {
-                // TODO: - Change to selected type placeholder image.
-                self.ammenityImageView.image = #imageLiteral(resourceName: "gasStationPlaceholderImage")
-            }
-            
-            if let fetchedImage = fetchedImage {
+        DispatchQueue.main.async {
+            self.ammenityImageView.image = UIImage(named: "\(selectedType)"+"PlaceholderImage")
+        }
+        
+        if let photoReference = photoReference {
+            GoogleDetailController.fetchCampgroundPhotosWith(photoReference: photoReference) { (fetchedImage) in
                 DispatchQueue.main.async {
-                    self.ammenityImageView.image = fetchedImage
+                    if let fetchedImage = fetchedImage {
+                        DispatchQueue.main.async {
+                            self.ammenityImageView.image = fetchedImage
+                        }
+                    }
                 }
             }
         }
@@ -118,29 +121,25 @@ class AmmenityDetailViewController: UIViewController {
     func updateViews() {
         // Take me here button setup
         DispatchQueue.main.async {
-            self.takeMeHereButton?.layer.cornerRadius = 5
-            self.takeMeHereButton?.clipsToBounds = true
-            self.takeMeHereButton?.layer.shadowRadius = 3.0
+            self.takeMeHereButton.layer.cornerRadius = 10.0
+            self.takeMeHereButton.clipsToBounds = true
+            self.takeMeHereButton.layer.shadowRadius = 3.0
             self.takeMeHereButton?.layer.shadowColor = UIColor.black.cgColor
             self.takeMeHereButton?.layer.shadowOpacity = 1.0
             self.takeMeHereButton?.layer.shadowOffset = CGSize(width: 5, height: 5)
             self.takeMeHereButton?.layer.masksToBounds = false
             self.takeMeHereButton?.backgroundColor = UIColor(displayP3Red: 0.07, green: 0.68, blue: 0.63, alpha: 1.00)
-            self.takeMeHereButton?.setTitle("Take Me Here", for: .normal)
-            self.takeMeHereButton?.setTitleColor(.black, for: .normal)
-            self.takeMeHereButton?.titleLabel?.font = UIFont(name: "Arial Rounded MT Bold", size: 17)
+            self.takeMeHereButton?.setTitle("Take me here", for: .normal)
+            self.takeMeHereButton?.setTitleColor(.white, for: .normal)
+            self.takeMeHereButton?.titleLabel?.font = UIFont(name: "Helvetica", size: 18)
         }
         
         // UI updated from network configuration
-         self.fetchAmmenityPhoto()
-        
-//        DispatchQueue.main.async {
-//            self.ammenityImageView.image = self.ammenityImage
-//        }
+        self.fetchAmmenityPhoto()
         
         if let name = ammenitieDetails?.name {
             DispatchQueue.main.async {
-            self.placeNameLabel.text = name
+                self.placeNameLabel.text = name
             }
         }
         
@@ -302,13 +301,13 @@ class AmmenityDetailViewController: UIViewController {
     
     func loadMiniMap() {
         guard let address = ammenitieDetails?.formattedAddress,
-            let title = ammenitieDetails?.name else { return }
+            let title = ammenitieDetails?.name, let selectedType = GooglePlaceSearchController.selectedType else { return }
         
         let geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(address) { (placemarks, error) in
             guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
             
-            let camera = GMSCameraPosition.camera(withTarget: location, zoom: 12)
+            let camera = GMSCameraPosition.camera(withTarget: location, zoom: 14)
             self.ammenityMapView.camera = camera
             self.ammenityMapView.mapType = GMSMapViewType.normal
             
@@ -316,21 +315,10 @@ class AmmenityDetailViewController: UIViewController {
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             marker.title = title
             marker.snippet = address
-            // TODO: - Change to selected type + pin
-            marker.icon = UIImage(named: "gas_station_pin")
+            marker.icon = UIImage(named: "\(selectedType)_pin")
             marker.map = self.ammenityMapView
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
 
 extension Date {

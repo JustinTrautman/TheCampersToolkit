@@ -24,16 +24,12 @@ class TravelMapViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     
     // MARK: - Properties
-    var selectedType: String?
     private var locationManager = CLLocationManager()
     private let dataProvider = GoogleDataProvider()
-    private let searchRadius: Double = 8047 // Searches with 5 mile radius.
+    private let searchRadius: Double = 8047 // Searches within a 5 mile radius.
     
-    var pointOfInterest: Result?
+    var selectedType: String?
     var results: [Results]?
-    var ammenityImage: UIImage?
-    var placeID: String?
-    var placePhotoReference: String?
     var selectedAmmenity: String?
     
     // MARK: - View Lifecycle
@@ -59,9 +55,8 @@ class TravelMapViewController: UIViewController {
                 DispatchQueue.main.async {
                     for place in places {
                         let marker = AmmenityMarker(googlePlace: place)
-                        self.placeID = marker.googlePlace.placeID
                         marker.map = self.mapView
-                        self.mapView.camera = GMSCameraPosition(target: coordinate, zoom: 10, bearing: 0, viewingAngle: 0)
+                        self.mapView.camera = GMSCameraPosition(target: coordinate, zoom: 13, bearing: 0, viewingAngle: 0)
                         self.results = places
                     }
                 }
@@ -104,7 +99,6 @@ class TravelMapViewController: UIViewController {
             guard let detailVC = segue.destination as? AmmenityDetailViewController else { return }
             
             detailVC.selectedAmmenity = selectedAmmenity
-//            detailVC.ammenityImage = ammenityImage
         }
     }
 }
@@ -124,7 +118,7 @@ extension TravelMapViewController: CLLocationManagerDelegate {
             return
         }
         
-        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 11, bearing: 0, viewingAngle: 0)
+        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 13, bearing: 0, viewingAngle: 0)
         locationManager.stopUpdatingLocation()
         fetchNearbyPlaces(coordinate: location.coordinate)
     }
@@ -139,41 +133,23 @@ extension TravelMapViewController: GMSMapViewDelegate {
             return nil
         }
         
+        
+        guard let selectedType = selectedType,
+        let usersLatitude = locationManager.location?.coordinate.latitude,
+        let usersLongitude = locationManager.location?.coordinate.longitude,
+        let destinationLatitude = ammenityMarker.googlePlace.geometry?.location?.lat,
+        let destinationLongitude = ammenityMarker.googlePlace.geometry?.location?.lng else { return nil }
+        
         infoView.ammenityNameLabel.text = ammenityMarker.googlePlace.name
+        infoView.ammenityImageView.image = UIImage(named: "\(selectedType)_pin")
         
-        if let price = pointOfInterest?.priceLevel {
-            if price <= 1 {
-                infoView.priceLevelLabel.text = "$"
-            }
-            
-            if price == 2 {
-                infoView.priceLevelLabel.text = "$$"
-            }
-            
-            if price > 2 {
-                infoView.priceLevelLabel.text = "$$$"
-            }
-        }
+        // Calculates distance to ammenity
+        let usersLocation = CLLocation(latitude: usersLatitude, longitude: usersLongitude)
+        let destination = CLLocation(latitude: destinationLatitude, longitude: destinationLongitude)
+        let distanceInMeters = usersLocation.distance(from: destination)
+        let distanceInMiles = Double(distanceInMeters) * 0.000621371
+        infoView.milesAwayLabel.text = "\(distanceInMiles.roundToPlaces(places: 2)) miles away"
         
-        if let openNow = pointOfInterest?.openingHours?.openNow {
-            print(openNow)
-            if openNow == true {
-                infoView.isOpenLabel.text = "Open now"
-            } else {
-                infoView.isOpenLabel.text = "Closed now"
-            }
-        }
-        
-        // TODO: - Remove image code
-//        if let photo = ammenityImage {
-//            DispatchQueue.main.async {
-//                infoView.ammenityImageView.image = photo
-//            }
-        
-//        } else {
-            guard let selectedType = selectedType else { return nil }
-            infoView.ammenityImageView.image = UIImage(named: "\(selectedType)_pin")
-//        }
         return infoView
     }
     

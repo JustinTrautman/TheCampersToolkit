@@ -38,7 +38,7 @@ class BoondockingViewController: UIViewController {
         mapView.delegate = self
         
         if !beenAlerted {
-            showAccuracyAlert() // User must agree to accuracy terms before using.
+            showToSAlert() // User must agree to accuracy terms before using.
             
             fetchBoondockingLocations()
         }
@@ -61,12 +61,12 @@ class BoondockingViewController: UIViewController {
         }
     }
     
-    func showAccuracyAlert() {
-        let accuracyAlert = UIAlertController(title: nil, message: "The Camper's Toolkit cannot guarentee the accuracy of all boondocking information and locations. Always check with the site owner to verify boondocking is allowed", preferredStyle: .alert)
+    func showToSAlert() {
+        let accuracyAlert = UIAlertController(title: nil, message: "By using the boondocking feature of this app you understand and agree to the ToS in the information section of this screen.", preferredStyle: .alert)
         
-        let iAgreeAction = UIAlertAction(title: "I Agree", style: .default, handler: nil)
+        let understandAction = UIAlertAction(title: "I Understand", style: .default, handler: nil)
         
-        accuracyAlert.addAction(iAgreeAction)
+        accuracyAlert.addAction(understandAction)
         self.present(accuracyAlert, animated: true)
         
         beenAlerted = true

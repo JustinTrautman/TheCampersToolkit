@@ -11,6 +11,8 @@ import Foundation
 struct Boondocking : Codable {
     let dateLastUpdated : String?
     let description : String?
+    let website: String?
+    let phone: String?
     let fireRing : String?
     let flat : String?
     let flushToilet : String?
@@ -30,6 +32,8 @@ struct Boondocking : Codable {
         
         case dateLastUpdated = "DateLastUpdated"
         case description = "Description"
+        case website = "Website"
+        case phone = "Phone"
         case fireRing = "FireRing"
         case flat = "Flat"
         case flushToilet = "FlushToilet"
@@ -50,6 +54,8 @@ struct Boondocking : Codable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         dateLastUpdated = try values.decodeIfPresent(String.self, forKey: .dateLastUpdated)
         description = try values.decodeIfPresent(String.self, forKey: .description)
+        website = try values.decodeIfPresent(String.self, forKey: .website)
+        phone = try values.decodeIfPresent(String.self, forKey: .phone)
         fireRing = try values.decodeIfPresent(String.self, forKey: .fireRing)
         flat = try values.decodeIfPresent(String.self, forKey: .flat)
         flushToilet = try values.decodeIfPresent(String.self, forKey: .flushToilet)

@@ -12,4 +12,5 @@ class CampgroundMarkerView: UIView {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var placePhoto: UIImageView!
+    @IBOutlet weak var milesAwayLabel: UILabel!
 }
