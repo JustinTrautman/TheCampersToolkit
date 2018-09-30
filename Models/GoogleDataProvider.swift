@@ -14,7 +14,7 @@ typealias PlacesCompletion = ([GooglePlace]) -> Void
 typealias PhotoCompletion = (UIImage?) -> Void
 
 class GoogleDataProvider {
-    private var photoCache: [String: UIImage] = [:]
+    private var photoCache: [String : UIImage] = [:]
     private var placesTask: URLSessionDataTask?
     private var session: URLSession {
         return URLSession.shared

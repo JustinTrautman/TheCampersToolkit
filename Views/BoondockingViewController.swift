@@ -8,8 +8,6 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
- TODO: - Version 1.5 replace webview with custom API on Firebase.
- 
  ----------------------------------------------------------------------------------------
  */
 
@@ -142,7 +140,6 @@ extension BoondockingViewController: GMSMapViewDelegate {
         if segue.identifier == "toBoondockDetail" {
             guard let detailVC = segue.destination as? BoondockingDetailViewController else { return }
             
-            // TODO: - Pass information to detail VC
             detailVC.boondockingLocations = boondockingLocations
             detailVC.selectedBoondock = selectedBoondock
         }

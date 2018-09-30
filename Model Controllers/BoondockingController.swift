@@ -26,8 +26,6 @@ class BoondockingController {
         request.httpBody = nil
         request.httpMethod = "GET"
         
-        print(request)
-        
         URLSession.shared.dataTask(with: request) { (data, _, error) in
             if let error = error {
                 print("There was an error retrieving data in \(#function). Error: \(error)")

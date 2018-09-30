@@ -31,6 +31,7 @@ class TravelMapViewController: UIViewController {
     var selectedType: String?
     var results: [Results]?
     var selectedAmmenity: String?
+    var campgroundCoordinates: CLLocationCoordinate2D?
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -49,14 +50,20 @@ class TravelMapViewController: UIViewController {
         mapView.clear()
         guard let selectedType = self.selectedType else { return }
         
-        GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinate.latitude)", longitude: "\(coordinate.longitude)", radius: searchRadius, type: selectedType) { (places) in
+        var coordinates = coordinate
+        
+        if campgroundCoordinates != nil {
+            coordinates = campgroundCoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
+        }
+        
+        GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinates.latitude)", longitude: "\(coordinates.longitude)", radius: searchRadius, type: selectedType) { (places) in
             
             if let places = places {
                 DispatchQueue.main.async {
                     for place in places {
                         let marker = AmmenityMarker(googlePlace: place)
                         marker.map = self.mapView
-                        self.mapView.camera = GMSCameraPosition(target: coordinate, zoom: 13, bearing: 0, viewingAngle: 0)
+                        self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 13, bearing: 0, viewingAngle: 0)
                         self.results = places
                     }
                 }
@@ -96,7 +103,7 @@ class TravelMapViewController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toAmmenityDetail" {
-            guard let detailVC = segue.destination as? AmmenityDetailViewController else { return }
+            guard let detailVC = segue.destination as? AmenityDetailViewController else { return }
             
             detailVC.selectedAmmenity = selectedAmmenity
         }
@@ -118,7 +125,7 @@ extension TravelMapViewController: CLLocationManagerDelegate {
             return
         }
         
-        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 13, bearing: 0, viewingAngle: 0)
+        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 11, bearing: 0, viewingAngle: 0)
         locationManager.stopUpdatingLocation()
         fetchNearbyPlaces(coordinate: location.coordinate)
     }
@@ -144,10 +151,15 @@ extension TravelMapViewController: GMSMapViewDelegate {
         infoView.ammenityImageView.image = UIImage(named: "\(selectedType)_pin")
         
         // Calculates distance to ammenity
-        let usersLocation = CLLocation(latitude: usersLatitude, longitude: usersLongitude)
+        var usersLocation = CLLocation(latitude: usersLatitude, longitude: usersLongitude)
+        if campgroundCoordinates != nil {
+            let coordinates = CLLocation(latitude: campgroundCoordinates?.latitude ?? 0, longitude: campgroundCoordinates?.longitude ?? 0)
+            usersLocation = coordinates
+        }
         let destination = CLLocation(latitude: destinationLatitude, longitude: destinationLongitude)
         let distanceInMeters = usersLocation.distance(from: destination)
         let distanceInMiles = Double(distanceInMeters) * 0.000621371
+        
         infoView.milesAwayLabel.text = "\(distanceInMiles.roundToPlaces(places: 2)) miles away"
         
         return infoView

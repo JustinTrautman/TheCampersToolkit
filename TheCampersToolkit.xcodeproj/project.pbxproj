@@ -30,6 +30,7 @@
 		D0763E20213304E100EE5210 /* GoogleGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0763E1F213304E100EE5210 /* GoogleGeocoding.swift */; };
 		D0763E2221330AB200EE5210 /* GoogleGeocodingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0763E2121330AB200EE5210 /* GoogleGeocodingController.swift */; };
 		D08E5A1D21507E0C0054D370 /* GooglePlaceSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08E5A1C21507E0C0054D370 /* GooglePlaceSearchController.swift */; };
+		D08FD2F921602ACE00AAA098 /* CampgrounHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FD2F821602ACE00AAA098 /* CampgrounHoursViewController.swift */; };
 		D08FDCA0210BF76B007F6C5F /* Boondocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FDC9F210BF76B007F6C5F /* Boondocking.swift */; };
 		D08FDCA2210BF828007F6C5F /* BoondockingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FDCA1210BF828007F6C5F /* BoondockingController.swift */; };
 		D098E06C20FD0B8700DB4866 /* GoogleDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */; };
@@ -41,6 +42,7 @@
 		D0A63BDA210B9B5700DC5850 /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A63BD9210B9B5700DC5850 /* PhotoTableViewCell.swift */; };
 		D0A991E72103992400698EF1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A991E62103992400698EF1 /* Constants.swift */; };
 		D0AD4AE6211343F4001EB1B6 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD4AE5211343F4001EB1B6 /* DoubleExtension.swift */; };
+		D0B5CEC6215E787500180BBA /* AppRatingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B5CEC5215E787500180BBA /* AppRatingHelper.swift */; };
 		D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E06520F97C0B00210FC1 /* Assets.xcassets */; };
 		D0C5E07D20F97FD900210FC1 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E07C20F97FD900210FC1 /* Home.storyboard */; };
 		D0C5E08120F9801300210FC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */; };
@@ -48,9 +50,10 @@
 		D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */; };
 		D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */; };
 		D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */; };
-		D0D2C80C214600E20003C883 /* AmmenityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2C80B214600E20003C883 /* AmmenityDetailViewController.swift */; };
-		D0D2C80E2146111C0003C883 /* GooglePlaceSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2C80D2146111C0003C883 /* GooglePlaceSearch.swift */; };
+		D0D2C80C214600E20003C883 /* AmenityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2C80B214600E20003C883 /* AmenityDetailViewController.swift */; };
 		D0D2C8102146B5480003C883 /* AmmenityMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D2C80F2146B5480003C883 /* AmmenityMarkerView.xib */; };
+		D0D39BDA215DCE42006F1CF8 /* CampgrounHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D39BD9215DCE42006F1CF8 /* CampgrounHoursViewController.swift */; };
+		D0D39BDC215DCF1B006F1CF8 /* SatelliteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D39BDB215DCF1B006F1CF8 /* SatelliteViewController.swift */; };
 		D0E5295D210CAEDC009E6435 /* TravelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5295C210CAEDC009E6435 /* TravelViewController.swift */; };
 		D0E5295F210CB6EE009E6435 /* TravelMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5295E210CB6EE009E6435 /* TravelMapViewController.swift */; };
 		D0EAF86C21581C9500086643 /* BoondockingMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EAF86B21581C9500086643 /* BoondockingMarkerView.xib */; };
@@ -86,6 +89,7 @@
 		D0763E1F213304E100EE5210 /* GoogleGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleGeocoding.swift; sourceTree = "<group>"; };
 		D0763E2121330AB200EE5210 /* GoogleGeocodingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleGeocodingController.swift; sourceTree = "<group>"; };
 		D08E5A1C21507E0C0054D370 /* GooglePlaceSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlaceSearchController.swift; sourceTree = "<group>"; };
+		D08FD2F821602ACE00AAA098 /* CampgrounHoursViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CampgrounHoursViewController.swift; path = "View Controller/CampgrounHoursViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D08FDC9F210BF76B007F6C5F /* Boondocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boondocking.swift; sourceTree = "<group>"; };
 		D08FDCA1210BF828007F6C5F /* BoondockingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoondockingController.swift; sourceTree = "<group>"; };
 		D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDataProvider.swift; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 		D0A63BD9210B9B5700DC5850 /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
 		D0A991E62103992400698EF1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D0AD4AE5211343F4001EB1B6 /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
+		D0B5CEC5215E787500180BBA /* AppRatingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRatingHelper.swift; sourceTree = "<group>"; };
 		D0C5E05B20F97C0A00210FC1 /* TheCampersToolkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheCampersToolkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0C5E06520F97C0B00210FC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -107,9 +112,10 @@
 		D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Views/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoondockingViewController.swift; path = Views/BoondockingViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampgroundDetailViewController.swift; path = Views/CampgroundDetailViewController.swift; sourceTree = SOURCE_ROOT; };
-		D0D2C80B214600E20003C883 /* AmmenityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AmmenityDetailViewController.swift; path = Views/AmmenityDetailViewController.swift; sourceTree = SOURCE_ROOT; };
-		D0D2C80D2146111C0003C883 /* GooglePlaceSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlaceSearch.swift; sourceTree = "<group>"; };
+		D0D2C80B214600E20003C883 /* AmenityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AmenityDetailViewController.swift; path = Views/AmenityDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0D2C80F2146B5480003C883 /* AmmenityMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmmenityMarkerView.xib; sourceTree = "<group>"; };
+		D0D39BD9215DCE42006F1CF8 /* CampgrounHoursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgrounHoursViewController.swift; sourceTree = "<group>"; };
+		D0D39BDB215DCF1B006F1CF8 /* SatelliteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatelliteViewController.swift; sourceTree = "<group>"; };
 		D0E5295C210CAEDC009E6435 /* TravelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelViewController.swift; path = "Model Controllers/TravelViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D0E5295E210CB6EE009E6435 /* TravelMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelMapViewController.swift; path = "Model Controllers/TravelMapViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D0EAF86B21581C9500086643 /* BoondockingMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoondockingMarkerView.xib; sourceTree = "<group>"; };
@@ -147,6 +153,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D0B5CEC4215E783900180BBA /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D0B5CEC5215E787500180BBA /* AppRatingHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		D0C5E05220F97C0A00210FC1 = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +172,7 @@
 				D0C5E07220F97C2B00210FC1 /* Resources */,
 				D0C5E07120F97C1C00210FC1 /* XML Parsers */,
 				D0C5E07020F97C1400210FC1 /* Extensions */,
+				D0B5CEC4215E783900180BBA /* Helpers */,
 				D0C5E05D20F97C0A00210FC1 /* TheCampersToolkit */,
 				D0C5E05C20F97C0A00210FC1 /* Products */,
 				3A663817BA373CA6432F7E17 /* Pods */,
@@ -247,7 +262,6 @@
 				D066C0F72106C2DC00B71E41 /* HikingTrail.swift */,
 				D08FDC9F210BF76B007F6C5F /* Boondocking.swift */,
 				D0763E1F213304E100EE5210 /* GoogleGeocoding.swift */,
-				D0D2C80D2146111C0003C883 /* GooglePlaceSearch.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -280,10 +294,14 @@
 				D0E5295C210CAEDC009E6435 /* TravelViewController.swift */,
 				D0E5295E210CB6EE009E6435 /* TravelMapViewController.swift */,
 				D0234C16210E22C800038CAF /* PhotoDetailViewController.swift */,
-				D0D2C80B214600E20003C883 /* AmmenityDetailViewController.swift */,
+				D0D2C80B214600E20003C883 /* AmenityDetailViewController.swift */,
 				D0EAF86F21583C6A00086643 /* BoondockingDetailViewController.swift */,
+				D0D39BD9215DCE42006F1CF8 /* CampgrounHoursViewController.swift */,
+				D0D39BDB215DCF1B006F1CF8 /* SatelliteViewController.swift */,
+				D08FD2F821602ACE00AAA098 /* CampgrounHoursViewController.swift */,
 			);
-			path = "View Controllers";
+			name = "View Controllers";
+			path = "View Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -477,13 +495,17 @@
 				D04D3FE9210536AD00629B02 /* WeatherViewController.swift in Sources */,
 				D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */,
 				D053DB102148866E00254629 /* AmmenityMarkerView.swift in Sources */,
+				D08FD2F921602ACE00AAA098 /* CampgrounHoursViewController.swift in Sources */,
 				D03DAD26213249FC009B4DAB /* ForecastedWeather.swift in Sources */,
 				D066C0F22106206E00B71E41 /* ReviewDetailViewController.swift in Sources */,
 				D022B1E420FD23420012025A /* GoogleDetail.swift in Sources */,
 				D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */,
 				D03DAD2821324E63009B4DAB /* ForecastedWeatherController.swift in Sources */,
 				D022B1E620FD2ADF0012025A /* GoogleDetailController.swift in Sources */,
+				D0D39BDA215DCE42006F1CF8 /* CampgrounHoursViewController.swift in Sources */,
+				D0B5CEC6215E787500180BBA /* AppRatingHelper.swift in Sources */,
 				D0234C15210D00B500038CAF /* XMLParser.swift in Sources */,
+				D0D39BDC215DCF1B006F1CF8 /* SatelliteViewController.swift in Sources */,
 				D098E07620FD110000DB4866 /* UIView.swift in Sources */,
 				D08E5A1D21507E0C0054D370 /* GooglePlaceSearchController.swift in Sources */,
 				D0763E2221330AB200EE5210 /* GoogleGeocodingController.swift in Sources */,
@@ -497,7 +519,7 @@
 				D04D3FEB21053A7C00629B02 /* CurrentWeather.swift in Sources */,
 				D0AD4AE6211343F4001EB1B6 /* DoubleExtension.swift in Sources */,
 				D0A63BDA210B9B5700DC5850 /* PhotoTableViewCell.swift in Sources */,
-				D0D2C80C214600E20003C883 /* AmmenityDetailViewController.swift in Sources */,
+				D0D2C80C214600E20003C883 /* AmenityDetailViewController.swift in Sources */,
 				D098E06C20FD0B8700DB4866 /* GoogleDataProvider.swift in Sources */,
 				D0A991E72103992400698EF1 /* Constants.swift in Sources */,
 				D066C0FA2106C44100B71E41 /* HikingTrailController.swift in Sources */,
@@ -511,7 +533,6 @@
 				D098E06E20FD0BEB00DB4866 /* GooglePlace.swift in Sources */,
 				D066C0F42106BD7400B71E41 /* HikingViewController.swift in Sources */,
 				D066C0F62106BE9400B71E41 /* HikingTableViewCell.swift in Sources */,
-				D0D2C80E2146111C0003C883 /* GooglePlaceSearch.swift in Sources */,
 				D066C0FC210762A300B71E41 /* HikingDetailViewController.swift in Sources */,
 				D06AA8412105295C00B74FCB /* CampgroundPhotosViewController.swift in Sources */,
 			);

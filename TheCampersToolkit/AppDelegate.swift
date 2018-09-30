@@ -23,6 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Initialize the Google Mobile Ads SDK.
         GADMobileAds.configure(withApplicationID: Constants.applicationID)
+//        
+//        let campgroundName = "Alderwood RV Express"
+//        let campgroundParser = CampgroundParser()
+//        campgroundParser.parseCampground(url: "http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)") { (campgroundxml) in
+//            print(campgroundxml)
+//            print("http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)")
+            
+//            print(campgroundxml)
+//            self.xmlCampgrounds = campgroundxml
+//        }
         
         return true
     }

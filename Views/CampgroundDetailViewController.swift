@@ -13,6 +13,7 @@
  */
 
 import UIKit
+import MapKit
 
 class CampgroundDetailViewController: UIViewController {
     
@@ -23,13 +24,13 @@ class CampgroundDetailViewController: UIViewController {
     @IBOutlet weak var navigationTitle: UINavigationItem!
     @IBOutlet weak var campgroundRatingImageView: UIImageView!
     @IBOutlet weak var reviewCountLabel: UILabel!
+    @IBOutlet weak var visitWebsiteButton: UIButton!
+    @IBOutlet weak var viewHoursButton: UIButton!
     @IBOutlet weak var isOfficeOpenLabel: UILabel!
     @IBOutlet weak var phoneNumberLabel: UILabel!
     @IBOutlet weak var campgroundAddressLabel: UILabel!
-    @IBOutlet weak var campgroundWebsiteLabel: UILabel!
-    @IBOutlet weak var directionsLabel: UIButton!
+    @IBOutlet weak var directionsButton: UIButton!
     @IBOutlet weak var reviewTableView: UITableView!
-    @IBOutlet weak var dailyHoursLabel: UILabel!
     @IBOutlet weak var availabilityStatusLabel: UILabel!
     @IBOutlet weak var reservationTypeLabel: UILabel!
     @IBOutlet weak var campgroundTypeLabel: UILabel!
@@ -46,7 +47,36 @@ class CampgroundDetailViewController: UIViewController {
         scrollView.setContentOffset(CGPoint(x: 0, y: tableViewCenter), animated: true)
     }
     
+    @IBAction func visitWebsiteButtonTapped(_ sender: Any) {
+        guard let url = campgrounds?.website else { return }
+        openWebsiteUrl(url: url)
+    }
+    
+    // TODO: - DRY; give make navigation logic its own object
     @IBAction func directionsButtonTapped(_ sender: Any) {
+        guard let address = campgrounds?.formattedAddress,
+            let title = campgrounds?.name else { return }
+        
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(address) { (placemarks, error) in
+            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
+            
+            if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
+                UIApplication.shared.openURL(NSURL(string: "comgooglemaps://?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving")! as URL)
+            } else {
+                print("Opening in Apple Maps")
+                
+                let coordinates = CLLocationCoordinate2DMake(location.latitude, location.longitude)
+                let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
+                let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+                let mapItem = MKMapItem(placemark: placemark)
+                let options = [
+                    MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
+                    MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
+                mapItem.name = title
+                mapItem.openInMaps(launchOptions: options)
+            }
+        }
     }
     
     // MARK: - Properties
@@ -66,6 +96,12 @@ class CampgroundDetailViewController: UIViewController {
         
         reviewTableView.delegate = self
         reviewTableView.dataSource = self
+        
+        // Only enabled when data is available
+        visitWebsiteButton.isEnabled = false
+        visitWebsiteButton.setTitleColor(.gray, for: .disabled)
+        viewHoursButton.isEnabled = false
+        viewHoursButton.setTitleColor(.gray, for: .disabled)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,9 +129,8 @@ class CampgroundDetailViewController: UIViewController {
         
         reviewTableView.tableFooterView = UIView()
         
-        campgroundWebsiteLabel.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(CampgroundDetailViewController.tapFunction))
-        campgroundWebsiteLabel.addGestureRecognizer(tap)
+        phoneNumberLabel.addGestureRecognizer(tap)
         
         // Updates from Google Place API
         guard let campgroundId = campground?.id else { return }
@@ -118,8 +153,9 @@ class CampgroundDetailViewController: UIViewController {
                         self.navigationTitle.title = campgroundName
                     }
                     
-                    if let campgroundPhone = self.campgrounds?.formattedPhoneNumber {
-                        self.phoneNumberLabel.text = campgroundPhone
+                    if let phoneNumber = self.campgrounds?.formattedPhoneNumber {
+                        self.phoneNumberLabel.text = phoneNumber
+                        self.phoneNumberLabel.textColor = .blue
                     }
                     
                     if let campgroundAdress = self.campgrounds?.formattedAddress {
@@ -130,9 +166,8 @@ class CampgroundDetailViewController: UIViewController {
                         self.reviewCountLabel.text = "(\(campgroundReviews.count))"
                     }
                     
-                    if let campgroundWebsite = self.campgrounds?.website {
-                        self.campgroundWebsiteLabel.text = campgroundWebsite
-                        self.campgroundWebsiteLabel.textColor = .blue
+                    if let _ = self.campgrounds?.website {
+                        self.visitWebsiteButton.isEnabled = true
                     }
                     
                     if self.campgrounds?.openingHours?.openNow == true {
@@ -177,11 +212,9 @@ class CampgroundDetailViewController: UIViewController {
                         self.campgroundRatingImageView.image = UIImage(named: "0Stars")
                     }
                     
-                    guard let hoursText = self.campgrounds?.openingHours?.weekdayText else { return }
-                    
-                    let cleanHoursString = "\(hoursText)".replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: "\"", with: "")
-                    
-                    self.dailyHoursLabel.text = cleanHoursString
+                    if let campgroundHours = self.campgrounds?.openingHours {
+                        self.viewHoursButton.isEnabled = true
+                    }
                 }
             }
         }
@@ -247,13 +280,33 @@ class CampgroundDetailViewController: UIViewController {
                 showNoPhotosAlert()
             }
         }
+        
+        if segue.identifier == "toHoursVC" {
+            guard let detailVC = segue.destination as?
+                CampgroundHoursViewController else { return }
+            
+            detailVC.hours = campgrounds
+        }
+        
+        if segue.identifier == "toCamgroundAmmenityVC" {
+            guard let detailVC = segue.destination as? TravelViewController,
+            let latitude = campground?.coordinate.latitude,
+            let longitude = campground?.coordinate.longitude else { return }
+            
+            let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            
+            detailVC.campgroundAmmenities = true
+            detailVC.campgroundCoordinates = coordinates
+        }
     }
     
-    // Gesture recogizer for campground URL. Opens URL with in-app browser.
+    // Gesture recogizer for phone number label. Presents the user with a prompt to complete the call.
     @objc func tapFunction(sender: UITapGestureRecognizer) {
-        guard let website = campgroundWebsiteLabel.text else { return }
-        
-        openWebsiteUrl(url: website)
+        guard let numberToCall = phoneNumberLabel.text?.replacingOccurrences(of: " ", with: "") else { return }
+        if let phoneURL = URL(string: "telprompt://\(numberToCall)") {
+            UIApplication.shared.canOpenURL(phoneURL)
+            UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
+        }
     }
     
     func openWebsiteUrl(url: String) {
