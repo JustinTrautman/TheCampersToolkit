@@ -12,6 +12,7 @@
  */
 
 import UIKit
+import CoreLocation
 
 class TravelViewController: UIViewController {
     
@@ -24,6 +25,8 @@ class TravelViewController: UIViewController {
     // MARK: - Properties
     var selectedType = ""
     var ammenityMarker: AmmenityMarker?
+    var campgroundCoordinates: CLLocationCoordinate2D?
+    var campgroundAmmenities: Bool = false
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -51,5 +54,9 @@ class TravelViewController: UIViewController {
         }
      
         detailVC.selectedType = selectedType
+        
+        if campgroundAmmenities == true {
+            detailVC.campgroundCoordinates = campgroundCoordinates
+        }
     }
 }

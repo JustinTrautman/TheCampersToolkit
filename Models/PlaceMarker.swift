@@ -24,7 +24,7 @@ class PlaceMarker: GMSMarker {
 
         position = place.coordinate
         icon = UIImage(named: place.placeType+"_pin")
-        groundAnchor = CGPoint(x: 0.5, y: 1)
+        groundAnchor = CGPoint(x: 0.5, y: 1.0)
         appearAnimation = .pop
     }
 }
@@ -46,7 +46,7 @@ class AmmenityMarker: GMSMarker {
         guard let selectedType = GooglePlaceSearchController.selectedType else { print("Couldn't identify selected type") ; return }
         icon = UIImage(named: "\(selectedType)"+"_pin")
         
-        groundAnchor = CGPoint(x: 0.5, y: 1)
+        groundAnchor = CGPoint(x: 0.5, y: 1.0)
         appearAnimation = .pop
     }
 }
@@ -66,8 +66,6 @@ class BoondockingMarker: GMSMarker {
             if let lat = Double(latitude) {
                 if let lon = Double(longitude) {
                     
-                    print("\(lat),\(lon)")
-                    
                     let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                     position = coordinates
                 }
@@ -75,7 +73,7 @@ class BoondockingMarker: GMSMarker {
         }
         icon = UIImage(named: "boondocking_pin")
         
-        groundAnchor = CGPoint(x: 0.5, y: 1)
+        groundAnchor = CGPoint(x: 0.5, y: 1.0)
         appearAnimation = .pop
     }
 }

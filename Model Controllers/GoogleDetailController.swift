@@ -35,8 +35,6 @@ class GoogleDetailController {
         
         guard let completeURL = components?.url else { completion(nil) ; return }
         
-        print(completeURL) // TODO: -  Remove print statement (Testing only)
-        
         URLSession.shared.dataTask(with: completeURL) { (data, _, error) in
             if let error = error {
                 print("DataTask had an issue reaching the network. Exiting with error: \(error) \(error.localizedDescription)")

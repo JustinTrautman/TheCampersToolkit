@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import MapKit
 
-class AmmenityDetailViewController: UIViewController {
+class AmenityDetailViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var ammenityImageView: UIImageView!
@@ -39,6 +39,8 @@ class AmmenityDetailViewController: UIViewController {
     }
     
     // MARK: - Actions
+    
+    // TODO: - DRY; give make navigation logic its own object
     @IBAction func takeMeHereButtonTapped(_ sender: Any) {
         guard let address = ammenitieDetails?.formattedAddress,
             let title = ammenitieDetails?.name else { return }
@@ -99,7 +101,6 @@ class AmmenityDetailViewController: UIViewController {
     
     func fetchAmmenityPhoto() {
         guard let selectedType = GooglePlaceSearchController.selectedType else { return }
-        print(selectedType)
         
         DispatchQueue.main.async {
             self.ammenityImageView.image = UIImage(named: "\(selectedType)"+"PlaceholderImage")
@@ -287,7 +288,6 @@ class AmmenityDetailViewController: UIViewController {
         
         if let hours = hoursString.range(of: "– ") {
             let closingHour = hoursString[hours.upperBound...]
-            print("It closes at \(closingHour)")
             
             return "Open until \(closingHour)"
         }
