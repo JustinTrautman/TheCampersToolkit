@@ -38,6 +38,8 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var sunsetLabel: UILabel!
     @IBOutlet weak var cloudStatusImageView: UIImageView!
     @IBOutlet weak var cloudStatusLabel: UILabel!
+    @IBOutlet weak var forecastCollectionView: UICollectionView!
+    
     
     // MARK: - Properties
     var campgrounds: Result?
@@ -53,7 +55,7 @@ class WeatherViewController: UIViewController {
     lazy var adBannerView: GADBannerView = {
         
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = Constants.adUnitID
+        adBannerView.adUnitID = Constants.bannerAdUnitID
         adBannerView.delegate = self
         adBannerView.rootViewController = self
         
@@ -267,8 +269,20 @@ class WeatherViewController: UIViewController {
                                 attribute: .centerX,
                                 multiplier: 1,
                                 constant: 0)
-            ])
+        ])
     }
+}
+
+extension WeatherViewController : UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+    }
+    
 }
 
 extension WeatherViewController : GADBannerViewDelegate {

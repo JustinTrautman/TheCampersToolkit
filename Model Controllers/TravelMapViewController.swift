@@ -26,7 +26,7 @@ class TravelMapViewController: UIViewController {
     // MARK: - Properties
     private var locationManager = CLLocationManager()
     private let dataProvider = GoogleDataProvider()
-    private let searchRadius: Double = 8047 // Searches within a 5 mile radius.
+    private var searchRadius: Double = 8047
     
     var selectedType: String?
     var results: [Results]?
@@ -56,7 +56,7 @@ class TravelMapViewController: UIViewController {
             coordinates = campgroundCoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
         }
         
-        GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinates.latitude)", longitude: "\(coordinates.longitude)", radius: searchRadius, type: selectedType) { (places) in
+        GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinates.latitude)", longitude: "\(coordinates.longitude)", radius: searchRadius ?? 8047, type: selectedType) { (places) in
             
             if let places = places {
                 DispatchQueue.main.async {
@@ -75,6 +75,48 @@ class TravelMapViewController: UIViewController {
         }
     }
     
+    // MARK: - Actions
+    @IBAction func searchRadiusButtonTapped(_ sender: Any) {
+        let searchRadiusActionSheet = UIAlertController(title: "Search Radius", message: nil, preferredStyle: .actionSheet)
+        searchRadiusActionSheet.view.tintColor = .blue
+        
+        let fiveMileRadius = UIAlertAction(title: "5 Miles", style: .default) { (five) in
+            self.searchRadius = 8047
+           self.fetchNearbyPlaces(coordinate: self.locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+        }
+        
+        let tenMileRadius = UIAlertAction(title: "10 Miles", style: .default) { (twenty) in
+            self.searchRadius = 16092
+            self.fetchNearbyPlaces(coordinate: self.locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+        }
+        
+        let twentyMileRadius = UIAlertAction(title: "20 Miles", style: .default) { (fifty) in
+            self.searchRadius = 32187
+            self.fetchNearbyPlaces(coordinate: self.locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        if searchRadius == 8047 {
+            fiveMileRadius.isEnabled = false
+        }
+        
+        if searchRadius == 16092 {
+            tenMileRadius.isEnabled = false
+        }
+        
+        if searchRadius == 50000 {
+            twentyMileRadius.isEnabled = false
+        }
+        
+        searchRadiusActionSheet.addAction(cancelAction)
+        searchRadiusActionSheet.addAction(fiveMileRadius)
+        searchRadiusActionSheet.addAction(tenMileRadius)
+        searchRadiusActionSheet.addAction(twentyMileRadius)
+        
+        present(searchRadiusActionSheet, animated: true)
+}
+    
     func stringFormatter(originalString: String) -> String {
         let formattedString = originalString.replacingOccurrences(of: "_", with: " ")
         
@@ -90,7 +132,7 @@ class TravelMapViewController: UIViewController {
     }
     
     func showNoAmenitiesAlert() {
-        let noAmenitiesAlert = UIAlertController(title: nil, message: "There are no \(stringFormatter(originalString: selectedType!))s within 5 miles of you", preferredStyle: .alert)
+        let noAmenitiesAlert = UIAlertController(title: nil, message: "There are no \(stringFormatter(originalString: selectedType!))s within the specified radius. You can try adjusting the search radius", preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
             self.navigationController?.popToRootViewController(animated: true)

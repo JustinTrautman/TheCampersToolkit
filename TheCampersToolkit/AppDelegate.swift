@@ -23,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Initialize the Google Mobile Ads SDK.
         GADMobileAds.configure(withApplicationID: Constants.applicationID)
+        
+        // Increment app launched counter
+        AppRatingHelper.incrementAppLaunchedCounter()
+
 //        
 //        let campgroundName = "Alderwood RV Express"
 //        let campgroundParser = CampgroundParser()

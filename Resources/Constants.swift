@@ -27,8 +27,9 @@ struct Constants {
     static let applicationID = "appID"
     
     // Real Ad Unit ID
-//  static let adUnitID = "unitID"
+//    static let bannerAdUnitID = "unitID"
+    static let interstitialAdUnitID = "unitID"
     
     // Testing ad Unit ID
-    static let adUnitID = "unitID"
+    static let bannerAdUnitID = "unitID"
 }

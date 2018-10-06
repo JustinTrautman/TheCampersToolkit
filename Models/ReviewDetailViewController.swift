@@ -33,7 +33,7 @@ class ReviewDetailViewController: UIViewController {
     lazy var adBannerView: GADBannerView = {
         
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = Constants.adUnitID
+        adBannerView.adUnitID = Constants.bannerAdUnitID
         adBannerView.delegate = self
         adBannerView.rootViewController = self
         

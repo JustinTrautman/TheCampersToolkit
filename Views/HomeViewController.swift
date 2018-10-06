@@ -13,7 +13,7 @@
 
 import UIKit
 import GoogleMaps
-//import GooglePlaces
+import GooglePlaces
 
 class HomeViewController: UIViewController {
     
@@ -26,6 +26,8 @@ class HomeViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private let dataProvider = GoogleDataProvider()
     private let searchRadius: Double = 50000 // <<< 31 Miles. Max allowed by Google.
+    private let placesClient = GMSPlacesClient()
+    var fetcher: GMSAutocompleteFetcher?
     
     var campground: GooglePlace?
     
@@ -100,7 +102,7 @@ extension HomeViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
         guard let placeMarker = marker as? PlaceMarker else {
             return nil
-}
+        }
         guard let infoView = UIView.viewFromNibName("CampgroundMarkerView") as? CampgroundMarkerView,
             let usersLatitude = locationManager.location?.coordinate.latitude,
             let usersLongitude = locationManager.location?.coordinate.longitude else { return nil }
@@ -156,6 +158,23 @@ extension HomeViewController: GMSMapViewDelegate {
         print("Changed Position")
         // TODO: Feature in V. 1.5 - Allow user to update their search based on where they scrolled to on the map.
     }
+    
+    func placeAutoComplete() {
+        guard let searchText = searchBar.text else { return }
+        let filter = GMSAutocompleteFilter()
+        filter.type = .noFilter
+        placesClient.autocompleteQuery(searchText, bounds: nil, filter: filter) { (results, error) in
+            if let error = error {
+                print("Autocomplete error \(error); \(error.localizedDescription)")
+            }
+            
+            if let results = results {
+                for result in results {
+                    print("Result \(result.attributedFullText) with placeID \(result.placeID)")
+                }
+            }
+        }
+    }
 }
 
 extension HomeViewController: UISearchBarDelegate {
@@ -175,6 +194,7 @@ extension HomeViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.navigationController?.isNavigationBarHidden = false
+        searchBar.resignFirstResponder()
         searchBar.isHidden = true
     }
 }
