@@ -32,7 +32,8 @@ class CampgroundHoursViewController: UIViewController {
     
     func updateView() {
         guard let hours = hours,
-            let weekdays = hours.openingHours?.weekdayText else { return }
+            let weekdays = hours.openingHours?.weekdayText,
+            let dayOfTheWeek = Date().dayOfWeek() else { return }
         
         let mondaysHours = hourFormatter(hoursText: weekdays[0])
         let tuesdaysHours = hourFormatter(hoursText: weekdays[1])
@@ -41,6 +42,25 @@ class CampgroundHoursViewController: UIViewController {
         let fridaysHours = hourFormatter(hoursText: weekdays[4])
         let saturdaysHours = hourFormatter(hoursText: weekdays[5])
         let sundaysHours = hourFormatter(hoursText: weekdays[6])
+        
+        switch dayOfTheWeek {
+        case "Monday":
+            todaysHoursLabel.text = mondaysHours
+        case "Tuesday":
+            todaysHoursLabel.text = tuesdaysHours
+        case "Wednesday":
+            todaysHoursLabel.text = wednesdaysHours
+        case "Thursday":
+            todaysHoursLabel.text = thursdaysHours
+        case "Friday":
+            todaysHoursLabel.text = fridaysHours
+        case "Saturday":
+            todaysHoursLabel.text = saturdaysHours
+        case "Sunday":
+            todaysHoursLabel.text = sundaysHours
+        default:
+            break
+        }
         
         mondaysHoursLabel.text = mondaysHours
         tuesdaysHoursLabel.text = tuesdaysHours
@@ -51,10 +71,20 @@ class CampgroundHoursViewController: UIViewController {
         sundaysHoursLabel.text = sundaysHours
     }
     
+    enum dayOfTheWeek: String {
+        case Monday
+        case Tuesday
+        case Wednesday
+        case Thursday
+        case Friday
+        case Saturday
+        case Sunday
+    }
+    
     func hourFormatter(hoursText: String) -> String {
         guard let hours = hoursText.range(of: ":")  else { return "" }
-            let formattedHours = "\(hoursText[hours.upperBound...])"
-            
-            return formattedHours
+        let formattedHours = "\(hoursText[hours.upperBound...])"
+        
+        return formattedHours
     }
 }

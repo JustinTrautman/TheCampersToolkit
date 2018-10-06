@@ -184,6 +184,7 @@ class HikingDetailViewController: UIViewController {
         }
     }
     
+    // TODO: - Look at button optionality
     func initializeTrailDirectionsButton() {
         directionsToTrailsButton.layer.cornerRadius = 10.0
         directionsToTrailsButton.clipsToBounds = true

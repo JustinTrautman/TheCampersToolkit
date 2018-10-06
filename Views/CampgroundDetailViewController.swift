@@ -9,7 +9,7 @@
  Justin@modularmobile.net
  
  TODO: - do didTap() functions for phoneNumberLabel and directionsLabel
-  ----------------------------------------------------------------------------------------
+ ----------------------------------------------------------------------------------------
  */
 
 import UIKit
@@ -52,33 +52,6 @@ class CampgroundDetailViewController: UIViewController {
         openWebsiteUrl(url: url)
     }
     
-    // TODO: - DRY; give make navigation logic its own object
-    @IBAction func directionsButtonTapped(_ sender: Any) {
-        guard let address = campgrounds?.formattedAddress,
-            let title = campgrounds?.name else { return }
-        
-        let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(address) { (placemarks, error) in
-            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
-            
-            if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
-                UIApplication.shared.openURL(NSURL(string: "comgooglemaps://?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving")! as URL)
-            } else {
-                print("Opening in Apple Maps")
-                
-                let coordinates = CLLocationCoordinate2DMake(location.latitude, location.longitude)
-                let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
-                let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-                let mapItem = MKMapItem(placemark: placemark)
-                let options = [
-                    MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
-                    MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
-                mapItem.name = title
-                mapItem.openInMaps(launchOptions: options)
-            }
-        }
-    }
-    
     // MARK: - Properties
     var campground: GooglePlace?
     var campgrounds: Result?
@@ -110,6 +83,33 @@ class CampgroundDetailViewController: UIViewController {
         loadReviews()
     }
     
+        // TODO: - DRY; give make navigation logic its own object
+    @IBAction func directionsButtonTapped(_ sender: Any) {
+        guard let address = campgrounds?.formattedAddress,
+            let title = campgrounds?.name else { return }
+        
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(address) { (placemarks, error) in
+            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
+            
+            if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
+                UIApplication.shared.openURL(NSURL(string: "comgooglemaps://?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving")! as URL)
+            } else {
+                print("Opening in Apple Maps")
+                
+                let coordinates = CLLocationCoordinate2DMake(location.latitude, location.longitude)
+                let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
+                let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+                let mapItem = MKMapItem(placemark: placemark)
+                let options = [
+                    MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
+                    MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
+                mapItem.name = title
+                mapItem.openInMaps(launchOptions: options)
+            }
+        }
+    }
+
     func fetchData() {
         guard let campgroundName = campground?.name else { return }
         
@@ -297,6 +297,12 @@ class CampgroundDetailViewController: UIViewController {
             
             detailVC.campgroundAmmenities = true
             detailVC.campgroundCoordinates = coordinates
+        }
+        
+        if segue.identifier == "toCampgroundMapView" {
+            guard let detailVC = segue.destination as? SatelliteViewController else { return }
+            
+            detailVC.campgroundCoordinates = campground
         }
     }
     
