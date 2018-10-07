@@ -77,12 +77,6 @@ class CampgroundDetailViewController: UIViewController {
         viewHoursButton.setTitleColor(.gray, for: .disabled)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        loadReviews()
-    }
-    
         // TODO: - DRY; give make navigation logic its own object
     @IBAction func directionsButtonTapped(_ sender: Any) {
         guard let address = campgrounds?.formattedAddress,

@@ -44,7 +44,7 @@ class GooglePlace {
         
         photoReference = json["photos"][0]["photo_reference"].string
         
-        var foundType = "\(TravelMapViewController.shared.selectedType)"
+        var foundType = "\(AmenityMapViewController.shared.selectedType)"
         let possibleTypes = acceptedTypes.count > 0 ? acceptedTypes : ["campground", "store", "supermarket", "car_repair", "gas_station"]
         
         if let types = json["types"].arrayObject as? [String] {

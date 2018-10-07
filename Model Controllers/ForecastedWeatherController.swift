@@ -13,7 +13,7 @@ class ForeCastedWeaterController {
     static let baseURL = URL(string: "https://api.weather.gov")
     static var forecastedWeatherData: ForecastedWeatherData?
     
-    static func fetchForecastedWeatherFrom(latitude: String, longitude: String, completion: @escaping((ForecastedWeatherData)?) -> Void) {
+    static func fetchForecastedWeatherAt(latitude: String, longitude: String, completion: @escaping(ForecastedWeatherData?) -> Void) {
         
         guard var url = baseURL else { completion(nil) ; return }
         
@@ -25,7 +25,7 @@ class ForeCastedWeaterController {
         
         guard let completeURL = components?.url else { completion(nil) ; return }
         
-        URLSession.shared.dataTask(with: completeURL) { (data, road, error) in
+        URLSession.shared.dataTask(with: completeURL) { (data, _, error) in
             if let error = error {
                 print("DataTask had an issue reaching the network. Exiting with error: \(error) \(error.localizedDescription)")
                 completion(nil) ; return
