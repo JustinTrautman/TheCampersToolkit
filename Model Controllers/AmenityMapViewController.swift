@@ -56,7 +56,7 @@ class AmenityMapViewController: UIViewController {
             coordinates = campgroundCoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
         }
         
-        GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinates.latitude)", longitude: "\(coordinates.longitude)", radius: searchRadius ?? 8047, type: selectedType) { (places) in
+        GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinates.latitude)", longitude: "\(coordinates.longitude)", radius: searchRadius, type: selectedType) { (places) in
             
             if let places = places {
                 DispatchQueue.main.async {

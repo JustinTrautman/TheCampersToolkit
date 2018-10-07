@@ -64,7 +64,7 @@ class ReviewDetailViewController: UIViewController {
             [NSLayoutConstraint(item: bannerView,
                                 attribute: .bottom,
                                 relatedBy: .equal,
-                                toItem: bottomLayoutGuide,
+                                toItem: bottomLayoutGuide, // TODO: Updated deprecated code
                                 attribute: .top,
                                 multiplier: 1,
                                 constant: 0),

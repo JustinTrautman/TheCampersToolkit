@@ -50,7 +50,8 @@ class AmenityDetailViewController: UIViewController {
         guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
         
         if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
-            UIApplication.shared.openURL(NSURL(string: "comgooglemaps://?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving")! as URL)
+            let url = URL(string: "comgooglemaps://?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving")!
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {
             print("Opening in Apple Maps")
             

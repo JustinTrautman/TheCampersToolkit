@@ -63,7 +63,8 @@ class HikingDetailViewController: UIViewController {
             let trailName = trails?.name else { return }
         
         if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
-            UIApplication.shared.openURL(NSURL(string: "comgooglemaps://?daddr=\(latidude),\(longitude)&directionsmode=driving")! as URL)
+            let url = URL(string: "comgooglemaps://?daddr=\(latidude),\(longitude)&directionsmode=driving")!
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {
             print("Opening in Apple Maps")
             

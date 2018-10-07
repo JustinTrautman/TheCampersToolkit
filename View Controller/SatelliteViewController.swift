@@ -98,7 +98,7 @@ class SatelliteViewController: UIViewController, GMSMapViewDelegate {
         }
         
         if let selectedCampground = campgroundCoordinates {
-            var coordinates = selectedCampground.coordinate
+            let coordinates = selectedCampground.coordinate
             
             let camera = GMSCameraPosition.camera(withTarget: coordinates, zoom: 17)
             self.mapView.camera = camera
