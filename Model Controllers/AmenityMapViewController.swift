@@ -16,9 +16,9 @@ import GoogleMaps
 import GooglePlaces
 import GooglePlacePicker
 
-class TravelMapViewController: UIViewController {
+class AmenityMapViewController: UIViewController {
     
-    static let shared = TravelMapViewController()
+    static let shared = AmenityMapViewController()
     
     // MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
@@ -152,7 +152,7 @@ class TravelMapViewController: UIViewController {
     }
 }
 
-extension TravelMapViewController: CLLocationManagerDelegate {
+extension AmenityMapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         guard status == .authorizedWhenInUse else { return }
@@ -173,7 +173,7 @@ extension TravelMapViewController: CLLocationManagerDelegate {
     }
 }
 
-extension TravelMapViewController: GMSMapViewDelegate {
+extension AmenityMapViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
         guard let ammenityMarker = marker as? AmmenityMarker else { return nil }
