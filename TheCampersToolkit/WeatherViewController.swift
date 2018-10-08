@@ -1,6 +1,6 @@
 /*
  ----------------------------------------------------------------------------------------
-
+ 
  WeatherViewController.swift
  TheCampersToolkit
  
@@ -9,9 +9,10 @@
  Justin@modularmobile.net
  
  ✔ TODO: Implement Sunrise and sunset times. Convert from Unix time to human time...
- TODO: Implement weekly forcast...
+ ✔  TODO: Implement weekly forcast...
+ TODO: Replace Google Geocoder = CLGeocoder
  
-  ----------------------------------------------------------------------------------------
+ ----------------------------------------------------------------------------------------
  */
 
 import UIKit
@@ -70,10 +71,6 @@ class WeatherViewController: UIViewController {
         adBannerView.load(GADRequest())
         
         updateViews()
-        
-//        forecastCollectionView.delegate = self
-//        forecastCollectionView.dataSource = self
-        
         fetchForecastedWeather()
     }
     
@@ -126,100 +123,99 @@ class WeatherViewController: UIViewController {
                                         self.weatherImageView.image = UIImage(named: "fog")
                                     case .mist:
                                         self.weatherImageView.image = UIImage(named: "mist")
-                            }
-                        }
+                                    }
+                                }
                                 
                                 // TODO: - Change temperature and wind speed to switch statements
-                        
-                        if let temp = weather.main?.temp?.roundToPlaces(places: 1) {
-                            self.temperatureLabel.text = "\(temp) ℉"
-                            
-//                            guard let temperatureRange = TemperatureRange(rawValue: temp) else { return }
-                            
-                            if temp >= 90.0 {
-                                self.thermometerImageView.image = UIImage(named: "hot")
-                            }
-                            
-                            if temp <= 60.0 {
-                                self.thermometerImageView.image = UIImage(named: "lowTemp")
-                            }
-                            
-                            if temp <= 32.0 {
-                                self.thermometerImageView.image = UIImage(named: "cold")
-                            }
-                        }
-                        
-                        if let highTemp = weather.main?.tempMax {
-                            self.highTempLabel.text = "\(highTemp.roundToPlaces(places: 1)) ℉"
-                        }
-                        
-                        if let lowTemp = weather.main?.tempMin {
-                            self.lowTempLabel.text = "\(lowTemp.roundToPlaces(places: 1)) ℉"
-                        }
-                        
-                        if let humidity = weather.main?.humidity {
-                            self.humidityLabel.text = "\(humidity) % humidity"
-                        }
-                        
-                        if let wind = weather.wind?.speed {
-                            self.windLabel.text = "\(wind) mph"
-                            
-                            if wind <= 13 {
-                                self.windSpeedImageView.image = UIImage(named: "windLow")
-                            }
-                            
-                            if wind >= 13 {
-                                self.windSpeedImageView.image = UIImage(named: "windMed")
-                            }
-                            
-                            if wind >= 24 {
-                                self.windSpeedImageView.image  = UIImage(named: "windHigh")
-                            }
-                        }
-                        
-                        // Sunset and Sunrise
-                        if let sunrise = weather.sys?.sunrise {
-                            
-                            // Convert from UNIX time to human readable time
-                            let date = NSDate(timeIntervalSince1970: Double(sunrise))
-                            let dateFormatter = DateFormatter()
-                            
-                            dateFormatter.dateFormat = "hh:mm a"
-                            
-                            let dateString = dateFormatter.string(from: date as Date)
-                            
-                            print("The sunrise for \(campgroundsAddress) happens at \(dateString)")
-                            self.sunriseLabel.text = dateString
-                        }
-                        
-                        if let sunset = weather.sys?.sunset {
-                            
-                            // Convert from UNIX time to human readable time
-                            let date = NSDate(timeIntervalSince1970: Double(sunset))
-                            let dateFormatter = DateFormatter()
-                            
-                            dateFormatter.dateFormat = "hh:mm a"
-                            
-                            let dateString = dateFormatter.string(from: date as Date)
-                            
-                            print("The sunset for \(campgroundsAddress) happens at \(dateString)")
-                            self.sunsetLabel.text = dateString
-                        }
-                        
-                        if let clouds = weather.clouds?.all {
-                            if clouds < 10 {
-                                self.cloudStatusLabel.text = "Light clouds"
-                                self.cloudStatusImageView.image = UIImage(named: "lightClouds")
-                            }
-                            
-                            if clouds < 50 && clouds > 10 {
-                                self.cloudStatusLabel.text = "Mild clouds"
-                                self.cloudStatusImageView.image = UIImage(named: "mildClouds")
-                            }
-                            
-                            if clouds > 50 {
-                                self.cloudStatusLabel.text = "Heavy clouds"
-                                self.cloudStatusImageView.image = UIImage(named: "heavyClouds")
+                                if let temp = weather.main?.temp?.roundToPlaces(places: 1) {
+                                    self.temperatureLabel.text = "\(temp) ℉"
+                                    
+                                    if temp >= 90.0 {
+                                        self.thermometerImageView.image = UIImage(named: "hot")
+                                    }
+                                    
+                                    if temp <= 60.0 {
+                                        self.thermometerImageView.image = UIImage(named: "lowTemp")
+                                    }
+                                    
+                                    if temp <= 32.0 {
+                                        self.thermometerImageView.image = UIImage(named: "cold")
+                                    }
+                                }
+                                
+                                if let highTemp = weather.main?.tempMax {
+                                    self.highTempLabel.text = "\(highTemp.roundToPlaces(places: 1)) ℉"
+                                }
+                                
+                                if let lowTemp = weather.main?.tempMin {
+                                    self.lowTempLabel.text = "\(lowTemp.roundToPlaces(places: 1)) ℉"
+                                }
+                                
+                                if let humidity = weather.main?.humidity {
+                                    self.humidityLabel.text = "\(humidity) % humidity"
+                                }
+                                
+                                if let wind = weather.wind?.speed {
+                                    self.windLabel.text = "\(wind) mph"
+                                    
+                                    if wind <= 13 {
+                                        self.windSpeedImageView.image = UIImage(named: "windLow")
+                                    }
+                                    
+                                    if wind >= 13 {
+                                        self.windSpeedImageView.image = UIImage(named: "windMed")
+                                    }
+                                    
+                                    if wind >= 24 {
+                                        self.windSpeedImageView.image  = UIImage(named: "windHigh")
+                                    }
+                                }
+                                
+                                // Sunset and Sunrise
+                                if let sunrise = weather.sys?.sunrise {
+                                    
+                                    // Convert from UNIX time to human readable time
+                                    let date = NSDate(timeIntervalSince1970: Double(sunrise))
+                                    let dateFormatter = DateFormatter()
+                                    
+                                    dateFormatter.dateFormat = "hh:mm a"
+                                    
+                                    let dateString = dateFormatter.string(from: date as Date)
+                                    
+                                    print("The sunrise for \(campgroundsAddress) happens at \(dateString)")
+                                    self.sunriseLabel.text = dateString
+                                }
+                                
+                                if let sunset = weather.sys?.sunset {
+                                    
+                                    // Convert from UNIX time to human readable time
+                                    let date = NSDate(timeIntervalSince1970: Double(sunset))
+                                    let dateFormatter = DateFormatter()
+                                    
+                                    dateFormatter.dateFormat = "hh:mm a"
+                                    
+                                    let dateString = dateFormatter.string(from: date as Date)
+                                    
+                                    print("The sunset for \(campgroundsAddress) happens at \(dateString)")
+                                    self.sunsetLabel.text = dateString
+                                }
+                                
+                                if let clouds = weather.clouds?.all {
+                                    if clouds < 10 {
+                                        self.cloudStatusLabel.text = "Light clouds"
+                                        self.cloudStatusImageView.image = UIImage(named: "lightClouds")
+                                    }
+                                    
+                                    if clouds < 50 && clouds > 10 {
+                                        self.cloudStatusLabel.text = "Mild clouds"
+                                        self.cloudStatusImageView.image = UIImage(named: "mildClouds")
+                                    }
+                                    
+                                    if clouds > 50 {
+                                        self.cloudStatusLabel.text = "Heavy clouds"
+                                        self.cloudStatusImageView.image = UIImage(named: "heavyClouds")
+                                    }
+                                }
                             }
                         }
                     }
@@ -227,66 +223,89 @@ class WeatherViewController: UIViewController {
             }
         }
     }
-}
-}
-
-func fetchForecastedWeather() {
-    ForeCastedWeaterController.fetchForecastedWeatherAt(latitude: "47.6588", longitude: "-117.4260") { (forecast) in
-        if let forecast = forecast {
-            self.forecastedWeatherData = forecast
+    
+    func fetchForecastedWeather() {
+        if let campgroundsAddress = address {
+            
+            let geoCoder = CLGeocoder()
+            geoCoder.geocodeAddressString(campgroundsAddress) { (placemarks, error) in
+                guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
+                
+                let latitude = location.latitude
+                let longitude = location.longitude
+                
+                ForeCastedWeaterController.fetchForecastedWeatherAt(latitude: "\(latitude)", longitude: "\(longitude)") { (forecast) in
+                    if let forecast = forecast {
+                        self.forecastedWeatherData = forecast
+                        
+                        DispatchQueue.main.async {
+                            self.forecastCollectionView.delegate = self
+                            self.forecastCollectionView.dataSource = self
+                            self.forecastCollectionView.reloadData()
+                        }
+                    }
+                }
+            }
         }
+    }
+    
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+        ])
     }
 }
 
-
-func addBannerViewToView(_ bannerView: GADBannerView) {
-    bannerView.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(bannerView)
-    view.addConstraints(
-        [NSLayoutConstraint(item: bannerView,
-                            attribute: .bottom,
-                            relatedBy: .equal,
-                            toItem: bottomLayoutGuide,
-                            attribute: .top,
-                            multiplier: 1,
-                            constant: 0),
-         NSLayoutConstraint(item: bannerView,
-                            attribute: .centerX,
-                            relatedBy: .equal,
-                            toItem: view,
-                            attribute: .centerX,
-                            multiplier: 1,
-                            constant: 0)
-        ])
-}
-}
-
-//extension WeatherViewController : UICollectionViewDelegate, UICollectionViewDataSource {
-
+extension WeatherViewController : UICollectionViewDelegate, UICollectionViewDataSource {
+    
 //    func numberOfSections(in collectionView: UICollectionView) -> Int {
 //        guard let weatherData = forecastedWeatherData,
-//        let periods = weatherData.properties?.periods else { return 0 }
-//
-//        return periods.count
-//
-//
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        guard let weatherData = forecastedWeatherData,
-//            let periods = weatherData.properties?.periods else { return 0 }
-//
+//            let weatherProperties = weatherData.properties,
+//            let periods = weatherProperties.periods else { return 0 }
+//        
 //        return periods.count
 //    }
-//
-//    //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//    //
-//    //    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        return UICollectionViewCell()
-//    }
-//}
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let weatherData = forecastedWeatherData,
+            let weatherProperties = weatherData.properties,
+            let periods = weatherProperties.periods else { return 0 }
+        
+        return periods.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.item)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "weekDayCell", for: indexPath) as? ForecastCollectionViewCell else { return UICollectionViewCell() }
+        
+        guard let weatherData = forecastedWeatherData,
+            let weatherProperties = weatherData.properties,
+            let periods = weatherProperties.periods else { return UICollectionViewCell() }
+        
+        let weekDays = periods[indexPath.row]
+        cell.weeklyForecast = weekDays
+        
+        return cell
+    }
+}
 
 extension WeatherViewController : GADBannerViewDelegate {
     

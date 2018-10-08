@@ -13,20 +13,27 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     // MARK: - Outlets
     @IBOutlet weak var dayOfWeekLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
-    @IBOutlet weak var highTempLabel: UILabel!
-    @IBOutlet weak var lowTempLabel: UILabel!
+    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var forecastLabel: UILabel!
     
-    // MARK: - Properties
-    var forecastWeatherData: ForecastedWeatherData? {
+    var weeklyForecast: ForecastedWeatherData.Periods? {
         didSet {
             updateViews()
         }
     }
     
     func updateViews() {
-        guard let forecastedWeatherData = forecastWeatherData,
-        let dayOfTheWeek = Date().dayOfWeek() else { return }
+        guard let forecastData = weeklyForecast else { return }
+            
+            
+        dayOfWeekLabel.text = forecastData.name
         
-        dayOfWeekLabel.text = dayOfTheWeek
+        if let shortForecast = forecastData.shortForecast {
+            forecastLabel.text = shortForecast
+        
+        if let temperature = forecastData.temperature {
+        temperatureLabel.text = "\(temperature) ℉"
+            }
+        }
     }
 }
