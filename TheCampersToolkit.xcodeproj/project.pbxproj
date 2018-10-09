@@ -80,7 +80,7 @@
 		D0D2C8102146B5480003C883 /* AmmenityMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D2C80F2146B5480003C883 /* AmmenityMarkerView.xib */; };
 		D0D39BDA215DCE42006F1CF8 /* CampgrounHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D39BD9215DCE42006F1CF8 /* CampgrounHoursViewController.swift */; };
 		D0D39BDC215DCF1B006F1CF8 /* SatelliteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D39BDB215DCF1B006F1CF8 /* SatelliteViewController.swift */; };
-		D0D8850321695E71002425DB /* WeatherDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8850221695E71002425DB /* WeatherDetailViewController.swift */; };
+		D0D8850321695E71002425DB /* ForecastDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8850221695E71002425DB /* ForecastDetailViewController.swift */; };
 		D0D885052169A6CD002425DB /* ForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D885042169A6CD002425DB /* ForecastCollectionViewCell.swift */; };
 		D0D88507216A5B8B002425DB /* WeatherHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D88506216A5B8B002425DB /* WeatherHelper.swift */; };
 		D0D985D92161781800BAB043 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D985D82161781800BAB043 /* InformationViewController.swift */; };
@@ -214,7 +214,7 @@
 		D0D2C80F2146B5480003C883 /* AmmenityMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmmenityMarkerView.xib; sourceTree = "<group>"; };
 		D0D39BD9215DCE42006F1CF8 /* CampgrounHoursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgrounHoursViewController.swift; sourceTree = "<group>"; };
 		D0D39BDB215DCF1B006F1CF8 /* SatelliteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatelliteViewController.swift; sourceTree = "<group>"; };
-		D0D8850221695E71002425DB /* WeatherDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewController.swift; sourceTree = "<group>"; };
+		D0D8850221695E71002425DB /* ForecastDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastDetailViewController.swift; sourceTree = "<group>"; };
 		D0D885042169A6CD002425DB /* ForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0D88506216A5B8B002425DB /* WeatherHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHelper.swift; sourceTree = "<group>"; };
 		D0D985D82161781800BAB043 /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
@@ -554,7 +554,7 @@
 				D0D39BDB215DCF1B006F1CF8 /* SatelliteViewController.swift */,
 				D08FD2F821602ACE00AAA098 /* CampgrounHoursViewController.swift */,
 				D0D985D82161781800BAB043 /* InformationViewController.swift */,
-				D0D8850221695E71002425DB /* WeatherDetailViewController.swift */,
+				D0D8850221695E71002425DB /* ForecastDetailViewController.swift */,
 			);
 			name = "View Controllers";
 			path = "View Controller";
@@ -815,7 +815,7 @@
 				D066C0F42106BD7400B71E41 /* HikingViewController.swift in Sources */,
 				D066C0F62106BE9400B71E41 /* HikingTableViewCell.swift in Sources */,
 				D0026C9C2160747900DA8693 /* GMUClusterManager.m in Sources */,
-				D0D8850321695E71002425DB /* WeatherDetailViewController.swift in Sources */,
+				D0D8850321695E71002425DB /* ForecastDetailViewController.swift in Sources */,
 				D0026CA62160747900DA8693 /* GMUHeatmapTileLayer.m in Sources */,
 				D066C0FC210762A300B71E41 /* HikingDetailViewController.swift in Sources */,
 				D0026CA22160747900DA8693 /* GMUDefaultClusterIconGenerator.m in Sources */,

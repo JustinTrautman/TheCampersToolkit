@@ -10,7 +10,7 @@
  
  ✔ TODO: Implement Sunrise and sunset times. Convert from Unix time to human time...
  ✔  TODO: Implement weekly forcast...
- TODO: Replace Google Geocoder = CLGeocoder
+ TODO: Replace Google Geocoder with CLGeocoder
  
  ----------------------------------------------------------------------------------------
  */
@@ -44,6 +44,7 @@ class WeatherViewController: UIViewController {
     var address: String?
     var currentWeatherData: CampgroundWeatherData?
     var forecastedWeatherData: ForecastedWeatherData?
+    var selectedForecast: ForecastedWeatherData.Periods?
     
     // Banner Ad Setup
     var bannerView: GADBannerView!
@@ -269,17 +270,26 @@ class WeatherViewController: UIViewController {
                                 constant: 0)
         ])
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toForecastDetailVC" {
+            guard let destinationVC = segue.destination as? ForecastDetailViewController,
+                let weatherData = forecastedWeatherData,
+                let weatherProperties = weatherData.properties,
+                let periods = weatherProperties.periods else { return }
+            
+            if let sender = sender as? ForecastCollectionViewCell {
+                guard let indexPath = forecastCollectionView.indexPath(for: sender) else { return }
+                let selectedForecast = periods[indexPath.row]
+                
+                destinationVC.forecastedWeatherData = selectedForecast
+                destinationVC.locationElevation = forecastedWeatherData
+            }
+        }
+    }
 }
 
 extension WeatherViewController : UICollectionViewDelegate, UICollectionViewDataSource {
-    
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        guard let weatherData = forecastedWeatherData,
-//            let weatherProperties = weatherData.properties,
-//            let periods = weatherProperties.periods else { return 0 }
-//        
-//        return periods.count
-//    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let weatherData = forecastedWeatherData,
@@ -290,7 +300,8 @@ extension WeatherViewController : UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.item)
+        let selectedIndex = indexPath.row
+        print(selectedIndex)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -301,9 +312,28 @@ extension WeatherViewController : UICollectionViewDelegate, UICollectionViewData
             let periods = weatherProperties.periods else { return UICollectionViewCell() }
         
         let weekDays = periods[indexPath.row]
+        
         cell.weeklyForecast = weekDays
         
-        return cell
+        if weekDays.isDaytime == false {
+            cell.weatherImageView.image = UIImage(named: "moon")
+            cell.backgroundColor = .black
+            cell.dayOfWeekLabel.textColor = .white
+            cell.temperatureLabel.textColor = .white
+            cell.forecastLabel.textColor = .white
+            cell.moreArrowImageView.image = UIImage(named: "whiteMoreArrow")
+            
+            return cell
+        } else {
+            cell.weatherImageView.image = UIImage(named: "sunny")
+            cell.backgroundColor = .white
+            cell.dayOfWeekLabel.textColor = .black
+            cell.temperatureLabel.textColor = .black
+            cell.forecastLabel.textColor = .black
+            cell.moreArrowImageView.image = UIImage(named: "blackMoreArrow")
+            
+            return cell
+        }
     }
 }
 

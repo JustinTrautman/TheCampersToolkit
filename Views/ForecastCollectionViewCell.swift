@@ -15,6 +15,7 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var forecastLabel: UILabel!
+    @IBOutlet weak var moreArrowImageView: UIImageView!
     
     var weeklyForecast: ForecastedWeatherData.Periods? {
         didSet {
@@ -24,7 +25,6 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     
     func updateViews() {
         guard let forecastData = weeklyForecast else { return }
-            
             
         dayOfWeekLabel.text = forecastData.name
         
