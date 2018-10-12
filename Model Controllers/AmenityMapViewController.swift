@@ -105,7 +105,7 @@ class AmenityMapViewController: UIViewController {
             tenMileRadius.isEnabled = false
         }
         
-        if searchRadius == 50000 {
+        if searchRadius == 32187 {
             twentyMileRadius.isEnabled = false
         }
         
@@ -135,7 +135,8 @@ class AmenityMapViewController: UIViewController {
         let noAmenitiesAlert = UIAlertController(title: nil, message: "There are no \(stringFormatter(originalString: selectedType!))s within the specified radius. You can try adjusting the search radius", preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
-            self.navigationController?.popToRootViewController(animated: true)
+            // Go back to previous ViewController. Disabled in Version 1.5
+//            self.navigationController?.popToRootViewController(animated: true)
         }
         
         noAmenitiesAlert.addAction(okAction)

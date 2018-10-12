@@ -12,5 +12,4 @@
 //#import <Google-Maps-iOS-Utils/GMUMarkerClustering.h>
 #import "GMUMarkerClustering.h"
 
-
 #endif /* TheCampersToolkit_Bridging_Header_h */

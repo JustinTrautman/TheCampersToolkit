@@ -58,17 +58,17 @@ class HikingDetailViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func directionsToTrailButtonTapped(_ sender: Any) {
-        guard let latidude = trails?.latitude,
+        guard let latitude = trails?.latitude,
             let longitude = trails?.longitude,
             let trailName = trails?.name else { return }
         
         if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
-            let url = URL(string: "comgooglemaps://?daddr=\(latidude),\(longitude)&directionsmode=driving")!
+            let url = URL(string: "comgooglemaps://?daddr=\(latitude),\(longitude)&directionsmode=driving")!
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {
             print("Opening in Apple Maps")
             
-            let coordinates = CLLocationCoordinate2DMake(latidude, longitude)
+            let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
             let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
             let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
             let mapItem = MKMapItem(placemark: placemark)

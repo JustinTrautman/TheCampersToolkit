@@ -26,8 +26,6 @@ class HikingViewController: UIViewController {
     static let shared = HikingViewController()
     var trails: [Trails]?
     
-    var coordinates: [Results]?
-    
     lazy var adBannerView: GADBannerView = {
         
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
@@ -54,7 +52,7 @@ class HikingViewController: UIViewController {
         adBannerView.load(GADRequest())
     }
     
-    //     MARK: - Navigation
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "hikingDetail" {
             if let indexPath = self.hikingTableView.indexPathForSelectedRow {
@@ -100,22 +98,18 @@ extension HikingViewController: UISearchBarDelegate {
         hikingSearchBar.resignFirstResponder()
         guard let searchText = hikingSearchBar.text else { return }
         
-        GoogleGeocodingController.getCoordinatesFrom(adress: searchText) { (coordinates) in
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(searchText) { (placemarks, error) in
+            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
             
-            if let coordinates = coordinates {
-                if let location = coordinates[0].geometry?.location {
-                    self.coordinates = coordinates
-                    
-                    guard let latitude = location.lat,
-                        let longitude = location.lng else { return }
-                    
-                    HikingTrailController.fetchHikingTrailsNear(latitude: "\(latitude)", longitude: "\(longitude)") { (trails) in
-                        if let trails = trails {
-                            self.trails = trails
-                        }
-                        self.reloadTableView()
-                    }
+            let latitude = location.latitude
+            let longitude = location.longitude
+            
+            HikingTrailController.fetchHikingTrailsNear(latitude: "\(latitude)", longitude: "\(longitude)") { (trails) in
+                if let trails = trails {
+                    self.trails = trails
                 }
+                self.reloadTableView()
             }
         }
     }

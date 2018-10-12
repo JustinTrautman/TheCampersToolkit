@@ -9,6 +9,8 @@
 import Foundation
 import StoreKit
 
+var beenAsked: Bool = false
+
 struct AppRatingHelper {
     static func incrementAppLaunchedCounter() {
         let currentCount = UserDefaults.standard.integer(forKey: "launchCount")
@@ -21,12 +23,16 @@ struct AppRatingHelper {
     static func askForRating() {
         let appLaunchCount = UserDefaults.standard.integer(forKey: "launchCount")
         
+        if beenAsked == false {
+        
         switch appLaunchCount {
-        case 10, 20, 50, 80:
+        case 10, 18, 20, 50, 80:
             AppRatingHelper().requestReview()
+            beenAsked = true
         default:
             print("🔥🔥🔥App has been launched \(appLaunchCount) times🔥🔥🔥.")
             break
+            }
         }
     }
     

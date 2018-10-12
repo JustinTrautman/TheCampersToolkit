@@ -55,7 +55,6 @@ class ForecastDetailViewController: UIViewController {
     func updateViews() {
         guard let forecastedWeatherData = forecastedWeatherData else { return }
         
-        // TODO: - Merge to one guard let
         guard let name = forecastedWeatherData.name,
             let temperature = forecastedWeatherData.temperature,
             let windSpeed = forecastedWeatherData.windSpeed,
@@ -64,8 +63,8 @@ class ForecastDetailViewController: UIViewController {
             let forecastProperties = locationElevation?.properties,
             let elevation = forecastProperties.elevation?.value else { return }
         
-        if let dayType = forecastedWeatherData.isDaytime {
-            if dayType == false {
+        if let isDay = forecastedWeatherData.isDaytime {
+            if isDay == false {
                 setNightTheme()
             } else {
                 dayTypeImageView.image = UIImage(named: "sunnyBig")
@@ -74,7 +73,7 @@ class ForecastDetailViewController: UIViewController {
         
         dayNameLabel.text = name
         temperatureLabel.text = "\(temperature) ℉"
-        windSpeedLabel.text = "The expected wind speed is \(windSpeed) °\(windDirection)"
+        windSpeedLabel.text = "The expected wind speed is \(windSpeed) \(windDirection)"
         weatherDescriptionLabel.text = weatherDescription
         
         let elevationInFeet = elevation * 3.2808

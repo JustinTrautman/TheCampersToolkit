@@ -12,11 +12,9 @@
  */
 
 import UIKit
-import WebKit
 import GoogleMaps
-import GoogleUtilities
 
-class BoondockingViewController: UIViewController, GMSMapViewDelegate, GMUClusterManagerDelegate {
+class BoondockingViewController: UIViewController, GMSMapViewDelegate {
     
     // MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
@@ -26,13 +24,9 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate, GMUCluste
     // MARK: - Properties
     private let locationManager = CLLocationManager()
     
-    let isClustering: Bool = true
-    let isCustom: Bool = true
-    
     var boondockingLocations: [Boondocking]?
     var selectedBoondock: Boondocking?
     var beenAlerted = UserDefaults.standard.bool(forKey: "Alerted")
-    var clusterManager: GMUClusterManager!
     
     // MARK: - View Lifecylce
     override func viewDidLoad() {
@@ -51,133 +45,14 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate, GMUCluste
             fetchBoondockingLocations()
         }
         
-        // Marker Cluster
-        let coordinates = CLLocationCoordinate2D(latitude: 39.828175, longitude: -98.5795)
-        
-        let camera = GMSCameraPosition.camera(withTarget: coordinates, zoom: 14)
-        mapView.camera = camera
-        mapView.mapType = GMSMapViewType.normal
-        
-        if isClustering {
-            var iconGenerator = GMUDefaultClusterIconGenerator()
-            if isCustom {
-            var images : [UIImage] = [UIImage(named: "m1")!, UIImage(named: "m2")!, UIImage(named: "m3")!, UIImage(named: "m4")!, UIImage(named: "m5")!]
-//                images.append(UIImage(named: "gas_station_pin") ?? UIImage())
-            
-            iconGenerator = GMUDefaultClusterIconGenerator(buckets: [2, 10, 25, 50, 100], backgroundImages: images)
-            } else {
-                iconGenerator = GMUDefaultClusterIconGenerator()
-            }
-            
-            let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
-            let renderer = GMUDefaultClusterRenderer(mapView: mapView, clusterIconGenerator: iconGenerator)
-            
-            clusterManager = GMUClusterManager (map: mapView, algorithm: algorithm, renderer: renderer)
- 
-        } else {
-        }
-        
-        let firstLocation = CLLocationCoordinate2DMake(48.898902, -117.987654)
-        let marker = GMSMarker(position: firstLocation)
-        marker.icon = UIImage(named: "gas_station_pin") //Apply custom marker
-        marker.map = mapView
-        
-        
-        let secondLocation = CLLocationCoordinate2DMake(48.924572, -117.987654)
-        let secondMarker = GMSMarker(position: secondLocation)
-        secondMarker.icon = UIImage(named: "gas_station_pin")
-        secondMarker.map = mapView
-        
-        let threeLocation = CLLocationCoordinate2DMake(48.841619, -117.987654)
-        let threeMarker = GMSMarker(position: threeLocation)
-        threeMarker.icon = UIImage(named: "gas_station_pin")
-        threeMarker.map = mapView
-        
-        let fourLocation = CLLocationCoordinate2DMake(48.858575, -117.987654)
-        let fourMarker = GMSMarker(position: fourLocation)
-        fourMarker.icon = UIImage(named: "gas_station_pin")
-        fourMarker.map = mapView
-        
-        let fiveLocation = CLLocationCoordinate2DMake(48.873819, -117.987654)
-        let fiveMarker = GMSMarker(position: fiveLocation)
-        fiveMarker.icon = UIImage(named: "gas_station_pin")
-        fiveMarker.map = mapView
-    }
-    
-    func addMarkers(cameraLatitude : Double, cameraLongitude : Double) {
-        let clusterItemCount = 390
-        let extent = 0.01
-        for index in 1...clusterItemCount {
-            let lat = cameraLatitude + extent * randomScale()
-            let lng = cameraLongitude + extent * randomScale()
-            let name = "Item \(index)"
-            
-            let position = CLLocationCoordinate2DMake(lat, lng)
-            
-            let item = POIItem(position: position, name: name)
-            clusterManager.add(item)
-            
-        }
-        clusterManager.cluster()
-        clusterManager.setDelegate(self, mapDelegate: self)
-    }
-    
-    func renderer (_ renderer: GMUClusterRenderer, markFor object: Any) -> GMSMarker? {
-        
-        let marker = GMSMarker()
-        if let model = object as? BoondockingViewController {
-            // set image view for gmsmarker
-        }
-        return marker
-    }
-    
-    class POIItem: NSObject, GMUClusterItem {
-        var position: CLLocationCoordinate2D
-        var name: String!
-        
-        init(position: CLLocationCoordinate2D, name: String) {
-            self.position = position
-            self.name = name
-        }
-    }
-    
-//    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-//        let item = POIItem(position: coordinate, name: "New")
-//        clusterManager.add(item)
-//        clusterManager.cluster()
-//    }
-//
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        if let poiItem = marker.userData as? POIItem {
-            print("Did tap marker for cluster item \(poiItem.name)")
-        } else {
-            print("Did tap a normal marker")
-        }
-        return false
-    }
-    
-    // MARK: - GMUClusterManagerDelegate
-    func clusterManager(_ clusterManager: GMUClusterManager, didTap cluster: GMUCluster) -> Bool {
-        let newCamera = GMSCameraPosition.camera(withTarget: cluster.position, zoom: mapView.camera.zoom + 1)
-        let update = GMSCameraUpdate.setCamera(newCamera)
-        mapView.moveCamera(update)
-        return false
+        // If user has already agreed, fetch locations
+        fetchBoondockingLocations()
     }
     
     // MARK: - Actions
     @IBAction func searchButtonTapped(_ sender: Any) {
         openSearchWindow()
-        fetchBoondockingLocations()
-        
     }
-    
-    /// Randomly generates cluster items within some extent of the camera and
-    /// adds them to the cluster manager.
-        
-        /// Returns a random value between -1.0 and 1.0.
-        private func randomScale() -> Double {
-            return Double(arc4random()) / Double(UINT32_MAX) * 2.0 - 1.0
-        }
     
     func openSearchWindow() {
         let searchWindow = UIAlertController(title: nil, message: "Enter a city or state to locate boondocking locations", preferredStyle: .alert)
@@ -193,10 +68,18 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate, GMUCluste
             guard let searchText = searchTextField?.text, !searchText.isEmpty else { return }
             self.navigationBar.title = searchText
             
-            // Search()
-            print("I am now searching for dump stations in \(searchText)")
+            print("I am now searching for boondocking locations in \(searchText)")
             
-            // TODO: - Convert search text to coordinates
+            let geoCoder = CLGeocoder()
+            geoCoder.geocodeAddressString(searchText) { (placemarks, error) in
+                guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
+                
+                let latitude = location.latitude
+                let longitude = location.longitude
+                let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                
+                self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 7, bearing: 0, viewingAngle: 0)
+            }
         }
         
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -209,23 +92,24 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate, GMUCluste
     func fetchBoondockingLocations() {
         BoondockingController.fetchAllBoondockingLocations { (boondocking) in
             if let boondocking = boondocking {
-                let coordinates = CLLocationCoordinate2D(latitude: 39.828175, longitude: -98.5795)
+                let usersLocation = self.locationManager.location?.coordinate
+                let coordinates = CLLocationCoordinate2D(latitude: usersLocation?.latitude ?? 0, longitude: usersLocation?.longitude ?? 0)
                 self.boondockingLocations = boondocking
                 
                 DispatchQueue.main.async {
                     for boondocks in boondocking {
                         let marker = BoondockingMarker(boondocking: [boondocks])
+                        
+                        self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 7, bearing: 0, viewingAngle: 0)
+                        guard let latitude = boondocks.latitude,
+                            let longitude = boondocks.longitude else { return }
+                        let latAsDouble = Double("\(latitude)")
+                        let lonAsDouble = Double("\(longitude)")
+                        
+                        let coordinates = CLLocationCoordinate2D(latitude: latAsDouble ?? 0, longitude: lonAsDouble ?? 0)
+                        
                         marker.map = self.mapView
-
-                        self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 3, bearing: 0, viewingAngle: 0)
-                        let latitude = boondocks.latitude
-                        let longitude = boondocks.longitude
-                        let latAsDouble = Double("\(latitude)") ?? 0
-                        let lonAsDouble = Double("\(longitude)") ?? 0
                     }
-                }
-                DispatchQueue.main.async {
-                    self.clusterManager.cluster()
                 }
             }
         }
@@ -262,17 +146,17 @@ extension BoondockingViewController: CLLocationManagerDelegate {
         
         mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 10, bearing: 0, viewingAngle: 0)
         locationManager.stopUpdatingLocation()
-//        fetchBoondockingLocations()
+        fetchBoondockingLocations()
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-        guard let placeMarker = marker as? BoondockingMarker else { return nil }
+        guard let boondockingMarker = marker as? BoondockingMarker else { return nil }
         
         guard let infoView = UIView.viewFromNibName("BoondockingMarkerView") as? BoondockingMarkerView else {
             return nil
         }
         
-        for boondock in placeMarker.boondocking {
+        for boondock in boondockingMarker.boondocking {
             infoView.descriptionLabel.text = boondock.description
             
             guard let latitude = boondock.latitude,
@@ -283,13 +167,14 @@ extension BoondockingViewController: CLLocationManagerDelegate {
             print(latitudeInDouble)
             print(longitudeInDouble)
             
-//            let coordinates = CLLocationCoordinate2D(latitude: latitudeInDouble, longitude: longitudeInDouble)
+            let usersLocation = CLLocation(latitude: locationManager.location?.coordinate.latitude ?? 0, longitude: locationManager.location?.coordinate.longitude ?? 0)
+            let destination = CLLocation(latitude: latitudeInDouble, longitude: longitudeInDouble)
+            let distanceInMeters = destination.distance(from: usersLocation)
+            let distanceInMiles = Double(distanceInMeters) * 0.000621371
+            
+            infoView.milesAwayLabel.text = "\(distanceInMiles.roundToPlaces(places: 2)) miles away"
             
             selectedBoondock = boondock
-            
-//            let camera = GMSCameraPosition.camera(withTarget: coordinates, zoom: 14)
-//            infoView.boondockingMapView.camera = camera
-//            infoView.boondockingMapView.mapType = GMSMapViewType.satellite
         }
         
         return infoView
@@ -305,8 +190,7 @@ extension BoondockingViewController: CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        
-        let boondockMarker = marker as? BoondockingMarker
         performSegue(withIdentifier: "toBoondockDetail", sender: BoondockingMarker.self)
     }
 }
+

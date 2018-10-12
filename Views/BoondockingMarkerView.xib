@@ -16,38 +16,57 @@
             <rect key="frame" x="0.0" y="0.0" width="178" height="125"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="134" translatesAutoresizingMaskIntoConstraints="NO" id="yWI-Dh-UUh">
-                    <rect key="frame" x="8" y="0.0" width="162" height="38"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oVz-I2-RKh">
+                    <rect key="frame" x="8.5" y="0.0" width="162" height="83.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="134" translatesAutoresizingMaskIntoConstraints="NO" id="yWI-Dh-UUh">
+                            <rect key="frame" x="0.0" y="0.0" width="162" height="55"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="162" id="kye-DM-yra"/>
+                                <constraint firstAttribute="width" secondItem="yWI-Dh-UUh" secondAttribute="height" multiplier="81:19" constant="-72.473684210526329" id="swm-Zk-mFd"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(miles away)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="FTd-KG-Ajr">
+                            <rect key="frame" x="0.0" y="63" width="162" height="20.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="162" id="b8e-jA-wvO"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blackMoreArrow" translatesAutoresizingMaskIntoConstraints="NO" id="6Nd-BQ-3FJ">
+                    <rect key="frame" x="73" y="89" width="33" height="33"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="162" id="kye-DM-yra"/>
-                        <constraint firstAttribute="width" secondItem="yWI-Dh-UUh" secondAttribute="height" multiplier="81:19" id="swm-Zk-mFd"/>
+                        <constraint firstAttribute="width" secondItem="6Nd-BQ-3FJ" secondAttribute="height" multiplier="1:1" id="0lt-Gh-Qor"/>
+                        <constraint firstAttribute="height" constant="33" id="JeI-02-TXn"/>
+                        <constraint firstAttribute="width" constant="33" id="sp4-lH-qbH"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f7E-yL-Z19" customClass="GMSMapView">
-                    <rect key="frame" x="16" y="46" width="146" height="72"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="f7E-yL-Z19" firstAttribute="top" secondItem="yWI-Dh-UUh" secondAttribute="bottom" constant="8" symbolic="YES" id="1k4-8R-m7v"/>
-                <constraint firstItem="uCx-Dy-9bn" firstAttribute="bottom" secondItem="f7E-yL-Z19" secondAttribute="bottom" constant="7" id="6LX-A8-vQz"/>
-                <constraint firstItem="yWI-Dh-UUh" firstAttribute="leading" secondItem="uCx-Dy-9bn" secondAttribute="leading" constant="8" id="7Np-w0-3g5"/>
-                <constraint firstItem="uCx-Dy-9bn" firstAttribute="trailing" secondItem="yWI-Dh-UUh" secondAttribute="trailing" constant="8" id="BiP-E9-olD"/>
-                <constraint firstItem="f7E-yL-Z19" firstAttribute="leading" secondItem="vKF-V1-TJb" secondAttribute="leadingMargin" id="lWt-8o-qEC"/>
-                <constraint firstItem="yWI-Dh-UUh" firstAttribute="top" secondItem="uCx-Dy-9bn" secondAttribute="top" id="rpR-bO-647"/>
-                <constraint firstItem="f7E-yL-Z19" firstAttribute="centerX" secondItem="yWI-Dh-UUh" secondAttribute="centerX" id="vPm-BN-TUo"/>
+                <constraint firstItem="uCx-Dy-9bn" firstAttribute="trailing" secondItem="6Nd-BQ-3FJ" secondAttribute="trailing" constant="72" id="12b-ih-Eua"/>
+                <constraint firstItem="6Nd-BQ-3FJ" firstAttribute="centerX" secondItem="oVz-I2-RKh" secondAttribute="centerX" id="LIH-Mm-b0G"/>
+                <constraint firstItem="6Nd-BQ-3FJ" firstAttribute="top" secondItem="oVz-I2-RKh" secondAttribute="bottom" constant="5.5" id="SMZ-tP-n7b"/>
+                <constraint firstItem="uCx-Dy-9bn" firstAttribute="bottom" secondItem="6Nd-BQ-3FJ" secondAttribute="bottom" constant="3" id="eNp-Z0-Rau"/>
+                <constraint firstItem="6Nd-BQ-3FJ" firstAttribute="leading" secondItem="uCx-Dy-9bn" secondAttribute="leading" constant="73" id="wNZ-gg-HUF"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="uCx-Dy-9bn"/>
             <connections>
-                <outlet property="boondockingMapView" destination="f7E-yL-Z19" id="4Eh-1o-ejQ"/>
                 <outlet property="descriptionLabel" destination="yWI-Dh-UUh" id="oOk-FX-LbO"/>
+                <outlet property="milesAwayLabel" destination="FTd-KG-Ajr" id="Djo-p1-BDB"/>
             </connections>
-            <point key="canvasLocation" x="558.39999999999998" y="364.7676161919041"/>
+            <point key="canvasLocation" x="600" y="363.86806596701655"/>
         </view>
     </objects>
+    <resources>
+        <image name="blackMoreArrow" width="32" height="32"/>
+    </resources>
 </document>

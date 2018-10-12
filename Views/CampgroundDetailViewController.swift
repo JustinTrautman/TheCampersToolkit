@@ -8,7 +8,7 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
- TODO: - do didTap() functions for phoneNumberLabel and directionsLabel
+ ✔️ TODO: - do didTap() functions for phoneNumberLabel and directionsLabel
  ----------------------------------------------------------------------------------------
  */
 
@@ -348,6 +348,14 @@ extension CampgroundDetailViewController: UITableViewDelegate, UITableViewDataSo
         let review = unwrappedReviews[indexPath.row]
         cell.reviews = review
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        reviewTableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        reviewTableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

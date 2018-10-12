@@ -11,11 +11,15 @@ import GoogleMaps
 import MapKit
 import GoogleMobileAds
 
+var shownAd: Bool = false
+
 class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GADInterstitialDelegate {
     
     // MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var visitWebsiteButton: UIButton!
+    @IBOutlet weak var phoneNumberButton: UIButton!
+    @IBOutlet weak var descriptionTableView: UITableView!
     @IBOutlet weak var directionsButton: UIButton!
     @IBOutlet weak var lastUpdatedLabel: UILabel!
     @IBOutlet weak var fireringLabel: UILabel!
@@ -32,12 +36,16 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
     var boondockingLocations: [Boondocking]?
     var selectedBoondock: Boondocking?
     var interstitial: GADInterstitial!
-    
+        
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mapView.delegate = self
+        descriptionTableView.delegate = self
+        descriptionTableView.dataSource = self
+        descriptionTableView.tableFooterView = UIView()
+        
         setupMapView()
         updateViews()
         setupDirectionsButton()
@@ -45,8 +53,16 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
         // If user is engaged, ask for rating
         AppRatingHelper.askForRating()
         
-        // Show interstitial ad on certain app launch intervals
+        // Show interstitial ad one time on certain app launch intervals
+        if shownAd == false {
         interstitial = createAndLoadInterstitial()
+        }
+        
+        // Website and phonenumber buttons disabled unless data is available
+        visitWebsiteButton.isEnabled = false
+        visitWebsiteButton.setTitleColor(.gray, for: .disabled)
+        phoneNumberButton.isEnabled = false
+        phoneNumberButton.setTitleColor(.gray, for: .disabled)
     }
     
     // MARK: - Actions
@@ -57,7 +73,8 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
             let title = selectedBoondock?.description else { return }
         
         if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
-            UIApplication.shared.canOpenURL(NSURL(string: "comgooglemaps://?daddr=\(latitude),\(longitude)&directionsmode=driving")! as URL)
+            let url = URL(string: "comgooglemaps://?daddr=\(latitude),\(longitude)&directionsmode=driving")!
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {
             print("Opening in Apple Maps")
             
@@ -75,6 +92,20 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
                 MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
             mapItem.name = title
             mapItem.openInMaps(launchOptions: options)
+        }
+    }
+    
+    @IBAction func visitWebsiteButtonTapped(_ sender: Any) {
+        if let website = selectedBoondock?.website {
+            openWebsiteUrl(url: website)
+        }
+    }
+    
+    @IBAction func PhoneNumberButtonTapped(_ sender: Any) {
+        guard let numberToCall = phoneNumberButton.currentTitle?.replacingOccurrences(of: " ", with: "") else { return }
+        if let phoneURL = URL(string: "telprompt://\(numberToCall)") {
+            UIApplication.shared.canOpenURL(phoneURL)
+            UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
         }
     }
     
@@ -98,8 +129,21 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
     }
     
     func updateViews() {
-        if let description = selectedBoondock?.description {
-            descriptionLabel.text = description
+        if let website = selectedBoondock?.website {
+            visitWebsiteButton.isEnabled = true
+            visitWebsiteButton.setTitleColor(.blue, for: .normal)
+        }
+        
+        if let phoneNumber = selectedBoondock?.phone {
+            if phoneNumber != "" {
+            phoneNumberButton.isEnabled = true
+            phoneNumberButton.setTitle(phoneNumber, for: .normal)
+            phoneNumberButton.setTitleColor(.blue, for: .normal)
+            }
+        }
+        
+        if let _ = selectedBoondock?.description {
+            self.descriptionTableView.reloadData()
         }
         
         if let lastUpdated = selectedBoondock?.dateLastUpdated {
@@ -152,7 +196,7 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
     }
     
     func setupDirectionsButton() {
-        directionsButton.layer.cornerRadius = 10.0
+        directionsButton.layer.cornerRadius = 11.0
         directionsButton.clipsToBounds = true
         directionsButton.layer.shadowRadius = 3.0
         directionsButton.layer.shadowColor = UIColor.black.cgColor
@@ -178,16 +222,23 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
         let appLaunchCount = UserDefaults.standard.integer(forKey: "launchCount")
         
         switch appLaunchCount {
-        case 12, 30, 45, 75, 100, 150, 200:
+        case 12, 30, 45, 60, 75, 100, 125, 150, 200:
             let interstitial = GADInterstitial(adUnitID: "\(Constants.interstitialAdUnitID)")
             interstitial.delegate = self
             interstitial.load(GADRequest())
+            shownAd = true
             return interstitial
         default:
             print("Did not load ad. 🔥🔥🔥App has been launched \(appLaunchCount) times🔥🔥🔥.")
             break
         }
         return GADInterstitial()
+    }
+    
+    func openWebsiteUrl(url: String) {
+        if let url = NSURL(string: url) {
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        }
     }
     
     // MARK: - Navigation
@@ -201,5 +252,24 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
             let coordinates = CLLocationCoordinate2D(latitude: latitudeAsDouble, longitude: longitudeAsDouble)
             detailVC.boondockCoordinates = coordinates
         }
+    }
+}
+
+extension BoondockingDetailViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = descriptionTableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? BoondockDescriptionTableViewCell else { return UITableViewCell() }
+        
+        guard let boondock = boondockingLocations else { return UITableViewCell() }
+        
+        if let description = selectedBoondock?.description {
+            cell.descriptionLabel.text = description
+        }
+        
+        return cell
     }
 }

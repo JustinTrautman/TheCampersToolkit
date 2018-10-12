@@ -14,7 +14,5 @@ pod 'GooglePlaces'
 pod 'GooglePlacePicker'
 pod 'SwiftyJSON'
 pod 'Google-Mobile-Ads-SDK'
-pod 'Firebase/Core'
-pod 'Firebase/Database'
 
 end
