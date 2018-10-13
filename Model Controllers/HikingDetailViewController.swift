@@ -12,7 +12,6 @@
  */
 
 import UIKit
-import GoogleMaps
 import MapKit
 
 class HikingDetailViewController: UIViewController {
@@ -95,7 +94,6 @@ class HikingDetailViewController: UIViewController {
             }
             
             if let voteCounter = trail.starVotes {
-                
                 if voteCounter == 1 {
                     self.voteCounterLabel.text = "(\(voteCounter) vote)"
                 } else {
@@ -110,7 +108,6 @@ class HikingDetailViewController: UIViewController {
             }
             
             if let trailSummary = trail.summary {
-                
                 if trailSummary == "Needs Summary" {
                     self.trailSummaryLabel.text = "No Summary"
                 } else {
@@ -185,11 +182,10 @@ class HikingDetailViewController: UIViewController {
         }
     }
     
-    // TODO: - Look at button optionality
     func initializeTrailDirectionsButton() {
-        directionsToTrailsButton.layer.cornerRadius = 10.0
-        directionsToTrailsButton.clipsToBounds = true
-        directionsToTrailsButton.layer.shadowRadius = 3.0
+        directionsToTrailsButton?.layer.cornerRadius = 10.0
+        directionsToTrailsButton?.clipsToBounds = true
+        directionsToTrailsButton?.layer.shadowRadius = 3.0
         directionsToTrailsButton?.layer.shadowColor = UIColor.black.cgColor
         directionsToTrailsButton?.layer.shadowOpacity = 1.0
         directionsToTrailsButton?.layer.shadowOffset = CGSize(width: 5, height: 5)

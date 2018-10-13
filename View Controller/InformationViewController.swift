@@ -1,20 +1,23 @@
-//
-//  InformationViewController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 9/30/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ InformationViewController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 9/30/18.
+ Copyright © 2018 Modular Mobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 
 class InformationViewController: UIViewController {
-
+    
     // MARK: - Outlets
     @IBOutlet weak var termsOfServiceButton: UIButton!
     @IBOutlet weak var supportButton: UIButton!
-    
-    // MARK: - Properties
     
     // MARK: - View lifecycle
     override func viewDidLoad() {

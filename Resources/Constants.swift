@@ -9,9 +9,9 @@
  Justin@modularmobile.net
  
  >>> Comment out real ad unit ID and use testing ad unit ID when testing. <<<
+ 
  ----------------------------------------------------------------------------------------
  */
-
 
 import Foundation
 
@@ -19,7 +19,7 @@ struct Constants {
     
     // API Keys
     static let googleApiKey = "apikey"
-//    static let googleApiKey = "BOGUS"
+    // static let googleApiKey = "BOGUS"
     static let openWeatherApiKey = "apikey"
     static let activeApiKey = "apikey"
     static let gasFeedApiKey = "apikey"
@@ -29,7 +29,7 @@ struct Constants {
     
     // Real Ad Unit ID
     // static let bannerAdUnitID = "unitID"
-//    static let interstitialAdUnitID = "unitID"
+    // static let interstitialAdUnitID = "unitID"
     
     // Testing ad Unit ID
     static let interstitialAdUnitID = "unitID"

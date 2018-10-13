@@ -1,10 +1,18 @@
-//
-//  AppRatingHelper.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 9/28/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ AppRatingHelper.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 9/28/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ Creates launch counter that is incremented in the AppDelegate. Opens rating dialog only
+ on specified launch counts and only once per viewDidLoad().
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import Foundation
 import StoreKit
@@ -24,14 +32,14 @@ struct AppRatingHelper {
         let appLaunchCount = UserDefaults.standard.integer(forKey: "launchCount")
         
         if beenAsked == false {
-        
-        switch appLaunchCount {
-        case 10, 18, 20, 50, 80:
-            AppRatingHelper().requestReview()
-            beenAsked = true
-        default:
-            print("🔥🔥🔥App has been launched \(appLaunchCount) times🔥🔥🔥.")
-            break
+            
+            switch appLaunchCount {
+            case 10, 18, 20, 50, 80:
+                AppRatingHelper().requestReview()
+                beenAsked = true
+            default:
+                print("🔥🔥🔥App has been launched \(appLaunchCount) times🔥🔥🔥.")
+                break
             }
         }
     }

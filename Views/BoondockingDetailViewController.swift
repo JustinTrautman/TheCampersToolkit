@@ -1,10 +1,15 @@
-//
-//  BoondockingDetailViewController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 9/23/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ BoondockingDetailViewController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 9/23/18.
+ Copyright © 2018 Modular Mobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 import GoogleMaps
@@ -36,7 +41,7 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
     var boondockingLocations: [Boondocking]?
     var selectedBoondock: Boondocking?
     var interstitial: GADInterstitial!
-        
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +60,7 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
         
         // Show interstitial ad one time on certain app launch intervals
         if shownAd == false {
-        interstitial = createAndLoadInterstitial()
+            interstitial = createAndLoadInterstitial()
         }
         
         // Website and phonenumber buttons disabled unless data is available
@@ -90,6 +95,7 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
             let options = [
                 MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
                 MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
+            
             mapItem.name = title
             mapItem.openInMaps(launchOptions: options)
         }
@@ -118,6 +124,7 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
             let longitudeAsDouble = Double("\(longitude)") ?? 0
             let coordinates = CLLocationCoordinate2D(latitude: latitudeAsDouble, longitude: longitudeAsDouble)
             let camera = GMSCameraPosition.camera(withTarget: coordinates, zoom: 19)
+            
             self.mapView.camera = camera
             self.mapView.mapType = GMSMapViewType.satellite
             
@@ -136,9 +143,9 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
         
         if let phoneNumber = selectedBoondock?.phone {
             if phoneNumber != "" {
-            phoneNumberButton.isEnabled = true
-            phoneNumberButton.setTitle(phoneNumber, for: .normal)
-            phoneNumberButton.setTitleColor(.blue, for: .normal)
+                phoneNumberButton.isEnabled = true
+                phoneNumberButton.setTitle(phoneNumber, for: .normal)
+                phoneNumberButton.setTitleColor(.blue, for: .normal)
             }
         }
         
@@ -147,7 +154,6 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
         }
         
         if let lastUpdated = selectedBoondock?.dateLastUpdated {
-            
             if let range = lastUpdated.range(of: ":") {
                 let formattedDate = lastUpdated[(lastUpdated.startIndex)..<range.lowerBound]
                 lastUpdatedLabel.text = "\(formattedDate)"
@@ -250,6 +256,7 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
             let latitudeAsDouble = Double("\(latitude)") ?? 0
             let longitudeAsDouble = Double("\(longitude)") ?? 0
             let coordinates = CLLocationCoordinate2D(latitude: latitudeAsDouble, longitude: longitudeAsDouble)
+            
             detailVC.boondockCoordinates = coordinates
         }
     }
@@ -263,8 +270,6 @@ extension BoondockingDetailViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = descriptionTableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? BoondockDescriptionTableViewCell else { return UITableViewCell() }
-        
-        guard let boondock = boondockingLocations else { return UITableViewCell() }
         
         if let description = selectedBoondock?.description {
             cell.descriptionLabel.text = description

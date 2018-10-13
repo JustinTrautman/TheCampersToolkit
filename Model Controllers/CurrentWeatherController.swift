@@ -8,6 +8,9 @@
  Copyright © 2018 ModularMobile LLC. All rights reserved.
  Justin@modularmobile.net
  
+ Current weather pulled from Openweathermap.org
+ API documentation: https://openweathermap.org/current
+ 
  ----------------------------------------------------------------------------------------
  */
 
@@ -15,12 +18,10 @@ import Foundation
 
 class CurrentWeatherController {
     
-    static let shared = CurrentWeatherController()
     static let baseURL = URL(string: "http://api.openweathermap.org/data/2.5/weather")
-    
     static var currentWeather: CampgroundWeatherData?
     
-    static func fetchCurrentWeatherOf(latitude: String, longitude: String, completion: @escaping ((CampgroundWeatherData)?) -> Void) {
+    static func fetchCurrentWeatherWith(latitude: String, longitude: String, completion: @escaping ((CampgroundWeatherData)?) -> Void) {
         
         guard let url = baseURL else { completion(nil) ; return }
         

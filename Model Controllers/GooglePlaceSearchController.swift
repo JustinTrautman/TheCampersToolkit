@@ -1,10 +1,17 @@
-//
-//  GooglePlaceSearchController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 9/17/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ GooglePlaceSearchController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 9/17/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ Google Place Search API: https://developers.google.com/places/web-service/search
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import Foundation
 
@@ -18,7 +25,7 @@ class GooglePlaceSearchController {
         
         guard let url = googlePlaceBaseURL else { completion(nil) ; return }
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
-
+        
         let locationQuery = URLQueryItem(name: "location", value: "\(latitude),\(longitude)")
         let typeQuery = URLQueryItem(name: "type", value: type)
         let radiusQuery = URLQueryItem(name: "radius", value: "\(radius)")

@@ -12,7 +12,6 @@
  */
 
 import UIKit
-import SwiftyJSON
 import GoogleMaps
 import GoogleMobileAds
 
@@ -23,7 +22,9 @@ class HikingViewController: UIViewController {
     @IBOutlet weak var hikingTableView: UITableView!
     
     // MARK: - Properties
+    let geoCoder = CLGeocoder()
     static let shared = HikingViewController()
+    
     var trails: [Trails]?
     
     lazy var adBannerView: GADBannerView = {
@@ -56,9 +57,8 @@ class HikingViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "hikingDetail" {
             if let indexPath = self.hikingTableView.indexPathForSelectedRow {
-                guard let detailVC = segue.destination as? HikingDetailViewController else { return }
-                
-                guard let trails = trails else { return }
+                guard let detailVC = segue.destination as? HikingDetailViewController,
+                    let trails = trails else { return }
                 
                 let trail = trails[indexPath.row]
                 
@@ -98,9 +98,9 @@ extension HikingViewController: UISearchBarDelegate {
         hikingSearchBar.resignFirstResponder()
         guard let searchText = hikingSearchBar.text else { return }
         
-        let geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(searchText) { (placemarks, error) in
-            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
+            guard let placemarks = placemarks,
+                let location = placemarks.first?.location?.coordinate else { return }
             
             let latitude = location.latitude
             let longitude = location.longitude
@@ -109,6 +109,7 @@ extension HikingViewController: UISearchBarDelegate {
                 if let trails = trails {
                     self.trails = trails
                 }
+                
                 self.reloadTableView()
             }
         }
@@ -142,6 +143,7 @@ extension HikingViewController : UITableViewDelegate, UITableViewDataSource {
         
         let index = unwrappedTrails[indexPath.row]
         cell.trails = index
+        
         return cell
     }
     

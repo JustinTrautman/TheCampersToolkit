@@ -11,11 +11,10 @@
  ----------------------------------------------------------------------------------------
  */
 
-
 import UIKit
 
 class CampgroundReviewCell: UITableViewCell {
-
+    
     // MARK: - Outlets
     @IBOutlet weak var reviewerProfileImageView: UIImageView!
     @IBOutlet weak var reviewerNameLabel: UILabel!
@@ -37,8 +36,8 @@ class CampgroundReviewCell: UITableViewCell {
         reviewTextLabel.text = reviews.text
         
         guard let rating = reviews.rating,
-              let profilePhotoUrl = reviews.profilePhotoUrl else { return }
-              let reviewRating = Double(rating)
+            let profilePhotoUrl = reviews.profilePhotoUrl else { return }
+        let reviewRating = Double(rating)
         
         switch reviewRating {
         case 1:
@@ -65,9 +64,9 @@ class CampgroundReviewCell: UITableViewCell {
         
         GoogleDetailController.fetchReviewerProfilePhotoWith(photoUrl: profilePhotoUrl) { (image) in
             guard let fetchedImage = image else { return }
-                
-                DispatchQueue.main.async {
-                    self.reviewerProfileImageView.image = fetchedImage
+            
+            DispatchQueue.main.async {
+                self.reviewerProfileImageView.image = fetchedImage
             }
         }
     }

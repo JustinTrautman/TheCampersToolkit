@@ -68,7 +68,7 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
             guard let searchText = searchTextField?.text, !searchText.isEmpty else { return }
             self.navigationBar.title = searchText
             
-            print("I am now searching for boondocking locations in \(searchText)")
+            print("Now searching for boondocking locations in \(searchText)")
             
             let geoCoder = CLGeocoder()
             geoCoder.geocodeAddressString(searchText) { (placemarks, error) in
@@ -82,11 +82,11 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
             }
         }
         
-    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    searchWindow.addAction(cancelAction)
-    searchWindow.addAction(searchAction)
-    
-    self.present(searchWindow, animated: true)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        searchWindow.addAction(cancelAction)
+        searchWindow.addAction(searchAction)
+        
+        self.present(searchWindow, animated: true)
     }
     
     func fetchBoondockingLocations() {
@@ -101,12 +101,6 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
                         let marker = BoondockingMarker(boondocking: [boondocks])
                         
                         self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 7, bearing: 0, viewingAngle: 0)
-                        guard let latitude = boondocks.latitude,
-                            let longitude = boondocks.longitude else { return }
-                        let latAsDouble = Double("\(latitude)")
-                        let lonAsDouble = Double("\(longitude)")
-                        
-                        let coordinates = CLLocationCoordinate2D(latitude: latAsDouble ?? 0, longitude: lonAsDouble ?? 0)
                         
                         marker.map = self.mapView
                     }
@@ -117,7 +111,6 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
     
     func showToSAlert() {
         let accuracyAlert = UIAlertController(title: nil, message: "By using the boondocking feature of this app you understand and agree to the ToS in the information section of this screen.", preferredStyle: .alert)
-        
         let understandAction = UIAlertAction(title: "I Understand", style: .default, handler: nil)
         
         accuracyAlert.addAction(understandAction)
@@ -140,11 +133,10 @@ extension BoondockingViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else {
-            return
-        }
+        guard let location = locations.first else { return }
         
         mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 10, bearing: 0, viewingAngle: 0)
+        
         locationManager.stopUpdatingLocation()
         fetchBoondockingLocations()
     }
@@ -164,9 +156,6 @@ extension BoondockingViewController: CLLocationManagerDelegate {
             
             let latitudeInDouble = Double("\(latitude)") ?? 0
             let longitudeInDouble = Double("\(longitude)") ?? 0
-            print(latitudeInDouble)
-            print(longitudeInDouble)
-            
             let usersLocation = CLLocation(latitude: locationManager.location?.coordinate.latitude ?? 0, longitude: locationManager.location?.coordinate.longitude ?? 0)
             let destination = CLLocation(latitude: latitudeInDouble, longitude: longitudeInDouble)
             let distanceInMeters = destination.distance(from: usersLocation)

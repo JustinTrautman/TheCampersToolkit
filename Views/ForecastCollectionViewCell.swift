@@ -1,10 +1,15 @@
-//
-//  ForecastCollectionViewCell.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 10/6/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ ForecastCollectionViewCell.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 10/6/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 
@@ -25,14 +30,14 @@ class ForecastCollectionViewCell: UICollectionViewCell {
     
     func updateViews() {
         guard let forecastData = weeklyForecast else { return }
-            
+        
         dayOfWeekLabel.text = forecastData.name
         
         if let shortForecast = forecastData.shortForecast {
             forecastLabel.text = shortForecast
-        
-        if let temperature = forecastData.temperature {
-        temperatureLabel.text = "\(temperature) ℉"
+            
+            if let temperature = forecastData.temperature {
+                temperatureLabel.text = "\(temperature) ℉"
             }
         }
     }

@@ -1,7 +1,7 @@
 /*
  ----------------------------------------------------------------------------------------
  
- TravelMapViewController.swift
+ AmenityMapViewController.swift
  TheCampersToolkit
  
  Created by Justin Trautman on 7/28/18.
@@ -13,8 +13,6 @@
 
 import UIKit
 import GoogleMaps
-import GooglePlaces
-import GooglePlacePicker
 
 class AmenityMapViewController: UIViewController {
     
@@ -82,7 +80,7 @@ class AmenityMapViewController: UIViewController {
         
         let fiveMileRadius = UIAlertAction(title: "5 Miles", style: .default) { (five) in
             self.searchRadius = 8047
-           self.fetchNearbyPlaces(coordinate: self.locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+            self.fetchNearbyPlaces(coordinate: self.locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
         }
         
         let tenMileRadius = UIAlertAction(title: "10 Miles", style: .default) { (twenty) in
@@ -115,7 +113,7 @@ class AmenityMapViewController: UIViewController {
         searchRadiusActionSheet.addAction(twentyMileRadius)
         
         present(searchRadiusActionSheet, animated: true)
-}
+    }
     
     func stringFormatter(originalString: String) -> String {
         let formattedString = originalString.replacingOccurrences(of: "_", with: " ")
@@ -136,7 +134,7 @@ class AmenityMapViewController: UIViewController {
         
         let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
             // Go back to previous ViewController. Disabled in Version 1.5
-//            self.navigationController?.popToRootViewController(animated: true)
+            // self.navigationController?.popToRootViewController(animated: true)
         }
         
         noAmenitiesAlert.addAction(okAction)
@@ -183,12 +181,11 @@ extension AmenityMapViewController: GMSMapViewDelegate {
             return nil
         }
         
-        
         guard let selectedType = selectedType,
-        let usersLatitude = locationManager.location?.coordinate.latitude,
-        let usersLongitude = locationManager.location?.coordinate.longitude,
-        let destinationLatitude = ammenityMarker.googlePlace.geometry?.location?.lat,
-        let destinationLongitude = ammenityMarker.googlePlace.geometry?.location?.lng else { return nil }
+            let usersLatitude = locationManager.location?.coordinate.latitude,
+            let usersLongitude = locationManager.location?.coordinate.longitude,
+            let destinationLatitude = ammenityMarker.googlePlace.geometry?.location?.lat,
+            let destinationLongitude = ammenityMarker.googlePlace.geometry?.location?.lng else { return nil }
         
         infoView.ammenityNameLabel.text = ammenityMarker.googlePlace.name
         infoView.ammenityImageView.image = UIImage(named: "\(selectedType)_pin")
@@ -212,6 +209,7 @@ extension AmenityMapViewController: GMSMapViewDelegate {
         guard let ammenityMarker = marker as? AmmenityMarker else { return false }
         let selectedAmmenity = ammenityMarker.googlePlace.placeID
         self.selectedAmmenity = selectedAmmenity
+        
         return false
     }
     
@@ -223,6 +221,7 @@ extension AmenityMapViewController: GMSMapViewDelegate {
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         mapView.selectedMarker = nil
         fetchNearbyPlaces(coordinate: locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+        
         return false
     }
 }

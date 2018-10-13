@@ -1,10 +1,17 @@
-//
-//  WeatherEnum.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 10/7/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ WeatherEnum.swift
+ TheCampersToolkit
+
+ Created by Justin Trautman on 10/7/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ Enum that handles different cases on the WeatherViewController. 
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import Foundation
 

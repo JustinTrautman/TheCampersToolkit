@@ -27,8 +27,9 @@ class HomeViewController: UIViewController {
     private let dataProvider = GoogleDataProvider()
     private let searchRadius: Double = 50000 // <<< 31 Miles. Max allowed by Google.
     private let placesClient = GMSPlacesClient()
-    var fetcher: GMSAutocompleteFetcher?
+    let geoCoder = CLGeocoder()
     
+    var fetcher: GMSAutocompleteFetcher?
     var campground: GooglePlace?
     
     // MARK: - View Lifecycle
@@ -57,17 +58,24 @@ class HomeViewController: UIViewController {
             searchText = "\(location.latitude) \(location.longitude)"
         }
         
-        var coordinates = GetCoordinates.getLocationFromAddress(address: searchText)
-        
-        if searchText == "" {
-            coordinates = location
-        }
-        
-        dataProvider.fetchPlacesNearCoordinate(latitude: coordinates.latitude, longitude: coordinates.longitude, radius: searchRadius, types: [searchedTypes]) { places in
-            places.forEach {
-                let marker = PlaceMarker(place: $0)
-                marker.map = self.mapView
-                self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 10, bearing: 0, viewingAngle: 0)
+        geoCoder.geocodeAddressString(searchText) { (placemarks, error) in
+            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
+            
+            let latitude = location.latitude
+            let longitude = location.longitude
+            
+            var coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            
+            if searchText == "" {
+                coordinates = location
+            }
+            
+            self.dataProvider.fetchPlacesNearCoordinate(latitude: coordinates.latitude, longitude: coordinates.longitude, radius: self.searchRadius, types: [self.searchedTypes]) { places in
+                places.forEach {
+                    let marker = PlaceMarker(place: $0)
+                    marker.map = self.mapView
+                    self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 10, bearing: 0, viewingAngle: 0)
+                }
             }
         }
     }
@@ -103,6 +111,7 @@ extension HomeViewController: GMSMapViewDelegate {
         guard let placeMarker = marker as? PlaceMarker else {
             return nil
         }
+        
         guard let infoView = UIView.viewFromNibName("CampgroundMarkerView") as? CampgroundMarkerView,
             let usersLatitude = locationManager.location?.coordinate.latitude,
             let usersLongitude = locationManager.location?.coordinate.longitude else { return nil }
@@ -123,6 +132,7 @@ extension HomeViewController: GMSMapViewDelegate {
         let distanceInMeters = usersLocation.distance(from: destination)
         let distanceInMiles = Double(distanceInMeters) * 0.000621371
         infoView.milesAwayLabel.text = "\(distanceInMiles.roundToPlaces(places: 2)) miles away"
+        
         return infoView
     }
     
@@ -151,6 +161,7 @@ extension HomeViewController: GMSMapViewDelegate {
         mapView.selectedMarker = nil
         searchBar.text = ""
         fetchNearbyPlaces(coordinate: coordinate)
+        
         return false
     }
     
@@ -167,12 +178,6 @@ extension HomeViewController: GMSMapViewDelegate {
             if let error = error {
                 print("Autocomplete error \(error); \(error.localizedDescription)")
             }
-            
-            if let results = results {
-                for result in results {
-                    print("Result \(result.attributedFullText) with placeID \(result.placeID)")
-                }
-            }
         }
     }
 }
@@ -186,10 +191,16 @@ extension HomeViewController: UISearchBarDelegate {
         
         guard let searchText = searchBar.text else { return }
         
-        let coordinates = GetCoordinates.getLocationFromAddress(address: searchText)
-        fetchNearbyPlaces(coordinate: coordinates)
-        
-        navigationItem.title = searchText
+        geoCoder.geocodeAddressString(searchText) { (placemarks, error) in
+            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
+            
+            let latitude = location.latitude
+            let longitude = location.longitude
+            let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            self.fetchNearbyPlaces(coordinate: coordinates)
+            
+            self.navigationItem.title = searchText
+        }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

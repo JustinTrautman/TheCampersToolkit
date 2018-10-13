@@ -6,6 +6,21 @@
 //  Copyright © 2018 Justin Trautman. All rights reserved.
 //
 
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ XMLParser.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/28/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ BUG: XML Parser delegate does not store XML properties when fetched from the network.
+ 
+ ----------------------------------------------------------------------------------------
+ */
+
 import Foundation
 
 struct Campgroundxml {

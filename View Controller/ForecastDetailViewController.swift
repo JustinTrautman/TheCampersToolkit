@@ -1,10 +1,15 @@
-//
-//  WeatherDetailViewController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 10/6/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ WeatherDetailViewController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 10/6/18.
+ Copyright © 2018 Modular Mobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 import GoogleMobileAds
@@ -100,7 +105,7 @@ class ForecastDetailViewController: UIViewController {
             [NSLayoutConstraint(item: bannerView,
                                 attribute: .bottom,
                                 relatedBy: .equal,
-                                toItem: bottomLayoutGuide, // TODO: Updated deprecated code
+                                toItem: bottomLayoutGuide, // TODO: Update deprecated code
                 attribute: .top,
                 multiplier: 1,
                 constant: 0),

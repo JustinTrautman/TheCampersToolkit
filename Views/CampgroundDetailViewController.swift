@@ -57,32 +57,32 @@ class CampgroundDetailViewController: UIViewController {
     var campgrounds: Result?
     var reviews: [Reviews]?
     var photos: [Photos]?
-    
     var xmlCampgrounds: [Campgroundxml]?
+    
+    let geoCoder = CLGeocoder()
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         updateViews()
-        fetchData()
+        fetchFromActiveApi()
         
         reviewTableView.delegate = self
         reviewTableView.dataSource = self
         
-        // Only enabled when data is available
+        // Buttons are only enabled when data is available
         visitWebsiteButton.isEnabled = false
         visitWebsiteButton.setTitleColor(.gray, for: .disabled)
         viewHoursButton.isEnabled = false
         viewHoursButton.setTitleColor(.gray, for: .disabled)
     }
     
-        // TODO: - DRY; give make navigation logic its own object
+    // TODO: - DRY; give make navigation logic its own object
     @IBAction func directionsButtonTapped(_ sender: Any) {
         guard let address = campgrounds?.formattedAddress,
             let title = campgrounds?.name else { return }
         
-        let geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(address) { (placemarks, error) in
             guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
             
@@ -104,8 +104,8 @@ class CampgroundDetailViewController: UIViewController {
             }
         }
     }
-
-    func fetchData() {
+    
+    func fetchFromActiveApi() {
         guard let campgroundName = campground?.name else { return }
         
         let campgroundParser = CampgroundParser()
@@ -135,12 +135,11 @@ class CampgroundDetailViewController: UIViewController {
         }
         
         // Updates from Google Place Details API
-        GoogleDetailController.fetchCampgroundDetailsWith(placeId: campgroundId) { (campground) in
+        GoogleDetailController.fetchPlaceDetailsWith(placeId: campgroundId) { (campground) in
             if let campground = campground {
                 self.campgrounds = campground
                 
                 DispatchQueue.main.async {
-                    
                     self.loadReviews()
                     
                     if let campgroundName = campground.name {
@@ -207,7 +206,7 @@ class CampgroundDetailViewController: UIViewController {
                         self.campgroundRatingImageView.image = UIImage(named: "0Stars")
                     }
                     
-                    if let campgroundHours = self.campgrounds?.openingHours {
+                    if let _ = self.campgrounds?.openingHours {
                         self.viewHoursButton.isEnabled = true
                     }
                 }
@@ -244,22 +243,20 @@ class CampgroundDetailViewController: UIViewController {
         }
         
         if segue.identifier == "toHikingResults" {
-            guard let detailVC = segue.destination as? HikingViewController else { return }
+            guard let detailVC = segue.destination as? HikingViewController,
+                let searchText = campgroundAddressLabel.text else { return }
             
-            guard let searchText = campgroundAddressLabel.text else { return }
-            GoogleGeocodingController.getCoordinatesFrom(adress: searchText) { (coord) in
-                if let coord = coord {
-                    let address = coord[0].geometry?.location
-                    
-            guard let latitude = address?.lat,
-                let longitude = address?.lng else { return }
-            
-            HikingTrailController.fetchHikingTrailsNear(latitude: "\(latitude)", longitude: "\(longitude)") { (trails) in
-                if let _ = trails {
-                    DispatchQueue.main.async {
-                        detailVC.hikingSearchBar.text = searchText
-                        detailVC.searchBarSearchButtonClicked(detailVC.hikingSearchBar)
-                            }
+            geoCoder.geocodeAddressString(searchText) { (placemarks, error) in
+                guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
+                
+                let latitude = location.latitude
+                let longitude = location.longitude
+                
+                HikingTrailController.fetchHikingTrailsNear(latitude: "\(latitude)", longitude: "\(longitude)") { (trails) in
+                    if let _ = trails {
+                        DispatchQueue.main.async {
+                            detailVC.hikingSearchBar.text = searchText
+                            detailVC.searchBarSearchButtonClicked(detailVC.hikingSearchBar)
                         }
                     }
                 }
@@ -285,8 +282,8 @@ class CampgroundDetailViewController: UIViewController {
         
         if segue.identifier == "toCamgroundAmmenityVC" {
             guard let detailVC = segue.destination as? TravelViewController,
-            let latitude = campground?.coordinate.latitude,
-            let longitude = campground?.coordinate.longitude else { return }
+                let latitude = campground?.coordinate.latitude,
+                let longitude = campground?.coordinate.longitude else { return }
             
             let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             
@@ -318,11 +315,10 @@ class CampgroundDetailViewController: UIViewController {
     
     func showNoPhotosAlert() {
         if let campgroundName = campgrounds?.name {
-        
-        let noPhotosAlert = UIAlertController(title: nil, message: "\(campgroundName) has no photos", preferredStyle: .alert)
-        noPhotosAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
-        self.present(noPhotosAlert, animated: true)
+            let noPhotosAlert = UIAlertController(title: nil, message: "\(campgroundName) has no photos", preferredStyle: .alert)
+            noPhotosAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            self.present(noPhotosAlert, animated: true)
         }
     }
 }
@@ -347,6 +343,7 @@ extension CampgroundDetailViewController: UITableViewDelegate, UITableViewDataSo
         
         let review = unwrappedReviews[indexPath.row]
         cell.reviews = review
+        
         return cell
     }
     

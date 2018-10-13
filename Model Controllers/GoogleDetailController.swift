@@ -8,6 +8,9 @@
  Copyright © 2018 ModularMobile LLC. All rights reserved.
  Justin@modularmobile.net
  
+ Google Place Details API: https://developers.google.com/places/web-service/details
+ Place Photos API: https://developers.google.com/places/web-service/photos
+ 
  ----------------------------------------------------------------------------------------
  */
 
@@ -17,17 +20,17 @@ class GoogleDetailController {
     
     static let detailsBaseURL = URL(string: "https://maps.googleapis.com/maps/api/place/details/json")
     static let photosBaseURL = URL(string: "https://maps.googleapis.com/maps/api/place/photo?")
-    static let detailFields = "formatted_address,opening_hours,photo,name,website,rating,price_level,review,formatted_phone_number"
+    static let placeDetailFields = "formatted_address,opening_hours,photo,name,website,rating,price_level,review,formatted_phone_number"
     static var campgrounds: Result?
     static var photos: [Photos] = []
     
-    static func fetchCampgroundDetailsWith(placeId: String, completion: @escaping ((Result)?) -> Void) {
+    static func fetchPlaceDetailsWith(placeId: String, completion: @escaping ((Result)?) -> Void) {
         
         guard let url = detailsBaseURL else { completion(nil) ; return }
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         
         let placeIdQuery = URLQueryItem(name: "placeid", value: placeId)
-        let fieldsQuery = URLQueryItem(name: "fields", value: detailFields)
+        let fieldsQuery = URLQueryItem(name: "fields", value: placeDetailFields)
         let apiKeyQuery = URLQueryItem(name: "key", value: Constants.googleApiKey)
         
         let queryArray = [placeIdQuery, fieldsQuery, apiKeyQuery]
@@ -75,7 +78,7 @@ class GoogleDetailController {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         
         let photoreferenceQuery = URLQueryItem(name: "photoreference", value: photoReference)
-        let maxWidthQuery = URLQueryItem(name: "maxwidth", value: "700")
+        let maxWidthQuery = URLQueryItem(name: "maxwidth", value: "700") // In pixels
         let maxHeightQuery = URLQueryItem(name: "maxheight", value: "700")
         let apiKeyQuery = URLQueryItem(name: "key", value: Constants.googleApiKey)
         

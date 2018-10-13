@@ -7,16 +7,8 @@
  Created by Justin Trautman on 7/22/18.
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
-
+ 
  Current weather data pulled from https://openweathermap.org/
- Weather types:
- * Drizzle
- * Clear
- * Haze
- * Thunderstorm
- * Snow? - Check if type
- * Rain
- * Mist
  
  ----------------------------------------------------------------------------------------
  */

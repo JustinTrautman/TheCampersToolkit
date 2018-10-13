@@ -1,10 +1,15 @@
-//
-//  AmmenityDetailViewController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 9/9/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ AmmenityDetailViewController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 9/9/18.
+ Copyright © 2018 Modular Mobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 import GoogleMaps
@@ -28,6 +33,8 @@ class AmenityDetailViewController: UIViewController {
     var photoReference: String?
     var selectedAmmenity: String?
     
+    let geoCoder = CLGeocoder()
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,31 +46,30 @@ class AmenityDetailViewController: UIViewController {
     }
     
     // MARK: - Actions
-    
     // TODO: - DRY; give make navigation logic its own object
     @IBAction func takeMeHereButtonTapped(_ sender: Any) {
         guard let address = ammenitieDetails?.formattedAddress,
             let title = ammenitieDetails?.name else { return }
         
-        let geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(address) { (placemarks, error) in
-        guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
-        
-        if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
-            let url = URL(string: "comgooglemaps://?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving")!
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            print("Opening in Apple Maps")
+            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
             
-            let coordinates = CLLocationCoordinate2DMake(location.latitude, location.longitude)
-            let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
-            let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-            let mapItem = MKMapItem(placemark: placemark)
-            let options = [
-                MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
-                MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
-            mapItem.name = title
-            mapItem.openInMaps(launchOptions: options)
+            if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
+                let url = URL(string: "comgooglemaps://?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving")!
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                print("Opening in Apple Maps")
+                
+                let coordinates = CLLocationCoordinate2DMake(location.latitude, location.longitude)
+                let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
+                let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+                let mapItem = MKMapItem(placemark: placemark)
+                let options = [
+                    MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
+                    MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
+                
+                mapItem.name = title
+                mapItem.openInMaps(launchOptions: options)
             }
         }
     }
@@ -71,7 +77,7 @@ class AmenityDetailViewController: UIViewController {
     @IBAction func phoneNumberButtonTapped(_ sender: Any) {
         guard let numberToCall = ammenityPhoneNumberButton.currentTitle?.replacingOccurrences(of: " ", with: "") else { return }
         if let phoneURL = URL(string: "telprompt://\(numberToCall)") {
-        UIApplication.shared.canOpenURL(phoneURL)
+            UIApplication.shared.canOpenURL(phoneURL)
             UIApplication.shared.open(phoneURL)
         }
     }
@@ -85,7 +91,7 @@ class AmenityDetailViewController: UIViewController {
     func fetchAmmenityDetails() {
         guard let placeID = selectedAmmenity else { return }
         
-        GoogleDetailController.fetchCampgroundDetailsWith(placeId: placeID) { (details) in
+        GoogleDetailController.fetchPlaceDetailsWith(placeId: placeID) { (details) in
             if let details = details {
                 self.ammenitieDetails = details
                 
@@ -94,6 +100,7 @@ class AmenityDetailViewController: UIViewController {
                         self.photoReference = photo.photoReference
                     }
                 }
+                
                 self.updateViews()
                 self.loadMiniMap()
             }
@@ -221,29 +228,29 @@ class AmenityDetailViewController: UIViewController {
             
             // TODO: - Move Switch statement off of main thread.
             DispatchQueue.main.async {
-            switch roundedRating {
-            case 0:
-                self.ammenityRatingImageView.image = UIImage(named: "0Stars")
-            case 1:
-                self.ammenityRatingImageView.image = UIImage(named: "1Stars")
-            case 1.5:
-                self.ammenityRatingImageView.image = UIImage(named: "1.5Stars")
-            case 2:
-                self.ammenityRatingImageView.image = UIImage(named: "2Stars")
-            case 2.5:
-                self.ammenityRatingImageView.image = UIImage(named: "2.5Stars")
-            case 3:
-                self.ammenityRatingImageView.image = UIImage(named: "3Stars")
-            case 3.5:
-                self.ammenityRatingImageView.image = UIImage(named: "3.5Stars")
-            case 4:
-                self.ammenityRatingImageView.image = UIImage(named: "4Stars")
-            case 4.5:
-                self.ammenityRatingImageView.image = UIImage(named: "4.5Stars")
-            case 5:
-                self.ammenityRatingImageView.image = UIImage(named: "5Stars")
-            default:
-                self.ammenityRatingImageView.image = UIImage(named: "0Stars")
+                switch roundedRating {
+                case 0:
+                    self.ammenityRatingImageView.image = UIImage(named: "0Stars")
+                case 1:
+                    self.ammenityRatingImageView.image = UIImage(named: "1Stars")
+                case 1.5:
+                    self.ammenityRatingImageView.image = UIImage(named: "1.5Stars")
+                case 2:
+                    self.ammenityRatingImageView.image = UIImage(named: "2Stars")
+                case 2.5:
+                    self.ammenityRatingImageView.image = UIImage(named: "2.5Stars")
+                case 3:
+                    self.ammenityRatingImageView.image = UIImage(named: "3Stars")
+                case 3.5:
+                    self.ammenityRatingImageView.image = UIImage(named: "3.5Stars")
+                case 4:
+                    self.ammenityRatingImageView.image = UIImage(named: "4Stars")
+                case 4.5:
+                    self.ammenityRatingImageView.image = UIImage(named: "4.5Stars")
+                case 5:
+                    self.ammenityRatingImageView.image = UIImage(named: "5Stars")
+                default:
+                    self.ammenityRatingImageView.image = UIImage(named: "0Stars")
                 }
             }
         }
@@ -304,7 +311,6 @@ class AmenityDetailViewController: UIViewController {
         guard let address = ammenitieDetails?.formattedAddress,
             let title = ammenitieDetails?.name, let selectedType = GooglePlaceSearchController.selectedType else { return }
         
-        let geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(address) { (placemarks, error) in
             guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
             

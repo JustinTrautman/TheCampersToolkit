@@ -3,7 +3,7 @@
  
  CampgroundPhotosViewController.swift
  TheCampersToolkit
-
+ 
  Created by Justin Trautman on 7/22/18.
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
@@ -20,7 +20,7 @@ class CampgroundPhotosViewController: UIViewController {
     
     // MARK: - Properties
     var photos: [Photos]?
-
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class CampgroundPhotosViewController: UIViewController {
     
     func reloadTableView() {
         DispatchQueue.main.async {
-        self.photosTableView.reloadData()
+            self.photosTableView.reloadData()
         }
     }
     
@@ -69,6 +69,7 @@ extension CampgroundPhotosViewController: UITableViewDelegate, UITableViewDataSo
         
         let photo = unwrappedPhotos[indexPath.row]
         cell.photos = photo
+        
         return cell
     }
     

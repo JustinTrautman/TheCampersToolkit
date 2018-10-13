@@ -27,16 +27,12 @@ class TravelViewController: UIViewController {
     var ammenityMarker: AmmenityMarker?
     var campgroundCoordinates: CLLocationCoordinate2D?
     var campgroundAmmenities: Bool = false
-
-    // MARK: - View Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailVC = segue.destination as? AmenityMapViewController else { return }
         
+        // TODO: - Change to switch statement
         if segue.identifier == "toGasMap" {
             selectedType = "gas_station"
         }
@@ -52,7 +48,7 @@ class TravelViewController: UIViewController {
         if segue.identifier == "toCarRepairMap" {
             selectedType = "car_repair"
         }
-     
+        
         detailVC.selectedType = selectedType
         
         if campgroundAmmenities == true {

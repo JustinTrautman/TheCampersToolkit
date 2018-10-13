@@ -1,10 +1,15 @@
-//
-//  AppDelegate.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/13/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ AppDelegate.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/13/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 import GoogleMaps
@@ -26,17 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Increment app launched counter
         AppRatingHelper.incrementAppLaunchedCounter()
-
-//        
-//        let campgroundName = "Alderwood RV Express"
-//        let campgroundParser = CampgroundParser()
-//        campgroundParser.parseCampground(url: "http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)") { (campgroundxml) in
-//            print(campgroundxml)
-//            print("http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)")
-            
-//            print(campgroundxml)
-//            self.xmlCampgrounds = campgroundxml
-//        }
         
         return true
     }

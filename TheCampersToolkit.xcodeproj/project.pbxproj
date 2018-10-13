@@ -52,9 +52,7 @@
 		D066C0FA2106C44100B71E41 /* HikingTrailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0F92106C44100B71E41 /* HikingTrailController.swift */; };
 		D066C0FC210762A300B71E41 /* HikingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0FB210762A300B71E41 /* HikingDetailViewController.swift */; };
 		D06AA8412105295C00B74FCB /* CampgroundPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */; };
-		D0763E1E2133004D00EE5210 /* GetCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0763E1D2133004D00EE5210 /* GetCoordinates.swift */; };
 		D0763E20213304E100EE5210 /* GoogleGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0763E1F213304E100EE5210 /* GoogleGeocoding.swift */; };
-		D0763E2221330AB200EE5210 /* GoogleGeocodingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0763E2121330AB200EE5210 /* GoogleGeocodingController.swift */; };
 		D08E5A1D21507E0C0054D370 /* GooglePlaceSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08E5A1C21507E0C0054D370 /* GooglePlaceSearchController.swift */; };
 		D08FD2F921602ACE00AAA098 /* CampgrounHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FD2F821602ACE00AAA098 /* CampgrounHoursViewController.swift */; };
 		D08FDCA0210BF76B007F6C5F /* Boondocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FDC9F210BF76B007F6C5F /* Boondocking.swift */; };
@@ -184,9 +182,7 @@
 		D066C0F92106C44100B71E41 /* HikingTrailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingTrailController.swift; sourceTree = "<group>"; };
 		D066C0FB210762A300B71E41 /* HikingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HikingDetailViewController.swift; path = "Model Controllers/HikingDetailViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampgroundPhotosViewController.swift; path = Views/CampgroundPhotosViewController.swift; sourceTree = SOURCE_ROOT; };
-		D0763E1D2133004D00EE5210 /* GetCoordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCoordinates.swift; sourceTree = "<group>"; };
 		D0763E1F213304E100EE5210 /* GoogleGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleGeocoding.swift; sourceTree = "<group>"; };
-		D0763E2121330AB200EE5210 /* GoogleGeocodingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleGeocodingController.swift; sourceTree = "<group>"; };
 		D08E5A1C21507E0C0054D370 /* GooglePlaceSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlaceSearchController.swift; sourceTree = "<group>"; };
 		D08FD2F821602ACE00AAA098 /* CampgrounHoursViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CampgrounHoursViewController.swift; path = "View Controller/CampgrounHoursViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D08FDC9F210BF76B007F6C5F /* Boondocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boondocking.swift; sourceTree = "<group>"; };
@@ -473,7 +469,6 @@
 			isa = PBXGroup;
 			children = (
 				D0A991E62103992400698EF1 /* Constants.swift */,
-				D0763E1D2133004D00EE5210 /* GetCoordinates.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -510,10 +505,10 @@
 		D0C5E07520F97C4B00210FC1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */,
 				D098E06D20FD0BEB00DB4866 /* GooglePlace.swift */,
 				D022B1E320FD23420012025A /* GoogleDetail.swift */,
 				D098E06F20FD0C1E00DB4866 /* PlaceMarker.swift */,
+				D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */,
 				D04D3FEA21053A7C00629B02 /* CurrentWeather.swift */,
 				D03DAD25213249FC009B4DAB /* ForecastedWeather.swift */,
 				D066C0F72106C2DC00B71E41 /* HikingTrail.swift */,
@@ -531,7 +526,6 @@
 				D066C0F92106C44100B71E41 /* HikingTrailController.swift */,
 				D08FDCA1210BF828007F6C5F /* BoondockingController.swift */,
 				D03DAD2721324E63009B4DAB /* ForecastedWeatherController.swift */,
-				D0763E2121330AB200EE5210 /* GoogleGeocodingController.swift */,
 				D08E5A1C21507E0C0054D370 /* GooglePlaceSearchController.swift */,
 			);
 			path = "Model Controllers";
@@ -774,7 +768,6 @@
 				D08E5A1D21507E0C0054D370 /* GooglePlaceSearchController.swift in Sources */,
 				D0026CA32160747900DA8693 /* GMUStaticCluster.m in Sources */,
 				D0D985D92161781800BAB043 /* InformationViewController.swift in Sources */,
-				D0763E2221330AB200EE5210 /* GoogleGeocodingController.swift in Sources */,
 				D0026C9F2160747900DA8693 /* GMUSimpleClusterAlgorithm.m in Sources */,
 				D0026CAD2160747900DA8693 /* GMUFeature.m in Sources */,
 				D0E5295F210CB6EE009E6435 /* AmenityMapViewController.swift in Sources */,
@@ -804,7 +797,6 @@
 				D0E5295D210CAEDC009E6435 /* TravelViewController.swift in Sources */,
 				D0026CB32160747900DA8693 /* GMUGeoJSONParser.m in Sources */,
 				D0234C17210E22C800038CAF /* PhotoDetailViewController.swift in Sources */,
-				D0763E1E2133004D00EE5210 /* GetCoordinates.swift in Sources */,
 				D0026CAA2160747900DA8693 /* GMUPlacemark.m in Sources */,
 				D098E06E20FD0BEB00DB4866 /* GooglePlace.swift in Sources */,
 				D0026CB12160747900DA8693 /* GMUPair.m in Sources */,

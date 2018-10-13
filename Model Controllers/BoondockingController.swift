@@ -11,7 +11,6 @@
  ----------------------------------------------------------------------------------------
  */
 
-
 import Foundation
 
 class BoondockingController {
@@ -21,7 +20,7 @@ class BoondockingController {
     static var boondocks: [Boondocking]?
     
     static func fetchAllBoondockingLocations(completion: @escaping ([Boondocking]?) -> Void) {
-    
+        
         var request = URLRequest(url: getterEndpoint)
         request.httpBody = nil
         request.httpMethod = "GET"
@@ -43,6 +42,6 @@ class BoondockingController {
             } catch let error {
                 print("Error decoding boondocking locations. \(error) \(error.localizedDescription)")
             }
-        }.resume()
+            }.resume()
     }
 }

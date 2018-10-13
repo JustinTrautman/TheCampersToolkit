@@ -1,10 +1,15 @@
-//
-//  SatelliteViewController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 9/27/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ SatelliteViewController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 9/27/18.
+ Copyright © 2018 Modular Mobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 

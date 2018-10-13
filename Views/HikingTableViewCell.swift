@@ -27,12 +27,11 @@ class HikingTableViewCell: UITableViewCell {
     // MARK: - Properties
     var trails: Trails? {
         didSet {
-        updateViews()
+            updateViews()
         }
     }
     
     func updateViews() {
-        
         guard let voteCounter = trails?.starVotes,
             let trailRating = trails?.stars,
             let trailPhotoUrl = trails?.imgMedium else { return }
@@ -64,7 +63,7 @@ class HikingTableViewCell: UITableViewCell {
             voteCounterLabel.text = "\(voteCounter) votes"
         }
         
-         let roundedRating = Double(trailRating).roundToClosestHalf()
+        let roundedRating = Double(trailRating).roundToClosestHalf()
         
         switch roundedRating {
         case 0:
@@ -110,7 +109,7 @@ class HikingTableViewCell: UITableViewCell {
             difficultyLabel.text = ""
         }
     }
-
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         

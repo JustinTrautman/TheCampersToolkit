@@ -8,6 +8,10 @@
  Copyright © 2018 ModularMobile LLC. All rights reserved.
  Justin@modularmobile.net
  
+ Hiking Project API: https://www.hikingproject.com/data
+ • Returns trails within a default radius of 30 miles. Max 200
+ • Returns 10 trails default. Max 500
+ 
  ----------------------------------------------------------------------------------------
  */
 

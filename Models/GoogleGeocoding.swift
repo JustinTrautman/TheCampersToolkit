@@ -8,7 +8,8 @@
  Copyright © 2018 Justin Trautman. All rights reserved.
  Justin@modularmobile.net
  
- Google Geocoding API: https://developers.google.com/maps/documentation/geocoding/start
+ Combined model for Google Geocoding API and Google Place API.  Geocoding API is used for
+ location awareness when searching for places of interest with the Google Place Search API
  
  ----------------------------------------------------------------------------------------
  */
