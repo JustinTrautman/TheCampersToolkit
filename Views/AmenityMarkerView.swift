@@ -1,7 +1,7 @@
 /*
  ----------------------------------------------------------------------------------------
  
- AmmenityMarkerView.swift
+ AmenityMarkerView.swift
  TheCampersToolkit
  
  Created by Justin Trautman on 9/11/18.
@@ -13,10 +13,10 @@
 
 import UIKit
 
-class AmmenityMarkerView: UIView {
+class AmenityMarkerView: UIView {
     
     // MARK: - Outlets
-    @IBOutlet weak var ammenityNameLabel: UILabel!
-    @IBOutlet weak var ammenityImageView: UIImageView!
+    @IBOutlet weak var amenityNameLabel: UILabel!
+    @IBOutlet weak var amenityImageView: UIImageView!
     @IBOutlet weak var milesAwayLabel: UILabel!
 }

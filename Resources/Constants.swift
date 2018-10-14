@@ -18,14 +18,14 @@ import Foundation
 struct Constants {
     
     // API Keys
-    static let googleApiKey = "apikey"
-    // static let googleApiKey = "BOGUS"
+//  static let googleApiKey = "apikey"
+    static let googleApiKey = "BOGUS"
     static let openWeatherApiKey = "apikey"
     static let activeApiKey = "apikey"
     static let gasFeedApiKey = "apikey"
     
     // Google ad IDs
-    static let applicationID = "appID"
+    static let applicationID = "unitID"
     
     // Real Ad Unit ID
     // static let bannerAdUnitID = "unitID"

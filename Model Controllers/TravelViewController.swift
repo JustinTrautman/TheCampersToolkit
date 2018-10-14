@@ -24,7 +24,7 @@ class TravelViewController: UIViewController {
     
     // MARK: - Properties
     var selectedType = ""
-    var ammenityMarker: AmmenityMarker?
+    var amenityMarker: AmenityMarker?
     var campgroundCoordinates: CLLocationCoordinate2D?
     var campgroundAmmenities: Bool = false
     

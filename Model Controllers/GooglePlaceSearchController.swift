@@ -18,7 +18,7 @@ import Foundation
 class GooglePlaceSearchController {
     
     static let googlePlaceBaseURL = URL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?")
-    static var places: [Results]?
+    static var googlePlaces: [Results]?
     static var selectedType: String?
     
     static func fetchPlacesNearby(latitude: String, longitude: String, radius: Double, type: String, completion: @escaping ([Results]?) -> Void) {
@@ -56,7 +56,7 @@ class GooglePlaceSearchController {
             let jsonDecoder = JSONDecoder()
             do {
                 let places = try jsonDecoder.decode(GeocodingData.self, from: data).results
-                self.places = places
+                self.googlePlaces = places
                 completion(places)
             } catch let error {
                 print("Error decoding campground data. Exiting with error: \(error) \(error.localizedDescription)")

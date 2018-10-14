@@ -1,12 +1,15 @@
 /*
  ----------------------------------------------------------------------------------------
  
- AmmenityDetailViewController.swift
+ AmenityDetailViewController.swift
  TheCampersToolkit
  
  Created by Justin Trautman on 9/9/18.
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
+ 
+ TODO: Fix default image
+ TODO: Fix amenity typo
  
  ----------------------------------------------------------------------------------------
  */
@@ -18,20 +21,19 @@ import MapKit
 class AmenityDetailViewController: UIViewController {
     
     // MARK: - Outlets
-    @IBOutlet weak var ammenityImageView: UIImageView!
+    @IBOutlet weak var amenityImageView: UIImageView!
     @IBOutlet weak var placeNameLabel: UILabel!
     @IBOutlet weak var openUntilLabel: UILabel!
-    @IBOutlet weak var ammenityPhoneNumberButton: UIButton!
-    @IBOutlet weak var ammenityRatingImageView: UIImageView!
-    @IBOutlet weak var ammenityMapView: GMSMapView!
+    @IBOutlet weak var amenityPhoneNumberButton: UIButton!
+    @IBOutlet weak var amenityRatingImageView: UIImageView!
+    @IBOutlet weak var amenityMapView: GMSMapView!
     @IBOutlet weak var takeMeHereButton: UIButton!
     @IBOutlet weak var visitWebsiteButton: UIButton!
     
     // MARK: - Properties
-    var ammenities: GooglePlace?
-    var ammenitieDetails: Result?
+    var amenitieDetails: Result?
     var photoReference: String?
-    var selectedAmmenity: String?
+    var selectedAmenity: String?
     
     let geoCoder = CLGeocoder()
     
@@ -39,17 +41,17 @@ class AmenityDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Button will be disabled unless ammenity has a url from Google
+        // Button will be disabled unless amenity has a url from Google
         visitWebsiteButton.isEnabled = false
         
-        fetchAmmenityDetails()
+        fetchAmenityDetails()
     }
     
     // MARK: - Actions
     // TODO: - DRY; give make navigation logic its own object
     @IBAction func takeMeHereButtonTapped(_ sender: Any) {
-        guard let address = ammenitieDetails?.formattedAddress,
-            let title = ammenitieDetails?.name else { return }
+        guard let address = amenitieDetails?.formattedAddress,
+            let title = amenitieDetails?.name else { return }
         
         geoCoder.geocodeAddressString(address) { (placemarks, error) in
             guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
@@ -75,7 +77,7 @@ class AmenityDetailViewController: UIViewController {
     }
     
     @IBAction func phoneNumberButtonTapped(_ sender: Any) {
-        guard let numberToCall = ammenityPhoneNumberButton.currentTitle?.replacingOccurrences(of: " ", with: "") else { return }
+        guard let numberToCall = amenityPhoneNumberButton.currentTitle?.replacingOccurrences(of: " ", with: "") else { return }
         if let phoneURL = URL(string: "telprompt://\(numberToCall)") {
             UIApplication.shared.canOpenURL(phoneURL)
             UIApplication.shared.open(phoneURL)
@@ -83,17 +85,16 @@ class AmenityDetailViewController: UIViewController {
     }
     
     @IBAction func websiteButtonTapped(_ sender: Any) {
-        guard let url = ammenitieDetails?.website else { return }
+        guard let url = amenitieDetails?.website else { return }
         openWebsiteUrl(url: url)
     }
-    
-    // New function that fetches ammenity details from Google PlaceID using GoogleDetailController. Phasing out SwiftyJSON
-    func fetchAmmenityDetails() {
-        guard let placeID = selectedAmmenity else { return }
+
+    func fetchAmenityDetails() {
+        guard let placeID = selectedAmenity else { return }
         
         GoogleDetailController.fetchPlaceDetailsWith(placeId: placeID) { (details) in
             if let details = details {
-                self.ammenitieDetails = details
+                self.amenitieDetails = details
                 
                 if let photos = details.photos {
                     for photo in photos {
@@ -107,11 +108,11 @@ class AmenityDetailViewController: UIViewController {
         }
     }
     
-    func fetchAmmenityPhoto() {
+    func fetchAmenityPhoto() {
         guard let selectedType = GooglePlaceSearchController.selectedType else { return }
         
         DispatchQueue.main.async {
-            self.ammenityImageView.image = UIImage(named: "\(selectedType)"+"PlaceholderImage")
+            self.amenityImageView.image = UIImage(named: "\(selectedType)"+"PlaceholderImage")
         }
         
         if let photoReference = photoReference {
@@ -119,7 +120,7 @@ class AmenityDetailViewController: UIViewController {
                 DispatchQueue.main.async {
                     if let fetchedImage = fetchedImage {
                         DispatchQueue.main.async {
-                            self.ammenityImageView.image = fetchedImage
+                            self.amenityImageView.image = fetchedImage
                         }
                     }
                 }
@@ -144,29 +145,29 @@ class AmenityDetailViewController: UIViewController {
         }
         
         // UI updated from network configuration
-        self.fetchAmmenityPhoto()
+        self.fetchAmenityPhoto()
         
-        if let name = ammenitieDetails?.name {
+        if let name = amenitieDetails?.name {
             DispatchQueue.main.async {
                 self.placeNameLabel.text = name
             }
         }
         
-        if let phoneNumber = ammenitieDetails?.formattedPhoneNumber {
+        if let phoneNumber = amenitieDetails?.formattedPhoneNumber {
             DispatchQueue.main.async {
-                self.ammenityPhoneNumberButton.setTitle(phoneNumber, for: .normal)
-                self.ammenityPhoneNumberButton.setTitleColor(.blue, for: .normal)
+                self.amenityPhoneNumberButton.setTitle(phoneNumber, for: .normal)
+                self.amenityPhoneNumberButton.setTitleColor(.blue, for: .normal)
             }
         }
         
-        if let _ = ammenitieDetails?.website {
+        if let _ = amenitieDetails?.website {
             DispatchQueue.main.async {
                 self.visitWebsiteButton.isEnabled = true
                 self.visitWebsiteButton.setTitleColor(.black, for: .normal)
             }
         }
         
-        guard let hoursOfOperation = ammenitieDetails?.openingHours else { return }
+        guard let hoursOfOperation = amenitieDetails?.openingHours else { return }
         
         let dayOfWeek = Date().dayOfWeek()!
         
@@ -223,34 +224,34 @@ class AmenityDetailViewController: UIViewController {
             }
         }
         
-        if let ammenityRating = ammenitieDetails?.rating {
-            let roundedRating = Double(ammenityRating).roundToClosestHalf()
+        if let amenityRating = amenitieDetails?.rating {
+            let roundedRating = Double(amenityRating).roundToClosestHalf()
             
             // TODO: - Move Switch statement off of main thread.
             DispatchQueue.main.async {
                 switch roundedRating {
                 case 0:
-                    self.ammenityRatingImageView.image = UIImage(named: "0Stars")
+                    self.amenityRatingImageView.image = UIImage(named: "0Stars")
                 case 1:
-                    self.ammenityRatingImageView.image = UIImage(named: "1Stars")
+                    self.amenityRatingImageView.image = UIImage(named: "1Stars")
                 case 1.5:
-                    self.ammenityRatingImageView.image = UIImage(named: "1.5Stars")
+                    self.amenityRatingImageView.image = UIImage(named: "1.5Stars")
                 case 2:
-                    self.ammenityRatingImageView.image = UIImage(named: "2Stars")
+                    self.amenityRatingImageView.image = UIImage(named: "2Stars")
                 case 2.5:
-                    self.ammenityRatingImageView.image = UIImage(named: "2.5Stars")
+                    self.amenityRatingImageView.image = UIImage(named: "2.5Stars")
                 case 3:
-                    self.ammenityRatingImageView.image = UIImage(named: "3Stars")
+                    self.amenityRatingImageView.image = UIImage(named: "3Stars")
                 case 3.5:
-                    self.ammenityRatingImageView.image = UIImage(named: "3.5Stars")
+                    self.amenityRatingImageView.image = UIImage(named: "3.5Stars")
                 case 4:
-                    self.ammenityRatingImageView.image = UIImage(named: "4Stars")
+                    self.amenityRatingImageView.image = UIImage(named: "4Stars")
                 case 4.5:
-                    self.ammenityRatingImageView.image = UIImage(named: "4.5Stars")
+                    self.amenityRatingImageView.image = UIImage(named: "4.5Stars")
                 case 5:
-                    self.ammenityRatingImageView.image = UIImage(named: "5Stars")
+                    self.amenityRatingImageView.image = UIImage(named: "5Stars")
                 default:
-                    self.ammenityRatingImageView.image = UIImage(named: "0Stars")
+                    self.amenityRatingImageView.image = UIImage(named: "0Stars")
                 }
             }
         }
@@ -263,7 +264,7 @@ class AmenityDetailViewController: UIViewController {
     }
     
     func returnClosingTime(forDay: String) -> String {
-        guard let hoursOfOperation = ammenitieDetails?.openingHours?.weekdayText else { return "" }
+        guard let hoursOfOperation = amenitieDetails?.openingHours?.weekdayText else { return "" }
         var hoursString: String!
         
         if forDay == "Monday" {
@@ -308,22 +309,22 @@ class AmenityDetailViewController: UIViewController {
     }
     
     func loadMiniMap() {
-        guard let address = ammenitieDetails?.formattedAddress,
-            let title = ammenitieDetails?.name, let selectedType = GooglePlaceSearchController.selectedType else { return }
+        guard let address = amenitieDetails?.formattedAddress,
+            let title = amenitieDetails?.name, let selectedType = GooglePlaceSearchController.selectedType else { return }
         
         geoCoder.geocodeAddressString(address) { (placemarks, error) in
             guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
             
             let camera = GMSCameraPosition.camera(withTarget: location, zoom: 14)
-            self.ammenityMapView.camera = camera
-            self.ammenityMapView.mapType = GMSMapViewType.normal
+            self.amenityMapView.camera = camera
+            self.amenityMapView.mapType = GMSMapViewType.normal
             
             let marker = GMSMarker()
             marker.position = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
             marker.title = title
             marker.snippet = address
             marker.icon = UIImage(named: "\(selectedType)_pin")
-            marker.map = self.ammenityMapView
+            marker.map = self.amenityMapView
         }
     }
 }

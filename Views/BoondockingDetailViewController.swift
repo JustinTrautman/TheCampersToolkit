@@ -130,6 +130,7 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
             
             let marker = GMSMarker()
             marker.position = coordinates
+            marker.icon = UIImage(named: "boondocking_pin")
             marker.title = selectedBoondock.description
             marker.map = self.mapView
         }

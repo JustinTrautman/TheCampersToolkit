@@ -12,7 +12,6 @@ use_frameworks!
 pod 'GoogleMaps'
 pod 'GooglePlaces'
 pod 'GooglePlacePicker'
-pod 'SwiftyJSON'
 pod 'Google-Mobile-Ads-SDK'
 
 end

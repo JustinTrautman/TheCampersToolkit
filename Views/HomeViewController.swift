@@ -8,6 +8,9 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
+ TODO: Rename campground and campgrounds to make more sense
+ TODO: Fetch campground image on HomeViewController and pass it to CampgroundDetail VC
+ 
  ----------------------------------------------------------------------------------------
  */
 
@@ -24,13 +27,14 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     private var searchedTypes = "campground"
     private let locationManager = CLLocationManager()
-    private let dataProvider = GoogleDataProvider()
     private let searchRadius: Double = 50000 // <<< 31 Miles. Max allowed by Google.
     private let placesClient = GMSPlacesClient()
     let geoCoder = CLGeocoder()
     
     var fetcher: GMSAutocompleteFetcher?
-    var campground: GooglePlace?
+    var campgrounds: Result?
+    var googlePlaces: Results?
+    var selectedCampground: Results?
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -70,13 +74,17 @@ class HomeViewController: UIViewController {
                 coordinates = location
             }
             
-            self.dataProvider.fetchPlacesNearCoordinate(latitude: coordinates.latitude, longitude: coordinates.longitude, radius: self.searchRadius, types: [self.searchedTypes]) { places in
-                places.forEach {
-                    let marker = PlaceMarker(place: $0)
-                    marker.map = self.mapView
-                    self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 10, bearing: 0, viewingAngle: 0)
+            GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinates.latitude)", longitude: "\(coordinates.longitude)", radius: self.searchRadius, type: self.searchedTypes, completion: { (places) in
+                if let places = places {
+                    DispatchQueue.main.async {
+                        places.forEach {
+                            let marker = PlaceMarker(place: $0)
+                            marker.map = self.mapView
+                            self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 10, bearing: 0, viewingAngle: 0)
+                        }
+                    }
                 }
-            }
+            })
         }
     }
 }
@@ -116,17 +124,20 @@ extension HomeViewController: GMSMapViewDelegate {
             let usersLatitude = locationManager.location?.coordinate.latitude,
             let usersLongitude = locationManager.location?.coordinate.longitude else { return nil }
         
-        let destinationLatitude = placeMarker.place.coordinate.latitude
-        let destinationLongitude = placeMarker.place.coordinate.longitude
+        let destinationLatitude = placeMarker.place.geometry?.location?.lat ?? 0
+        let destinationLongitude = placeMarker.place.geometry?.location?.lng ?? 0
+        
+        selectedCampground = placeMarker.place
+        print(selectedCampground)
         
         infoView.nameLabel.text = placeMarker.place.name
-        if let photo = placeMarker.place.photo {
-            infoView.placePhoto.image = photo
-        } else {
+//        if let photo = placeMarker.place. {
             infoView.placePhoto.image = UIImage(named: "campground_pin")
-        }
+//        } else {
+//            infoView.placePhoto.image = UIImage(named: "campground_pin")
+//        }
         
-        // Calculates distance to ammenity
+        // Calculates distance to amenity
         let usersLocation = CLLocation(latitude: usersLatitude, longitude: usersLongitude)
         let destination = CLLocation(latitude: destinationLatitude, longitude: destinationLongitude)
         let distanceInMeters = usersLocation.distance(from: destination)
@@ -143,8 +154,8 @@ extension HomeViewController: GMSMapViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "campgroundDetail" {
             guard let detailVC = segue.destination as? CampgroundDetailViewController else { return }
-            detailVC.campground = sender as? GooglePlace
-            detailVC.campgrounds = sender as? Result
+            detailVC.selectedCampground = googlePlaces
+            detailVC.selectedCampground = selectedCampground
         }
     }
     

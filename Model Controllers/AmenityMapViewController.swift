@@ -23,12 +23,11 @@ class AmenityMapViewController: UIViewController {
     
     // MARK: - Properties
     private var locationManager = CLLocationManager()
-    private let dataProvider = GoogleDataProvider()
     private var searchRadius: Double = 8047
     
     var selectedType: String?
     var results: [Results]?
-    var selectedAmmenity: String?
+    var selectedAmenity: String?
     var campgroundCoordinates: CLLocationCoordinate2D?
     
     // MARK: - View Lifecycle
@@ -59,7 +58,7 @@ class AmenityMapViewController: UIViewController {
             if let places = places {
                 DispatchQueue.main.async {
                     for place in places {
-                        let marker = AmmenityMarker(googlePlace: place)
+                        let marker = AmenityMarker(googlePlace: place)
                         marker.map = self.mapView
                         self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 13, bearing: 0, viewingAngle: 0)
                         self.results = places
@@ -143,10 +142,10 @@ class AmenityMapViewController: UIViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toAmmenityDetail" {
+        if segue.identifier == "toAmenityDetail" {
             guard let detailVC = segue.destination as? AmenityDetailViewController else { return }
             
-            detailVC.selectedAmmenity = selectedAmmenity
+            detailVC.selectedAmenity = selectedAmenity
         }
     }
 }
@@ -175,22 +174,22 @@ extension AmenityMapViewController: CLLocationManagerDelegate {
 extension AmenityMapViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-        guard let ammenityMarker = marker as? AmmenityMarker else { return nil }
+        guard let amenityMarker = marker as? AmenityMarker else { return nil }
         
-        guard let infoView = UIView.viewFromNibName("AmmenityMarkerView") as? AmmenityMarkerView else {
+        guard let infoView = UIView.viewFromNibName("AmenityMarkerView") as? AmenityMarkerView else {
             return nil
         }
         
         guard let selectedType = selectedType,
             let usersLatitude = locationManager.location?.coordinate.latitude,
             let usersLongitude = locationManager.location?.coordinate.longitude,
-            let destinationLatitude = ammenityMarker.googlePlace.geometry?.location?.lat,
-            let destinationLongitude = ammenityMarker.googlePlace.geometry?.location?.lng else { return nil }
+            let destinationLatitude = amenityMarker.googlePlace.geometry?.location?.lat,
+            let destinationLongitude = amenityMarker.googlePlace.geometry?.location?.lng else { return nil }
         
-        infoView.ammenityNameLabel.text = ammenityMarker.googlePlace.name
-        infoView.ammenityImageView.image = UIImage(named: "\(selectedType)_pin")
+        infoView.amenityNameLabel.text = amenityMarker.googlePlace.name
+        infoView.amenityImageView.image = UIImage(named: "\(selectedType)_pin")
         
-        // Calculates distance to ammenity
+        // Calculates distance to amenity
         var usersLocation = CLLocation(latitude: usersLatitude, longitude: usersLongitude)
         if campgroundCoordinates != nil {
             let coordinates = CLLocation(latitude: campgroundCoordinates?.latitude ?? 0, longitude: campgroundCoordinates?.longitude ?? 0)
@@ -206,16 +205,16 @@ extension AmenityMapViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        guard let ammenityMarker = marker as? AmmenityMarker else { return false }
-        let selectedAmmenity = ammenityMarker.googlePlace.placeID
-        self.selectedAmmenity = selectedAmmenity
+        guard let amenityMarker = marker as? AmenityMarker else { return false }
+        let selectedAmenity = amenityMarker.googlePlace.placeID
+        self.selectedAmenity = selectedAmenity
         
         return false
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        let ammenityMarker = marker as? AmmenityMarker
-        performSegue(withIdentifier: "toAmmenityDetail", sender: ammenityMarker?.googlePlace)
+        let amenityMarker = marker as? AmenityMarker
+        performSegue(withIdentifier: "toAmenityDetail", sender: amenityMarker?.googlePlace)
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {

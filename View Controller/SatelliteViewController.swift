@@ -20,15 +20,13 @@ class SatelliteViewController: UIViewController, GMSMapViewDelegate {
     @IBOutlet weak var navigationBar: UINavigationItem!
     
     // MARK: - Properties
-    var campgroundCoordinates: GooglePlace?
+    var selectedCampground: Results?
     var boondockCoordinates: CLLocationCoordinate2D?
     var mapType: GMSMapViewType?
     
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationBar.title = campgroundCoordinates?.name
         
         mapView.delegate = self
         mapType = GMSMapViewType.satellite
@@ -88,6 +86,7 @@ class SatelliteViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func setupMapView() {
+        
         if boondockCoordinates != nil {
             let coordinates = boondockCoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
             
@@ -102,18 +101,22 @@ class SatelliteViewController: UIViewController, GMSMapViewDelegate {
             marker.map = self.mapView
         }
         
-        if let selectedCampground = campgroundCoordinates {
-            let coordinates = selectedCampground.coordinate
-            
-            let camera = GMSCameraPosition.camera(withTarget: coordinates, zoom: 17)
-            self.mapView.camera = camera
-            self.mapView.mapType = mapType ?? GMSMapViewType.satellite
-            
-            let marker = GMSMarker()
-            marker.position = coordinates
-            marker.title = selectedCampground.name
-            marker.icon = UIImage(named: "campground_pin")
-            marker.map = self.mapView
-        }
+        guard let selectedCampground = selectedCampground else { return }
+        
+        navigationBar.title = selectedCampground.name
+        
+        let latitude = selectedCampground.geometry?.location?.lat ?? 0
+        let longitude = selectedCampground.geometry?.location?.lng ?? 0
+        let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+        let camera = GMSCameraPosition.camera(withTarget: coordinates, zoom: 17)
+        self.mapView.camera = camera
+        self.mapView.mapType = mapType ?? GMSMapViewType.satellite
+        
+        let marker = GMSMarker()
+        marker.position = coordinates
+        marker.title = selectedCampground.name
+        marker.icon = UIImage(named: "campground_pin")
+        marker.map = self.mapView
     }
 }

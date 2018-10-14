@@ -11,6 +11,7 @@
  Custom marker classes that contain logic for the Campground, Boondocking, and Travel
  view controller annotations.
  
+ TODO: Rename PlaceMarker to CampgroundMarker
  ----------------------------------------------------------------------------------------
  */
 
@@ -19,20 +20,23 @@ import GoogleMaps
 
 class PlaceMarker: GMSMarker {
     
-    let place: GooglePlace
+    let place: Results
     
-    init(place: GooglePlace) {
+    init(place: Results) {
         self.place = place
         super.init()
         
-        position = place.coordinate
-        icon = UIImage(named: place.placeType+"_pin")
+        let coordinates = CLLocationCoordinate2D(latitude: place.geometry?.location?.lat ?? 0, longitude: place.geometry?.location?.lng ?? 0)
+        let selectedType = GooglePlaceSearchController.selectedType ?? ""
+        
+        position = coordinates
+        icon = UIImage(named: selectedType+"_pin")
         groundAnchor = CGPoint(x: 0.5, y: 1.0)
         appearAnimation = .pop
     }
 }
 
-class AmmenityMarker: GMSMarker {
+class AmenityMarker: GMSMarker {
     
     let googlePlace: Results
     
