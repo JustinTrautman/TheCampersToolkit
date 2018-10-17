@@ -3,7 +3,7 @@
  
  CampgroundPhotosViewController.swift
  TheCampersToolkit
-
+ 
  Created by Justin Trautman on 7/22/18.
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
@@ -20,7 +20,7 @@ class CampgroundPhotosViewController: UIViewController {
     
     // MARK: - Properties
     var photos: [Photos]?
-
+    
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,7 @@ class CampgroundPhotosViewController: UIViewController {
     
     func reloadTableView() {
         DispatchQueue.main.async {
-        self.photosTableView.reloadData()
+            self.photosTableView.reloadData()
         }
     }
     
@@ -44,9 +44,9 @@ class CampgroundPhotosViewController: UIViewController {
             if let indexPath = self.photosTableView.indexPathForSelectedRow {
                 guard let detailVC = segue.destination as? PhotoDetailViewController else { return }
                 
-                guard let photo = photos else { return }
+                guard let photos = photos else { return }
                 
-                let selectedPhoto = photo[indexPath.row]
+                let selectedPhoto = photos[indexPath.row]
                 
                 detailVC.photo = selectedPhoto
             }
@@ -57,7 +57,6 @@ class CampgroundPhotosViewController: UIViewController {
 extension CampgroundPhotosViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         guard let unwrappedPhotos = GoogleDetailController.campgrounds?.photos else { return 0 }
         
         return unwrappedPhotos.count
@@ -68,8 +67,9 @@ extension CampgroundPhotosViewController: UITableViewDelegate, UITableViewDataSo
         
         guard let unwrappedPhotos = GoogleDetailController.campgrounds?.photos else { return UITableViewCell() }
         
-        let photo = unwrappedPhotos[indexPath.row]
-        cell.photos = photo
+        let photos = unwrappedPhotos[indexPath.row]
+        cell.photos = photos
+        
         return cell
     }
     

@@ -1,10 +1,18 @@
-//
-//  ForecastedWeatherController.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 8/25/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ ForecastedWeatherController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 8/25/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ Forecasted weather pulled from weather.gov
+ API documentation: https://forecast-v3.weather.gov/documentation
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import Foundation
 
@@ -13,7 +21,7 @@ class ForeCastedWeaterController {
     static let baseURL = URL(string: "https://api.weather.gov")
     static var forecastedWeatherData: ForecastedWeatherData?
     
-    static func fetchForecastedWeatherFrom(latitude: String, longitude: String, completion: @escaping((ForecastedWeatherData)?) -> Void) {
+    static func fetchForecastedWeatherAt(latitude: String, longitude: String, completion: @escaping(ForecastedWeatherData?) -> Void) {
         
         guard var url = baseURL else { completion(nil) ; return }
         
@@ -21,11 +29,11 @@ class ForeCastedWeaterController {
         url.appendPathComponent("\(latitude),\(longitude)")
         url.appendPathComponent("forecast")
         
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         
         guard let completeURL = components?.url else { completion(nil) ; return }
         
-        URLSession.shared.dataTask(with: completeURL) { (data, road, error) in
+        URLSession.shared.dataTask(with: completeURL) { (data, _, error) in
             if let error = error {
                 print("DataTask had an issue reaching the network. Exiting with error: \(error) \(error.localizedDescription)")
                 completion(nil) ; return
@@ -42,6 +50,6 @@ class ForeCastedWeaterController {
             } catch let error {
                 print("Error decoding forecasted weather data. Exiting with error: \(error) \(error.localizedDescription)")
             }
-        }.resume()
+            }.resume()
     }
 }

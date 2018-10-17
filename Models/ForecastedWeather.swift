@@ -1,10 +1,17 @@
-//
-//  ForecastedWeather.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 8/25/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ ForecastedWeather.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 8/25/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ Forecasted weather pulled from api.weather.gov
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import Foundation
 

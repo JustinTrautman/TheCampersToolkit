@@ -1,10 +1,15 @@
-//
-//  AppDelegate.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/13/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ AppDelegate.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/13/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 import GoogleMaps
@@ -16,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         GMSServices.provideAPIKey("\(Constants.googleApiKey)")
         GMSPlacesClient.provideAPIKey("\(Constants.googleApiKey)")
@@ -25,12 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize the Google Mobile Ads SDK.
         GADMobileAds.configure(withApplicationID: Constants.applicationID)
         
-        GoogleGeocodingController.getCoordinatesFrom(adress: "33111 N Rimrose Dr. Chattaroy, WA") { (coordinates) in
-            if let coordinates = coordinates {
-                print("Yo, got some coordinates for ya")
-            }
-        }
-                
+        // Increment app launched counter
+        AppRatingHelper.incrementAppLaunchedCounter()
+        
         return true
     }
 

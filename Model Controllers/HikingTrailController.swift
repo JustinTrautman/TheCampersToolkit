@@ -8,6 +8,10 @@
  Copyright © 2018 ModularMobile LLC. All rights reserved.
  Justin@modularmobile.net
  
+ Hiking Project API: https://www.hikingproject.com/data
+ • Returns trails within a default radius of 30 miles. Max 200
+ • Returns 10 trails default. Max 500
+ 
  ----------------------------------------------------------------------------------------
  */
 
@@ -44,18 +48,16 @@ class HikingTrailController {
             
             let jsonDecoder = JSONDecoder()
             do {
-                 let trails = try jsonDecoder.decode(HikingTrailData.self, from: data).trails
+                let trails = try jsonDecoder.decode(HikingTrailData.self, from: data).trails
                 self.trails = trails
                 completion(trails)
-
             } catch let error {
                 print("Error decoding campground data. Exiting with error: \(error) \(error.localizedDescription)")
             }
-        }.resume()
+            }.resume()
     }
     
     static func fetchTrailImageWith(photoURL: String, completion: @escaping ((UIImage?)) -> Void) {
-        
         guard let url = URL(string: photoURL) else { completion(nil) ; return }
         
         URLSession.shared.dataTask(with: url) { (data, _, error) in
@@ -68,6 +70,6 @@ class HikingTrailController {
             guard let data = data else { completion(nil) ; return }
             let image = UIImage(data: data)
             completion(image)
-        }.resume()
+            }.resume()
     }
 }

@@ -1,29 +1,28 @@
 /*
  ----------------------------------------------------------------------------------------
-
+ 
  ReviewDetailViewController.swift
  TheCampersToolkit
-
+ 
  Created by Justin Trautman on 7/23/18.
  Copyright © 2018 ModularMobile LLC. All rights reserved.
  Justin@modularmobile.net
-
+ 
  ----------------------------------------------------------------------------------------
  */
-
 
 import UIKit
 import GoogleMobileAds
 
 class ReviewDetailViewController: UIViewController {
-
+    
     // MARK: - Outlets
     @IBOutlet weak var reviewerProfileImage: UIImageView!
     @IBOutlet weak var reviewerNameLabel: UILabel!
     @IBOutlet weak var ratingImageView: UIImageView!
     @IBOutlet weak var reviewTimestamp: UILabel!
     @IBOutlet weak var reviewTextView: UITextView!
-
+    
     // MARK: Properties
     var reviews: Reviews?
     
@@ -33,7 +32,7 @@ class ReviewDetailViewController: UIViewController {
     lazy var adBannerView: GADBannerView = {
         
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = Constants.adUnitID
+        adBannerView.adUnitID = Constants.bannerAdUnitID
         adBannerView.delegate = self
         adBannerView.rootViewController = self
         
@@ -46,15 +45,15 @@ class ReviewDetailViewController: UIViewController {
         
         // Setup Ad Banner
         bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-        
         addBannerViewToView(bannerView)
         
         // Load Ad Banner
         adBannerView.load(GADRequest())
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         updateViews()
     }
     
@@ -65,10 +64,10 @@ class ReviewDetailViewController: UIViewController {
             [NSLayoutConstraint(item: bannerView,
                                 attribute: .bottom,
                                 relatedBy: .equal,
-                                toItem: bottomLayoutGuide,
-                                attribute: .top,
-                                multiplier: 1,
-                                constant: 0),
+                                toItem: bottomLayoutGuide, // TODO: Updated deprecated code
+                attribute: .top,
+                multiplier: 1,
+                constant: 0),
              NSLayoutConstraint(item: bannerView,
                                 attribute: .centerX,
                                 relatedBy: .equal,
@@ -78,11 +77,10 @@ class ReviewDetailViewController: UIViewController {
                                 constant: 0)
             ])
     }
-
+    
     func updateViews() {
-
         guard let reviews = reviews else { return }
-
+        
         if let photoURL = reviews.profilePhotoUrl {
             GoogleDetailController.fetchReviewerProfilePhotoWith(photoUrl: photoURL) { (image) in
                 if let image = image {
@@ -92,11 +90,10 @@ class ReviewDetailViewController: UIViewController {
                 }
             }
         }
-
+        
         if let campgroundRating = reviews.rating {
-
             let roundedRating = Double(campgroundRating).roundToClosestHalf()
-
+            
             switch roundedRating {
             case 0:
                 self.ratingImageView.image = UIImage(named: "0Stars")
@@ -122,7 +119,7 @@ class ReviewDetailViewController: UIViewController {
                 self.ratingImageView.image = UIImage(named: "0Stars")
             }
         }
-
+        
         reviewerNameLabel.text = reviews.authorName
         reviewTextView.text = reviews.text
         reviewTimestamp.text = reviews.relativeTimeDescription

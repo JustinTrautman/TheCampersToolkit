@@ -1,10 +1,18 @@
-//
-//  UIView.swift
-//  TheCampersToolkit
-//
-//  Created by Justin Trautman on 7/16/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
-//
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ UIView.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/16/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ Extends UIView and adds animations for fadein / fadeout + takes zib files and outputs
+ a UIView.
+ 
+ ----------------------------------------------------------------------------------------
+ */
 
 import UIKit
 
@@ -12,14 +20,12 @@ extension UIView {
     
     func lock() {
         if let _ = viewWithTag(10) {
-            //View is already locked
-        }
-        else {
+        } else {
             let lockView = UIView(frame: bounds)
             lockView.backgroundColor = UIColor(white: 0.0, alpha: 0.75)
             lockView.tag = 10
             lockView.alpha = 0.0
-            let activity = UIActivityIndicatorView(activityIndicatorStyle: .white)
+            let activity = UIActivityIndicatorView(style: .white)
             activity.hidesWhenStopped = true
             activity.center = lockView.center
             lockView.addSubview(activity)

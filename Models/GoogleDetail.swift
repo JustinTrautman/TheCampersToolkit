@@ -14,16 +14,13 @@
  ----------------------------------------------------------------------------------------
  */
 
-
 import Foundation
 
 struct CampgroundDetailData : Codable {
-    
     let result : Result
 }
 
 struct Result : Codable {
-    
     let formattedAddress : String?
     let formattedPhoneNumber : String?
     let name : String?
@@ -32,6 +29,8 @@ struct Result : Codable {
     let rating : Double?
     let reviews : [Reviews]?
     let website : String?
+    let geometry: Geometry?
+    let priceLevel: Int?
     
     enum CodingKeys: String, CodingKey {
         
@@ -42,7 +41,8 @@ struct Result : Codable {
         case photos = "photos"
         case rating
         case reviews = "reviews"
-        case website 
+        case website, geometry
+        case priceLevel = "price_level"
     }
     
     init(from decoder: Decoder) throws {
@@ -55,11 +55,12 @@ struct Result : Codable {
         rating = try values.decodeIfPresent(Double.self, forKey: .rating)
         reviews = try values.decodeIfPresent([Reviews].self, forKey: .reviews)
         website = try values.decodeIfPresent(String.self, forKey: .website)
+        geometry = try values.decodeIfPresent(Geometry.self, forKey: .geometry)
+        priceLevel = try values.decodeIfPresent(Int.self, forKey: .priceLevel)
     }
 }
 
 struct OpeningHours : Codable {
-    
     let openNow : Bool?
     let periods : [Periods]?
     let weekdayText : [String]?
@@ -80,7 +81,6 @@ struct OpeningHours : Codable {
 }
 
 struct Periods : Codable {
-    
     let close : Close?
     let open : Open?
     
@@ -97,7 +97,6 @@ struct Periods : Codable {
 }
 
 struct Close : Codable {
-    
     let day : Int?
     let time : String?
     
@@ -114,7 +113,6 @@ struct Close : Codable {
 }
 
 struct Open : Codable {
-    
     let day : Int?
     let time : String?
     
@@ -131,7 +129,6 @@ struct Open : Codable {
 }
 
 struct Photos : Codable {
-    
     let height : Int?
     let htmlAttributions : [String]?
     let photoReference : String?
@@ -155,7 +152,6 @@ struct Photos : Codable {
 }
 
 struct Reviews : Codable {
-    
     let authorName : String?
     let authorUrl : String?
     let language : String?

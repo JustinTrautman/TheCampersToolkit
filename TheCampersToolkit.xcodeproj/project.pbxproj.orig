@@ -7,7 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0026C9C2160747900DA8693 /* GMUClusterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C532160747900DA8693 /* GMUClusterManager.m */; };
+		D0026C9D2160747900DA8693 /* GMUGridBasedClusterAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C572160747900DA8693 /* GMUGridBasedClusterAlgorithm.m */; };
+		D0026C9E2160747900DA8693 /* GMUWrappingDictionaryKey.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C5A2160747900DA8693 /* GMUWrappingDictionaryKey.m */; };
+		D0026C9F2160747900DA8693 /* GMUSimpleClusterAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C5B2160747900DA8693 /* GMUSimpleClusterAlgorithm.m */; };
+		D0026CA02160747900DA8693 /* GMUNonHierarchicalDistanceBasedAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C5D2160747900DA8693 /* GMUNonHierarchicalDistanceBasedAlgorithm.m */; };
+		D0026CA12160747900DA8693 /* GMUDefaultClusterRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C662160747900DA8693 /* GMUDefaultClusterRenderer.m */; };
+		D0026CA22160747900DA8693 /* GMUDefaultClusterIconGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C682160747900DA8693 /* GMUDefaultClusterIconGenerator.m */; };
+		D0026CA32160747900DA8693 /* GMUStaticCluster.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C6B2160747900DA8693 /* GMUStaticCluster.m */; };
+		D0026CA42160747900DA8693 /* GMUWeightedLatLng.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C702160747900DA8693 /* GMUWeightedLatLng.m */; };
+		D0026CA52160747900DA8693 /* GMUGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C732160747900DA8693 /* GMUGradient.m */; };
+		D0026CA62160747900DA8693 /* GMUHeatmapTileLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C742160747900DA8693 /* GMUHeatmapTileLayer.m */; };
+		D0026CA72160747900DA8693 /* GMUKMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C762160747900DA8693 /* GMUKMLParser.m */; };
+		D0026CA82160747900DA8693 /* GMUGeometryRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C772160747900DA8693 /* GMUGeometryRenderer.m */; };
+		D0026CA92160747900DA8693 /* GMUGeometryCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C7A2160747900DA8693 /* GMUGeometryCollection.m */; };
+		D0026CAA2160747900DA8693 /* GMUPlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C7D2160747900DA8693 /* GMUPlacemark.m */; };
+		D0026CAB2160747900DA8693 /* GMUPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C7E2160747900DA8693 /* GMUPolygon.m */; };
+		D0026CAC2160747900DA8693 /* GMUStyleMap.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C812160747900DA8693 /* GMUStyleMap.m */; };
+		D0026CAD2160747900DA8693 /* GMUFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C822160747900DA8693 /* GMUFeature.m */; };
+		D0026CAE2160747900DA8693 /* GMUGroundOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C842160747900DA8693 /* GMUGroundOverlay.m */; };
+		D0026CAF2160747900DA8693 /* GMUStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C852160747900DA8693 /* GMUStyle.m */; };
+		D0026CB02160747900DA8693 /* GMUPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C862160747900DA8693 /* GMUPoint.m */; };
+		D0026CB12160747900DA8693 /* GMUPair.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C892160747900DA8693 /* GMUPair.m */; };
+		D0026CB22160747900DA8693 /* GMULineString.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C8E2160747900DA8693 /* GMULineString.m */; };
+		D0026CB32160747900DA8693 /* GMUGeoJSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C922160747900DA8693 /* GMUGeoJSONParser.m */; };
+		D0026CB42160747900DA8693 /* GQTPointQuadTree.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C952160747900DA8693 /* GQTPointQuadTree.m */; };
+		D0026CB52160747900DA8693 /* GQTPointQuadTreeChild.m in Sources */ = {isa = PBXBuildFile; fileRef = D0026C972160747900DA8693 /* GQTPointQuadTreeChild.m */; };
 		D010EE372104FE0D007EE483 /* CampgroundReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D010EE362104FE0D007EE483 /* CampgroundReviewCell.swift */; };
+		D01F8E352156DD54004CF886 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */; };
 		D022B1E420FD23420012025A /* GoogleDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022B1E320FD23420012025A /* GoogleDetail.swift */; };
 		D022B1E620FD2ADF0012025A /* GoogleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */; };
 		D0234C15210D00B500038CAF /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0234C14210D00B500038CAF /* XMLParser.swift */; };
@@ -17,6 +44,7 @@
 		D04D3FE9210536AD00629B02 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D3FE8210536AD00629B02 /* WeatherViewController.swift */; };
 		D04D3FEB21053A7C00629B02 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D3FEA21053A7C00629B02 /* CurrentWeather.swift */; };
 		D04D3FED2105413F00629B02 /* CurrentWeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D3FEC2105413F00629B02 /* CurrentWeatherController.swift */; };
+		D053DB102148866E00254629 /* AmenityMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D053DB0F2148866E00254629 /* AmenityMarkerView.swift */; };
 		D066C0F22106206E00B71E41 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0F12106206E00B71E41 /* ReviewDetailViewController.swift */; };
 		D066C0F42106BD7400B71E41 /* HikingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0F32106BD7400B71E41 /* HikingViewController.swift */; };
 		D066C0F62106BE9400B71E41 /* HikingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0F52106BE9400B71E41 /* HikingTableViewCell.swift */; };
@@ -24,21 +52,20 @@
 		D066C0FA2106C44100B71E41 /* HikingTrailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0F92106C44100B71E41 /* HikingTrailController.swift */; };
 		D066C0FC210762A300B71E41 /* HikingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0FB210762A300B71E41 /* HikingDetailViewController.swift */; };
 		D06AA8412105295C00B74FCB /* CampgroundPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */; };
-		D0763E1E2133004D00EE5210 /* GetCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0763E1D2133004D00EE5210 /* GetCoordinates.swift */; };
 		D0763E20213304E100EE5210 /* GoogleGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0763E1F213304E100EE5210 /* GoogleGeocoding.swift */; };
-		D0763E2221330AB200EE5210 /* GoogleGeocodingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0763E2121330AB200EE5210 /* GoogleGeocodingController.swift */; };
+		D08E5A1D21507E0C0054D370 /* GooglePlaceSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08E5A1C21507E0C0054D370 /* GooglePlaceSearchController.swift */; };
+		D08FD2F921602ACE00AAA098 /* CampgrounHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FD2F821602ACE00AAA098 /* CampgrounHoursViewController.swift */; };
 		D08FDCA0210BF76B007F6C5F /* Boondocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FDC9F210BF76B007F6C5F /* Boondocking.swift */; };
 		D08FDCA2210BF828007F6C5F /* BoondockingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FDCA1210BF828007F6C5F /* BoondockingController.swift */; };
-		D098E06C20FD0B8700DB4866 /* GoogleDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */; };
-		D098E06E20FD0BEB00DB4866 /* GooglePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06D20FD0BEB00DB4866 /* GooglePlace.swift */; };
-		D098E07020FD0C1E00DB4866 /* PlaceMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06F20FD0C1E00DB4866 /* PlaceMarker.swift */; };
-		D098E07220FD0C5100DB4866 /* MarkerInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D098E07120FD0C5100DB4866 /* MarkerInfoView.xib */; };
-		D098E07420FD0C7900DB4866 /* MarkerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E07320FD0C7900DB4866 /* MarkerInfoView.swift */; };
+		D098E07020FD0C1E00DB4866 /* CustomMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06F20FD0C1E00DB4866 /* CustomMarker.swift */; };
+		D098E07220FD0C5100DB4866 /* CampgroundMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D098E07120FD0C5100DB4866 /* CampgroundMarkerView.xib */; };
+		D098E07420FD0C7900DB4866 /* CampgroundMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E07320FD0C7900DB4866 /* CampgroundMarkerView.swift */; };
 		D098E07620FD110000DB4866 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E07520FD110000DB4866 /* UIView.swift */; };
 		D0A63BDA210B9B5700DC5850 /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A63BD9210B9B5700DC5850 /* PhotoTableViewCell.swift */; };
 		D0A991E72103992400698EF1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A991E62103992400698EF1 /* Constants.swift */; };
 		D0AD4AE6211343F4001EB1B6 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD4AE5211343F4001EB1B6 /* DoubleExtension.swift */; };
-		D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */; };
+		D0B0261421703F5A00950548 /* BoondockDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0261321703F5A00950548 /* BoondockDescriptionTableViewCell.swift */; };
+		D0B5CEC6215E787500180BBA /* AppRatingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B5CEC5215E787500180BBA /* AppRatingHelper.swift */; };
 		D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E06520F97C0B00210FC1 /* Assets.xcassets */; };
 <<<<<<< HEAD
 		D0C5E06920F97C0B00210FC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E06720F97C0B00210FC1 /* LaunchScreen.storyboard */; };
@@ -51,8 +78,19 @@
 		D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */; };
 		D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */; };
 		D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */; };
+		D0D2C80C214600E20003C883 /* AmenityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2C80B214600E20003C883 /* AmenityDetailViewController.swift */; };
+		D0D2C8102146B5480003C883 /* AmenityMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D2C80F2146B5480003C883 /* AmenityMarkerView.xib */; };
+		D0D39BDA215DCE42006F1CF8 /* CampgrounHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D39BD9215DCE42006F1CF8 /* CampgrounHoursViewController.swift */; };
+		D0D39BDC215DCF1B006F1CF8 /* SatelliteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D39BDB215DCF1B006F1CF8 /* SatelliteViewController.swift */; };
+		D0D8850321695E71002425DB /* ForecastDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8850221695E71002425DB /* ForecastDetailViewController.swift */; };
+		D0D885052169A6CD002425DB /* ForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D885042169A6CD002425DB /* ForecastCollectionViewCell.swift */; };
+		D0D88507216A5B8B002425DB /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D88506216A5B8B002425DB /* Enums.swift */; };
+		D0D985D92161781800BAB043 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D985D82161781800BAB043 /* InformationViewController.swift */; };
 		D0E5295D210CAEDC009E6435 /* TravelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5295C210CAEDC009E6435 /* TravelViewController.swift */; };
-		D0E5295F210CB6EE009E6435 /* TravelMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5295E210CB6EE009E6435 /* TravelMapViewController.swift */; };
+		D0E5295F210CB6EE009E6435 /* AmenityMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5295E210CB6EE009E6435 /* AmenityMapViewController.swift */; };
+		D0EAF86C21581C9500086643 /* BoondockingMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EAF86B21581C9500086643 /* BoondockingMarkerView.xib */; };
+		D0EAF86E2158242F00086643 /* BoondockingMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF86D2158242F00086643 /* BoondockingMarkerView.swift */; };
+		D0EAF87021583C6A00086643 /* BoondockingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF86F21583C6A00086643 /* BoondockingDetailViewController.swift */; };
 		D7A732D64A335AF81DEE748C /* Pods_TheCampersToolkit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */; };
 >>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 /* End PBXBuildFile section */
@@ -61,7 +99,76 @@
 		A93247BEBFC3DCAA017F4D50 /* Pods-TheCampersToolkit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheCampersToolkit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit.debug.xcconfig"; sourceTree = "<group>"; };
 		AE93EAD54E211352B75928D7 /* Pods-TheCampersToolkit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheCampersToolkit.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit.release.xcconfig"; sourceTree = "<group>"; };
 		CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheCampersToolkit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0026ADD21606A4400DA8693 /* TheCampersToolkit-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TheCampersToolkit-Bridging-Header.h"; sourceTree = "<group>"; };
+		D0026C532160747900DA8693 /* GMUClusterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUClusterManager.m; sourceTree = "<group>"; };
+		D0026C542160747900DA8693 /* GMUStaticCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUStaticCluster.h; sourceTree = "<group>"; };
+		D0026C552160747900DA8693 /* GMUMarkerClustering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUMarkerClustering.h; sourceTree = "<group>"; };
+		D0026C572160747900DA8693 /* GMUGridBasedClusterAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGridBasedClusterAlgorithm.m; sourceTree = "<group>"; };
+		D0026C582160747900DA8693 /* GMUClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUClusterAlgorithm.h; sourceTree = "<group>"; };
+		D0026C592160747900DA8693 /* GMUNonHierarchicalDistanceBasedAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUNonHierarchicalDistanceBasedAlgorithm.h; sourceTree = "<group>"; };
+		D0026C5A2160747900DA8693 /* GMUWrappingDictionaryKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUWrappingDictionaryKey.m; sourceTree = "<group>"; };
+		D0026C5B2160747900DA8693 /* GMUSimpleClusterAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUSimpleClusterAlgorithm.m; sourceTree = "<group>"; };
+		D0026C5C2160747900DA8693 /* GMUGridBasedClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGridBasedClusterAlgorithm.h; sourceTree = "<group>"; };
+		D0026C5D2160747900DA8693 /* GMUNonHierarchicalDistanceBasedAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUNonHierarchicalDistanceBasedAlgorithm.m; sourceTree = "<group>"; };
+		D0026C5E2160747900DA8693 /* GMUSimpleClusterAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUSimpleClusterAlgorithm.h; sourceTree = "<group>"; };
+		D0026C5F2160747900DA8693 /* GMUWrappingDictionaryKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUWrappingDictionaryKey.h; sourceTree = "<group>"; };
+		D0026C602160747900DA8693 /* GMUClusterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUClusterManager.h; sourceTree = "<group>"; };
+		D0026C612160747900DA8693 /* GMUClusterManager+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMUClusterManager+Testing.h"; sourceTree = "<group>"; };
+		D0026C632160747900DA8693 /* GMUClusterIconGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUClusterIconGenerator.h; sourceTree = "<group>"; };
+		D0026C642160747900DA8693 /* GMUClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUClusterRenderer.h; sourceTree = "<group>"; };
+		D0026C652160747900DA8693 /* GMUDefaultClusterRenderer+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMUDefaultClusterRenderer+Testing.h"; sourceTree = "<group>"; };
+		D0026C662160747900DA8693 /* GMUDefaultClusterRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUDefaultClusterRenderer.m; sourceTree = "<group>"; };
+		D0026C672160747900DA8693 /* GMUDefaultClusterIconGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUDefaultClusterIconGenerator.h; sourceTree = "<group>"; };
+		D0026C682160747900DA8693 /* GMUDefaultClusterIconGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUDefaultClusterIconGenerator.m; sourceTree = "<group>"; };
+		D0026C692160747900DA8693 /* GMUDefaultClusterRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUDefaultClusterRenderer.h; sourceTree = "<group>"; };
+		D0026C6A2160747900DA8693 /* GMUDefaultClusterIconGenerator+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMUDefaultClusterIconGenerator+Testing.h"; sourceTree = "<group>"; };
+		D0026C6B2160747900DA8693 /* GMUStaticCluster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUStaticCluster.m; sourceTree = "<group>"; };
+		D0026C6C2160747900DA8693 /* GMUCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUCluster.h; sourceTree = "<group>"; };
+		D0026C6D2160747900DA8693 /* GMUClusterItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUClusterItem.h; sourceTree = "<group>"; };
+		D0026C6F2160747900DA8693 /* GMUGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGradient.h; sourceTree = "<group>"; };
+		D0026C702160747900DA8693 /* GMUWeightedLatLng.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUWeightedLatLng.m; sourceTree = "<group>"; };
+		D0026C712160747900DA8693 /* GMUHeatmapTileLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUHeatmapTileLayer.h; sourceTree = "<group>"; };
+		D0026C722160747900DA8693 /* GMUWeightedLatLng.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUWeightedLatLng.h; sourceTree = "<group>"; };
+		D0026C732160747900DA8693 /* GMUGradient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGradient.m; sourceTree = "<group>"; };
+		D0026C742160747900DA8693 /* GMUHeatmapTileLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUHeatmapTileLayer.m; sourceTree = "<group>"; };
+		D0026C762160747900DA8693 /* GMUKMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUKMLParser.m; sourceTree = "<group>"; };
+		D0026C772160747900DA8693 /* GMUGeometryRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGeometryRenderer.m; sourceTree = "<group>"; };
+		D0026C782160747900DA8693 /* GMUGeoJSONParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGeoJSONParser.h; sourceTree = "<group>"; };
+		D0026C7A2160747900DA8693 /* GMUGeometryCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGeometryCollection.m; sourceTree = "<group>"; };
+		D0026C7B2160747900DA8693 /* GMUPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUPoint.h; sourceTree = "<group>"; };
+		D0026C7C2160747900DA8693 /* GMUStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUStyle.h; sourceTree = "<group>"; };
+		D0026C7D2160747900DA8693 /* GMUPlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUPlacemark.m; sourceTree = "<group>"; };
+		D0026C7E2160747900DA8693 /* GMUPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUPolygon.m; sourceTree = "<group>"; };
+		D0026C7F2160747900DA8693 /* GMUPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUPair.h; sourceTree = "<group>"; };
+		D0026C802160747900DA8693 /* GMUGeometryContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGeometryContainer.h; sourceTree = "<group>"; };
+		D0026C812160747900DA8693 /* GMUStyleMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUStyleMap.m; sourceTree = "<group>"; };
+		D0026C822160747900DA8693 /* GMUFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUFeature.m; sourceTree = "<group>"; };
+		D0026C832160747900DA8693 /* GMULineString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMULineString.h; sourceTree = "<group>"; };
+		D0026C842160747900DA8693 /* GMUGroundOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGroundOverlay.m; sourceTree = "<group>"; };
+		D0026C852160747900DA8693 /* GMUStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUStyle.m; sourceTree = "<group>"; };
+		D0026C862160747900DA8693 /* GMUPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUPoint.m; sourceTree = "<group>"; };
+		D0026C872160747900DA8693 /* GMUGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGeometry.h; sourceTree = "<group>"; };
+		D0026C882160747900DA8693 /* GMUGeometryCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGeometryCollection.h; sourceTree = "<group>"; };
+		D0026C892160747900DA8693 /* GMUPair.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUPair.m; sourceTree = "<group>"; };
+		D0026C8A2160747900DA8693 /* GMUPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUPolygon.h; sourceTree = "<group>"; };
+		D0026C8B2160747900DA8693 /* GMUPlacemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUPlacemark.h; sourceTree = "<group>"; };
+		D0026C8C2160747900DA8693 /* GMUStyleMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUStyleMap.h; sourceTree = "<group>"; };
+		D0026C8D2160747900DA8693 /* GMUGroundOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGroundOverlay.h; sourceTree = "<group>"; };
+		D0026C8E2160747900DA8693 /* GMULineString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMULineString.m; sourceTree = "<group>"; };
+		D0026C8F2160747900DA8693 /* GMUFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUFeature.h; sourceTree = "<group>"; };
+		D0026C902160747900DA8693 /* GMUKMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUKMLParser.h; sourceTree = "<group>"; };
+		D0026C912160747900DA8693 /* GMUGeometryRenderer+Testing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMUGeometryRenderer+Testing.h"; sourceTree = "<group>"; };
+		D0026C922160747900DA8693 /* GMUGeoJSONParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMUGeoJSONParser.m; sourceTree = "<group>"; };
+		D0026C932160747900DA8693 /* GMUGeometryRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMUGeometryRenderer.h; sourceTree = "<group>"; };
+		D0026C952160747900DA8693 /* GQTPointQuadTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTree.m; sourceTree = "<group>"; };
+		D0026C962160747900DA8693 /* GQTPointQuadTreeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeItem.h; sourceTree = "<group>"; };
+		D0026C972160747900DA8693 /* GQTPointQuadTreeChild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GQTPointQuadTreeChild.m; sourceTree = "<group>"; };
+		D0026C982160747900DA8693 /* GQTPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPoint.h; sourceTree = "<group>"; };
+		D0026C992160747900DA8693 /* GQTPointQuadTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTree.h; sourceTree = "<group>"; };
+		D0026C9A2160747900DA8693 /* GQTPointQuadTreeChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTPointQuadTreeChild.h; sourceTree = "<group>"; };
+		D0026C9B2160747900DA8693 /* GQTBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GQTBounds.h; sourceTree = "<group>"; };
 		D010EE362104FE0D007EE483 /* CampgroundReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundReviewCell.swift; sourceTree = "<group>"; };
+		D01F89CA2156CD9F004CF886 /* GoogleUtilities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = GoogleUtilities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D022B1E320FD23420012025A /* GoogleDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDetail.swift; sourceTree = "<group>"; };
 		D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDetailController.swift; sourceTree = "<group>"; };
 		D0234C14210D00B500038CAF /* XMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLParser.swift; sourceTree = "<group>"; };
@@ -71,6 +178,7 @@
 		D04D3FE8210536AD00629B02 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherViewController.swift; path = TheCampersToolkit/WeatherViewController.swift; sourceTree = SOURCE_ROOT; };
 		D04D3FEA21053A7C00629B02 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		D04D3FEC2105413F00629B02 /* CurrentWeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherController.swift; sourceTree = "<group>"; };
+		D053DB0F2148866E00254629 /* AmenityMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenityMarkerView.swift; sourceTree = "<group>"; };
 		D066C0F12106206E00B71E41 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReviewDetailViewController.swift; path = Models/ReviewDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		D066C0F32106BD7400B71E41 /* HikingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HikingViewController.swift; path = Models/HikingViewController.swift; sourceTree = SOURCE_ROOT; };
 		D066C0F52106BE9400B71E41 /* HikingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingTableViewCell.swift; sourceTree = "<group>"; };
@@ -78,20 +186,20 @@
 		D066C0F92106C44100B71E41 /* HikingTrailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingTrailController.swift; sourceTree = "<group>"; };
 		D066C0FB210762A300B71E41 /* HikingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HikingDetailViewController.swift; path = "Model Controllers/HikingDetailViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampgroundPhotosViewController.swift; path = Views/CampgroundPhotosViewController.swift; sourceTree = SOURCE_ROOT; };
-		D0763E1D2133004D00EE5210 /* GetCoordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCoordinates.swift; sourceTree = "<group>"; };
 		D0763E1F213304E100EE5210 /* GoogleGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleGeocoding.swift; sourceTree = "<group>"; };
-		D0763E2121330AB200EE5210 /* GoogleGeocodingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleGeocodingController.swift; sourceTree = "<group>"; };
+		D08E5A1C21507E0C0054D370 /* GooglePlaceSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlaceSearchController.swift; sourceTree = "<group>"; };
+		D08FD2F821602ACE00AAA098 /* CampgrounHoursViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CampgrounHoursViewController.swift; path = "View Controller/CampgrounHoursViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D08FDC9F210BF76B007F6C5F /* Boondocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boondocking.swift; sourceTree = "<group>"; };
 		D08FDCA1210BF828007F6C5F /* BoondockingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoondockingController.swift; sourceTree = "<group>"; };
-		D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDataProvider.swift; sourceTree = "<group>"; };
-		D098E06D20FD0BEB00DB4866 /* GooglePlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlace.swift; sourceTree = "<group>"; };
-		D098E06F20FD0C1E00DB4866 /* PlaceMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMarker.swift; sourceTree = "<group>"; };
-		D098E07120FD0C5100DB4866 /* MarkerInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarkerInfoView.xib; sourceTree = "<group>"; };
-		D098E07320FD0C7900DB4866 /* MarkerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerInfoView.swift; sourceTree = "<group>"; };
+		D098E06F20FD0C1E00DB4866 /* CustomMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarker.swift; sourceTree = "<group>"; };
+		D098E07120FD0C5100DB4866 /* CampgroundMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CampgroundMarkerView.xib; sourceTree = "<group>"; };
+		D098E07320FD0C7900DB4866 /* CampgroundMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundMarkerView.swift; sourceTree = "<group>"; };
 		D098E07520FD110000DB4866 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		D0A63BD9210B9B5700DC5850 /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
 		D0A991E62103992400698EF1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D0AD4AE5211343F4001EB1B6 /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
+		D0B0261321703F5A00950548 /* BoondockDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoondockDescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		D0B5CEC5215E787500180BBA /* AppRatingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRatingHelper.swift; sourceTree = "<group>"; };
 		D0C5E05B20F97C0A00210FC1 /* TheCampersToolkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheCampersToolkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0C5E06520F97C0B00210FC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -106,9 +214,24 @@
 		D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Views/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoondockingViewController.swift; path = Views/BoondockingViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampgroundDetailViewController.swift; path = Views/CampgroundDetailViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0D2C80B214600E20003C883 /* AmenityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AmenityDetailViewController.swift; path = Views/AmenityDetailViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0D2C80F2146B5480003C883 /* AmenityMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmenityMarkerView.xib; sourceTree = "<group>"; };
+		D0D39BD9215DCE42006F1CF8 /* CampgrounHoursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgrounHoursViewController.swift; sourceTree = "<group>"; };
+		D0D39BDB215DCF1B006F1CF8 /* SatelliteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatelliteViewController.swift; sourceTree = "<group>"; };
+		D0D8850221695E71002425DB /* ForecastDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastDetailViewController.swift; sourceTree = "<group>"; };
+		D0D885042169A6CD002425DB /* ForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCollectionViewCell.swift; sourceTree = "<group>"; };
+		D0D88506216A5B8B002425DB /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		D0D985D82161781800BAB043 /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
 		D0E5295C210CAEDC009E6435 /* TravelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelViewController.swift; path = "Model Controllers/TravelViewController.swift"; sourceTree = SOURCE_ROOT; };
+<<<<<<< HEAD
 		D0E5295E210CB6EE009E6435 /* TravelMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelMapViewController.swift; path = "Model Controllers/TravelMapViewController.swift"; sourceTree = SOURCE_ROOT; };
 >>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
+=======
+		D0E5295E210CB6EE009E6435 /* AmenityMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AmenityMapViewController.swift; path = "Model Controllers/AmenityMapViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D0EAF86B21581C9500086643 /* BoondockingMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoondockingMarkerView.xib; sourceTree = "<group>"; };
+		D0EAF86D2158242F00086643 /* BoondockingMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoondockingMarkerView.swift; sourceTree = "<group>"; };
+		D0EAF86F21583C6A00086643 /* BoondockingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoondockingDetailViewController.swift; path = Views/BoondockingDetailViewController.swift; sourceTree = SOURCE_ROOT; };
+>>>>>>> ba86b76eb33d563ca815eb029d3aa11bc0f15ff9
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,14 +258,174 @@
 		58E70B8EBD3F235D322F67D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D01F89CA2156CD9F004CF886 /* GoogleUtilities.framework */,
 				CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D0026C50216073B000DA8693 /* Google-Maps-iOS-Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D0026C512160747900DA8693 /* src */,
+			);
+			name = "Google-Maps-iOS-Utils";
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		D0026C512160747900DA8693 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				D0026C522160747900DA8693 /* Clustering */,
+				D0026C6E2160747900DA8693 /* Heatmap */,
+				D0026C752160747900DA8693 /* Geometry */,
+				D0026C942160747900DA8693 /* QuadTree */,
+			);
+			name = src;
+			path = "../../../../Downloads/google-maps-ios-utils-master/src";
+			sourceTree = "<group>";
+		};
+		D0026C522160747900DA8693 /* Clustering */ = {
+			isa = PBXGroup;
+			children = (
+				D0026C532160747900DA8693 /* GMUClusterManager.m */,
+				D0026C542160747900DA8693 /* GMUStaticCluster.h */,
+				D0026C552160747900DA8693 /* GMUMarkerClustering.h */,
+				D0026C562160747900DA8693 /* Algo */,
+				D0026C602160747900DA8693 /* GMUClusterManager.h */,
+				D0026C612160747900DA8693 /* GMUClusterManager+Testing.h */,
+				D0026C622160747900DA8693 /* View */,
+				D0026C6B2160747900DA8693 /* GMUStaticCluster.m */,
+				D0026C6C2160747900DA8693 /* GMUCluster.h */,
+				D0026C6D2160747900DA8693 /* GMUClusterItem.h */,
+			);
+			path = Clustering;
+			sourceTree = "<group>";
+		};
+		D0026C562160747900DA8693 /* Algo */ = {
+			isa = PBXGroup;
+			children = (
+				D0026C572160747900DA8693 /* GMUGridBasedClusterAlgorithm.m */,
+				D0026C582160747900DA8693 /* GMUClusterAlgorithm.h */,
+				D0026C592160747900DA8693 /* GMUNonHierarchicalDistanceBasedAlgorithm.h */,
+				D0026C5A2160747900DA8693 /* GMUWrappingDictionaryKey.m */,
+				D0026C5B2160747900DA8693 /* GMUSimpleClusterAlgorithm.m */,
+				D0026C5C2160747900DA8693 /* GMUGridBasedClusterAlgorithm.h */,
+				D0026C5D2160747900DA8693 /* GMUNonHierarchicalDistanceBasedAlgorithm.m */,
+				D0026C5E2160747900DA8693 /* GMUSimpleClusterAlgorithm.h */,
+				D0026C5F2160747900DA8693 /* GMUWrappingDictionaryKey.h */,
+			);
+			path = Algo;
+			sourceTree = "<group>";
+		};
+		D0026C622160747900DA8693 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D0026C632160747900DA8693 /* GMUClusterIconGenerator.h */,
+				D0026C642160747900DA8693 /* GMUClusterRenderer.h */,
+				D0026C652160747900DA8693 /* GMUDefaultClusterRenderer+Testing.h */,
+				D0026C662160747900DA8693 /* GMUDefaultClusterRenderer.m */,
+				D0026C672160747900DA8693 /* GMUDefaultClusterIconGenerator.h */,
+				D0026C682160747900DA8693 /* GMUDefaultClusterIconGenerator.m */,
+				D0026C692160747900DA8693 /* GMUDefaultClusterRenderer.h */,
+				D0026C6A2160747900DA8693 /* GMUDefaultClusterIconGenerator+Testing.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D0026C6E2160747900DA8693 /* Heatmap */ = {
+			isa = PBXGroup;
+			children = (
+				D0026C6F2160747900DA8693 /* GMUGradient.h */,
+				D0026C702160747900DA8693 /* GMUWeightedLatLng.m */,
+				D0026C712160747900DA8693 /* GMUHeatmapTileLayer.h */,
+				D0026C722160747900DA8693 /* GMUWeightedLatLng.h */,
+				D0026C732160747900DA8693 /* GMUGradient.m */,
+				D0026C742160747900DA8693 /* GMUHeatmapTileLayer.m */,
+			);
+			path = Heatmap;
+			sourceTree = "<group>";
+		};
+		D0026C752160747900DA8693 /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				D0026C762160747900DA8693 /* GMUKMLParser.m */,
+				D0026C772160747900DA8693 /* GMUGeometryRenderer.m */,
+				D0026C782160747900DA8693 /* GMUGeoJSONParser.h */,
+				D0026C792160747900DA8693 /* Model */,
+				D0026C902160747900DA8693 /* GMUKMLParser.h */,
+				D0026C912160747900DA8693 /* GMUGeometryRenderer+Testing.h */,
+				D0026C922160747900DA8693 /* GMUGeoJSONParser.m */,
+				D0026C932160747900DA8693 /* GMUGeometryRenderer.h */,
+			);
+			path = Geometry;
+			sourceTree = "<group>";
+		};
+		D0026C792160747900DA8693 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D0026C7A2160747900DA8693 /* GMUGeometryCollection.m */,
+				D0026C7B2160747900DA8693 /* GMUPoint.h */,
+				D0026C7C2160747900DA8693 /* GMUStyle.h */,
+				D0026C7D2160747900DA8693 /* GMUPlacemark.m */,
+				D0026C7E2160747900DA8693 /* GMUPolygon.m */,
+				D0026C7F2160747900DA8693 /* GMUPair.h */,
+				D0026C802160747900DA8693 /* GMUGeometryContainer.h */,
+				D0026C812160747900DA8693 /* GMUStyleMap.m */,
+				D0026C822160747900DA8693 /* GMUFeature.m */,
+				D0026C832160747900DA8693 /* GMULineString.h */,
+				D0026C842160747900DA8693 /* GMUGroundOverlay.m */,
+				D0026C852160747900DA8693 /* GMUStyle.m */,
+				D0026C862160747900DA8693 /* GMUPoint.m */,
+				D0026C872160747900DA8693 /* GMUGeometry.h */,
+				D0026C882160747900DA8693 /* GMUGeometryCollection.h */,
+				D0026C892160747900DA8693 /* GMUPair.m */,
+				D0026C8A2160747900DA8693 /* GMUPolygon.h */,
+				D0026C8B2160747900DA8693 /* GMUPlacemark.h */,
+				D0026C8C2160747900DA8693 /* GMUStyleMap.h */,
+				D0026C8D2160747900DA8693 /* GMUGroundOverlay.h */,
+				D0026C8E2160747900DA8693 /* GMULineString.m */,
+				D0026C8F2160747900DA8693 /* GMUFeature.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D0026C942160747900DA8693 /* QuadTree */ = {
+			isa = PBXGroup;
+			children = (
+				D0026C952160747900DA8693 /* GQTPointQuadTree.m */,
+				D0026C962160747900DA8693 /* GQTPointQuadTreeItem.h */,
+				D0026C972160747900DA8693 /* GQTPointQuadTreeChild.m */,
+				D0026C982160747900DA8693 /* GQTPoint.h */,
+				D0026C992160747900DA8693 /* GQTPointQuadTree.h */,
+				D0026C9A2160747900DA8693 /* GQTPointQuadTreeChild.h */,
+				D0026C9B2160747900DA8693 /* GQTBounds.h */,
+			);
+			path = QuadTree;
+			sourceTree = "<group>";
+		};
+		D0026CB621611C5200DA8693 /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				D0026ADD21606A4400DA8693 /* TheCampersToolkit-Bridging-Header.h */,
+			);
+			path = "Objective-C";
+			sourceTree = "<group>";
+		};
+		D0B5CEC4215E783900180BBA /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D0B5CEC5215E787500180BBA /* AppRatingHelper.swift */,
+				D0D88506216A5B8B002425DB /* Enums.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		D0C5E05220F97C0A00210FC1 = {
 			isa = PBXGroup;
 			children = (
+				D0026CB621611C5200DA8693 /* Objective-C */,
+				D0026C50216073B000DA8693 /* Google-Maps-iOS-Utils */,
 				D0C5E07720F97C5700210FC1 /* View Controllers */,
 				D0C5E07620F97C5000210FC1 /* Model Controllers */,
 				D0C5E07520F97C4B00210FC1 /* Models */,
@@ -154,7 +437,11 @@
 				D0C5E07020F97C1400210FC1 /* Helpers */,
 =======
 				D0C5E07020F97C1400210FC1 /* Extensions */,
+<<<<<<< HEAD
 >>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
+=======
+				D0B5CEC4215E783900180BBA /* Helpers */,
+>>>>>>> ba86b76eb33d563ca815eb029d3aa11bc0f15ff9
 				D0C5E05D20F97C0A00210FC1 /* TheCampersToolkit */,
 				D0C5E05C20F97C0A00210FC1 /* Products */,
 				3A663817BA373CA6432F7E17 /* Pods */,
@@ -213,11 +500,6 @@
 <<<<<<< HEAD
 =======
 				D0A991E62103992400698EF1 /* Constants.swift */,
-<<<<<<< HEAD
->>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
-=======
-				D0763E1D2133004D00EE5210 /* GetCoordinates.swift */,
->>>>>>> a4a81f91d0c3c6dcfa8efc1f68be6135c69ebf05
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -228,13 +510,22 @@
 <<<<<<< HEAD
 =======
 				D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */,
-				D098E07120FD0C5100DB4866 /* MarkerInfoView.xib */,
-				D098E07320FD0C7900DB4866 /* MarkerInfoView.swift */,
+				D0EAF86B21581C9500086643 /* BoondockingMarkerView.xib */,
+				D098E07120FD0C5100DB4866 /* CampgroundMarkerView.xib */,
+				D0D2C80F2146B5480003C883 /* AmenityMarkerView.xib */,
+				D098E07320FD0C7900DB4866 /* CampgroundMarkerView.swift */,
+				D053DB0F2148866E00254629 /* AmenityMarkerView.swift */,
 				D098E07520FD110000DB4866 /* UIView.swift */,
 				D010EE362104FE0D007EE483 /* CampgroundReviewCell.swift */,
 				D066C0F52106BE9400B71E41 /* HikingTableViewCell.swift */,
 				D0A63BD9210B9B5700DC5850 /* PhotoTableViewCell.swift */,
+<<<<<<< HEAD
 >>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
+=======
+				D0EAF86D2158242F00086643 /* BoondockingMarkerView.swift */,
+				D0D885042169A6CD002425DB /* ForecastCollectionViewCell.swift */,
+				D0B0261321703F5A00950548 /* BoondockDescriptionTableViewCell.swift */,
+>>>>>>> ba86b76eb33d563ca815eb029d3aa11bc0f15ff9
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -257,20 +548,20 @@
 			isa = PBXGroup;
 			children = (
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 				D098E06B20FD0B8700DB4866 /* GoogleDataProvider.swift */,
 				D098E06D20FD0BEB00DB4866 /* GooglePlace.swift */,
+=======
+>>>>>>> ba86b76eb33d563ca815eb029d3aa11bc0f15ff9
 				D022B1E320FD23420012025A /* GoogleDetail.swift */,
-				D098E06F20FD0C1E00DB4866 /* PlaceMarker.swift */,
+				D098E06F20FD0C1E00DB4866 /* CustomMarker.swift */,
 				D04D3FEA21053A7C00629B02 /* CurrentWeather.swift */,
 				D03DAD25213249FC009B4DAB /* ForecastedWeather.swift */,
 				D066C0F72106C2DC00B71E41 /* HikingTrail.swift */,
 				D08FDC9F210BF76B007F6C5F /* Boondocking.swift */,
-<<<<<<< HEAD
->>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
-=======
 				D0763E1F213304E100EE5210 /* GoogleGeocoding.swift */,
->>>>>>> a4a81f91d0c3c6dcfa8efc1f68be6135c69ebf05
+>>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -284,12 +575,13 @@
 				D04D3FEC2105413F00629B02 /* CurrentWeatherController.swift */,
 				D066C0F92106C44100B71E41 /* HikingTrailController.swift */,
 				D08FDCA1210BF828007F6C5F /* BoondockingController.swift */,
+				D03DAD2721324E63009B4DAB /* ForecastedWeatherController.swift */,
 <<<<<<< HEAD
+				D0763E2121330AB200EE5210 /* GoogleGeocodingController.swift */,
 >>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 =======
-				D03DAD2721324E63009B4DAB /* ForecastedWeatherController.swift */,
-				D0763E2121330AB200EE5210 /* GoogleGeocodingController.swift */,
->>>>>>> a4a81f91d0c3c6dcfa8efc1f68be6135c69ebf05
+				D08E5A1C21507E0C0054D370 /* GooglePlaceSearchController.swift */,
+>>>>>>> ba86b76eb33d563ca815eb029d3aa11bc0f15ff9
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -298,13 +590,10 @@
 			isa = PBXGroup;
 			children = (
 <<<<<<< HEAD
-<<<<<<< HEAD
 				D0C5E07A20F97CA300210FC1 /* HomeViewController.swift */,
 =======
 				D0C5E08C20F9A6D900210FC1 /* FilterResultsTableViewController.swift */,
 				D0C5E08E20F9A6EC00210FC1 /* FilterViewController.swift */,
-=======
->>>>>>> a4a81f91d0c3c6dcfa8efc1f68be6135c69ebf05
 				D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */,
 				D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */,
 				D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */,
@@ -314,11 +603,24 @@
 				D066C0F32106BD7400B71E41 /* HikingViewController.swift */,
 				D066C0FB210762A300B71E41 /* HikingDetailViewController.swift */,
 				D0E5295C210CAEDC009E6435 /* TravelViewController.swift */,
-				D0E5295E210CB6EE009E6435 /* TravelMapViewController.swift */,
+				D0E5295E210CB6EE009E6435 /* AmenityMapViewController.swift */,
 				D0234C16210E22C800038CAF /* PhotoDetailViewController.swift */,
+<<<<<<< HEAD
 >>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 			);
 			path = "View Controllers";
+=======
+				D0D2C80B214600E20003C883 /* AmenityDetailViewController.swift */,
+				D0EAF86F21583C6A00086643 /* BoondockingDetailViewController.swift */,
+				D0D39BD9215DCE42006F1CF8 /* CampgrounHoursViewController.swift */,
+				D0D39BDB215DCF1B006F1CF8 /* SatelliteViewController.swift */,
+				D08FD2F821602ACE00AAA098 /* CampgrounHoursViewController.swift */,
+				D0D985D82161781800BAB043 /* InformationViewController.swift */,
+				D0D8850221695E71002425DB /* ForecastDetailViewController.swift */,
+			);
+			name = "View Controllers";
+			path = "View Controller";
+>>>>>>> ba86b76eb33d563ca815eb029d3aa11bc0f15ff9
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,7 +635,6 @@
 				D0C5E05820F97C0A00210FC1 /* Frameworks */,
 				D0C5E05920F97C0A00210FC1 /* Resources */,
 				AE809DED3F4845D167CDCE25 /* [CP] Copy Pods Resources */,
-				0BF382F366962F2DAB928995 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -366,6 +667,47 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				he,
+				en_AU,
+				ar,
+				el,
+				ja,
+				uk,
+				es_419,
+				es_MX,
+				zh_CN,
+				nb,
+				es,
+				pt_BR,
+				da,
+				it,
+				sk,
+				pt_PT,
+				ms,
+				sv,
+				cs,
+				en_IN,
+				ko,
+				hu,
+				zh_HK,
+				tr,
+				pl,
+				zh_TW,
+				en_GB,
+				vi,
+				ru,
+				fr_CA,
+				fr,
+				fi,
+				id,
+				nl,
+				th,
+				pt,
+				ro,
+				hr,
+				hi,
+				ca,
 			);
 			mainGroup = D0C5E05220F97C0A00210FC1;
 			productRefGroup = D0C5E05C20F97C0A00210FC1 /* Products */;
@@ -383,11 +725,17 @@
 			buildActionMask = 2147483647;
 			files = (
 <<<<<<< HEAD
+<<<<<<< HEAD
 				D0C5E07920F97C8800210FC1 /* Home.storyboard in Resources */,
 				D0C5E06920F97C0B00210FC1 /* LaunchScreen.storyboard in Resources */,
 =======
 				D098E07220FD0C5100DB4866 /* MarkerInfoView.xib in Resources */,
+=======
+				D098E07220FD0C5100DB4866 /* CampgroundMarkerView.xib in Resources */,
+				D0D2C8102146B5480003C883 /* AmenityMarkerView.xib in Resources */,
+>>>>>>> ba86b76eb33d563ca815eb029d3aa11bc0f15ff9
 				D0C5E08120F9801300210FC1 /* LaunchScreen.storyboard in Resources */,
+				D0EAF86C21581C9500086643 /* BoondockingMarkerView.xib in Resources */,
 				D0C5E07D20F97FD900210FC1 /* Home.storyboard in Resources */,
 >>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
 				D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */,
@@ -397,24 +745,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0BF382F366962F2DAB928995 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TheCampersToolkit/Pods-TheCampersToolkit-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		AE809DED3F4845D167CDCE25 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -462,53 +792,87 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
+				D0026CAB2160747900DA8693 /* GMUPolygon.m in Sources */,
+				D0026CB02160747900DA8693 /* GMUPoint.m in Sources */,
+				D01F8E352156DD54004CF886 /* AppDelegate.swift in Sources */,
+				D0763E20213304E100EE5210 /* GoogleGeocoding.swift in Sources */,
 <<<<<<< HEAD
 				D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */,
 				D0C5E07B20F97CA300210FC1 /* HomeViewController.swift in Sources */,
 =======
-=======
-				D0763E20213304E100EE5210 /* GoogleGeocoding.swift in Sources */,
->>>>>>> a4a81f91d0c3c6dcfa8efc1f68be6135c69ebf05
 				D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */,
+				D0026CB22160747900DA8693 /* GMULineString.m in Sources */,
 				D04D3FE9210536AD00629B02 /* WeatherViewController.swift in Sources */,
-				D0705AA821337BCD00E6F8D5 /* GoogleGeocoding.swift in Sources */,
 				D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */,
+				D0026CA72160747900DA8693 /* GMUKMLParser.m in Sources */,
+				D0026CA12160747900DA8693 /* GMUDefaultClusterRenderer.m in Sources */,
+				D053DB102148866E00254629 /* AmenityMarkerView.swift in Sources */,
+				D08FD2F921602ACE00AAA098 /* CampgrounHoursViewController.swift in Sources */,
 				D03DAD26213249FC009B4DAB /* ForecastedWeather.swift in Sources */,
+				D0026CAF2160747900DA8693 /* GMUStyle.m in Sources */,
 				D066C0F22106206E00B71E41 /* ReviewDetailViewController.swift in Sources */,
 				D022B1E420FD23420012025A /* GoogleDetail.swift in Sources */,
 				D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */,
 				D03DAD2821324E63009B4DAB /* ForecastedWeatherController.swift in Sources */,
+				D0026C9E2160747900DA8693 /* GMUWrappingDictionaryKey.m in Sources */,
 				D022B1E620FD2ADF0012025A /* GoogleDetailController.swift in Sources */,
+				D0B0261421703F5A00950548 /* BoondockDescriptionTableViewCell.swift in Sources */,
+				D0026CA82160747900DA8693 /* GMUGeometryRenderer.m in Sources */,
+				D0D88507216A5B8B002425DB /* Enums.swift in Sources */,
+				D0D39BDA215DCE42006F1CF8 /* CampgrounHoursViewController.swift in Sources */,
+				D0B5CEC6215E787500180BBA /* AppRatingHelper.swift in Sources */,
 				D0234C15210D00B500038CAF /* XMLParser.swift in Sources */,
+				D0026C9D2160747900DA8693 /* GMUGridBasedClusterAlgorithm.m in Sources */,
+				D0D39BDC215DCF1B006F1CF8 /* SatelliteViewController.swift in Sources */,
 				D098E07620FD110000DB4866 /* UIView.swift in Sources */,
-				D0763E2221330AB200EE5210 /* GoogleGeocodingController.swift in Sources */,
-				D0E5295F210CB6EE009E6435 /* TravelMapViewController.swift in Sources */,
+				D08E5A1D21507E0C0054D370 /* GooglePlaceSearchController.swift in Sources */,
+				D0026CA32160747900DA8693 /* GMUStaticCluster.m in Sources */,
+				D0D985D92161781800BAB043 /* InformationViewController.swift in Sources */,
+				D0026C9F2160747900DA8693 /* GMUSimpleClusterAlgorithm.m in Sources */,
+				D0026CAD2160747900DA8693 /* GMUFeature.m in Sources */,
+				D0E5295F210CB6EE009E6435 /* AmenityMapViewController.swift in Sources */,
 				D04D3FED2105413F00629B02 /* CurrentWeatherController.swift in Sources */,
 				D010EE372104FE0D007EE483 /* CampgroundReviewCell.swift in Sources */,
-				D0C5E05F20F97C0A00210FC1 /* AppDelegate.swift in Sources */,
 				D08FDCA2210BF828007F6C5F /* BoondockingController.swift in Sources */,
-				D098E07020FD0C1E00DB4866 /* PlaceMarker.swift in Sources */,
+				D098E07020FD0C1E00DB4866 /* CustomMarker.swift in Sources */,
+				D0EAF87021583C6A00086643 /* BoondockingDetailViewController.swift in Sources */,
+				D0026CA42160747900DA8693 /* GMUWeightedLatLng.m in Sources */,
 				D08FDCA0210BF76B007F6C5F /* Boondocking.swift in Sources */,
 				D04D3FEB21053A7C00629B02 /* CurrentWeather.swift in Sources */,
 				D0AD4AE6211343F4001EB1B6 /* DoubleExtension.swift in Sources */,
 				D0A63BDA210B9B5700DC5850 /* PhotoTableViewCell.swift in Sources */,
-				D098E06C20FD0B8700DB4866 /* GoogleDataProvider.swift in Sources */,
+				D0D2C80C214600E20003C883 /* AmenityDetailViewController.swift in Sources */,
 				D0A991E72103992400698EF1 /* Constants.swift in Sources */,
+				D0026CAC2160747900DA8693 /* GMUStyleMap.m in Sources */,
+				D0026CB52160747900DA8693 /* GQTPointQuadTreeChild.m in Sources */,
+				D0026CA52160747900DA8693 /* GMUGradient.m in Sources */,
+				D0026CB42160747900DA8693 /* GQTPointQuadTree.m in Sources */,
 				D066C0FA2106C44100B71E41 /* HikingTrailController.swift in Sources */,
-				D0705AAA21337E5A00E6F8D5 /* GetCoordinates.swift in Sources */,
 				D0C5E08B20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift in Sources */,
-				D098E07420FD0C7900DB4866 /* MarkerInfoView.swift in Sources */,
+				D0D885052169A6CD002425DB /* ForecastCollectionViewCell.swift in Sources */,
+				D098E07420FD0C7900DB4866 /* CampgroundMarkerView.swift in Sources */,
 				D066C0F82106C2DC00B71E41 /* HikingTrail.swift in Sources */,
+				D0EAF86E2158242F00086643 /* BoondockingMarkerView.swift in Sources */,
 				D0E5295D210CAEDC009E6435 /* TravelViewController.swift in Sources */,
+				D0026CB32160747900DA8693 /* GMUGeoJSONParser.m in Sources */,
 				D0234C17210E22C800038CAF /* PhotoDetailViewController.swift in Sources */,
-				D0763E1E2133004D00EE5210 /* GetCoordinates.swift in Sources */,
-				D098E06E20FD0BEB00DB4866 /* GooglePlace.swift in Sources */,
+				D0026CAA2160747900DA8693 /* GMUPlacemark.m in Sources */,
+				D0026CB12160747900DA8693 /* GMUPair.m in Sources */,
+				D0026CAE2160747900DA8693 /* GMUGroundOverlay.m in Sources */,
+				D0026CA02160747900DA8693 /* GMUNonHierarchicalDistanceBasedAlgorithm.m in Sources */,
 				D066C0F42106BD7400B71E41 /* HikingViewController.swift in Sources */,
 				D066C0F62106BE9400B71E41 /* HikingTableViewCell.swift in Sources */,
+				D0026C9C2160747900DA8693 /* GMUClusterManager.m in Sources */,
+				D0D8850321695E71002425DB /* ForecastDetailViewController.swift in Sources */,
+				D0026CA62160747900DA8693 /* GMUHeatmapTileLayer.m in Sources */,
 				D066C0FC210762A300B71E41 /* HikingDetailViewController.swift in Sources */,
+				D0026CA22160747900DA8693 /* GMUDefaultClusterIconGenerator.m in Sources */,
 				D06AA8412105295C00B74FCB /* CampgroundPhotosViewController.swift in Sources */,
+<<<<<<< HEAD
 >>>>>>> 2a97cf89e9068a92aee02aa961964186b56f87c1
+=======
+				D0026CA92160747900DA8693 /* GMUGeometryCollection.m in Sources */,
+>>>>>>> ba86b76eb33d563ca815eb029d3aa11bc0f15ff9
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,13 +1015,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84KK7ZSRKT;
 				INFOPLIST_FILE = TheCampersToolkit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.justintrautman.TheCampersToolkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/Justin/Desktop/Modular Mobile/TheCampersToolkit/Objective-C/TheCampersToolkit-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -670,13 +1036,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 84KK7ZSRKT;
 				INFOPLIST_FILE = TheCampersToolkit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.justintrautman.TheCampersToolkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/Justin/Desktop/Modular Mobile/TheCampersToolkit/Objective-C/TheCampersToolkit-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

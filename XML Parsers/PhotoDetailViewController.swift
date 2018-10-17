@@ -29,7 +29,6 @@ class PhotoDetailViewController: UIViewController {
     }
     
     func updateViews() {
-        
         guard let photoReference = photo?.photoReference else { return }
         
         GoogleDetailController.fetchCampgroundPhotosWith(photoReference: photoReference) { (photo) in

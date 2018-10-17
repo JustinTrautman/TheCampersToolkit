@@ -11,7 +11,6 @@
  ----------------------------------------------------------------------------------------
  */
 
-
 import UIKit
 
 class PhotoTableViewCell: UITableViewCell {
@@ -29,10 +28,8 @@ class PhotoTableViewCell: UITableViewCell {
     }
     
     func updateViews() {
-        
-        guard let unwrappedPhotos = self.photos else { return }
-        
-        guard let photoReference = unwrappedPhotos.photoReference else { return }
+        guard let unwrappedPhotos = self.photos,
+            let photoReference = unwrappedPhotos.photoReference else { return }
         
         GoogleDetailController.fetchCampgroundPhotosWith(photoReference: "\(photoReference)", completion: { (photo) in
             if let photo = photo {

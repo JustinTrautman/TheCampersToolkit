@@ -6,28 +6,42 @@
 //  Copyright © 2018 Justin Trautman. All rights reserved.
 //
 
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ XMLParser.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/28/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ BUG: XML Parser delegate does not store XML properties when fetched from the network.
+ 
+ ----------------------------------------------------------------------------------------
+ */
+
 import Foundation
 
 struct Campgroundxml {
-    
-    var availabilityStatus: String?
-    var contractType: String?
-    var facilityID: String?
-    var facilityName: String?
-    var latitude: String?
-    var longitude: String?
-    var reservationChannel: String?
-    var sitesWithAmps: String?
-    var sitesWithPetsAllowed: String?
-    var sitesWithSewerHookup: String?
-    var sitesWithWaterHookup: String?
-    var sitesWithWaterfront: String?
-    var state: String?
+    var availabilityStatus: String
+    var contractType: String
+    var facilityID: String
+    var facilityName: String
+    var latitude: String
+    var longitude: String
+    var reservationChannel: String
+    var sitesWithAmps: String
+    var sitesWithPetsAllowed: String
+    var sitesWithSewerHookup: String
+    var sitesWithWaterHookup: String
+    var sitesWithWaterfront: String
+    var state: String
 }
 
 class CampgroundParser: NSObject, XMLParserDelegate {
     
-    var campground: Campgroundxml?
+//    var campground: Campgroundxml?
     
     private var campgroundsxml: [Campgroundxml] = []
     private var currentElement = "" {
@@ -35,34 +49,34 @@ class CampgroundParser: NSObject, XMLParserDelegate {
             print("\(currentElement)<<<<<<<<<<<<<<,")
         }
     }
-    private var currentAvailabilityStatus: String = ""
-    private var currentContractType: String = ""
-    private var currentFacilityID: String = ""
-    private var currentFacilityName: String = ""
-    private var currentLatitude: String = ""
-    private var currentLongitude: String = ""
-    private var currentReservatingChannel: String = ""
-    private var currentSitesWithAmps: String = ""
-    private var currentSitesWithPetsAllowed: String = ""
-    private var currentSitesWithSewerHookup: String = ""
-    private var currentSitesWithWaterHookup: String = ""
-    private var currentSitesWithWaterfront: String = ""
-    private var currentState: String = ""
+    
+    private var currentAvailabilityStatus = ""
+    private var currentContractType = ""
+    private var currentFacilityID = ""
+    private var currentFacilityName = ""
+    private var currentLatitude = ""
+    private var currentLongitude = ""
+    private var currentReservatingChannel = ""
+    private var currentSitesWithAmps = ""
+    private var currentSitesWithPetsAllowed = ""
+    private var currentSitesWithSewerHookup = ""
+    private var currentSitesWithWaterHookup = ""
+    private var currentSitesWithWaterfront = ""
+    private var currentState = ""
     private var parserCompletionHandler: (([Campgroundxml]) -> Void)?
     
     func parseCampground(url: String, completionHandler: (([Campgroundxml]) -> Void)?) {
-        
         self.parserCompletionHandler = completionHandler
         
         let urlString = "\(url.utf8)".replacingOccurrences(of: " ", with: "+")
         let request = URLRequest(url: URL(string: urlString)!)
         let urlSession = URLSession.shared
+        
         let task = urlSession.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
                 if let error = error {
                     print(error.localizedDescription)
                 }
-                
                 return
             }
             
@@ -71,14 +85,13 @@ class CampgroundParser: NSObject, XMLParserDelegate {
             parser.delegate = self
             parser.parse()
         }
-        
         task.resume()
     }
     
     // MARK: - XML Parser Delegate
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         currentElement = elementName
-
+        
         if currentElement == "result" {
 //            campground = Campgroundxml(stringDictionary: attributeDict)
             currentAvailabilityStatus = ""
@@ -116,10 +129,9 @@ class CampgroundParser: NSObject, XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-
         if elementName == "result" {
             let campground = Campgroundxml(availabilityStatus: currentAvailabilityStatus, contractType: currentContractType, facilityID: currentFacilityID, facilityName: currentFacilityName, latitude: currentLatitude, longitude: currentLongitude, reservationChannel: currentReservatingChannel, sitesWithAmps: currentSitesWithAmps, sitesWithPetsAllowed: currentSitesWithPetsAllowed, sitesWithSewerHookup: currentSitesWithSewerHookup, sitesWithWaterHookup: currentSitesWithWaterHookup, sitesWithWaterfront: currentSitesWithWaterfront, state: currentState)
-
+            
             self.campgroundsxml.append(campground)
         }
     }

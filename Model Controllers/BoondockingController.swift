@@ -11,23 +11,19 @@
  ----------------------------------------------------------------------------------------
  */
 
-
 import Foundation
 
 class BoondockingController {
     
-    static let shared = BoondockingController()
     static let baseURL = URL(string: "https://the-camper-s-toolkit.firebaseio.com")!
     static let getterEndpoint = baseURL.appendingPathComponent(".json")
-    static var boondocks: Boondocking?
+    static var boondocks: [Boondocking]?
     
-    static func fetchBoondockingLocationsNear(completion: @escaping ((Boondocking)?) -> Void) {
-    
+    static func fetchAllBoondockingLocations(completion: @escaping ([Boondocking]?) -> Void) {
+        
         var request = URLRequest(url: getterEndpoint)
         request.httpBody = nil
         request.httpMethod = "GET"
-        
-        print(getterEndpoint)
         
         URLSession.shared.dataTask(with: request) { (data, _, error) in
             if let error = error {
@@ -40,11 +36,12 @@ class BoondockingController {
             
             let jsonDecoder = JSONDecoder()
             do {
-                let boondocks = try jsonDecoder.decode(Boondocking.self, from: data)
+                let boondocks = try jsonDecoder.decode([Boondocking].self, from: data)
                 self.boondocks = boondocks
+                completion(boondocks)
             } catch let error {
                 print("Error decoding boondocking locations. \(error) \(error.localizedDescription)")
             }
-        }.resume()
+            }.resume()
     }
 }

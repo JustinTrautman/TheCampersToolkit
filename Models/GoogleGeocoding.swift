@@ -8,7 +8,8 @@
  Copyright © 2018 Justin Trautman. All rights reserved.
  Justin@modularmobile.net
  
- Google Geocoding API: https://developers.google.com/maps/documentation/geocoding/start
+ Combined model for Google Geocoding API and Google Place API.  Geocoding API is used for
+ location awareness when searching for places of interest with the Google Place Search API
  
  ----------------------------------------------------------------------------------------
  */
@@ -22,6 +23,8 @@ struct GeocodingData : Codable {
 struct Results : Codable {
     let formattedAddress : String?
     let geometry : Geometry?
+    // Google Place API
+    let name: String?
     let placeID : String?
     
     enum CodingKeys: String, CodingKey {
@@ -29,6 +32,7 @@ struct Results : Codable {
         case formattedAddress = "formatted_address"
         case geometry = "geometry"
         case placeID = "place_id"
+        case name
     }
 }
 

@@ -12,6 +12,7 @@
  */
 
 import UIKit
+import CoreLocation
 
 class TravelViewController: UIViewController {
     
@@ -23,33 +24,31 @@ class TravelViewController: UIViewController {
     
     // MARK: - Properties
     var selectedType = ""
-
-    // MARK: - View Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    var amenityMarker: AmenityMarker?
+    var campgroundCoordinates: CLLocationCoordinate2D?
+    var campgroundAmmenities: Bool = false
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-   
-        guard let detailVC = segue.destination as? TravelMapViewController else { return }
+        guard let detailVC = segue.destination as? AmenityMapViewController else { return }
         
-        if segue.identifier == "toGasMap" {
+        guard let segueToPrepare = AmenitySegue(rawValue: segue.identifier ?? "") else { return }
+        
+        switch segueToPrepare {
+        case .gasMap:
             selectedType = "gas_station"
-        }
-        
-        if segue.identifier == "toPropaneMap" {
+        case .propaneMap:
             selectedType = "store"
-        }
-        
-        if segue.identifier == "toStoreMap" {
+        case .storeMap:
             selectedType = "supermarket"
-        }
-        
-        if segue.identifier == "toCarRepairMap" {
+        case .carRepairMap:
             selectedType = "car_repair"
         }
-     
+        
         detailVC.selectedType = selectedType
+        
+        if campgroundAmmenities == true {
+            detailVC.campgroundCoordinates = campgroundCoordinates
+        }
     }
 }
