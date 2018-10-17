@@ -8,8 +8,6 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
- ✔ TODO: Fetch campground image on HomeViewController and pass it to CampgroundDetail VC
- 
  ----------------------------------------------------------------------------------------
  */
 
@@ -26,7 +24,7 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     private var searchedTypes = "campground"
     private let locationManager = CLLocationManager()
-    private let searchRadius: Double = 50000 // <<< 31 miles. Max allowed by Google.
+    private let searchRadius: Double = 10000 // <<< 31 miles. Max allowed by Google.
     private let placesClient = GMSPlacesClient()
     let geoCoder = CLGeocoder()
     

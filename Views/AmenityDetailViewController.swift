@@ -8,9 +8,6 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
- ✔ TODO: Fix default image
- ✔ TODO: Fix amenity typo
- 
  ----------------------------------------------------------------------------------------
  */
 
