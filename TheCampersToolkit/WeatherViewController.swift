@@ -8,10 +8,6 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
- ✔ TODO: Implement Sunrise and sunset times. Convert from Unix time to human time...
- ✔ TODO: Implement weekly forcast...
- ✔ TODO: Replace Google Geocoder with CLGeocoder
- 
  ----------------------------------------------------------------------------------------
  */
 

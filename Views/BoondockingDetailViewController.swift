@@ -51,6 +51,12 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
         descriptionTableView.dataSource = self
         descriptionTableView.tableFooterView = UIView()
         
+        // Website and phonenumber buttons disabled unless data is available
+        visitWebsiteButton.isEnabled = false
+        visitWebsiteButton.setTitleColor(.gray, for: .disabled)
+        phoneNumberButton.isEnabled = false
+        phoneNumberButton.setTitleColor(.gray, for: .disabled)
+        
         setupMapView()
         updateViews()
         setupDirectionsButton()
@@ -63,11 +69,6 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
             interstitial = createAndLoadInterstitial()
         }
         
-        // Website and phonenumber buttons disabled unless data is available
-        visitWebsiteButton.isEnabled = false
-        visitWebsiteButton.setTitleColor(.gray, for: .disabled)
-        phoneNumberButton.isEnabled = false
-        phoneNumberButton.setTitleColor(.gray, for: .disabled)
     }
     
     // MARK: - Actions
@@ -138,7 +139,7 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
     func updateViews() {
         if let website = selectedBoondock?.website {
             visitWebsiteButton.isEnabled = true
-            visitWebsiteButton.setTitleColor(.blue, for: .normal)
+            visitWebsiteButton.setTitleColor(.black, for: .normal)
         }
         
         if let phoneNumber = selectedBoondock?.phone {

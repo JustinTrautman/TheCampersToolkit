@@ -8,8 +8,6 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
- ✔ TODO: - do didTap() functions for phoneNumberLabel and directionsLabel
- ✔ TODO: Test the case of no reviews with new campground fetch function. Verify it doesn't crash.
  ----------------------------------------------------------------------------------------
  */
 
