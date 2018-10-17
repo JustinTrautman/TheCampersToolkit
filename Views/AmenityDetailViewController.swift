@@ -8,8 +8,8 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
- TODO: Fix default image
- TODO: Fix amenity typo
+ ✔ TODO: Fix default image
+ ✔ TODO: Fix amenity typo
  
  ----------------------------------------------------------------------------------------
  */
@@ -88,7 +88,7 @@ class AmenityDetailViewController: UIViewController {
         guard let url = amenitieDetails?.website else { return }
         openWebsiteUrl(url: url)
     }
-
+    
     func fetchAmenityDetails() {
         guard let placeID = selectedAmenity else { return }
         
@@ -111,10 +111,6 @@ class AmenityDetailViewController: UIViewController {
     func fetchAmenityPhoto() {
         guard let selectedType = GooglePlaceSearchController.selectedType else { return }
         
-        DispatchQueue.main.async {
-            self.amenityImageView.image = UIImage(named: "\(selectedType)"+"PlaceholderImage")
-        }
-        
         if let photoReference = photoReference {
             GoogleDetailController.fetchCampgroundPhotosWith(photoReference: photoReference) { (fetchedImage) in
                 DispatchQueue.main.async {
@@ -124,6 +120,10 @@ class AmenityDetailViewController: UIViewController {
                         }
                     }
                 }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.amenityImageView.image = UIImage(named: "\(selectedType)"+"PlaceholderImage")
             }
         }
     }
@@ -172,7 +172,6 @@ class AmenityDetailViewController: UIViewController {
         let dayOfWeek = Date().dayOfWeek()!
         
         if let _ = hoursOfOperation.weekdayText {
-            print("Showing hours for \(dayOfWeek)")
             
             if dayOfWeek == "Sunday" {
                 let closingTime = returnClosingTime(forDay: dayOfWeek)

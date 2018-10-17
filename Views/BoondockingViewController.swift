@@ -68,8 +68,6 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
             guard let searchText = searchTextField?.text, !searchText.isEmpty else { return }
             self.navigationBar.title = searchText
             
-            print("Now searching for boondocking locations in \(searchText)")
-            
             let geoCoder = CLGeocoder()
             geoCoder.geocodeAddressString(searchText) { (placemarks, error) in
                 guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }

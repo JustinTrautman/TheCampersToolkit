@@ -1,7 +1,7 @@
 /*
  ----------------------------------------------------------------------------------------
  
- PlaceMarker.swift
+ CustomMarker.swift
  TheCampersToolkit
  
  Created by Justin Trautman on 7/16/18.
@@ -11,14 +11,13 @@
  Custom marker classes that contain logic for the Campground, Boondocking, and Travel
  view controller annotations.
  
- TODO: Rename PlaceMarker to CampgroundMarker
  ----------------------------------------------------------------------------------------
  */
 
 import UIKit
 import GoogleMaps
 
-class PlaceMarker: GMSMarker {
+class CampgroundMarker: GMSMarker {
     
     let place: Results
     

@@ -39,8 +39,7 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var forecastCollectionView: UICollectionView!
     
     // MARK: - Properties
-    var campgrounds: Result?
-    var weather: CampgroundWeatherData?
+    var campgroundDetails: Result?
     var address: String?
     var currentWeatherData: CampgroundWeatherData?
     var forecastedWeatherData: ForecastedWeatherData?
@@ -77,7 +76,6 @@ class WeatherViewController: UIViewController {
         fetchForecastedWeather()
     }
     
-    // TODO: - Keep this pyramid of if lets from becoming the worlds 8th wonder.
     // TODO: - Move declarations off main thread
     func updateViews() {
         if let campgroundsAddress = address {
@@ -129,20 +127,18 @@ class WeatherViewController: UIViewController {
                                 }
                             }
                             
-                            // TODO: - Put temperature cases on switch statement
                             if let temp = weather.main?.temp?.roundToPlaces(places: 1) {
                                 self.temperatureLabel.text = "\(temp) ℉"
                                 
-                                if temp >= 90.0 {
+                                switch temp {
+                                case _ where temp >= 90:
                                     self.thermometerImageView.image = UIImage(named: "hot")
-                                }
-                                
-                                if temp <= 60.0 {
+                                case _ where temp <= 89:
                                     self.thermometerImageView.image = UIImage(named: "lowTemp")
-                                }
-                                
-                                if temp <= 32.0 {
+                                case _ where temp <= 32:
                                     self.thermometerImageView.image = UIImage(named: "cold")
+                                default:
+                                    break
                                 }
                             }
                             
@@ -161,16 +157,15 @@ class WeatherViewController: UIViewController {
                             if let wind = weather.wind?.speed {
                                 self.windLabel.text = "\(wind) mph"
                                 
-                                if wind <= 13 {
+                                switch wind {
+                                case _ where wind <= 13:
                                     self.windSpeedImageView.image = UIImage(named: "windLow")
-                                }
-                                
-                                if wind >= 13 {
+                                case _ where wind >= 14:
                                     self.windSpeedImageView.image = UIImage(named: "windMed")
-                                }
-                                
-                                if wind >= 24 {
+                                case _ where wind >= 24:
                                     self.windSpeedImageView.image  = UIImage(named: "windHigh")
+                                default:
+                                    break
                                 }
                             }
                             
@@ -202,19 +197,19 @@ class WeatherViewController: UIViewController {
                             }
                             
                             if let clouds = weather.clouds?.all {
-                                if clouds < 10 {
+                                
+                                switch clouds {
+                                case _ where clouds < 10:
                                     self.cloudStatusLabel.text = "Light clouds"
                                     self.cloudStatusImageView.image = UIImage(named: "lightClouds")
-                                }
-                                
-                                if clouds < 50 && clouds > 10 {
+                                case _ where clouds < 50 && clouds > 10:
                                     self.cloudStatusLabel.text = "Mild clouds"
                                     self.cloudStatusImageView.image = UIImage(named: "mildClouds")
-                                }
-                                
-                                if clouds > 50 {
+                                case _ where clouds > 50:
                                     self.cloudStatusLabel.text = "Heavy clouds"
                                     self.cloudStatusImageView.image = UIImage(named: "heavyClouds")
+                                default:
+                                    break
                                 }
                             }
                         }

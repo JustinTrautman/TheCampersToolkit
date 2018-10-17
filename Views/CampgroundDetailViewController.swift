@@ -49,17 +49,16 @@ class CampgroundDetailViewController: UIViewController {
     }
     
     @IBAction func visitWebsiteButtonTapped(_ sender: Any) {
-        guard let url = campgrounds?.website else { return }
+        guard let url = campgroundDetails?.website else { return }
         openWebsiteUrl(url: url)
     }
     
     // MARK: - Properties
-//    var googlePlaces: [Results]?
     var selectedCampground: Results?
-    var campgrounds: Result?
+    var campgroundDetails: Result?
     var reviews: [Reviews]?
-    var photos: [Photos]?
     var xmlCampgrounds: [Campgroundxml]?
+    var campgroundPhoto: UIImage?
     
     let geoCoder = CLGeocoder()
     
@@ -68,7 +67,7 @@ class CampgroundDetailViewController: UIViewController {
         super.viewDidLoad()
         
         updateViews()
-//        fetchFromActiveApi()
+        fetchFromActiveApi()
         
         reviewTableView.delegate = self
         reviewTableView.dataSource = self
@@ -82,8 +81,8 @@ class CampgroundDetailViewController: UIViewController {
     
     // TODO: - DRY; give make navigation logic its own object
     @IBAction func directionsButtonTapped(_ sender: Any) {
-        guard let address = campgrounds?.formattedAddress,
-            let title = campgrounds?.name else { return }
+        guard let address = campgroundDetails?.formattedAddress,
+            let markerName = campgroundDetails?.name else { return }
         
         geoCoder.geocodeAddressString(address) { (placemarks, error) in
             guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
@@ -101,123 +100,110 @@ class CampgroundDetailViewController: UIViewController {
                 let options = [
                     MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
                     MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
-                mapItem.name = title
+                mapItem.name = markerName
                 mapItem.openInMaps(launchOptions: options)
             }
         }
     }
     
-//    func fetchFromActiveApi() {
-//        guard let foundCampgrounds = googlePlaces else { return }
-//        for campground in foundCampgrounds {
-//            let campgroundName = campground.name
-//            let campgroundParser = CampgroundParser()
-//            campgroundParser.parseCampground(url: "http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)") { (campgroundxml) in
-//                print("http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)")
-//
-//                print(campgroundxml)
-//                self.xmlCampgrounds = campgroundxml
-//            }
-//        }
-//    }
+    func fetchFromActiveApi() {
+        guard let selectedCampground = selectedCampground,
+            let campgroundName = selectedCampground.name else { return }
+        
+        let campgroundParser = CampgroundParser()
+        campgroundParser.parseCampground(url: "http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)") { (campgroundxml) in
+            print("http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)")
+            print(campgroundxml)
+            
+            self.xmlCampgrounds = campgroundxml
+        }
+    }
     
     func updateViews() {
-        guard let selectedCampground = selectedCampground else { return }
-        
         // Some initial view setup
         campgroundNameLabel.numberOfLines = 0
         campgroundAddressLabel.numberOfLines = 0
         
         reviewTableView.tableFooterView = UIView()
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(CampgroundDetailViewController.tapFunction))
-        phoneNumberLabel.addGestureRecognizer(tap)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CampgroundDetailViewController.tapFunction))
+        phoneNumberLabel.addGestureRecognizer(tapGestureRecognizer)
         
         // Updates from Google Place API
-            let campgroundID = selectedCampground.placeID ?? ""
-            print(campgroundID)
+        if let campgroundPhoto = campgroundPhoto {
+            campgroundImageView.image = campgroundPhoto
+        }
+        
+        guard let campground = campgroundDetails else { return }
+        
+        DispatchQueue.main.async {
+            self.loadReviews()
             
-            // TODO: Set image passed from HomeVC
+            if let campgroundName = campground.name {
+                self.campgroundNameLabel.text = campgroundName
+                self.navigationTitle.title = campgroundName
+            }
             
-            //        if let campgroundImage = campground?.photo {
-            //            campgroundImageView.image = campgroundImage
-            //        }
+            if let phoneNumber = campground.formattedPhoneNumber {
+                self.phoneNumberLabel.text = phoneNumber
+                self.phoneNumberLabel.textColor = .blue
+            }
             
-            // Updates from Google Place Details API
-            GoogleDetailController.fetchPlaceDetailsWith(placeId: campgroundID) { (campground) in
-                if let campground = campground {
-                    self.campgrounds = campground
-                    
-                    DispatchQueue.main.async {
-                        self.loadReviews()
-                        
-                        if let campgroundName = campground.name {
-                            self.campgroundNameLabel.text = campgroundName
-                            self.navigationTitle.title = campgroundName
-                        }
-                        
-                        if let phoneNumber = self.campgrounds?.formattedPhoneNumber {
-                            self.phoneNumberLabel.text = phoneNumber
-                            self.phoneNumberLabel.textColor = .blue
-                        }
-                        
-                        if let campgroundAdress = self.campgrounds?.formattedAddress {
-                            self.campgroundAddressLabel.text = campgroundAdress
-                        }
-                        
-                        if let campgroundReviews = self.campgrounds?.reviews {
-                            self.reviewCountLabel.text = "(\(campgroundReviews.count))"
-                        }
-                        
-                        if let _ = self.campgrounds?.website {
-                            self.visitWebsiteButton.isEnabled = true
-                        }
-                        
-                        if self.campgrounds?.openingHours?.openNow == true {
-                            self.isOfficeOpenLabel.text = "Office open now"
-                        }
-                        
-                        if self.campgrounds?.openingHours?.openNow == false {
-                            self.isOfficeOpenLabel.text = "Office closed now"
-                            
-                        }
-                        
-                        if self.campgrounds?.openingHours?.openNow == nil {
-                            self.isOfficeOpenLabel.text = ""
-                        }
-                        
-                        guard let campgroundRating = self.campgrounds?.rating else { return }
-                        
-                        let roundedRating = Double(campgroundRating).roundToClosestHalf()
-                        
-                        switch roundedRating {
-                        case 0:
-                            self.campgroundRatingImageView.image = UIImage(named: "0Stars")
-                        case 1:
-                            self.campgroundRatingImageView.image = UIImage(named: "1Stars")
-                        case 1.5:
-                            self.campgroundRatingImageView.image = UIImage(named: "1.5Stars")
-                        case 2:
-                            self.campgroundRatingImageView.image = UIImage(named: "2Stars")
-                        case 2.5:
-                            self.campgroundRatingImageView.image = UIImage(named: "2.5Stars")
-                        case 3:
-                            self.campgroundRatingImageView.image = UIImage(named: "3Stars")
-                        case 3.5:
-                            self.campgroundRatingImageView.image = UIImage(named: "3.5Stars")
-                        case 4:
-                            self.campgroundRatingImageView.image = UIImage(named: "4Stars")
-                        case 4.5:
-                            self.campgroundRatingImageView.image = UIImage(named: "4.5Stars")
-                        case 5:
-                            self.campgroundRatingImageView.image = UIImage(named: "5Stars")
-                        default:
-                            self.campgroundRatingImageView.image = UIImage(named: "0Stars")
-                        }
-                        
-                        if let _ = self.campgrounds?.openingHours {
-                            self.viewHoursButton.isEnabled = true
-                    }
+            if let campgroundAdress = campground.formattedAddress {
+                self.campgroundAddressLabel.text = campgroundAdress
+            }
+            
+            if let campgroundReviews = campground.reviews {
+                self.reviewCountLabel.text = "(\(campgroundReviews.count))"
+            }
+            
+            if let _ = campground.website {
+                self.visitWebsiteButton.isEnabled = true
+            }
+            
+            // TODO: Move opening hours to switch statement
+            if campground.openingHours?.openNow == true {
+                self.isOfficeOpenLabel.text = "Office open now"
+            }
+            
+            if campground.openingHours?.openNow == false {
+                self.isOfficeOpenLabel.text = "Office closed now"
+            }
+            
+            if campground.openingHours?.openNow == nil {
+                self.isOfficeOpenLabel.text = ""
+            }
+            
+            guard let campgroundRating = campground.rating else { return }
+            
+            let roundedRating = Double(campgroundRating).roundToClosestHalf()
+            
+            switch roundedRating {
+            case 0:
+                self.campgroundRatingImageView.image = UIImage(named: "0Stars")
+            case 1:
+                self.campgroundRatingImageView.image = UIImage(named: "1Stars")
+            case 1.5:
+                self.campgroundRatingImageView.image = UIImage(named: "1.5Stars")
+            case 2:
+                self.campgroundRatingImageView.image = UIImage(named: "2Stars")
+            case 2.5:
+                self.campgroundRatingImageView.image = UIImage(named: "2.5Stars")
+            case 3:
+                self.campgroundRatingImageView.image = UIImage(named: "3Stars")
+            case 3.5:
+                self.campgroundRatingImageView.image = UIImage(named: "3.5Stars")
+            case 4:
+                self.campgroundRatingImageView.image = UIImage(named: "4Stars")
+            case 4.5:
+                self.campgroundRatingImageView.image = UIImage(named: "4.5Stars")
+            case 5:
+                self.campgroundRatingImageView.image = UIImage(named: "5Stars")
+            default:
+                self.campgroundRatingImageView.image = UIImage(named: "0Stars")
+                
+                if let _ = campground.openingHours {
+                    self.viewHoursButton.isEnabled = true
                 }
             }
         }
@@ -230,6 +216,8 @@ class CampgroundDetailViewController: UIViewController {
     }
     
     // MARK: - Navigation
+    
+    // TODO: - Move prepare for segue to switch statement
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "reviewDetail" {
             if let indexPath = self.reviewTableView.indexPathForSelectedRow {
@@ -246,9 +234,9 @@ class CampgroundDetailViewController: UIViewController {
         if segue.identifier == "weatherDetail" {
             guard let detailVC = segue.destination as?
                 WeatherViewController else { return }
-            detailVC.campgrounds = sender as? Result
-            detailVC.weather = sender as? CampgroundWeatherData
-            detailVC.address = campgrounds?.formattedAddress
+            detailVC.campgroundDetails = sender as? Result
+            detailVC.currentWeatherData = sender as? CampgroundWeatherData
+            detailVC.address = campgroundDetails?.formattedAddress
         }
         
         if segue.identifier == "toHikingResults" {
@@ -275,9 +263,9 @@ class CampgroundDetailViewController: UIViewController {
         if segue.identifier == "photoDetail" {
             guard let detailVC = segue.destination as? CampgroundPhotosViewController else { return }
             
-            detailVC.photos = campgrounds?.photos
+            detailVC.photos = campgroundDetails?.photos
             
-            if campgrounds?.photos?.count == nil {
+            if campgroundDetails?.photos?.count == nil {
                 showNoPhotosAlert()
             }
         }
@@ -286,19 +274,19 @@ class CampgroundDetailViewController: UIViewController {
             guard let detailVC = segue.destination as?
                 CampgroundHoursViewController else { return }
             
-            detailVC.hours = campgrounds
+            detailVC.hours = campgroundDetails
         }
         
         if segue.identifier == "toCamgroundAmenityVC" {
             guard let detailVC = segue.destination as? TravelViewController,
                 let selectedCampground = selectedCampground else { return }
             
-                let latitude = selectedCampground.geometry?.location?.lat ?? 0
-                let longitude = selectedCampground.geometry?.location?.lng ?? 0
-                let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                
-                detailVC.campgroundAmmenities = true
-                detailVC.campgroundCoordinates = coordinates
+            let latitude = selectedCampground.geometry?.location?.lat ?? 0
+            let longitude = selectedCampground.geometry?.location?.lng ?? 0
+            let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            
+            detailVC.campgroundAmmenities = true
+            detailVC.campgroundCoordinates = coordinates
         }
         
         if segue.identifier == "toCampgroundMapView" {
@@ -324,7 +312,7 @@ class CampgroundDetailViewController: UIViewController {
     }
     
     func showNoPhotosAlert() {
-        if let campgroundName = campgrounds?.name {
+        if let campgroundName = campgroundDetails?.name {
             let noPhotosAlert = UIAlertController(title: nil, message: "\(campgroundName) has no photos", preferredStyle: .alert)
             noPhotosAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             

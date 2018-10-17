@@ -23,7 +23,6 @@ class HikingViewController: UIViewController {
     
     // MARK: - Properties
     let geoCoder = CLGeocoder()
-    static let shared = HikingViewController()
     
     var trails: [Trails]?
     
@@ -60,9 +59,9 @@ class HikingViewController: UIViewController {
                 guard let detailVC = segue.destination as? HikingDetailViewController,
                     let trails = trails else { return }
                 
-                let trail = trails[indexPath.row]
+                let selectedTrail = trails[indexPath.row]
                 
-                detailVC.trails = trail
+                detailVC.trails = selectedTrail
             }
         }
     }

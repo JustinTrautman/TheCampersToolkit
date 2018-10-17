@@ -93,7 +93,7 @@ class CampgroundParser: NSObject, XMLParserDelegate {
         currentElement = elementName
         
         if currentElement == "result" {
-            //            campground = Campgroundxml(stringDictionary: attributeDict)
+//            campground = Campgroundxml(stringDictionary: attributeDict)
             currentAvailabilityStatus = ""
             currentContractType = ""
             currentFacilityID = ""

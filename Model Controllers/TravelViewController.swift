@@ -32,20 +32,16 @@ class TravelViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailVC = segue.destination as? AmenityMapViewController else { return }
         
-        // TODO: - Change to switch statement
-        if segue.identifier == "toGasMap" {
+        guard let segueToPrepare = AmenitySegue(rawValue: segue.identifier ?? "") else { return }
+        
+        switch segueToPrepare {
+        case .gasMap:
             selectedType = "gas_station"
-        }
-        
-        if segue.identifier == "toPropaneMap" {
+        case .propaneMap:
             selectedType = "store"
-        }
-        
-        if segue.identifier == "toStoreMap" {
+        case .storeMap:
             selectedType = "supermarket"
-        }
-        
-        if segue.identifier == "toCarRepairMap" {
+        case .carRepairMap:
             selectedType = "car_repair"
         }
         

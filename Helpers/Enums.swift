@@ -33,9 +33,16 @@ enum TemperatureRange : Double {
     case lowTemp = 60.0
     case coldTem = 32.0
 }
-//
+
 //enum WindSpeed : Int {
 //
 //}
+
+enum AmenitySegue : String {
+    case gasMap = "toGasMap"
+    case propaneMap = "toPropaneMap"
+    case storeMap = "toStoreMap"
+    case carRepairMap = "toCarRepairMap"
+}
 
 

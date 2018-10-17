@@ -72,7 +72,6 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
     
     // MARK: - Actions
     @IBAction func directionsButtonTapped(_ sender: Any) {
-        print("Directions Button Tapped")
         guard let latitude = selectedBoondock?.latitude,
             let longitude = selectedBoondock?.longitude,
             let title = selectedBoondock?.description else { return }

@@ -8,8 +8,7 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
- TODO: Rename campground and campgrounds to make more sense
- TODO: Fetch campground image on HomeViewController and pass it to CampgroundDetail VC
+ ✔ TODO: Fetch campground image on HomeViewController and pass it to CampgroundDetail VC
  
  ----------------------------------------------------------------------------------------
  */
@@ -27,14 +26,15 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     private var searchedTypes = "campground"
     private let locationManager = CLLocationManager()
-    private let searchRadius: Double = 50000 // <<< 31 Miles. Max allowed by Google.
+    private let searchRadius: Double = 50000 // <<< 31 miles. Max allowed by Google.
     private let placesClient = GMSPlacesClient()
     let geoCoder = CLGeocoder()
     
     var fetcher: GMSAutocompleteFetcher?
-    var campgrounds: Result?
-    var googlePlaces: Results?
-    var selectedCampground: Results?
+    var campgroundDetails: Result?
+    var googlePlaces: [Results]? // All campgrounds
+    var selectedCampground: Results? // Selected campground passed to detailVC
+    var campgroundPhoto: UIImage?
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -52,7 +52,7 @@ class HomeViewController: UIViewController {
         searchBar.isHidden = false
     }
     
-    func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
+    func fetchCampgroundsAround(coordinate: CLLocationCoordinate2D) {
         mapView.clear()
         
         guard var searchText = searchBar.text,
@@ -78,14 +78,48 @@ class HomeViewController: UIViewController {
                 if let places = places {
                     DispatchQueue.main.async {
                         places.forEach {
-                            let marker = PlaceMarker(place: $0)
+                            let marker = CampgroundMarker(place: $0)
                             marker.map = self.mapView
                             self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 10, bearing: 0, viewingAngle: 0)
                         }
+                        
                     }
+                }
+                if places?.count == 0 {
+                    self.showNoCampgroundsAlert()
                 }
             })
         }
+    }
+    
+    func fetchCampgroundDetails() {
+        guard let selectedCampground = selectedCampground else { return }
+        let placeID = selectedCampground.placeID ?? ""
+        GoogleDetailController.fetchPlaceDetailsWith(placeId: placeID) { (details) in
+            if let details = details {
+                self.campgroundDetails = details
+            }
+            self.fetchCampgroundPhoto()
+        }
+    }
+    
+    func fetchCampgroundPhoto() {
+        guard let campgroundDetails = campgroundDetails,
+            let photosArray = campgroundDetails.photos,
+            let photoReference = photosArray[0].photoReference else { return }
+        
+        GoogleDetailController.fetchCampgroundPhotosWith(photoReference: photoReference) { (photo) in
+            if let photo = photo {
+                self.campgroundPhoto = photo
+            }
+        }
+    }
+    
+    func showNoCampgroundsAlert() {
+        let noCampgroundsAlert = UIAlertController(title: nil, message: "There are no campgrounds within 31 miles. Try searching another area.", preferredStyle: .alert)
+        noCampgroundsAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        self.present(noCampgroundsAlert, animated: true)
     }
 }
 
@@ -108,7 +142,7 @@ extension HomeViewController: CLLocationManagerDelegate {
         
         mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 10, bearing: 0, viewingAngle: 0)
         locationManager.stopUpdatingLocation()
-        fetchNearbyPlaces(coordinate: location.coordinate)
+        fetchCampgroundsAround(coordinate: location.coordinate)
     }
 }
 
@@ -116,26 +150,20 @@ extension HomeViewController: CLLocationManagerDelegate {
 extension HomeViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-        guard let placeMarker = marker as? PlaceMarker else {
-            return nil
-        }
+        guard let campgroundMarker = marker as? CampgroundMarker else { return nil }
         
         guard let infoView = UIView.viewFromNibName("CampgroundMarkerView") as? CampgroundMarkerView,
             let usersLatitude = locationManager.location?.coordinate.latitude,
             let usersLongitude = locationManager.location?.coordinate.longitude else { return nil }
         
-        let destinationLatitude = placeMarker.place.geometry?.location?.lat ?? 0
-        let destinationLongitude = placeMarker.place.geometry?.location?.lng ?? 0
+        let destinationLatitude = campgroundMarker.place.geometry?.location?.lat ?? 0
+        let destinationLongitude = campgroundMarker.place.geometry?.location?.lng ?? 0
         
-        selectedCampground = placeMarker.place
-        print(selectedCampground)
+        // Fetch campground details and photo and pass to detailVC
+        fetchCampgroundDetails()
         
-        infoView.nameLabel.text = placeMarker.place.name
-//        if let photo = placeMarker.place. {
-            infoView.placePhoto.image = UIImage(named: "campground_pin")
-//        } else {
-//            infoView.placePhoto.image = UIImage(named: "campground_pin")
-//        }
+        infoView.nameLabel.text = campgroundMarker.place.name
+        infoView.placePhoto.image = UIImage(named: "campground_pin")
         
         // Calculates distance to amenity
         let usersLocation = CLLocation(latitude: usersLatitude, longitude: usersLongitude)
@@ -148,21 +176,27 @@ extension HomeViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        // Make the selected Google Map marker the selected campground and pass to detailVC
+        guard let campgroundMarker = marker as? CampgroundMarker else { return false }
+        selectedCampground = campgroundMarker.place
         return false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "campgroundDetail" {
             guard let detailVC = segue.destination as? CampgroundDetailViewController else { return }
-            detailVC.selectedCampground = googlePlaces
+            detailVC.campgroundDetails = campgroundDetails
             detailVC.selectedCampground = selectedCampground
+            detailVC.campgroundPhoto = campgroundPhoto
+            
+            campgroundPhoto = nil // Reset to no photo after it has been passed to detailVC
         }
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         self.navigationController?.isNavigationBarHidden = false
         
-        let campgroundMarker = marker as? PlaceMarker
+        let campgroundMarker = marker as? CampgroundMarker
         performSegue(withIdentifier: "campgroundDetail", sender: campgroundMarker?.place)
     }
     
@@ -171,14 +205,14 @@ extension HomeViewController: GMSMapViewDelegate {
         
         mapView.selectedMarker = nil
         searchBar.text = ""
-        fetchNearbyPlaces(coordinate: coordinate)
+        fetchCampgroundsAround(coordinate: coordinate)
         
         return false
     }
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         print("Changed Position")
-        // TODO: Feature in V. 1.5 - Allow user to update their search based on where they scrolled to on the map.
+        // TODO: Allow user to update their search based on where they scrolled to on the map (Depends on Api traffic).
     }
     
     func placeAutoComplete() {
@@ -208,8 +242,8 @@ extension HomeViewController: UISearchBarDelegate {
             let latitude = location.latitude
             let longitude = location.longitude
             let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            self.fetchNearbyPlaces(coordinate: coordinates)
             
+            self.fetchCampgroundsAround(coordinate: coordinates)
             self.navigationItem.title = searchText
         }
     }

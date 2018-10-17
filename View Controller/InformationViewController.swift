@@ -33,7 +33,7 @@ class InformationViewController: UIViewController {
     }
     
     func showTermsAlert() {
-        let termsOfServiceText = "The boondocking information found within this app is supported by public submission and therefore cannot be guarenteed to be accurate. Please research indivdual sites using the included phone number and website if available. Always check with local authorities to verify the legality of sites before boondocking. I agree that Modular Mobile LLC and its developers are not responsible for any inaccuracies of boondocking infomation"
+        let termsOfServiceText = "The boondocking information found within this app is supported by public submission and its accuracy cannot be gauranteed. Please research indivdual sites using the included phone number and website if available. Always check with local authorities to verify the legality of sites before boondocking. I agree that Modular Mobile LLC and its developers are not responsible for any inaccuracies of boondocking infomation"
         let termsAlertController = UIAlertController(title: nil, message: termsOfServiceText, preferredStyle: .alert)
         let understandAction = UIAlertAction(title: "I understand", style: .default, handler: nil)
         termsAlertController.addAction(understandAction)
