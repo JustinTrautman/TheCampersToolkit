@@ -24,7 +24,7 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     private var searchedTypes = "campground"
     private let locationManager = CLLocationManager()
-    private let searchRadius: Double = 10000 // <<< 31 miles. Max allowed by Google.
+    private let searchRadius: Double = 50000 // <<< 31 miles. Max allowed by Google.
     private let placesClient = GMSPlacesClient()
     let geoCoder = CLGeocoder()
     
@@ -80,11 +80,10 @@ class HomeViewController: UIViewController {
                             marker.map = self.mapView
                             self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 10, bearing: 0, viewingAngle: 0)
                         }
-                        
                     }
                 }
                 if places?.count == 0 {
-                    self.showNoCampgroundsAlert()
+                    AlertHelper.showNoCampgroundsAlert(on: self)
                 }
             })
         }
@@ -111,13 +110,6 @@ class HomeViewController: UIViewController {
                 self.campgroundPhoto = photo
             }
         }
-    }
-    
-    func showNoCampgroundsAlert() {
-        let noCampgroundsAlert = UIAlertController(title: nil, message: "There are no campgrounds within 31 miles. Try searching another area.", preferredStyle: .alert)
-        noCampgroundsAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        
-        self.present(noCampgroundsAlert, animated: true)
     }
 }
 

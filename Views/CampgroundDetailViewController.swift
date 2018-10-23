@@ -77,7 +77,6 @@ class CampgroundDetailViewController: UIViewController {
         viewHoursButton.setTitleColor(.gray, for: .disabled)
     }
     
-    // TODO: - DRY; give make navigation logic its own object
     @IBAction func directionsButtonTapped(_ sender: Any) {
         guard let address = campgroundDetails?.formattedAddress,
             let markerName = campgroundDetails?.name else { return }
@@ -172,6 +171,10 @@ class CampgroundDetailViewController: UIViewController {
                 self.isOfficeOpenLabel.text = ""
             }
             
+            if let _ = campground.openingHours {
+                self.viewHoursButton.isEnabled = true
+            }
+            
             guard let campgroundRating = campground.rating else { return }
             
             let roundedRating = Double(campgroundRating).roundToClosestHalf()
@@ -199,10 +202,6 @@ class CampgroundDetailViewController: UIViewController {
                 self.campgroundRatingImageView.image = UIImage(named: "5Stars")
             default:
                 self.campgroundRatingImageView.image = UIImage(named: "0Stars")
-                
-                if let _ = campground.openingHours {
-                    self.viewHoursButton.isEnabled = true
-                }
             }
         }
     }

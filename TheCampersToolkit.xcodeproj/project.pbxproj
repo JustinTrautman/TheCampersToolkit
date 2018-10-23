@@ -77,6 +77,7 @@
 		D0D2C8102146B5480003C883 /* AmenityMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D2C80F2146B5480003C883 /* AmenityMarkerView.xib */; };
 		D0D39BDA215DCE42006F1CF8 /* CampgrounHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D39BD9215DCE42006F1CF8 /* CampgrounHoursViewController.swift */; };
 		D0D39BDC215DCF1B006F1CF8 /* SatelliteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D39BDB215DCF1B006F1CF8 /* SatelliteViewController.swift */; };
+		D0D6298E217BBB06008AE91A /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D6298D217BBB06008AE91A /* AlertHelper.swift */; };
 		D0D8850321695E71002425DB /* ForecastDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8850221695E71002425DB /* ForecastDetailViewController.swift */; };
 		D0D885052169A6CD002425DB /* ForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D885042169A6CD002425DB /* ForecastCollectionViewCell.swift */; };
 		D0D88507216A5B8B002425DB /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D88506216A5B8B002425DB /* Enums.swift */; };
@@ -208,6 +209,7 @@
 		D0D2C80F2146B5480003C883 /* AmenityMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmenityMarkerView.xib; sourceTree = "<group>"; };
 		D0D39BD9215DCE42006F1CF8 /* CampgrounHoursViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgrounHoursViewController.swift; sourceTree = "<group>"; };
 		D0D39BDB215DCF1B006F1CF8 /* SatelliteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SatelliteViewController.swift; sourceTree = "<group>"; };
+		D0D6298D217BBB06008AE91A /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		D0D8850221695E71002425DB /* ForecastDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastDetailViewController.swift; sourceTree = "<group>"; };
 		D0D885042169A6CD002425DB /* ForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0D88506216A5B8B002425DB /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 			children = (
 				D0B5CEC5215E787500180BBA /* AppRatingHelper.swift */,
 				D0D88506216A5B8B002425DB /* Enums.swift */,
+				D0D6298D217BBB06008AE91A /* AlertHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -729,6 +732,7 @@
 				D022B1E420FD23420012025A /* GoogleDetail.swift in Sources */,
 				D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */,
 				D03DAD2821324E63009B4DAB /* ForecastedWeatherController.swift in Sources */,
+				D0D6298E217BBB06008AE91A /* AlertHelper.swift in Sources */,
 				D0026C9E2160747900DA8693 /* GMUWrappingDictionaryKey.m in Sources */,
 				D022B1E620FD2ADF0012025A /* GoogleDetailController.swift in Sources */,
 				D0B0261421703F5A00950548 /* BoondockDescriptionTableViewCell.swift in Sources */,

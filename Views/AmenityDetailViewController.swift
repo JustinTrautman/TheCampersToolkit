@@ -45,7 +45,6 @@ class AmenityDetailViewController: UIViewController {
     }
     
     // MARK: - Actions
-    // TODO: - DRY; give make navigation logic its own object
     @IBAction func takeMeHereButtonTapped(_ sender: Any) {
         guard let address = amenitieDetails?.formattedAddress,
             let title = amenitieDetails?.name else { return }
@@ -169,50 +168,40 @@ class AmenityDetailViewController: UIViewController {
         let dayOfWeek = Date().dayOfWeek()!
         
         if let _ = hoursOfOperation.weekdayText {
+            guard let dayCases = DayOfTheWeek(rawValue: dayOfWeek) else { return }
             
-            if dayOfWeek == "Sunday" {
+            switch dayCases {
+            case .sunday:
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
                 DispatchQueue.main.async {
                     self.openUntilLabel.text = "\(closingTime)"
                 }
-            }
-            
-            if dayOfWeek == "Monday" {
+            case .monday:
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
                 DispatchQueue.main.async {
                     self.openUntilLabel.text = "\(closingTime)"
                 }
-            }
-            
-            if dayOfWeek == "Tuesday" {
+            case .tuesday:
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
                 DispatchQueue.main.async {
                     self.openUntilLabel.text = "\(closingTime)"
                 }
-            }
-            
-            if dayOfWeek == "Wednesday" {
+            case.wednesday:
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
                 DispatchQueue.main.async {
                     self.openUntilLabel.text = "\(closingTime)"
                 }
-            }
-            
-            if dayOfWeek == "Thursday" {
+            case .thursday:
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
                 DispatchQueue.main.async {
                     self.openUntilLabel.text = "\(closingTime)"
                 }
-            }
-            
-            if dayOfWeek == "Friday" {
+            case .friday:
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
                 DispatchQueue.main.async {
                     self.openUntilLabel.text = "\(closingTime)"
                 }
-            }
-            
-            if dayOfWeek == "Saturday" {
+            case .saturday:
                 let closingTime = returnClosingTime(forDay: dayOfWeek)
                 DispatchQueue.main.async {
                     self.openUntilLabel.text = "\(closingTime)"
@@ -259,35 +248,26 @@ class AmenityDetailViewController: UIViewController {
         }
     }
     
+    // TODO: Switch Statement
     func returnClosingTime(forDay: String) -> String {
-        guard let hoursOfOperation = amenitieDetails?.openingHours?.weekdayText else { return "" }
+        guard let hoursOfOperation = amenitieDetails?.openingHours?.weekdayText,
+            let dayCases = DayOfTheWeek(rawValue: forDay) else { return "" }
         var hoursString: String!
         
-        if forDay == "Monday" {
+        switch dayCases {
+        case .monday:
             hoursString = "\(hoursOfOperation[0])"
-        }
-        
-        if forDay == "Tuesday" {
+        case .tuesday:
             hoursString = "\(hoursOfOperation[1])"
-        }
-        
-        if forDay == "Wednesday" {
+        case .wednesday:
             hoursString = "\(hoursOfOperation[2])"
-        }
-        
-        if forDay == "Thursday" {
+        case .thursday:
             hoursString = "\(hoursOfOperation[3])"
-        }
-        
-        if forDay == "Friday" {
+        case .friday:
             hoursString = "\(hoursOfOperation[4])"
-        }
-        
-        if forDay == "Saturday" {
+        case .saturday:
             hoursString = "\(hoursOfOperation[5])"
-        }
-        
-        if forDay == "Sunday" {
+        case .sunday:
             hoursString = "\(hoursOfOperation[6])"
         }
         

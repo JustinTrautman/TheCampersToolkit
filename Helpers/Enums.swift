@@ -45,4 +45,13 @@ enum AmenitySegue : String {
     case carRepairMap = "toCarRepairMap"
 }
 
+enum DayOfTheWeek : String {
+    case sunday = "Sunday"
+    case monday = "Monday"
+    case tuesday = "Tueday"
+    case wednesday = "Wednesday"
+    case thursday = "Thursday"
+    case friday = "Friday"
+    case saturday = "Satuday"
+}
 
