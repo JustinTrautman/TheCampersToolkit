@@ -21,4 +21,16 @@ struct AlertHelper {
     static func showNoCampgroundsAlert(on vc: UIViewController) {
         showCustomAlert(on: vc, title: "There were no campgrounds found within 31 miles. Try searching another area.", message: "")
     }
+    
+    static func showAgreementAlert(on vc: UIViewController) {
+        showCustomAlert(on: vc, title: "By using the boondocking feature of this app you understand and agree to the ToS in the information section of this screen.", message: "")
+    }
+    
+    static func showBoondockingTerms(on vc: UIViewController) {
+        showCustomAlert(on: vc, title: "The boondocking information found within this app is supported by public submission and its accuracy cannot be gauranteed. Please research indivdual sites using the included phone number and website if available. Always check with local authorities to verify the legality of sites before boondocking. I agree that Modular Mobile LLC and its developers are not responsible for any inaccuracies of boondocking infomation", message: "")
+    }
+    
+    static func showSupportAlert(on vc: UIViewController) {
+        showCustomAlert(on: vc, title: "You may send support questions, feature requests, or report any data inaccuracies to justin@modularmobile.net", message: "")
+    }
 }

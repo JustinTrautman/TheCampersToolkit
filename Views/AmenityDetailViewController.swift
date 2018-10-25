@@ -47,29 +47,9 @@ class AmenityDetailViewController: UIViewController {
     // MARK: - Actions
     @IBAction func takeMeHereButtonTapped(_ sender: Any) {
         guard let address = amenitieDetails?.formattedAddress,
-            let title = amenitieDetails?.name else { return }
+            let amenitName = amenitieDetails?.name else { return }
         
-        geoCoder.geocodeAddressString(address) { (placemarks, error) in
-            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
-            
-            if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
-                let url = URL(string: "comgooglemaps://?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving")!
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                print("Opening in Apple Maps")
-                
-                let coordinates = CLLocationCoordinate2DMake(location.latitude, location.longitude)
-                let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
-                let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-                let mapItem = MKMapItem(placemark: placemark)
-                let options = [
-                    MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
-                    MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
-                
-                mapItem.name = title
-                mapItem.openInMaps(launchOptions: options)
-            }
-        }
+        OpenUrlHelper.openNavigationApp(withAddress: address, orCoordinates: nil, mapItemName: amenitName)
     }
     
     @IBAction func phoneNumberButtonTapped(_ sender: Any) {
@@ -82,7 +62,7 @@ class AmenityDetailViewController: UIViewController {
     
     @IBAction func websiteButtonTapped(_ sender: Any) {
         guard let url = amenitieDetails?.website else { return }
-        openWebsiteUrl(url: url)
+        OpenUrlHelper.openWebsite(with: url)
     }
     
     func fetchAmenityDetails() {
@@ -239,12 +219,6 @@ class AmenityDetailViewController: UIViewController {
                     self.amenityRatingImageView.image = UIImage(named: "0Stars")
                 }
             }
-        }
-    }
-    
-    func openWebsiteUrl(url: String) {
-        if let url = NSURL(string: url) {
-            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
         }
     }
     

@@ -75,11 +75,13 @@ class HomeViewController: UIViewController {
             GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinates.latitude)", longitude: "\(coordinates.longitude)", radius: self.searchRadius, type: self.searchedTypes, completion: { (places) in
                 if let places = places {
                     DispatchQueue.main.async {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = true
                         places.forEach {
                             let marker = CampgroundMarker(place: $0)
                             marker.map = self.mapView
                             self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 10, bearing: 0, viewingAngle: 0)
                         }
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     }
                 }
                 if places?.count == 0 {

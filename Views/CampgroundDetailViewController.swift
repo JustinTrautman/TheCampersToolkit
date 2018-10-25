@@ -39,18 +39,6 @@ class CampgroundDetailViewController: UIViewController {
     @IBOutlet weak var waterViewsLabel: UILabel!
     @IBOutlet weak var petsAllowedLabel: UILabel!
     
-    // MARK: - Actions
-    @IBAction func reviewButtonTapped(_ sender: Any) {
-        let tableViewCenter = Int(scrollView.center.y) + 550
-        
-        scrollView.setContentOffset(CGPoint(x: 0, y: tableViewCenter), animated: true)
-    }
-    
-    @IBAction func visitWebsiteButtonTapped(_ sender: Any) {
-        guard let url = campgroundDetails?.website else { return }
-        openWebsiteUrl(url: url)
-    }
-    
     // MARK: - Properties
     var selectedCampground: Results?
     var campgroundDetails: Result?
@@ -75,32 +63,27 @@ class CampgroundDetailViewController: UIViewController {
         visitWebsiteButton.setTitleColor(.gray, for: .disabled)
         viewHoursButton.isEnabled = false
         viewHoursButton.setTitleColor(.gray, for: .disabled)
+        
+        loadReviews()
+    }
+    
+    // MARK: - Actions
+    @IBAction func reviewButtonTapped(_ sender: Any) {
+        let tableViewCenter = Int(scrollView.center.y) + 550
+        
+        scrollView.setContentOffset(CGPoint(x: 0, y: tableViewCenter), animated: true)
+    }
+    
+    @IBAction func visitWebsiteButtonTapped(_ sender: Any) {
+        guard let url = campgroundDetails?.website else { return }
+        OpenUrlHelper.openWebsite(with: url)
     }
     
     @IBAction func directionsButtonTapped(_ sender: Any) {
         guard let address = campgroundDetails?.formattedAddress,
             let markerName = campgroundDetails?.name else { return }
         
-        geoCoder.geocodeAddressString(address) { (placemarks, error) in
-            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
-            
-            if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
-                let url = URL(string: "comgooglemaps://?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving")!
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                print("Opening in Apple Maps")
-                
-                let coordinates = CLLocationCoordinate2DMake(location.latitude, location.longitude)
-                let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
-                let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-                let mapItem = MKMapItem(placemark: placemark)
-                let options = [
-                    MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
-                    MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
-                mapItem.name = markerName
-                mapItem.openInMaps(launchOptions: options)
-            }
-        }
+        OpenUrlHelper.openNavigationApp(withAddress: address, orCoordinates: nil, mapItemName: markerName)
     }
     
     func fetchFromActiveApi() {
@@ -134,7 +117,6 @@ class CampgroundDetailViewController: UIViewController {
         guard let campground = campgroundDetails else { return }
         
         DispatchQueue.main.async {
-            self.loadReviews()
             
             if let campgroundName = campground.name {
                 self.campgroundNameLabel.text = campgroundName
@@ -213,8 +195,6 @@ class CampgroundDetailViewController: UIViewController {
     }
     
     // MARK: - Navigation
-    
-    // TODO: - Move prepare for segue to switch statement
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "reviewDetail" {
             if let indexPath = self.reviewTableView.indexPathForSelectedRow {
@@ -296,16 +276,8 @@ class CampgroundDetailViewController: UIViewController {
     // Gesture recogizer for phone number label. Presents the user with a prompt to complete the call.
     @objc func tapFunction(sender: UITapGestureRecognizer) {
         guard let numberToCall = phoneNumberLabel.text?.replacingOccurrences(of: " ", with: "") else { return }
-        if let phoneURL = URL(string: "telprompt://\(numberToCall)") {
-            UIApplication.shared.canOpenURL(phoneURL)
-            UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
-        }
-    }
-    
-    func openWebsiteUrl(url: String) {
-        if let url = NSURL(string: url) {
-            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
-        }
+        
+        OpenUrlHelper.call(phoneNumber: numberToCall)
     }
     
     func showNoPhotosAlert() {

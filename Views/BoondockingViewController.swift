@@ -37,7 +37,7 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
         mapView.delegate = self
         
         if !beenAlerted {
-            showToSAlert() // User must agree to accuracy terms before using.
+            AlertHelper.showAgreementAlert(on: self) // User must agree to accuracy terms before using.
             
             UserDefaults.standard.setValue("True", forKey: "Alerted")
             UserDefaults.standard.synchronize()
@@ -105,16 +105,6 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
                 }
             }
         }
-    }
-    
-    func showToSAlert() {
-        let accuracyAlert = UIAlertController(title: nil, message: "By using the boondocking feature of this app you understand and agree to the ToS in the information section of this screen.", preferredStyle: .alert)
-        let understandAction = UIAlertAction(title: "I Understand", style: .default, handler: nil)
-        
-        accuracyAlert.addAction(understandAction)
-        self.present(accuracyAlert, animated: true)
-        
-        beenAlerted = true
     }
 }
 

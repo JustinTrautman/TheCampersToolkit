@@ -39,6 +39,7 @@
 		D022B1E620FD2ADF0012025A /* GoogleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */; };
 		D0234C15210D00B500038CAF /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0234C14210D00B500038CAF /* XMLParser.swift */; };
 		D0234C17210E22C800038CAF /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0234C16210E22C800038CAF /* PhotoDetailViewController.swift */; };
+		D02A1BA921822C70007F0553 /* OpenUrlHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A1BA821822C70007F0553 /* OpenUrlHelper.swift */; };
 		D03DAD26213249FC009B4DAB /* ForecastedWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03DAD25213249FC009B4DAB /* ForecastedWeather.swift */; };
 		D03DAD2821324E63009B4DAB /* ForecastedWeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03DAD2721324E63009B4DAB /* ForecastedWeatherController.swift */; };
 		D04D3FE9210536AD00629B02 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04D3FE8210536AD00629B02 /* WeatherViewController.swift */; };
@@ -168,6 +169,7 @@
 		D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDetailController.swift; sourceTree = "<group>"; };
 		D0234C14210D00B500038CAF /* XMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLParser.swift; sourceTree = "<group>"; };
 		D0234C16210E22C800038CAF /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoDetailViewController.swift; path = "XML Parsers/PhotoDetailViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D02A1BA821822C70007F0553 /* OpenUrlHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenUrlHelper.swift; sourceTree = "<group>"; };
 		D03DAD25213249FC009B4DAB /* ForecastedWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastedWeather.swift; sourceTree = "<group>"; };
 		D03DAD2721324E63009B4DAB /* ForecastedWeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastedWeatherController.swift; sourceTree = "<group>"; };
 		D04D3FE8210536AD00629B02 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherViewController.swift; path = TheCampersToolkit/WeatherViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -405,6 +407,7 @@
 				D0B5CEC5215E787500180BBA /* AppRatingHelper.swift */,
 				D0D88506216A5B8B002425DB /* Enums.swift */,
 				D0D6298D217BBB06008AE91A /* AlertHelper.swift */,
+				D02A1BA821822C70007F0553 /* OpenUrlHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -768,6 +771,7 @@
 				D0026CB42160747900DA8693 /* GQTPointQuadTree.m in Sources */,
 				D066C0FA2106C44100B71E41 /* HikingTrailController.swift in Sources */,
 				D0C5E08B20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift in Sources */,
+				D02A1BA921822C70007F0553 /* OpenUrlHelper.swift in Sources */,
 				D0D885052169A6CD002425DB /* ForecastCollectionViewCell.swift in Sources */,
 				D098E07420FD0C7900DB4866 /* CampgroundMarkerView.swift in Sources */,
 				D066C0F82106C2DC00B71E41 /* HikingTrail.swift in Sources */,

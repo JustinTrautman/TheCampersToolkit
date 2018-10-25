@@ -15,9 +15,7 @@ import UIKit
 import GoogleMaps
 
 class AmenityMapViewController: UIViewController {
-    
-    static let shared = AmenityMapViewController()
-    
+        
     // MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
     

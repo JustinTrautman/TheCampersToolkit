@@ -75,44 +75,24 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
     @IBAction func directionsButtonTapped(_ sender: Any) {
         guard let latitude = selectedBoondock?.latitude,
             let longitude = selectedBoondock?.longitude,
-            let title = selectedBoondock?.description else { return }
+            let boondockTitle = selectedBoondock?.description else { return }
         
-        if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
-            let url = URL(string: "comgooglemaps://?daddr=\(latitude),\(longitude)&directionsmode=driving")!
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            print("Opening in Apple Maps")
-            
-            let latAsDouble = Double("\(latitude)") ?? 0
-            let lonAsDouble = Double("\(longitude)") ?? 0
-            let lat = CLLocationDegrees(exactly: latAsDouble) ?? 0
-            let lon = CLLocationDegrees(exactly: lonAsDouble) ?? 0
-            
-            let coordinates = CLLocationCoordinate2DMake(lat, lon)
-            let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
-            let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-            let mapItem = MKMapItem(placemark: placemark)
-            let options = [
-                MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
-                MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
-            
-            mapItem.name = title
-            mapItem.openInMaps(launchOptions: options)
-        }
+        let coordinates = CLLocationCoordinate2D(latitude: Double(latitude) ?? 0, longitude: Double(longitude) ?? 0)
+        
+        OpenUrlHelper.openNavigationApp(withAddress: nil, orCoordinates: coordinates, mapItemName: boondockTitle)
+        
     }
     
     @IBAction func visitWebsiteButtonTapped(_ sender: Any) {
-        if let website = selectedBoondock?.website {
-            openWebsiteUrl(url: website)
+        if let url = selectedBoondock?.website {
+            OpenUrlHelper.openWebsite(with: url)
         }
     }
     
     @IBAction func PhoneNumberButtonTapped(_ sender: Any) {
         guard let numberToCall = phoneNumberButton.currentTitle?.replacingOccurrences(of: " ", with: "") else { return }
-        if let phoneURL = URL(string: "telprompt://\(numberToCall)") {
-            UIApplication.shared.canOpenURL(phoneURL)
-            UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
-        }
+
+        OpenUrlHelper.call(phoneNumber: numberToCall)
     }
     
     func setupMapView() {
@@ -240,12 +220,6 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
             break
         }
         return GADInterstitial()
-    }
-    
-    func openWebsiteUrl(url: String) {
-        if let url = NSURL(string: url) {
-            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
-        }
     }
     
     // MARK: - Navigation

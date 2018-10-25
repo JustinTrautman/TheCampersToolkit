@@ -38,7 +38,8 @@ class CampgroundHoursViewController: UIViewController {
     func updateView() {
         guard let hours = hours,
             let weekdays = hours.openingHours?.weekdayText,
-            let dayOfTheWeek = Date().dayOfWeek() else { return }
+            let dayOfTheWeek = Date().dayOfWeek(),
+            let dayCases = DayOfTheWeek(rawValue: dayOfTheWeek) else { return }
         
         let mondaysHours = hourFormatter(hoursText: weekdays[0])
         let tuesdaysHours = hourFormatter(hoursText: weekdays[1])
@@ -48,23 +49,21 @@ class CampgroundHoursViewController: UIViewController {
         let saturdaysHours = hourFormatter(hoursText: weekdays[5])
         let sundaysHours = hourFormatter(hoursText: weekdays[6])
         
-        switch dayOfTheWeek {
-        case "Monday":
+        switch dayCases {
+        case .monday:
             todaysHoursLabel.text = mondaysHours
-        case "Tuesday":
+        case .tuesday:
             todaysHoursLabel.text = tuesdaysHours
-        case "Wednesday":
+        case .wednesday:
             todaysHoursLabel.text = wednesdaysHours
-        case "Thursday":
+        case .thursday:
             todaysHoursLabel.text = thursdaysHours
-        case "Friday":
+        case .friday:
             todaysHoursLabel.text = fridaysHours
-        case "Saturday":
+        case .saturday:
             todaysHoursLabel.text = saturdaysHours
-        case "Sunday":
+        case .sunday:
             todaysHoursLabel.text = sundaysHours
-        default:
-            break
         }
         
         mondaysHoursLabel.text = mondaysHours
@@ -74,16 +73,6 @@ class CampgroundHoursViewController: UIViewController {
         fridaysHoursLabel.text = fridaysHours
         saturdaysHoursLabel.text = saturdaysHours
         sundaysHoursLabel.text = sundaysHours
-    }
-    
-    enum dayOfTheWeek: String {
-        case Monday
-        case Tuesday
-        case Wednesday
-        case Thursday
-        case Friday
-        case Saturday
-        case Sunday
     }
     
     func hourFormatter(hoursText: String) -> String {

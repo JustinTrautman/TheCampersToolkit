@@ -61,22 +61,9 @@ class HikingDetailViewController: UIViewController {
             let longitude = trails?.longitude,
             let trailName = trails?.name else { return }
         
-        if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
-            let url = URL(string: "comgooglemaps://?daddr=\(latitude),\(longitude)&directionsmode=driving")!
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            print("Opening in Apple Maps")
-            
-            let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
-            let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
-            let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-            let mapItem = MKMapItem(placemark: placemark)
-            let options = [
-                MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
-                MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
-            mapItem.name = trailName
-            mapItem.openInMaps(launchOptions: options)
-        }
+        let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+        OpenUrlHelper.openNavigationApp(withAddress: nil, orCoordinates: coordinates, mapItemName: trailName)
     }
     
     func updateViews() {
