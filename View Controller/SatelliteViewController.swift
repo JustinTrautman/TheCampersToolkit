@@ -29,7 +29,7 @@ class SatelliteViewController: UIViewController, GMSMapViewDelegate {
         super.viewDidLoad()
         
         mapView.delegate = self
-        mapType = GMSMapViewType.satellite
+        mapType = GMSMapViewType.hybrid
         setupMapView()
     }
     

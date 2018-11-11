@@ -31,10 +31,7 @@ class AmenityMapViewController: UIViewController {
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard let selectedType = selectedType else { return }
-        print("Searching for \(selectedType)")
-        
+                
         locationManager.delegate = self
         mapView.delegate = self
         

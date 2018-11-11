@@ -24,6 +24,9 @@ struct Constants {
     static let activeApiKey = "apikey"
     static let gasFeedApiKey = "apikey"
     
+    // Databases
+    static let boondockingDatabase = "database"
+    
     // Google ad IDs
     static let applicationID = "appID"
     
@@ -34,4 +37,7 @@ struct Constants {
     // Testing ad Unit ID
     static let interstitialAdUnitID = "unitID"
     static let bannerAdUnitID = "unitID"
+    
+    // Notification Keys
+    static let updateReviewsKey = Notification.Name("net.modularmobile.updateReviews")
 }

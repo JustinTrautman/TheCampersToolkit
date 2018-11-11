@@ -1,5 +1,5 @@
 //
-//  WebsiteHelper.swift
+//  OpenUrlHelper.swift
 //  TheCampersToolkit
 //
 //  Created by Justin Trautman on 10/25/18.
@@ -24,22 +24,6 @@ struct OpenUrlHelper {
         if let phoneUrl = URL(string: "telprompt://\(phoneNumber)") {
             UIApplication.shared.canOpenURL(phoneUrl)
             UIApplication.shared.open(phoneUrl, options: [:], completionHandler: nil)
-        }
-    }
-    
-    private func geocode(address: String) {
-        let geocoder = CLGeocoder()
-        
-        geocoder.geocodeAddressString(address) { (placemarks, error) in
-            if let error = error {
-                print("CLGeocoder had a problem converting \(address) into coordinates. The error is: \(error); \(error.localizedDescription)")
-            }
-            
-            guard let placemarks = placemarks else { return }
-            
-            if let coordinatesFromAddress = placemarks.first?.location?.coordinate {
-                coordinates = CLLocationCoordinate2D(latitude: coordinatesFromAddress.latitude, longitude: coordinatesFromAddress.longitude)
-            }
         }
     }
     

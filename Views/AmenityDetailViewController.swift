@@ -47,9 +47,9 @@ class AmenityDetailViewController: UIViewController {
     // MARK: - Actions
     @IBAction func takeMeHereButtonTapped(_ sender: Any) {
         guard let address = amenitieDetails?.formattedAddress,
-            let amenitName = amenitieDetails?.name else { return }
+            let amenityName = amenitieDetails?.name else { return }
         
-        OpenUrlHelper.openNavigationApp(withAddress: address, orCoordinates: nil, mapItemName: amenitName)
+        OpenUrlHelper.openNavigationApp(withAddress: address, orCoordinates: nil, mapItemName: amenityName)
     }
     
     @IBAction func phoneNumberButtonTapped(_ sender: Any) {
@@ -143,6 +143,38 @@ class AmenityDetailViewController: UIViewController {
             }
         }
         
+        if let amenityRating = amenitieDetails?.rating {
+            let roundedRating = Double(amenityRating).roundToClosestHalf()
+            
+            // TODO: - Move Switch statement off of main thread.
+            DispatchQueue.main.async {
+                switch roundedRating {
+                case 0:
+                    self.amenityRatingImageView.image = UIImage(named: "0Stars")
+                case 1:
+                    self.amenityRatingImageView.image = UIImage(named: "1Stars")
+                case 1.5:
+                    self.amenityRatingImageView.image = UIImage(named: "1.5Stars")
+                case 2:
+                    self.amenityRatingImageView.image = UIImage(named: "2Stars")
+                case 2.5:
+                    self.amenityRatingImageView.image = UIImage(named: "2.5Stars")
+                case 3:
+                    self.amenityRatingImageView.image = UIImage(named: "3Stars")
+                case 3.5:
+                    self.amenityRatingImageView.image = UIImage(named: "3.5Stars")
+                case 4:
+                    self.amenityRatingImageView.image = UIImage(named: "4Stars")
+                case 4.5:
+                    self.amenityRatingImageView.image = UIImage(named: "4.5Stars")
+                case 5:
+                    self.amenityRatingImageView.image = UIImage(named: "5Stars")
+                default:
+                    self.amenityRatingImageView.image = UIImage(named: "0Stars")
+                }
+            }
+        }
+        
         guard let hoursOfOperation = amenitieDetails?.openingHours else { return }
         
         let dayOfWeek = Date().dayOfWeek()!
@@ -188,41 +220,8 @@ class AmenityDetailViewController: UIViewController {
                 }
             }
         }
-        
-        if let amenityRating = amenitieDetails?.rating {
-            let roundedRating = Double(amenityRating).roundToClosestHalf()
-            
-            // TODO: - Move Switch statement off of main thread.
-            DispatchQueue.main.async {
-                switch roundedRating {
-                case 0:
-                    self.amenityRatingImageView.image = UIImage(named: "0Stars")
-                case 1:
-                    self.amenityRatingImageView.image = UIImage(named: "1Stars")
-                case 1.5:
-                    self.amenityRatingImageView.image = UIImage(named: "1.5Stars")
-                case 2:
-                    self.amenityRatingImageView.image = UIImage(named: "2Stars")
-                case 2.5:
-                    self.amenityRatingImageView.image = UIImage(named: "2.5Stars")
-                case 3:
-                    self.amenityRatingImageView.image = UIImage(named: "3Stars")
-                case 3.5:
-                    self.amenityRatingImageView.image = UIImage(named: "3.5Stars")
-                case 4:
-                    self.amenityRatingImageView.image = UIImage(named: "4Stars")
-                case 4.5:
-                    self.amenityRatingImageView.image = UIImage(named: "4.5Stars")
-                case 5:
-                    self.amenityRatingImageView.image = UIImage(named: "5Stars")
-                default:
-                    self.amenityRatingImageView.image = UIImage(named: "0Stars")
-                }
-            }
-        }
     }
     
-    // TODO: Switch Statement
     func returnClosingTime(forDay: String) -> String {
         guard let hoursOfOperation = amenitieDetails?.openingHours?.weekdayText,
             let dayCases = DayOfTheWeek(rawValue: forDay) else { return "" }

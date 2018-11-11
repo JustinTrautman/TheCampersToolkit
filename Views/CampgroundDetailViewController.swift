@@ -39,34 +39,6 @@ class CampgroundDetailViewController: UIViewController {
     @IBOutlet weak var waterViewsLabel: UILabel!
     @IBOutlet weak var petsAllowedLabel: UILabel!
     
-    // MARK: - Properties
-    var selectedCampground: Results?
-    var campgroundDetails: Result?
-    var reviews: [Reviews]?
-    var xmlCampgrounds: [Campgroundxml]?
-    var campgroundPhoto: UIImage?
-    
-    let geoCoder = CLGeocoder()
-    
-    // MARK: - View Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        updateViews()
-        fetchFromActiveApi()
-        
-        reviewTableView.delegate = self
-        reviewTableView.dataSource = self
-        
-        // Buttons are only enabled when data is available
-        visitWebsiteButton.isEnabled = false
-        visitWebsiteButton.setTitleColor(.gray, for: .disabled)
-        viewHoursButton.isEnabled = false
-        viewHoursButton.setTitleColor(.gray, for: .disabled)
-        
-        loadReviews()
-    }
-    
     // MARK: - Actions
     @IBAction func reviewButtonTapped(_ sender: Any) {
         let tableViewCenter = Int(scrollView.center.y) + 550
@@ -86,6 +58,35 @@ class CampgroundDetailViewController: UIViewController {
         OpenUrlHelper.openNavigationApp(withAddress: address, orCoordinates: nil, mapItemName: markerName)
     }
     
+    // MARK: - Properties
+    var selectedCampground: Results?
+    var campgroundDetails: Result?
+    var reviews: [Reviews]?
+    var savedReviews: [Reviews]?
+    var campgroundsXml: [Campgroundxml]?
+    var campgroundPhoto: UIImage?
+    
+    let geoCoder = CLGeocoder()
+    
+    // MARK: - View Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        reviewTableView.delegate = self
+        reviewTableView.dataSource = self
+        
+        updateViews()
+        fetchFromActiveApi()
+        loadReviews()
+        listenForUnwindSegue()
+        
+        // Buttons are only enabled when data is available
+        visitWebsiteButton.isEnabled = false
+        visitWebsiteButton.setTitleColor(.gray, for: .disabled)
+        viewHoursButton.isEnabled = false
+        viewHoursButton.setTitleColor(.gray, for: .disabled)
+    }
+    
     func fetchFromActiveApi() {
         guard let selectedCampground = selectedCampground,
             let campgroundName = selectedCampground.name else { return }
@@ -95,7 +96,7 @@ class CampgroundDetailViewController: UIViewController {
             print("http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)")
             print(campgroundxml)
             
-            self.xmlCampgrounds = campgroundxml
+            self.campgroundsXml = campgroundxml
         }
     }
     
@@ -117,7 +118,6 @@ class CampgroundDetailViewController: UIViewController {
         guard let campground = campgroundDetails else { return }
         
         DispatchQueue.main.async {
-            
             if let campgroundName = campground.name {
                 self.campgroundNameLabel.text = campgroundName
                 self.navigationTitle.title = campgroundName
@@ -128,8 +128,8 @@ class CampgroundDetailViewController: UIViewController {
                 self.phoneNumberLabel.textColor = .blue
             }
             
-            if let campgroundAdress = campground.formattedAddress {
-                self.campgroundAddressLabel.text = campgroundAdress
+            if let campgroundAddress = campground.formattedAddress {
+                self.campgroundAddressLabel.text = campgroundAddress
             }
             
             if let campgroundReviews = campground.reviews {
@@ -140,25 +140,24 @@ class CampgroundDetailViewController: UIViewController {
                 self.visitWebsiteButton.isEnabled = true
             }
             
-            // TODO: Move opening hours to switch statement
-            if campground.openingHours?.openNow == true {
-                self.isOfficeOpenLabel.text = "Office open now"
-            }
-            
-            if campground.openingHours?.openNow == false {
-                self.isOfficeOpenLabel.text = "Office closed now"
-            }
-            
-            if campground.openingHours?.openNow == nil {
-                self.isOfficeOpenLabel.text = ""
-            }
-            
-            if let _ = campground.openingHours {
+            if let campgroundHours = campground.openingHours {
                 self.viewHoursButton.isEnabled = true
+                
+                let isOfficeOpen = "\(campgroundHours.openNow ?? Bool())" 
+                
+                guard let isOpen = IsOpen(rawValue: isOfficeOpen) else { return }
+                
+                switch isOpen {
+                case .open:
+                    self.isOfficeOpenLabel.text = "Office open now"
+                case .closed:
+                    self.isOfficeOpenLabel.text = "Office closed now"
+                case .empty:
+                    self.isOfficeOpenLabel.text = ""
+                }
             }
             
             guard let campgroundRating = campground.rating else { return }
-            
             let roundedRating = Double(campgroundRating).roundToClosestHalf()
             
             switch roundedRating {
@@ -191,6 +190,24 @@ class CampgroundDetailViewController: UIViewController {
     func loadReviews() {
         DispatchQueue.main.async {
             self.reviewTableView.reloadData()
+        }
+    }
+    
+    func listenForUnwindSegue() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateReviewsAfterUnwind(notification:)), name: Constants.updateReviewsKey, object: nil)
+    }
+    
+    @objc func updateReviewsAfterUnwind(notification: NSNotification) {
+        guard let placeId = selectedCampground?.placeID else {
+            return
+        }
+        
+        GoogleDetailController.fetchPlaceReviewsWith(placeId: placeId) { (reviews) in
+            if let reviews = reviews {
+                print("Reloaded reviews. Delete this later")
+            }
+            
+            self.loadReviews()
         }
     }
     

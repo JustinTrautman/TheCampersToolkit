@@ -21,8 +21,14 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    // MARK: - Actions
+    @IBAction func searchIconTapped(_ sender: UIBarButtonItem) {
+        navigationController?.isNavigationBarHidden = true
+        searchBar.isHidden = false
+    }
+    
     // MARK: - Properties
-    private var searchedTypes = "campground"
+    private var searchType = "campground"
     private let locationManager = CLLocationManager()
     private let searchRadius: Double = 50000 // <<< 31 miles. Max allowed by Google.
     private let placesClient = GMSPlacesClient()
@@ -39,17 +45,13 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
         mapView.delegate = self
         searchBar.delegate = self
+        
+        locationManager.requestWhenInUseAuthorization()
     }
     
-    // MARK: - Actions
-    @IBAction func searchIconTapped(_ sender: UIBarButtonItem) {
-        navigationController?.isNavigationBarHidden = true
-        searchBar.isHidden = false
-    }
-    
+    // MARK: - Fetcher Functions
     func fetchCampgroundsAround(coordinate: CLLocationCoordinate2D) {
         mapView.clear()
         
@@ -72,7 +74,7 @@ class HomeViewController: UIViewController {
                 coordinates = location
             }
             
-            GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinates.latitude)", longitude: "\(coordinates.longitude)", radius: self.searchRadius, type: self.searchedTypes, completion: { (places) in
+            GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinates.latitude)", longitude: "\(coordinates.longitude)", radius: self.searchRadius, type: self.searchType, completion: { (places) in
                 if let places = places {
                     DispatchQueue.main.async {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -95,8 +97,8 @@ class HomeViewController: UIViewController {
         guard let selectedCampground = selectedCampground else { return }
         let placeID = selectedCampground.placeID ?? ""
         GoogleDetailController.fetchPlaceDetailsWith(placeId: placeID) { (details) in
-            if let details = details {
-                self.campgroundDetails = details
+            if let campgroundDetails = details {
+                self.campgroundDetails = campgroundDetails
             }
             self.fetchCampgroundPhoto()
         }
@@ -171,6 +173,7 @@ extension HomeViewController: GMSMapViewDelegate {
         // Make the selected Google Map marker the selected campground and pass to detailVC
         guard let campgroundMarker = marker as? CampgroundMarker else { return false }
         selectedCampground = campgroundMarker.place
+        
         return false
     }
     
@@ -204,7 +207,7 @@ extension HomeViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         print("Changed Position")
-        // TODO: Allow user to update their search based on where they scrolled to on the map (Depends on Api traffic).
+        // TODO: Version 2. Allow user to update their search based on where they scrolled to on the map (Depends on Api traffic).
     }
     
     func placeAutoComplete() {

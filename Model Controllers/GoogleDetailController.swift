@@ -22,10 +22,10 @@ class GoogleDetailController {
     static let photosBaseURL = URL(string: "https://maps.googleapis.com/maps/api/place/photo?")
     static let placeDetailFields = "formatted_address,opening_hours,photo,name,website,rating,price_level,review,formatted_phone_number"
     static var campgrounds: Result?
+    static var reviews: [Reviews]?
     static var photos: [Photos] = []
     
     static func fetchPlaceDetailsWith(placeId: String, completion: @escaping ((Result)?) -> Void) {
-        
         guard let url = detailsBaseURL else { completion(nil) ; return }
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         
@@ -70,6 +70,38 @@ class GoogleDetailController {
             guard let data = data else { completion(nil) ; return }
             let image = UIImage(data: data)
             completion(image)
+            }.resume()
+    }
+    
+    static func fetchPlaceReviewsWith(placeId: String, completion: @escaping([Reviews]?) -> Void) {
+        guard let url = detailsBaseURL else { completion(nil) ; return }
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+        
+        let placeIdQuery = URLQueryItem(name: "placeid", value: placeId)
+        let fieldsQuery = URLQueryItem(name: "fields", value: "review")
+        let apiKeyQuery = URLQueryItem(name: "key", value: Constants.googleApiKey)
+        
+        let queryArray = [placeIdQuery, fieldsQuery, apiKeyQuery]
+        components?.queryItems = queryArray
+        
+        guard let completeURL = components?.url else { completion(nil) ; return }
+        
+        URLSession.shared.dataTask(with: completeURL) { (data, _, error) in
+            if let error = error {
+                print("DataTask had an issue reaching the network. Exiting with error: \(error) \(error.localizedDescription)")
+                completion(nil) ; return
+            }
+            
+            guard let data = data else { completion(nil) ; return }
+            
+            let jsonDecoder = JSONDecoder()
+            do {
+                let reviews = try jsonDecoder.decode(CampgroundDetailData.self, from: data).result.reviews
+                self.reviews = reviews
+                completion(reviews)
+            } catch let error {
+                print("Error decoding reviews. Exiting with error: \(error) \(error.localizedDescription)")
+            }
             }.resume()
     }
     

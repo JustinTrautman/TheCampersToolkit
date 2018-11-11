@@ -138,9 +138,9 @@ extension HikingViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "hikingCell", for: indexPath) as? HikingTableViewCell else { return UITableViewCell() }
         
-        guard let unwrappedTrails = trails else { return UITableViewCell() }
+        guard let trails = trails else { return UITableViewCell() }
         
-        let index = unwrappedTrails[indexPath.row]
+        let index = trails[indexPath.row]
         cell.trails = index
         
         return cell

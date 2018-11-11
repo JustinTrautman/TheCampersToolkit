@@ -24,7 +24,6 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var visitWebsiteButton: UIButton!
     @IBOutlet weak var phoneNumberButton: UIButton!
-    @IBOutlet weak var descriptionTableView: UITableView!
     @IBOutlet weak var directionsButton: UIButton!
     @IBOutlet weak var lastUpdatedLabel: UILabel!
     @IBOutlet weak var fireringLabel: UILabel!
@@ -36,6 +35,7 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
     @IBOutlet weak var portableWaterLabel: UILabel!
     @IBOutlet weak var picnicTableLabel: UILabel!
     @IBOutlet weak var pitToiletLabel: UILabel!
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     // MARK: - Properties
     var boondockingLocations: [Boondocking]?
@@ -47,9 +47,6 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
         super.viewDidLoad()
         
         mapView.delegate = self
-        descriptionTableView.delegate = self
-        descriptionTableView.dataSource = self
-        descriptionTableView.tableFooterView = UIView()
         
         // Website and phonenumber buttons disabled unless data is available
         visitWebsiteButton.isEnabled = false
@@ -118,20 +115,23 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
     
     func updateViews() {
         if let website = selectedBoondock?.website {
+            if website != "" {
             visitWebsiteButton.isEnabled = true
             visitWebsiteButton.setTitleColor(.black, for: .normal)
+            }
         }
         
         if let phoneNumber = selectedBoondock?.phone {
             if phoneNumber != "" {
+                let numberToDisplay = phoneNumber.replacingOccurrences(of: " ", with: "")
                 phoneNumberButton.isEnabled = true
-                phoneNumberButton.setTitle(phoneNumber, for: .normal)
+                phoneNumberButton.setTitle(numberToDisplay, for: .normal)
                 phoneNumberButton.setTitleColor(.blue, for: .normal)
             }
         }
         
-        if let _ = selectedBoondock?.description {
-            self.descriptionTableView.reloadData()
+        if let description = selectedBoondock?.description {
+            descriptionTextView.text = description
         }
         
         if let lastUpdated = selectedBoondock?.dateLastUpdated {
@@ -234,22 +234,5 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
             
             detailVC.boondockCoordinates = coordinates
         }
-    }
-}
-
-extension BoondockingDetailViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = descriptionTableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? BoondockDescriptionTableViewCell else { return UITableViewCell() }
-        
-        if let description = selectedBoondock?.description {
-            cell.descriptionLabel.text = description
-        }
-        
-        return cell
     }
 }

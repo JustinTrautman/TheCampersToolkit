@@ -227,6 +227,7 @@ class WeatherViewController: UIViewController {
                     if let forecast = forecast {
                         self.forecastedWeatherData = forecast
                         
+                        
                         DispatchQueue.main.async {
                             self.forecastCollectionView.delegate = self
                             self.forecastCollectionView.dataSource = self
