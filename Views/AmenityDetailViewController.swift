@@ -88,7 +88,7 @@ class AmenityDetailViewController: UIViewController {
         guard let selectedType = GooglePlaceSearchController.selectedType else { return }
         
         if let photoReference = photoReference {
-            GoogleDetailController.fetchCampgroundPhotosWith(photoReference: photoReference) { (fetchedImage) in
+            GoogleDetailController.fetchPlacePhotoWith(photoReference: photoReference) { (fetchedImage) in
                 DispatchQueue.main.async {
                     if let fetchedImage = fetchedImage {
                         DispatchQueue.main.async {

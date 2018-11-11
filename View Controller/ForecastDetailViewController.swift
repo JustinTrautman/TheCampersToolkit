@@ -128,10 +128,12 @@ extension ForecastDetailViewController : GADBannerViewDelegate {
         addBannerViewToView(bannerView)
         
         // Reposition the banner ad to create a slide down effect
-        bannerView.alpha = 0
-        UIView.animate(withDuration: 0.5, animations: {
-            bannerView.alpha = 1
-        })
+        DispatchQueue.main.async {
+            bannerView.alpha = 0
+            UIView.animate(withDuration: 0.5, animations: {
+                bannerView.alpha = 1
+            })
+        }
     }
 }
 

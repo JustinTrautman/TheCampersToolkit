@@ -105,7 +105,7 @@ class GoogleDetailController {
             }.resume()
     }
     
-    static func fetchCampgroundPhotosWith(photoReference: String, completion: @escaping ((UIImage?)) -> Void) {
+    static func fetchPlacePhotoWith(photoReference: String, completion: @escaping ((UIImage)?) -> Void) {
         guard let url = photosBaseURL else { completion(nil) ; return }
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         

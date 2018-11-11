@@ -20,7 +20,7 @@ class PhotoDetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var detailImageView: UIImageView!
     
     // MARK: - Properties
-    var photo: Photos?
+    var photo: UIImage?
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -35,19 +35,15 @@ class PhotoDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func updateViews() {
-        guard let photoReference = photo?.photoReference else { return }
+        guard let selectedPhoto = photo else { return }
         
-        GoogleDetailController.fetchCampgroundPhotosWith(photoReference: photoReference) { (photo) in
-            if let photo = photo {
-                DispatchQueue.main.async {
-                    self.detailImageView.image = photo
-                }
-            }
+        DispatchQueue.main.async {
+            self.detailImageView.image = selectedPhoto
         }
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        
+    
         return detailImageView
     }
 }

@@ -19,23 +19,40 @@ class CampgroundPhotosViewController: UIViewController {
     @IBOutlet weak var photosTableView: UITableView!
     
     // MARK: - Properties
-    var photos: [Photos]?
+    var photoReferences: [Photos]?
+    var images: [UIImage] = []
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        photosTableView.delegate = self
-        photosTableView.dataSource = self
-        
         photosTableView.tableFooterView = UIView()
         photosTableView.rowHeight = 300
         
-        reloadTableView()
+        fetchPhoto()
+    }
+    
+    func fetchPhoto() {
+        guard let photoReferences = photoReferences else {
+            return
+        }
+        
+        photoReferences.forEach { (photoRef) in
+            let referenceString = photoRef.photoReference ?? ""
+            GoogleDetailController.fetchPlacePhotoWith(photoReference: referenceString, completion: { (image) in
+                if let image = image {
+                    self.images.append(image)
+                }
+                
+                self.reloadTableView()
+            })
+        }
     }
     
     func reloadTableView() {
         DispatchQueue.main.async {
+            self.photosTableView.delegate = self
+            self.photosTableView.dataSource = self
             self.photosTableView.reloadData()
         }
     }
@@ -43,13 +60,11 @@ class CampgroundPhotosViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toPhotoDetail" {
             if let indexPath = self.photosTableView.indexPathForSelectedRow {
-                guard let detailVC = segue.destination as? PhotoDetailViewController,
-                let photos = photos else {
+                guard let detailVC = segue.destination as? PhotoDetailViewController else {
                     return
                 }
                 
-                let selectedPhoto = photos[indexPath.row]
-                
+                let selectedPhoto = images[indexPath.row]
                 detailVC.photo = selectedPhoto
             }
         }
@@ -59,21 +74,20 @@ class CampgroundPhotosViewController: UIViewController {
 extension CampgroundPhotosViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let unwrappedPhotos = GoogleDetailController.campgrounds?.photos else { return 0 }
         
-        return unwrappedPhotos.count
+        return images.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "photoCell", for: indexPath) as? PhotoTableViewCell,
-            let unwrappedPhotos = GoogleDetailController.campgrounds?.photos else {
-                return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "photoCell", for: indexPath) as? PhotoTableViewCell else {
+            return UITableViewCell()
         }
         
-        let photos = unwrappedPhotos[indexPath.row]
-        cell.photos = photos
+        let photo = images[indexPath.row]
+        cell.photos = photo
         
         return cell
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

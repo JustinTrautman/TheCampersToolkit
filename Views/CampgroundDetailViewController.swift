@@ -14,6 +14,8 @@
 import UIKit
 import MapKit
 
+var shouldReloadReviews: Bool = false
+
 class CampgroundDetailViewController: UIViewController {
     
     // MARK: - Outlets
@@ -62,9 +64,9 @@ class CampgroundDetailViewController: UIViewController {
     var selectedCampground: Results?
     var campgroundDetails: Result?
     var reviews: [Reviews]?
-    var savedReviews: [Reviews]?
     var campgroundsXml: [Campgroundxml]?
     var campgroundPhoto: UIImage?
+    var photosArray: [Photos]?
     
     let geoCoder = CLGeocoder()
     
@@ -202,9 +204,11 @@ class CampgroundDetailViewController: UIViewController {
             return
         }
         
+        shouldReloadReviews = true
+        
         GoogleDetailController.fetchPlaceReviewsWith(placeId: placeId) { (reviews) in
             if let reviews = reviews {
-                print("Reloaded reviews. Delete this later")
+                self.reviews = reviews
             }
             
             self.loadReviews()
@@ -218,10 +222,19 @@ class CampgroundDetailViewController: UIViewController {
                 guard let detailVC = segue.destination as?
                     ReviewDetailViewController else { return }
                 
-                guard let googleReviews = GoogleDetailController.campgrounds?.reviews else { return }
-                let review = googleReviews[indexPath.row]
+                var review: Reviews
                 
-                detailVC.reviews = review
+                if shouldReloadReviews == true {
+                    guard let campgroundReviews = reviews else { return }
+                    review = campgroundReviews[indexPath.row]
+                    
+                    detailVC.reviews = review
+                } else {
+                    guard let campgroundReviews = GoogleDetailController.campgrounds?.reviews else { return }
+                    review = campgroundReviews[indexPath.row]
+                    
+                    detailVC.reviews = review
+                }
             }
         }
         
@@ -256,8 +269,8 @@ class CampgroundDetailViewController: UIViewController {
         
         if segue.identifier == "photoDetail" {
             guard let detailVC = segue.destination as? CampgroundPhotosViewController else { return }
-            
-            detailVC.photos = campgroundDetails?.photos
+    
+            detailVC.photoReferences = photosArray
             
             if campgroundDetails?.photos?.count == nil {
                 showNoPhotosAlert()
@@ -299,8 +312,8 @@ class CampgroundDetailViewController: UIViewController {
     
     func showNoPhotosAlert() {
         if let campgroundName = campgroundDetails?.name {
-            let noPhotosAlert = UIAlertController(title: nil, message: "\(campgroundName) has no photos", preferredStyle: .alert)
-            noPhotosAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            let noPhotosAlert = UIAlertController(title: nil, message: "\(campgroundName) doesn't have any photos", preferredStyle: .alert)
+            noPhotosAlert.addAction(UIAlertAction(title: "Back", style: .default, handler: nil))
             
             self.present(noPhotosAlert, animated: true)
         }
@@ -310,9 +323,17 @@ class CampgroundDetailViewController: UIViewController {
 extension CampgroundDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let unwrappedReviews = GoogleDetailController.campgrounds?.reviews else { return 0 }
-        
-        return unwrappedReviews.count
+        if shouldReloadReviews == true {
+            guard let reviews = reviews else {
+                return 0
+            }
+            return reviews.count
+        } else {
+            guard let reviews = GoogleDetailController.campgrounds?.reviews else {
+                return 0
+            }
+            return reviews.count
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -323,12 +344,25 @@ extension CampgroundDetailViewController: UITableViewDelegate, UITableViewDataSo
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as?
             CampgroundReviewCell else { return UITableViewCell() }
         
-        guard let unwrappedReviews = GoogleDetailController.campgrounds?.reviews else { return UITableViewCell() }
-        
-        let review = unwrappedReviews[indexPath.row]
-        cell.reviews = review
-        
-        return cell
+        if shouldReloadReviews == true {
+            guard let reviews = reviews else {
+                return UITableViewCell()
+            }
+            
+            let review = reviews[indexPath.row]
+            cell.reviews = review
+            
+            return cell
+        } else {
+            guard let reviews = GoogleDetailController.campgrounds?.reviews else {
+                return UITableViewCell()
+            }
+            
+            let review = reviews[indexPath.row]
+            cell.reviews = review
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

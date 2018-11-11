@@ -39,6 +39,7 @@ class HomeViewController: UIViewController {
     var googlePlaces: [Results]? // All campgrounds
     var selectedCampground: Results? // Selected campground passed to detailVC
     var campgroundPhoto: UIImage?
+    var photosArray: [Photos]?
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -106,10 +107,12 @@ class HomeViewController: UIViewController {
     
     func fetchCampgroundPhoto() {
         guard let campgroundDetails = campgroundDetails,
-            let photosArray = campgroundDetails.photos,
-            let photoReference = photosArray[0].photoReference else { return }
+            let campgroundPhotos = campgroundDetails.photos,
+            let photoReference = campgroundPhotos[0].photoReference else { return }
         
-        GoogleDetailController.fetchCampgroundPhotosWith(photoReference: photoReference) { (photo) in
+        photosArray = campgroundPhotos
+        
+        GoogleDetailController.fetchPlacePhotoWith(photoReference: photoReference) { (photo) in
             if let photo = photo {
                 self.campgroundPhoto = photo
             }
@@ -183,6 +186,7 @@ extension HomeViewController: GMSMapViewDelegate {
             detailVC.campgroundDetails = campgroundDetails
             detailVC.selectedCampground = selectedCampground
             detailVC.campgroundPhoto = campgroundPhoto
+            detailVC.photosArray = photosArray
             
             campgroundPhoto = nil // Reset to no photo after it has been passed to detailVC
         }
