@@ -88,7 +88,7 @@ class CampgroundDetailViewController: UIViewController {
         viewHoursButton.isEnabled = false
         viewHoursButton.setTitleColor(.gray, for: .disabled)
     }
-    
+
     func fetchFromActiveApi() {
         guard let selectedCampground = selectedCampground,
             let campgroundName = selectedCampground.name else { return }
@@ -151,9 +151,9 @@ class CampgroundDetailViewController: UIViewController {
                 
                 switch isOpen {
                 case .open:
-                    self.isOfficeOpenLabel.text = "Office open now"
+                    self.isOfficeOpenLabel.text = "Office Open Now"
                 case .closed:
-                    self.isOfficeOpenLabel.text = "Office closed now"
+                    self.isOfficeOpenLabel.text = "Office Closed Now"
                 case .empty:
                     self.isOfficeOpenLabel.text = ""
                 }

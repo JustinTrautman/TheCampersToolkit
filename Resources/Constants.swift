@@ -31,12 +31,12 @@ struct Constants {
     static let applicationID = "appID"
     
     // Real Ad Unit ID
-    //     static let bannerAdUnitID = "unitID"
-    //     static let interstitialAdUnitID = "unitID"
+    static let bannerAdUnitID = "unitID"
+    static let interstitialAdUnitID = "unitID"
     
     // Testing ad Unit ID
-    static let interstitialAdUnitID = "unitID"
-    static let bannerAdUnitID = "unitID"
+    //    static let interstitialAdUnitID = "unitID"
+    //    static let bannerAdUnitID = "unitID"
     
     // Notification Keys
     static let updateReviewsKey = Notification.Name("net.modularmobile.updateReviews")

@@ -61,12 +61,12 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         
         // Setup Ad Banner
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+//        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         
-        addBannerViewToView(bannerView)
+//        addBannerViewToView(bannerView)
         
         // Load Ad Banner
-        adBannerView.load(GADRequest())
+//        adBannerView.load(GADRequest())
         
         updateViews()
         fetchForecastedWeather()

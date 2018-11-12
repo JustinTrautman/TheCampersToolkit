@@ -196,6 +196,7 @@ extension HomeViewController: GMSMapViewDelegate {
         self.navigationController?.isNavigationBarHidden = false
         
         let campgroundMarker = marker as? CampgroundMarker
+
         performSegue(withIdentifier: "campgroundDetail", sender: campgroundMarker?.place)
     }
     
