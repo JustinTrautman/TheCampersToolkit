@@ -80,10 +80,12 @@ extension HikingViewController: GADBannerViewDelegate {
         print("Ad banner loaded successfully")
         
         // Reposition the banner ad to create a slide down effect
-        bannerView.alpha = 0
-        UIView.animate(withDuration: 1, animations: {
-            bannerView.alpha = 1
-        })
+        DispatchQueue.main.async {
+            bannerView.alpha = 0
+            UIView.animate(withDuration: 0.5, animations: {
+                bannerView.alpha = 1
+            })
+        }
     }
     
     func adView(_ bannerView: GADBannerView!, didFailToReceiveAdWithError error: GADRequestError!) {
@@ -138,9 +140,9 @@ extension HikingViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "hikingCell", for: indexPath) as? HikingTableViewCell else { return UITableViewCell() }
         
-        guard let unwrappedTrails = trails else { return UITableViewCell() }
+        guard let trails = trails else { return UITableViewCell() }
         
-        let index = unwrappedTrails[indexPath.row]
+        let index = trails[indexPath.row]
         cell.trails = index
         
         return cell

@@ -21,6 +21,11 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
     @IBOutlet weak var navigationBar: UINavigationItem!
     @IBOutlet weak var searchButton: UIBarButtonItem!
     
+    // MARK: - Actions
+    @IBAction func searchButtonTapped(_ sender: Any) {
+        openSearchWindow()
+    }
+    
     // MARK: - Properties
     private let locationManager = CLLocationManager()
     
@@ -33,11 +38,12 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
         super.viewDidLoad()
         
         locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
         mapView.delegate = self
         
+        locationManager.requestWhenInUseAuthorization()
+        
         if !beenAlerted {
-            showToSAlert() // User must agree to accuracy terms before using.
+            AlertHelper.showAgreementAlert(on: self) // User must agree to accuracy terms before using.
             
             UserDefaults.standard.setValue("True", forKey: "Alerted")
             UserDefaults.standard.synchronize()
@@ -47,11 +53,6 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
         
         // If user has already agreed, fetch locations
         fetchBoondockingLocations()
-    }
-    
-    // MARK: - Actions
-    @IBAction func searchButtonTapped(_ sender: Any) {
-        openSearchWindow()
     }
     
     func openSearchWindow() {
@@ -89,14 +90,14 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
     
     func fetchBoondockingLocations() {
         BoondockingController.fetchAllBoondockingLocations { (boondocking) in
-            if let boondocking = boondocking {
+            if let foundBoondocks = boondocking {
                 let usersLocation = self.locationManager.location?.coordinate
                 let coordinates = CLLocationCoordinate2D(latitude: usersLocation?.latitude ?? 0, longitude: usersLocation?.longitude ?? 0)
-                self.boondockingLocations = boondocking
+                self.boondockingLocations = foundBoondocks
                 
                 DispatchQueue.main.async {
-                    for boondocks in boondocking {
-                        let marker = BoondockingMarker(boondocking: [boondocks])
+                    for boondock in foundBoondocks {
+                        let marker = BoondockingMarker(boondocking: [boondock])
                         
                         self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 7, bearing: 0, viewingAngle: 0)
                         
@@ -105,16 +106,6 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
                 }
             }
         }
-    }
-    
-    func showToSAlert() {
-        let accuracyAlert = UIAlertController(title: nil, message: "By using the boondocking feature of this app you understand and agree to the ToS in the information section of this screen.", preferredStyle: .alert)
-        let understandAction = UIAlertAction(title: "I Understand", style: .default, handler: nil)
-        
-        accuracyAlert.addAction(understandAction)
-        self.present(accuracyAlert, animated: true)
-        
-        beenAlerted = true
     }
 }
 
@@ -140,22 +131,25 @@ extension BoondockingViewController: CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
-        guard let boondockingMarker = marker as? BoondockingMarker else { return nil }
-        
-        guard let infoView = UIView.viewFromNibName("BoondockingMarkerView") as? BoondockingMarkerView else {
-            return nil
+        guard let boondockingMarker = marker as? BoondockingMarker,
+            let infoView = UIView.viewFromNibName("BoondockingMarkerView") as? BoondockingMarkerView else {
+                return nil
         }
         
-        for boondock in boondockingMarker.boondocking {
+        let boondocks = boondockingMarker.boondocking
+        
+        for boondock in boondocks {
             infoView.descriptionLabel.text = boondock.description
             
             guard let latitude = boondock.latitude,
-                let longitude = boondock.longitude else { return  UIView() }
+                let longitude = boondock.longitude else {
+                    return  UIView()
+            }
             
-            let latitudeInDouble = Double("\(latitude)") ?? 0
-            let longitudeInDouble = Double("\(longitude)") ?? 0
+            let latitudeAsDouble = Double("\(latitude)") ?? 0
+            let longitudeAsDouble = Double("\(longitude)") ?? 0
             let usersLocation = CLLocation(latitude: locationManager.location?.coordinate.latitude ?? 0, longitude: locationManager.location?.coordinate.longitude ?? 0)
-            let destination = CLLocation(latitude: latitudeInDouble, longitude: longitudeInDouble)
+            let destination = CLLocation(latitude: latitudeAsDouble, longitude: longitudeAsDouble)
             let distanceInMeters = destination.distance(from: usersLocation)
             let distanceInMiles = Double(distanceInMeters) * 0.000621371
             

@@ -1,7 +1,42 @@
 # TheCampersToolkit
 
-The Camper’s Toolkit offers valuable tools for campers and outdoorsy people of all types. The Camper’s Toolkit gives campers the ability search for the perfect campgrounds and hiking trails all over the country. The Camper’s Toolkit also connects campers to the largest database of dry camping sites; that is, government or other public lands that are free to camp on for a certain amount of time without any hookups. Lastly, The Camper’s Toolkit gives campers the ability to view amenities near their campsite such as propane refill stations and auto repair shops.
+## Description
+The Camper’s Toolkit is a feature packed app that is a must have tool for those seeking to get closer to the great outdoors. 
 
-![Output sample](https://github.com/JustinTrautman/TheCampersToolkit/blob/master/tct.gif)
+The Camper’s toolkit connects you with information like: 
 
-Current version: 1.1
+Campground reviews 
+Current and forecasted weather information 
+High resolution images of campgrounds 
+Nearby amenities and hiking trails 
+Availability status 
+Sewer, water and power hookup information 
+Campground main office hour information 
+Built-in navigation to help get you to your next campground wherever you are 
+
+Additionally, The Camper’s Toolkit connects users to the largest public database of boondocking sites nationwide (Boondocking.org). It has never been easier to locate your next boondocking site directly from your smartphone! 
+
+The Camper’s Toolkit also addresses the biggest problem boondockers face when finding a new site: lack of information. That’s why we’ve gathered critical information such as what’s listed below for as many boondocking sites as possible. 
+
+Site management phone number and website 
+Detailed description from actual people who have camped there 
+If it’s free or paid 
+If it requires a pass or registration 
+If it has amenities such as picnic tables or fire rings 
+Recommended vehicle length 
+Satellite view for surveying each site 
+
+### Current Version: 1.5
+
+## What's new in this version:
+
+Boondocking location information is pulled from a Firebase database and populated on a map.
+Navigation integration
+
+## Technology used in The Camper's Toolkit:
+
+Languages: Swift and Objective-C
+Firebase
+UserDefaults
+JSON deserialization using Codable
+XML Parsing using XMLParserDelegate

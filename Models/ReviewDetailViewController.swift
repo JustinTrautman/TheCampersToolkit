@@ -23,7 +23,7 @@ class ReviewDetailViewController: UIViewController {
     @IBOutlet weak var reviewTimestamp: UILabel!
     @IBOutlet weak var reviewTextView: UITextView!
     
-    // MARK: Properties
+    // MARK: - Properties
     var reviews: Reviews?
     
     // Banner Ad Setup
@@ -134,9 +134,11 @@ extension ReviewDetailViewController : GADBannerViewDelegate {
         addBannerViewToView(bannerView)
         
         // Reposition the banner ad to create a slide down effect
-        bannerView.alpha = 0
-        UIView.animate(withDuration: 0.5, animations: {
-            bannerView.alpha = 1
-        })
+        DispatchQueue.main.async {
+            bannerView.alpha = 0
+            UIView.animate(withDuration: 0.5, animations: {
+                bannerView.alpha = 1
+            })
+        }
     }
 }

@@ -8,9 +8,6 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
- ✔ TODO: Fix default image
- ✔ TODO: Fix amenity typo
- 
  ----------------------------------------------------------------------------------------
  */
 
@@ -48,32 +45,11 @@ class AmenityDetailViewController: UIViewController {
     }
     
     // MARK: - Actions
-    // TODO: - DRY; give make navigation logic its own object
     @IBAction func takeMeHereButtonTapped(_ sender: Any) {
         guard let address = amenitieDetails?.formattedAddress,
-            let title = amenitieDetails?.name else { return }
+            let amenityName = amenitieDetails?.name else { return }
         
-        geoCoder.geocodeAddressString(address) { (placemarks, error) in
-            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
-            
-            if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
-                let url = URL(string: "comgooglemaps://?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving")!
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                print("Opening in Apple Maps")
-                
-                let coordinates = CLLocationCoordinate2DMake(location.latitude, location.longitude)
-                let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
-                let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-                let mapItem = MKMapItem(placemark: placemark)
-                let options = [
-                    MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
-                    MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
-                
-                mapItem.name = title
-                mapItem.openInMaps(launchOptions: options)
-            }
-        }
+        OpenUrlHelper.openNavigationApp(withAddress: address, orCoordinates: nil, mapItemName: amenityName)
     }
     
     @IBAction func phoneNumberButtonTapped(_ sender: Any) {
@@ -86,7 +62,7 @@ class AmenityDetailViewController: UIViewController {
     
     @IBAction func websiteButtonTapped(_ sender: Any) {
         guard let url = amenitieDetails?.website else { return }
-        openWebsiteUrl(url: url)
+        OpenUrlHelper.openWebsite(with: url)
     }
     
     func fetchAmenityDetails() {
@@ -112,7 +88,7 @@ class AmenityDetailViewController: UIViewController {
         guard let selectedType = GooglePlaceSearchController.selectedType else { return }
         
         if let photoReference = photoReference {
-            GoogleDetailController.fetchCampgroundPhotosWith(photoReference: photoReference) { (fetchedImage) in
+            GoogleDetailController.fetchPlacePhotoWith(photoReference: photoReference) { (fetchedImage) in
                 DispatchQueue.main.async {
                     if let fetchedImage = fetchedImage {
                         DispatchQueue.main.async {
@@ -167,62 +143,6 @@ class AmenityDetailViewController: UIViewController {
             }
         }
         
-        guard let hoursOfOperation = amenitieDetails?.openingHours else { return }
-        
-        let dayOfWeek = Date().dayOfWeek()!
-        
-        if let _ = hoursOfOperation.weekdayText {
-            
-            if dayOfWeek == "Sunday" {
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            }
-            
-            if dayOfWeek == "Monday" {
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            }
-            
-            if dayOfWeek == "Tuesday" {
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            }
-            
-            if dayOfWeek == "Wednesday" {
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            }
-            
-            if dayOfWeek == "Thursday" {
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            }
-            
-            if dayOfWeek == "Friday" {
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            }
-            
-            if dayOfWeek == "Saturday" {
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            }
-        }
-        
         if let amenityRating = amenitieDetails?.rating {
             let roundedRating = Double(amenityRating).roundToClosestHalf()
             
@@ -254,43 +174,73 @@ class AmenityDetailViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    func openWebsiteUrl(url: String) {
-        if let url = NSURL(string: url) {
-            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        
+        guard let hoursOfOperation = amenitieDetails?.openingHours else { return }
+        
+        let dayOfWeek = Date().dayOfWeek()!
+        
+        if let _ = hoursOfOperation.weekdayText {
+            guard let dayCases = DayOfTheWeek(rawValue: dayOfWeek) else { return }
+            
+            switch dayCases {
+            case .sunday:
+                let closingTime = returnClosingTime(forDay: dayOfWeek)
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
+            case .monday:
+                let closingTime = returnClosingTime(forDay: dayOfWeek)
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
+            case .tuesday:
+                let closingTime = returnClosingTime(forDay: dayOfWeek)
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
+            case.wednesday:
+                let closingTime = returnClosingTime(forDay: dayOfWeek)
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
+            case .thursday:
+                let closingTime = returnClosingTime(forDay: dayOfWeek)
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
+            case .friday:
+                let closingTime = returnClosingTime(forDay: dayOfWeek)
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
+            case .saturday:
+                let closingTime = returnClosingTime(forDay: dayOfWeek)
+                DispatchQueue.main.async {
+                    self.openUntilLabel.text = "\(closingTime)"
+                }
+            }
         }
     }
     
     func returnClosingTime(forDay: String) -> String {
-        guard let hoursOfOperation = amenitieDetails?.openingHours?.weekdayText else { return "" }
+        guard let hoursOfOperation = amenitieDetails?.openingHours?.weekdayText,
+            let dayCases = DayOfTheWeek(rawValue: forDay) else { return "" }
         var hoursString: String!
         
-        if forDay == "Monday" {
+        switch dayCases {
+        case .monday:
             hoursString = "\(hoursOfOperation[0])"
-        }
-        
-        if forDay == "Tuesday" {
+        case .tuesday:
             hoursString = "\(hoursOfOperation[1])"
-        }
-        
-        if forDay == "Wednesday" {
+        case .wednesday:
             hoursString = "\(hoursOfOperation[2])"
-        }
-        
-        if forDay == "Thursday" {
+        case .thursday:
             hoursString = "\(hoursOfOperation[3])"
-        }
-        
-        if forDay == "Friday" {
+        case .friday:
             hoursString = "\(hoursOfOperation[4])"
-        }
-        
-        if forDay == "Saturday" {
+        case .saturday:
             hoursString = "\(hoursOfOperation[5])"
-        }
-        
-        if forDay == "Sunday" {
+        case .sunday:
             hoursString = "\(hoursOfOperation[6])"
         }
         

@@ -8,13 +8,13 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
- ✔ TODO: - do didTap() functions for phoneNumberLabel and directionsLabel
- ✔ TODO: Test the case of no reviews with new campground fetch function. Verify it doesn't crash.
  ----------------------------------------------------------------------------------------
  */
 
 import UIKit
 import MapKit
+
+var shouldReloadReviews: Bool = false
 
 class CampgroundDetailViewController: UIViewController {
     
@@ -50,15 +50,23 @@ class CampgroundDetailViewController: UIViewController {
     
     @IBAction func visitWebsiteButtonTapped(_ sender: Any) {
         guard let url = campgroundDetails?.website else { return }
-        openWebsiteUrl(url: url)
+        OpenUrlHelper.openWebsite(with: url)
+    }
+    
+    @IBAction func directionsButtonTapped(_ sender: Any) {
+        guard let address = campgroundDetails?.formattedAddress,
+            let markerName = campgroundDetails?.name else { return }
+        
+        OpenUrlHelper.openNavigationApp(withAddress: address, orCoordinates: nil, mapItemName: markerName)
     }
     
     // MARK: - Properties
     var selectedCampground: Results?
     var campgroundDetails: Result?
     var reviews: [Reviews]?
-    var xmlCampgrounds: [Campgroundxml]?
+    var campgroundsXml: [Campgroundxml]?
     var campgroundPhoto: UIImage?
+    var photosArray: [Photos]?
     
     let geoCoder = CLGeocoder()
     
@@ -66,11 +74,13 @@ class CampgroundDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateViews()
-        fetchFromActiveApi()
-        
         reviewTableView.delegate = self
         reviewTableView.dataSource = self
+        
+        updateViews()
+        fetchFromActiveApi()
+        loadReviews()
+        listenForUnwindSegue()
         
         // Buttons are only enabled when data is available
         visitWebsiteButton.isEnabled = false
@@ -78,34 +88,7 @@ class CampgroundDetailViewController: UIViewController {
         viewHoursButton.isEnabled = false
         viewHoursButton.setTitleColor(.gray, for: .disabled)
     }
-    
-    // TODO: - DRY; give make navigation logic its own object
-    @IBAction func directionsButtonTapped(_ sender: Any) {
-        guard let address = campgroundDetails?.formattedAddress,
-            let markerName = campgroundDetails?.name else { return }
-        
-        geoCoder.geocodeAddressString(address) { (placemarks, error) in
-            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
-            
-            if (UIApplication.shared.canOpenURL(URL(string: "comgooglemaps://")!)) {
-                let url = URL(string: "comgooglemaps://?daddr=\(location.latitude),\(location.longitude)&directionsmode=driving")!
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-                print("Opening in Apple Maps")
-                
-                let coordinates = CLLocationCoordinate2DMake(location.latitude, location.longitude)
-                let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.02))
-                let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-                let mapItem = MKMapItem(placemark: placemark)
-                let options = [
-                    MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: region.center),
-                    MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
-                mapItem.name = markerName
-                mapItem.openInMaps(launchOptions: options)
-            }
-        }
-    }
-    
+
     func fetchFromActiveApi() {
         guard let selectedCampground = selectedCampground,
             let campgroundName = selectedCampground.name else { return }
@@ -115,7 +98,7 @@ class CampgroundDetailViewController: UIViewController {
             print("http://api.amp.active.com/camping/campgrounds/?pname=\(campgroundName)&api_key=\(Constants.activeApiKey)")
             print(campgroundxml)
             
-            self.xmlCampgrounds = campgroundxml
+            self.campgroundsXml = campgroundxml
         }
     }
     
@@ -137,8 +120,6 @@ class CampgroundDetailViewController: UIViewController {
         guard let campground = campgroundDetails else { return }
         
         DispatchQueue.main.async {
-            self.loadReviews()
-            
             if let campgroundName = campground.name {
                 self.campgroundNameLabel.text = campgroundName
                 self.navigationTitle.title = campgroundName
@@ -149,8 +130,8 @@ class CampgroundDetailViewController: UIViewController {
                 self.phoneNumberLabel.textColor = .blue
             }
             
-            if let campgroundAdress = campground.formattedAddress {
-                self.campgroundAddressLabel.text = campgroundAdress
+            if let campgroundAddress = campground.formattedAddress {
+                self.campgroundAddressLabel.text = campgroundAddress
             }
             
             if let campgroundReviews = campground.reviews {
@@ -161,21 +142,24 @@ class CampgroundDetailViewController: UIViewController {
                 self.visitWebsiteButton.isEnabled = true
             }
             
-            // TODO: Move opening hours to switch statement
-            if campground.openingHours?.openNow == true {
-                self.isOfficeOpenLabel.text = "Office open now"
-            }
-            
-            if campground.openingHours?.openNow == false {
-                self.isOfficeOpenLabel.text = "Office closed now"
-            }
-            
-            if campground.openingHours?.openNow == nil {
-                self.isOfficeOpenLabel.text = ""
+            if let campgroundHours = campground.openingHours {
+                self.viewHoursButton.isEnabled = true
+                
+                let isOfficeOpen = "\(campgroundHours.openNow ?? Bool())" 
+                
+                guard let isOpen = IsOpen(rawValue: isOfficeOpen) else { return }
+                
+                switch isOpen {
+                case .open:
+                    self.isOfficeOpenLabel.text = "Office Open Now"
+                case .closed:
+                    self.isOfficeOpenLabel.text = "Office Closed Now"
+                case .empty:
+                    self.isOfficeOpenLabel.text = ""
+                }
             }
             
             guard let campgroundRating = campground.rating else { return }
-            
             let roundedRating = Double(campgroundRating).roundToClosestHalf()
             
             switch roundedRating {
@@ -201,10 +185,6 @@ class CampgroundDetailViewController: UIViewController {
                 self.campgroundRatingImageView.image = UIImage(named: "5Stars")
             default:
                 self.campgroundRatingImageView.image = UIImage(named: "0Stars")
-                
-                if let _ = campground.openingHours {
-                    self.viewHoursButton.isEnabled = true
-                }
             }
         }
     }
@@ -215,19 +195,46 @@ class CampgroundDetailViewController: UIViewController {
         }
     }
     
-    // MARK: - Navigation
+    func listenForUnwindSegue() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateReviewsAfterUnwind(notification:)), name: Constants.updateReviewsKey, object: nil)
+    }
     
-    // TODO: - Move prepare for segue to switch statement
+    @objc func updateReviewsAfterUnwind(notification: NSNotification) {
+        guard let placeId = selectedCampground?.placeID else {
+            return
+        }
+        
+        shouldReloadReviews = true
+        
+        GoogleDetailController.fetchPlaceReviewsWith(placeId: placeId) { (reviews) in
+            if let reviews = reviews {
+                self.reviews = reviews
+            }
+            
+            self.loadReviews()
+        }
+    }
+    
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "reviewDetail" {
             if let indexPath = self.reviewTableView.indexPathForSelectedRow {
                 guard let detailVC = segue.destination as?
                     ReviewDetailViewController else { return }
                 
-                guard let googleReviews = GoogleDetailController.campgrounds?.reviews else { return }
-                let review = googleReviews[indexPath.row]
+                var review: Reviews
                 
-                detailVC.reviews = review
+                if shouldReloadReviews == true {
+                    guard let campgroundReviews = reviews else { return }
+                    review = campgroundReviews[indexPath.row]
+                    
+                    detailVC.reviews = review
+                } else {
+                    guard let campgroundReviews = GoogleDetailController.campgrounds?.reviews else { return }
+                    review = campgroundReviews[indexPath.row]
+                    
+                    detailVC.reviews = review
+                }
             }
         }
         
@@ -262,8 +269,8 @@ class CampgroundDetailViewController: UIViewController {
         
         if segue.identifier == "photoDetail" {
             guard let detailVC = segue.destination as? CampgroundPhotosViewController else { return }
-            
-            detailVC.photos = campgroundDetails?.photos
+    
+            detailVC.photoReferences = photosArray
             
             if campgroundDetails?.photos?.count == nil {
                 showNoPhotosAlert()
@@ -299,22 +306,14 @@ class CampgroundDetailViewController: UIViewController {
     // Gesture recogizer for phone number label. Presents the user with a prompt to complete the call.
     @objc func tapFunction(sender: UITapGestureRecognizer) {
         guard let numberToCall = phoneNumberLabel.text?.replacingOccurrences(of: " ", with: "") else { return }
-        if let phoneURL = URL(string: "telprompt://\(numberToCall)") {
-            UIApplication.shared.canOpenURL(phoneURL)
-            UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
-        }
-    }
-    
-    func openWebsiteUrl(url: String) {
-        if let url = NSURL(string: url) {
-            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
-        }
+        
+        OpenUrlHelper.call(phoneNumber: numberToCall)
     }
     
     func showNoPhotosAlert() {
         if let campgroundName = campgroundDetails?.name {
-            let noPhotosAlert = UIAlertController(title: nil, message: "\(campgroundName) has no photos", preferredStyle: .alert)
-            noPhotosAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            let noPhotosAlert = UIAlertController(title: nil, message: "\(campgroundName) doesn't have any photos", preferredStyle: .alert)
+            noPhotosAlert.addAction(UIAlertAction(title: "Back", style: .default, handler: nil))
             
             self.present(noPhotosAlert, animated: true)
         }
@@ -324,9 +323,17 @@ class CampgroundDetailViewController: UIViewController {
 extension CampgroundDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let unwrappedReviews = GoogleDetailController.campgrounds?.reviews else { return 0 }
-        
-        return unwrappedReviews.count
+        if shouldReloadReviews == true {
+            guard let reviews = reviews else {
+                return 0
+            }
+            return reviews.count
+        } else {
+            guard let reviews = GoogleDetailController.campgrounds?.reviews else {
+                return 0
+            }
+            return reviews.count
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -337,12 +344,25 @@ extension CampgroundDetailViewController: UITableViewDelegate, UITableViewDataSo
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as?
             CampgroundReviewCell else { return UITableViewCell() }
         
-        guard let unwrappedReviews = GoogleDetailController.campgrounds?.reviews else { return UITableViewCell() }
-        
-        let review = unwrappedReviews[indexPath.row]
-        cell.reviews = review
-        
-        return cell
+        if shouldReloadReviews == true {
+            guard let reviews = reviews else {
+                return UITableViewCell()
+            }
+            
+            let review = reviews[indexPath.row]
+            cell.reviews = review
+            
+            return cell
+        } else {
+            guard let reviews = GoogleDetailController.campgrounds?.reviews else {
+                return UITableViewCell()
+            }
+            
+            let review = reviews[indexPath.row]
+            cell.reviews = review
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

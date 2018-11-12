@@ -14,30 +14,23 @@
 import UIKit
 
 class PhotoTableViewCell: UITableViewCell {
-    
-    static let shared = PhotoTableViewCell()
-    
+        
     // MARK: - Outlets
     @IBOutlet weak var headerImageView: UIImageView!
     
     // MARK: - Properties
-    var photos: Photos? {
+    var photos: UIImage? {
         didSet {
             updateViews()
         }
     }
     
     func updateViews() {
-        guard let unwrappedPhotos = self.photos,
-            let photoReference = unwrappedPhotos.photoReference else { return }
+        guard let unwrappedPhotos = self.photos else { return }
         
-        GoogleDetailController.fetchCampgroundPhotosWith(photoReference: "\(photoReference)", completion: { (photo) in
-            if let photo = photo {
-                DispatchQueue.main.async {
-                    self.headerImageView.image = photo
-                }
-            }
-        })
+        DispatchQueue.main.async {
+            self.headerImageView.image = unwrappedPhotos
+        }
     }
     
     override func prepareForReuse() {

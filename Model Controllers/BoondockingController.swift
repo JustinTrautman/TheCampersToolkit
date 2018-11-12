@@ -15,7 +15,7 @@ import Foundation
 
 class BoondockingController {
     
-    static let baseURL = URL(string: "https://the-camper-s-toolkit.firebaseio.com")!
+    static let baseURL = URL(string: Constants.boondockingDatabase)!
     static let getterEndpoint = baseURL.appendingPathComponent(".json")
     static var boondocks: [Boondocking]?
     

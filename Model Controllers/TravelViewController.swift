@@ -22,6 +22,14 @@ class TravelViewController: UIViewController {
     @IBOutlet weak var supermarketButton: UIButton!
     @IBOutlet weak var carRepairButton: UIButton!
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if isMovingFromParent {
+            NotificationCenter.default.post(name: Constants.updateReviewsKey, object: nil)
+        }
+    }
+    
     // MARK: - Properties
     var selectedType = ""
     var amenityMarker: AmenityMarker?

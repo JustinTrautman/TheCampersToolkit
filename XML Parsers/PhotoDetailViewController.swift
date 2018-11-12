@@ -13,30 +13,37 @@
 
 import UIKit
 
-class PhotoDetailViewController: UIViewController {
+class PhotoDetailViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Outlets
-    @IBOutlet weak var photoDetailImageView: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var detailImageView: UIImageView!
     
     // MARK: - Properties
-    var photo: Photos?
+    var photo: UIImage?
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        scrollView.delegate = self
+        
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 6.0
+        
         updateViews()
     }
     
     func updateViews() {
-        guard let photoReference = photo?.photoReference else { return }
+        guard let selectedPhoto = photo else { return }
         
-        GoogleDetailController.fetchCampgroundPhotosWith(photoReference: photoReference) { (photo) in
-            if let photo = photo {
-                DispatchQueue.main.async {
-                    self.photoDetailImageView.image = photo
-                }
-            }
+        DispatchQueue.main.async {
+            self.detailImageView.image = selectedPhoto
         }
+    }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+    
+        return detailImageView
     }
 }

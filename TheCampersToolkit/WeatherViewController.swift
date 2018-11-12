@@ -8,10 +8,6 @@
  Copyright © 2018 Modular Mobile LLC. All rights reserved.
  Justin@modularmobile.net
  
- ✔ TODO: Implement Sunrise and sunset times. Convert from Unix time to human time...
- ✔ TODO: Implement weekly forcast...
- ✔ TODO: Replace Google Geocoder with CLGeocoder
- 
  ----------------------------------------------------------------------------------------
  */
 
@@ -65,12 +61,12 @@ class WeatherViewController: UIViewController {
         super.viewDidLoad()
         
         // Setup Ad Banner
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+//        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         
-        addBannerViewToView(bannerView)
+//        addBannerViewToView(bannerView)
         
         // Load Ad Banner
-        adBannerView.load(GADRequest())
+//        adBannerView.load(GADRequest())
         
         updateViews()
         fetchForecastedWeather()
@@ -231,6 +227,7 @@ class WeatherViewController: UIViewController {
                     if let forecast = forecast {
                         self.forecastedWeatherData = forecast
                         
+                        
                         DispatchQueue.main.async {
                             self.forecastCollectionView.delegate = self
                             self.forecastCollectionView.dataSource = self
@@ -333,9 +330,11 @@ extension WeatherViewController : GADBannerViewDelegate {
         addBannerViewToView(bannerView)
         
         // Reposition the banner ad to create a slide down effect
-        bannerView.alpha = 0
-        UIView.animate(withDuration: 0.5, animations: {
-            bannerView.alpha = 1
-        })
+        DispatchQueue.main.async {
+            bannerView.alpha = 0
+            UIView.animate(withDuration: 0.5, animations: {
+                bannerView.alpha = 1
+            })
+        }
     }
 }
