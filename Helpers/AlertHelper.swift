@@ -13,6 +13,7 @@ struct AlertHelper {
     static func showCustomAlert(on vc: UIViewController, title: String, message: String) {
         let customAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         customAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
         DispatchQueue.main.async {
             vc.present(customAlert, animated: true)
         }

@@ -46,7 +46,9 @@ struct AppRatingHelper {
     
     func requestReview() {
         if #available(iOS 10.3, *) {
-            SKStoreReviewController.requestReview()
+            DispatchQueue.main.async {
+                SKStoreReviewController.requestReview()
+            }
         }
     }
 }

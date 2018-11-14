@@ -499,7 +499,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="UkC-gk-HAe">
                                                 <rect key="frame" x="154" y="0.0" width="124" height="337"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zn5-Ya-GL4">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zn5-Ya-GL4">
                                                         <rect key="frame" x="0.0" y="0.0" width="124" height="145.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EwN-BL-YuS">
@@ -513,7 +513,7 @@
                                                                     <segue destination="lOu-l6-Ukv" kind="show" identifier="toPropaneMap" id="EeN-kM-JJK"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Propane" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQ8-9i-ijA">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Propane" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQ8-9i-ijA">
                                                                 <rect key="frame" x="0.0" y="125" width="124" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
@@ -524,7 +524,7 @@
                                                             <constraint firstItem="aQ8-9i-ijA" firstAttribute="width" secondItem="EwN-BL-YuS" secondAttribute="width" id="4L4-Az-y56"/>
                                                         </constraints>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E8g-Hd-wex">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="E8g-Hd-wex">
                                                         <rect key="frame" x="0.0" y="191.5" width="124" height="145.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZE-tO-Kzg">
@@ -538,7 +538,7 @@
                                                                     <segue destination="lOu-l6-Ukv" kind="show" identifier="toCarRepairMap" id="rcY-Ql-uu5"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Car Repair" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTr-uF-HVA">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Car Repair" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTr-uF-HVA">
                                                                 <rect key="frame" x="0.0" y="125" width="124" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
@@ -2349,7 +2349,6 @@
                     <connections>
                         <segue destination="pvf-x6-tlH" kind="relationship" relationship="viewControllers" id="FS2-Qv-5Ns"/>
                         <segue destination="fwZ-jk-cBE" kind="relationship" relationship="viewControllers" id="vMg-sB-HcY"/>
-                        <segue destination="Cy7-v8-23e" kind="relationship" relationship="viewControllers" id="wdQ-Fv-LII"/>
                         <segue destination="XVC-g7-yjp" kind="relationship" relationship="viewControllers" id="9dw-9l-M2U"/>
                     </connections>
                 </tabBarController>
@@ -2377,25 +2376,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YIU-aA-se8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="381.60000000000002" y="-785.75712143928047"/>
-        </scene>
-        <!--Hiking-->
-        <scene sceneID="fuw-gT-0DC">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Cy7-v8-23e" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Hiking" image="Hiking" id="VRt-nb-QRn"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jKS-vr-ey0">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="l9n-0q-2xe" kind="relationship" relationship="rootViewController" id="lMX-DQ-PqS"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sPc-kJ-YXD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="381" y="994"/>
         </scene>
         <!--Information View Controller-->
         <scene sceneID="uhW-Gi-DRL">
@@ -2892,41 +2872,40 @@
         <image name="0Stars" width="299" height="58"/>
         <image name="Boondocking" width="24" height="24"/>
         <image name="Camping" width="24" height="24"/>
-        <image name="Default-1" width="512" height="512"/>
-        <image name="Hiking" width="24" height="24"/>
+        <image name="Default-1" width="409.60000610351562" height="409.60000610351562"/>
         <image name="NearbyAmenitiesBanner" width="310" height="45"/>
-        <image name="Photos" width="64" height="64"/>
-        <image name="Reviews" width="64" height="64"/>
-        <image name="Travel" width="24" height="24"/>
-        <image name="Weather" width="64" height="64"/>
+        <image name="Photos" width="418.90908813476562" height="418.90908813476562"/>
+        <image name="Reviews" width="418.90908813476562" height="418.90908813476562"/>
+        <image name="Travel" width="19.200000762939453" height="19.200000762939453"/>
+        <image name="Weather" width="384" height="384"/>
         <image name="addressIcon" width="32" height="32"/>
-        <image name="blackMoreArrow" width="32" height="32"/>
-        <image name="carRepair" width="512" height="512"/>
+        <image name="blackMoreArrow" width="25.600000381469727" height="25.600000381469727"/>
+        <image name="carRepair" width="384" height="384"/>
         <image name="directionsIcon" width="32" height="32"/>
-        <image name="elevation" width="128" height="128"/>
-        <image name="fullScreenMap" width="32" height="32"/>
-        <image name="gasStation" width="512" height="512"/>
+        <image name="elevation" width="400.69564819335938" height="400.69564819335938"/>
+        <image name="fullScreenMap" width="25.600000381469727" height="25.600000381469727"/>
+        <image name="gasStation" width="409.60000610351562" height="409.60000610351562"/>
         <image name="high" width="512" height="512"/>
-        <image name="hikingDefault" width="512" height="512"/>
-        <image name="hikingIcon" width="128" height="128"/>
+        <image name="hikingDefault" width="409.60000610351562" height="409.60000610351562"/>
+        <image name="hikingIcon" width="400.69564819335938" height="400.69564819335938"/>
         <image name="hoursIcon" width="32" height="32"/>
-        <image name="infoIcon" width="32" height="32"/>
-        <image name="lightClouds" width="256" height="256"/>
+        <image name="infoIcon" width="25.600000381469727" height="25.600000381469727"/>
+        <image name="lightClouds" width="409.60000610351562" height="409.60000610351562"/>
         <image name="low" width="512" height="512"/>
-        <image name="mapIcon" width="32" height="32"/>
-        <image name="mapTypeIcon" width="32" height="32"/>
-        <image name="medium" width="512" height="512"/>
+        <image name="mapIcon" width="41.890907287597656" height="41.890907287597656"/>
+        <image name="mapTypeIcon" width="25.600000381469727" height="25.600000381469727"/>
+        <image name="medium" width="409.60000610351562" height="409.60000610351562"/>
         <image name="noImageAvailable" width="220" height="220"/>
         <image name="phoneIcon" width="32" height="32"/>
-        <image name="propane" width="512" height="512"/>
-        <image name="searchRadius" width="24" height="24"/>
-        <image name="sunny" width="256" height="256"/>
-        <image name="sunnyBig" width="256" height="256"/>
-        <image name="sunrise" width="512" height="512"/>
-        <image name="sunset" width="512" height="512"/>
-        <image name="supermarket" width="512" height="512"/>
-        <image name="support" width="128" height="128"/>
-        <image name="termsofService" width="128" height="128"/>
+        <image name="propane" width="409.60000610351562" height="409.60000610351562"/>
+        <image name="searchRadius" width="19.200000762939453" height="19.200000762939453"/>
+        <image name="sunny" width="317.7930908203125" height="317.7930908203125"/>
+        <image name="sunnyBig" width="317.7930908203125" height="317.7930908203125"/>
+        <image name="sunrise" width="48" height="48"/>
+        <image name="sunset" width="48" height="48"/>
+        <image name="supermarket" width="43.833530426025391" height="43.833530426025391"/>
+        <image name="support" width="102.40000152587891" height="102.40000152587891"/>
+        <image name="termsofService" width="102.40000152587891" height="102.40000152587891"/>
         <image name="unknownWeather" width="512" height="512"/>
         <image name="websiteIcon" width="32" height="32"/>
         <image name="windLow" width="512" height="512"/>
@@ -2935,6 +2914,5 @@
         <segue reference="Ke2-gL-jM7"/>
         <segue reference="4j2-oP-0DO"/>
         <segue reference="IBg-BN-gxh"/>
-        <segue reference="ghD-RQ-FOO"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -15,10 +15,11 @@ import UIKit
 import GoogleMaps
 import MapKit
 import GoogleMobileAds
+import SafariServices
 
 var shownAd: Bool = false
 
-class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GADInterstitialDelegate {
+class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GADInterstitialDelegate, SFSafariViewControllerDelegate {
     
     // MARK: - Outlets
     @IBOutlet weak var mapView: GMSMapView!
@@ -65,7 +66,6 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
         if shownAd == false {
             interstitial = createAndLoadInterstitial()
         }
-        
     }
     
     // MARK: - Actions
@@ -82,7 +82,7 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
     
     @IBAction func visitWebsiteButtonTapped(_ sender: Any) {
         if let url = selectedBoondock?.website {
-            OpenUrlHelper.openWebsite(with: url)
+            OpenUrlHelper.openWebsite(with: url, on: self)
         }
     }
     

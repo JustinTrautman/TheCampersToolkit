@@ -14,8 +14,9 @@
 import UIKit
 import GoogleMaps
 import MapKit
+import SafariServices
 
-class AmenityDetailViewController: UIViewController {
+class AmenityDetailViewController: UIViewController, SFSafariViewControllerDelegate {
     
     // MARK: - Outlets
     @IBOutlet weak var amenityImageView: UIImageView!
@@ -62,7 +63,7 @@ class AmenityDetailViewController: UIViewController {
     
     @IBAction func websiteButtonTapped(_ sender: Any) {
         guard let url = amenitieDetails?.website else { return }
-        OpenUrlHelper.openWebsite(with: url)
+        OpenUrlHelper.openWebsite(with: url, on: self)
     }
     
     func fetchAmenityDetails() {

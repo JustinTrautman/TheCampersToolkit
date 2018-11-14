@@ -8,15 +8,20 @@
 
 import Foundation
 import MapKit
+import SafariServices
 
 var coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
 var markerName: String = ""
 
 struct OpenUrlHelper {
     
-    static func openWebsite(with url: String) {
-        if let url = NSURL(string: url) {
-            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+    static func openWebsite(with url: String, on vc: UIViewController) {
+        if let url = URL(string: url) {
+            let SafariVC = SFSafariViewController(url: url)
+            
+            DispatchQueue.main.async {
+                vc.present(SafariVC, animated: true)
+            }
         }
     }
     

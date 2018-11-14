@@ -13,10 +13,11 @@
 
 import UIKit
 import MapKit
+import SafariServices
 
 var shouldReloadReviews: Bool = false
 
-class CampgroundDetailViewController: UIViewController {
+class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDelegate {
     
     // MARK: - Outlets
     @IBOutlet weak var scrollView: UIScrollView!
@@ -50,9 +51,9 @@ class CampgroundDetailViewController: UIViewController {
     
     @IBAction func visitWebsiteButtonTapped(_ sender: Any) {
         guard let url = campgroundDetails?.website else { return }
-        OpenUrlHelper.openWebsite(with: url)
+        OpenUrlHelper.openWebsite(with: url, on: self)
     }
-    
+
     @IBAction func directionsButtonTapped(_ sender: Any) {
         guard let address = campgroundDetails?.formattedAddress,
             let markerName = campgroundDetails?.name else { return }
