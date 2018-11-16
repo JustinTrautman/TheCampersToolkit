@@ -17,10 +17,10 @@ struct OpenUrlHelper {
     
     static func openWebsite(with url: String, on vc: UIViewController) {
         if let url = URL(string: url) {
-            let SafariVC = SFSafariViewController(url: url)
+            let safariVC = SFSafariViewController(url: url)
             
             DispatchQueue.main.async {
-                vc.present(SafariVC, animated: true)
+                vc.present(safariVC, animated: true)
             }
         }
     }
