@@ -10,7 +10,8 @@
  
  Google Place Search API: https://developers.google.com/places/web-service/search
  
- ----------------------------------------------------------------------------------------
+ TODO: Version 2.0 - Tell user that the map couldn't populate because they were offline and give them an option to refresh.
+  ----------------------------------------------------------------------------------------
  */
 
 import Foundation

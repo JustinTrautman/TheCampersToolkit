@@ -89,6 +89,10 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
     }
     
     func fetchBoondockingLocations() {
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
+        
         BoondockingController.fetchAllBoondockingLocations { (boondocking) in
             if let foundBoondocks = boondocking {
                 let usersLocation = self.locationManager.location?.coordinate
@@ -104,6 +108,10 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
                         marker.map = self.mapView
                     }
                 }
+            }
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
         }
     }

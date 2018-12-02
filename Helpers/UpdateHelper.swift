@@ -8,6 +8,8 @@
 
 import Foundation
 
+// TODO: - Design popup for update alert
+
 struct UpdateHelper {
     
     static func getAppInfo(completion: @escaping (AppInfo?, Error?) -> Void) -> URLSessionDataTask? {

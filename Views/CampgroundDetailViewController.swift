@@ -51,8 +51,11 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
     
     @IBAction func visitWebsiteButtonTapped(_ sender: Any) {
         guard let url = campgroundDetails?.website else { return }
+        
         OpenUrlHelper.openWebsite(with: url, on: self)
+         let urlToLoad = URL(string: url)
     }
+    
 
     @IBAction func directionsButtonTapped(_ sender: Any) {
         guard let address = campgroundDetails?.formattedAddress,
@@ -65,6 +68,7 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
     var selectedCampground: Results?
     var campgroundDetails: Result?
     var reviews: [Reviews]?
+    var selectedReview: Reviews?
     var campgroundsXml: [Campgroundxml]?
     var campgroundPhoto: UIImage?
     var photosArray: [Photos]?
@@ -223,18 +227,16 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
                 guard let detailVC = segue.destination as?
                     ReviewDetailViewController else { return }
                 
-                var review: Reviews
-                
                 if shouldReloadReviews == true {
                     guard let campgroundReviews = reviews else { return }
-                    review = campgroundReviews[indexPath.row]
+                    selectedReview = campgroundReviews[indexPath.row]
                     
-                    detailVC.reviews = review
+                    detailVC.reviews = selectedReview
                 } else {
                     guard let campgroundReviews = GoogleDetailController.campgrounds?.reviews else { return }
-                    review = campgroundReviews[indexPath.row]
+                    selectedReview = campgroundReviews[indexPath.row]
                     
-                    detailVC.reviews = review
+                    detailVC.reviews = selectedReview
                 }
             }
         }

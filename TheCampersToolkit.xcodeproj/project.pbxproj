@@ -77,7 +77,6 @@
 		D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */; };
 		D0D2C80C214600E20003C883 /* AmenityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2C80B214600E20003C883 /* AmenityDetailViewController.swift */; };
 		D0D2C8102146B5480003C883 /* AmenityMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D2C80F2146B5480003C883 /* AmenityMarkerView.xib */; };
-		D0D39BDA215DCE42006F1CF8 /* CampgrounHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D39BD9215DCE42006F1CF8 /* CampgrounHoursViewController.swift */; };
 		D0D39BDC215DCF1B006F1CF8 /* SatelliteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D39BDB215DCF1B006F1CF8 /* SatelliteViewController.swift */; };
 		D0D6298E217BBB06008AE91A /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D6298D217BBB06008AE91A /* AlertHelper.swift */; };
 		D0D8850321695E71002425DB /* ForecastDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D8850221695E71002425DB /* ForecastDetailViewController.swift */; };
@@ -589,7 +588,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Justin Trautman";
 				TargetAttributes = {
 					D0C5E05A20F97C0A00210FC1 = {
@@ -743,7 +742,6 @@
 				D022B1E620FD2ADF0012025A /* GoogleDetailController.swift in Sources */,
 				D0026CA82160747900DA8693 /* GMUGeometryRenderer.m in Sources */,
 				D0D88507216A5B8B002425DB /* Enums.swift in Sources */,
-				D0D39BDA215DCE42006F1CF8 /* CampgrounHoursViewController.swift in Sources */,
 				D0B5CEC6215E787500180BBA /* AppRatingHelper.swift in Sources */,
 				D0234C15210D00B500038CAF /* XMLParser.swift in Sources */,
 				D0026C9D2160747900DA8693 /* GMUGridBasedClusterAlgorithm.m in Sources */,
@@ -806,6 +804,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -866,6 +865,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

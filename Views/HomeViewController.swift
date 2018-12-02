@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     private var searchType = "campground"
     private let locationManager = CLLocationManager()
-    private let searchRadius: Double = 50000 // <<< 31 miles. Max allowed by Google.
+    private let searchRadius: Double = 15000 // <<< 31 miles. Max allowed by Google.
     private let placesClient = GMSPlacesClient()
     let geoCoder = CLGeocoder()
     
@@ -55,6 +55,10 @@ class HomeViewController: UIViewController {
     // MARK: - Fetcher Functions
     func fetchCampgroundsAround(coordinate: CLLocationCoordinate2D) {
         mapView.clear()
+        
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        }
         
         guard var searchText = searchBar.text,
             let location = locationManager.location?.coordinate else { return }
@@ -87,6 +91,11 @@ class HomeViewController: UIViewController {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     }
                 }
+                
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
+                
                 if places?.count == 0 {
                     AlertHelper.showNoCampgroundsAlert(on: self)
                 }
