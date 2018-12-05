@@ -18,8 +18,8 @@ import Foundation
 struct Constants {
     
     // API Keys
-    static let googleApiKey = "apikey"
-    //  static let googleApiKey = "BOGUS"
+//     static let googleApiKey = "apikey"
+      static let googleApiKey = "BOGUS"
     static let openWeatherApiKey = "apikey"
     static let activeApiKey = "apikey"
     static let gasFeedApiKey = "apikey"
@@ -35,8 +35,8 @@ struct Constants {
 //    static let interstitialAdUnitID = "unitID"
     
     // Testing ad Unit ID
-    static let interstitialAdUnitID = "ca-app-pub-3940256099942544/4411468910"
-    static let bannerAdUnitID = "ca-app-pub-3940256099942544/2934735716"
+    static let interstitialAdUnitID = "unitID"
+    static let bannerAdUnitID = "unitID"
     
     // Notification Keys
     static let updateReviewsKey = Notification.Name("net.modularmobile.updateReviews")

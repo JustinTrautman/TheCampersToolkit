@@ -13,5 +13,9 @@ pod 'GoogleMaps'
 pod 'GooglePlaces'
 pod 'GooglePlacePicker'
 pod 'Google-Mobile-Ads-SDK'
+pod 'Firebase/Database'
+pod 'Firebase/Core'
+pod 'Firebase/Auth'
+pod 'Firebase/Storage'
 
 end

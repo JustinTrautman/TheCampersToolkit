@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     private var searchType = "campground"
     private let locationManager = CLLocationManager()
-    private let searchRadius: Double = 15000 // <<< 31 miles. Max allowed by Google.
+    private let searchRadius: Double = 10000 // <<< 31 miles. Max allowed by Google.
     private let placesClient = GMSPlacesClient()
     let geoCoder = CLGeocoder()
     
@@ -132,10 +132,25 @@ class HomeViewController: UIViewController {
 // MARK: - CLLocationManagerDelegate
 extension HomeViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        guard status == .authorizedWhenInUse else {
+        switch status {
+        case .denied:
+            // Show app needs location to work alert
+            print("Denied")
+            return
+        case .authorizedWhenInUse:
+            print("Authorized when in use")
+            break
+        case .authorizedAlways:
+            print("Authorized always")
+            break
+        case .notDetermined:
+            print("Authorization not yet determined")
+            // Alert
+            return
+        default:
             return
         }
-        
+
         locationManager.startUpdatingLocation()
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true

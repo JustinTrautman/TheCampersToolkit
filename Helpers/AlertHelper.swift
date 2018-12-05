@@ -32,6 +32,6 @@ struct AlertHelper {
     }
     
     static func showSupportAlert(on vc: UIViewController) {
-        showCustomAlert(on: vc, title: "You may send support questions, feature requests, or report any data inaccuracies to justin@modularmobile.net", message: "")
+        showCustomAlert(on: vc, title: "You may send support questions, feature requests, or report any data inaccuracies to support@modularmobile.net", message: "")
     }
 }

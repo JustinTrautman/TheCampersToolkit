@@ -13,6 +13,7 @@
 
 import UIKit
 import GoogleMaps
+import Firebase
 
 class BoondockingViewController: UIViewController, GMSMapViewDelegate {
     
@@ -32,6 +33,7 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
     var boondockingLocations: [Boondocking]?
     var selectedBoondock: Boondocking?
     var beenAlerted = UserDefaults.standard.bool(forKey: "Alerted")
+    var authToken: String?
     
     // MARK: - View Lifecylce
     override func viewDidLoad() {
@@ -47,12 +49,10 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
             
             UserDefaults.standard.setValue("True", forKey: "Alerted")
             UserDefaults.standard.synchronize()
-            
-            fetchBoondockingLocations()
         }
         
-        // If user has already agreed, fetch locations
-        fetchBoondockingLocations()
+        // If user has already agreed, authenticate and fetch locations
+        authenticateAnonymouslyToDatabase()
     }
     
     func openSearchWindow() {
@@ -93,25 +93,65 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
         
-        BoondockingController.fetchAllBoondockingLocations { (boondocking) in
-            if let foundBoondocks = boondocking {
-                let usersLocation = self.locationManager.location?.coordinate
-                let coordinates = CLLocationCoordinate2D(latitude: usersLocation?.latitude ?? 0, longitude: usersLocation?.longitude ?? 0)
-                self.boondockingLocations = foundBoondocks
-                
-                DispatchQueue.main.async {
-                    for boondock in foundBoondocks {
-                        let marker = BoondockingMarker(boondocking: [boondock])
-                        
-                        self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 7, bearing: 0, viewingAngle: 0)
-                        
-                        marker.map = self.mapView
+        if let token = authToken {
+            BoondockingController.fetchAllBoondockingLocations(with: token) { (boondocking) in
+                if let foundBoondocks = boondocking {
+                    let usersLocation = self.locationManager.location?.coordinate
+                    let coordinates = CLLocationCoordinate2D(latitude: usersLocation?.latitude ?? 0, longitude: usersLocation?.longitude ?? 0)
+                    self.boondockingLocations = foundBoondocks
+                    
+                    DispatchQueue.main.async {
+                        for boondock in foundBoondocks {
+                            let marker = BoondockingMarker(boondocking: [boondock])
+                            
+                            self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 7, bearing: 0, viewingAngle: 0)
+                            
+                            marker.map = self.mapView
+                        }
                     }
                 }
+                
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
+            }
+        } else {
+            // TODO: Firebase error handling
+        }
+    }
+    
+    func authenticateAnonymouslyToDatabase() {
+        guard let plistPath = Bundle.main.path(forResource: "boondocking-database", ofType: "plist") else {
+            preconditionFailure("Could not load Boondocking Database configuration file.")
+        }
+        
+        guard let fileopts = FirebaseOptions(contentsOfFile: plistPath) else {
+            preconditionFailure("Loaded Boondocking Database plist successfuly, but could not configure Firebase options.")
+        }
+        
+        FirebaseApp.configure(name: "boondocking-database", options: fileopts)
+        let app = FirebaseApp.app(name: "boondocking-database")
+        
+        Auth.auth(app: app!).signInAnonymously { (result, error) in
+            if let error = error {
+                // TODO: - Create Firebase error handling enum
+                print("Error signing in user anonymously. \(error.localizedDescription)")
             }
             
-            DispatchQueue.main.async {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            if let _ = result {
+                let user = result?.user
+                
+                user?.getIDToken(completion: { (token, error) in
+                    if let error = error {
+                        assertionFailure("Could not get anonymous user token. \(error.localizedDescription)")
+                    }
+                    
+                    if let token = token {
+                        print("User is authenticated anonymously to Camping database and has a token of \(token)")
+                        self.authToken = token
+                        self.fetchBoondockingLocations()
+                    }
+                })
             }
         }
     }

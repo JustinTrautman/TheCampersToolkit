@@ -19,13 +19,19 @@ class BoondockingController {
     static let getterEndpoint = baseURL.appendingPathComponent(".json")
     static var boondocks: [Boondocking]?
     
-    static func fetchAllBoondockingLocations(completion: @escaping ([Boondocking]?) -> Void) {
+    static func fetchAllBoondockingLocations(with authToken: String, completion: @escaping ([Boondocking]?) -> Void) {
         
-        var request = URLRequest(url: getterEndpoint)
-        request.httpBody = nil
-        request.httpMethod = "GET"
+        var components = URLComponents(url: getterEndpoint, resolvingAgainstBaseURL: true)
+        let authQuery = URLQueryItem(name: "auth", value: authToken)
+        let queryArry = [authQuery]
         
-        URLSession.shared.dataTask(with: request) { (data, _, error) in
+        components?.queryItems = queryArry
+        
+        guard let completeUrl = components?.url else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: completeUrl) { (data, _, error) in
             if let error = error {
                 print("There was an error retrieving data in \(#function). Error: \(error)")
                 completion(nil)
