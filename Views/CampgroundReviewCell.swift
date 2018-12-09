@@ -12,13 +12,14 @@
  */
 
 import UIKit
+import Cosmos
 
 class CampgroundReviewCell: UITableViewCell {
     
     // MARK: - Outlets
     @IBOutlet weak var reviewerProfileImageView: UIImageView!
     @IBOutlet weak var reviewerNameLabel: UILabel!
-    @IBOutlet weak var reviewRatingImageView: UIImageView!
+    @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var reviewTimestampLabel: UILabel!
     @IBOutlet weak var reviewTextLabel: UILabel!
     
@@ -41,25 +42,25 @@ class CampgroundReviewCell: UITableViewCell {
         
         switch reviewRating {
         case 1:
-            reviewRatingImageView.image = UIImage(named: "1Stars")
+            self.ratingView.rating = 1
         case 1.5:
-            reviewRatingImageView.image = UIImage(named: "1.5Stars")
+            self.ratingView.rating = 1.5
         case 2:
-            reviewRatingImageView.image = UIImage(named: "2Stars")
+            self.ratingView.rating = 2
         case 2.5:
-            reviewRatingImageView.image = UIImage(named: "2.5Stars")
+            self.ratingView.rating = 2.5
         case 3:
-            reviewRatingImageView.image = UIImage(named: "3Stars")
+            self.ratingView.rating = 3
         case 3.5:
-            reviewRatingImageView.image = UIImage(named: "3.5Stars")
+            self.ratingView.rating = 3.5
         case 4:
-            reviewRatingImageView.image = UIImage(named: "4Stars")
+            self.ratingView.rating = 4
         case 4.5:
-            reviewRatingImageView.image = UIImage(named: "4.5Stars")
+            self.ratingView.rating = 4.5
         case 5:
-            reviewRatingImageView.image = UIImage(named: "5Stars")
+            self.ratingView.rating = 5
         default:
-            reviewRatingImageView.image = UIImage(named: "0Stars")
+            self.ratingView.rating = 0
         }
         
         GoogleDetailController.fetchReviewerProfilePhotoWith(photoUrl: profilePhotoUrl) { (image) in

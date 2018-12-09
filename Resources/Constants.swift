@@ -18,8 +18,8 @@ import Foundation
 struct Constants {
     
     // API Keys
-//     static let googleApiKey = "apikey"
-      static let googleApiKey = "BOGUS"
+     static let googleApiKey = "apikey"
+//      static let googleApiKey = "BOGUS"
     static let openWeatherApiKey = "apikey"
     static let activeApiKey = "apikey"
     static let gasFeedApiKey = "apikey"

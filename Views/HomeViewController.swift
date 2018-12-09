@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     private var searchType = "campground"
     private let locationManager = CLLocationManager()
-    private let searchRadius: Double = 10000 // <<< 31 miles. Max allowed by Google.
+    private let searchRadius: Double = 8000 // <<< 31 miles. Max allowed by Google.
     private let placesClient = GMSPlacesClient()
     let geoCoder = CLGeocoder()
     

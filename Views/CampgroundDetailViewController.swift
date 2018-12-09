@@ -14,6 +14,12 @@
 import UIKit
 import MapKit
 import SafariServices
+import Cosmos
+
+/*
+ TODO: -
+ Insert a default cell into table view if api call returns no reviews
+ */
 
 var shouldReloadReviews: Bool = false
 
@@ -24,7 +30,7 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
     @IBOutlet weak var campgroundImageView: UIImageView!
     @IBOutlet weak var campgroundNameLabel: UILabel!
     @IBOutlet weak var navigationTitle: UINavigationItem!
-    @IBOutlet weak var campgroundRatingImageView: UIImageView!
+    @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var reviewCountLabel: UILabel!
     @IBOutlet weak var visitWebsiteButton: UIButton!
     @IBOutlet weak var viewHoursButton: UIButton!
@@ -35,6 +41,7 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
     @IBOutlet weak var reviewTableView: UITableView!
     @IBOutlet weak var availabilityStatusLabel: UILabel!
     @IBOutlet weak var reservationTypeLabel: UILabel!
+    @IBOutlet weak var reviewTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var campgroundTypeLabel: UILabel!
     @IBOutlet weak var powerHookupsLabel: UILabel!
     @IBOutlet weak var sewerHookupsLabel: UILabel!
@@ -44,7 +51,7 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
     
     // MARK: - Actions
     @IBAction func reviewButtonTapped(_ sender: Any) {
-        let tableViewCenter = Int(scrollView.center.y) + 550
+        let tableViewCenter = Int(scrollView.center.y) + 390
         
         scrollView.setContentOffset(CGPoint(x: 0, y: tableViewCenter), animated: true)
     }
@@ -53,7 +60,6 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
         guard let url = campgroundDetails?.website else { return }
         
         OpenUrlHelper.openWebsite(with: url, on: self)
-         let urlToLoad = URL(string: url)
     }
     
 
@@ -92,6 +98,14 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
         visitWebsiteButton.setTitleColor(.gray, for: .disabled)
         viewHoursButton.isEnabled = false
         viewHoursButton.setTitleColor(.gray, for: .disabled)
+    }
+    
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        
+        DispatchQueue.main.async {
+            self.reviewTableViewHeight.constant = self.reviewTableView.contentSize.height
+        }
     }
 
     func fetchFromActiveApi() {
@@ -168,28 +182,26 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
             let roundedRating = Double(campgroundRating).roundToClosestHalf()
             
             switch roundedRating {
-            case 0:
-                self.campgroundRatingImageView.image = UIImage(named: "0Stars")
             case 1:
-                self.campgroundRatingImageView.image = UIImage(named: "1Stars")
+                self.ratingView.rating = 0
             case 1.5:
-                self.campgroundRatingImageView.image = UIImage(named: "1.5Stars")
+                self.ratingView.rating = 1.5
             case 2:
-                self.campgroundRatingImageView.image = UIImage(named: "2Stars")
+                self.ratingView.rating = 2
             case 2.5:
-                self.campgroundRatingImageView.image = UIImage(named: "2.5Stars")
+                self.ratingView.rating = 2.5
             case 3:
-                self.campgroundRatingImageView.image = UIImage(named: "3Stars")
+                self.ratingView.rating = 3
             case 3.5:
-                self.campgroundRatingImageView.image = UIImage(named: "3.5Stars")
+                self.ratingView.rating = 3.5
             case 4:
-                self.campgroundRatingImageView.image = UIImage(named: "4Stars")
+                self.ratingView.rating = 4
             case 4.5:
-                self.campgroundRatingImageView.image = UIImage(named: "4.5Stars")
+                self.ratingView.rating = 4.5
             case 5:
-                self.campgroundRatingImageView.image = UIImage(named: "5Stars")
+                self.ratingView.rating = 5
             default:
-                self.campgroundRatingImageView.image = UIImage(named: "0Stars")
+                self.ratingView.rating = 0
             }
         }
     }
@@ -241,7 +253,7 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
             }
         }
         
-        if segue.identifier == "weatherDetail" {
+        if segue.identifier == "toWeatherDetail" {
             guard let detailVC = segue.destination as?
                 WeatherViewController else { return }
             detailVC.campgroundDetails = sender as? Result
@@ -249,7 +261,7 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
             detailVC.address = campgroundDetails?.formattedAddress
         }
         
-        if segue.identifier == "toHikingResults" {
+        if segue.identifier == "toHikingTrails" {
             guard let detailVC = segue.destination as? HikingViewController,
                 let searchText = campgroundAddressLabel.text else { return }
             
@@ -270,7 +282,7 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
             }
         }
         
-        if segue.identifier == "photoDetail" {
+        if segue.identifier == "toPhotosDetail" {
             guard let detailVC = segue.destination as? CampgroundPhotosViewController else { return }
     
             detailVC.photoReferences = photosArray
@@ -354,6 +366,7 @@ extension CampgroundDetailViewController: UITableViewDelegate, UITableViewDataSo
             
             let review = reviews[indexPath.row]
             cell.reviews = review
+            updateViewConstraints()
             
             return cell
         } else {
@@ -363,6 +376,7 @@ extension CampgroundDetailViewController: UITableViewDelegate, UITableViewDataSo
             
             let review = reviews[indexPath.row]
             cell.reviews = review
+            updateViewConstraints()
             
             return cell
         }
