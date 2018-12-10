@@ -53,6 +53,15 @@
 		D066C0FA2106C44100B71E41 /* HikingTrailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0F92106C44100B71E41 /* HikingTrailController.swift */; };
 		D066C0FC210762A300B71E41 /* HikingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D066C0FB210762A300B71E41 /* HikingDetailViewController.swift */; };
 		D06AA8412105295C00B74FCB /* CampgroundPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */; };
+		D074E66521BDD07C003C83A8 /* Weather.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D074E66421BDD07C003C83A8 /* Weather.storyboard */; };
+		D074E66921BDE404003C83A8 /* Photo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D074E66821BDE404003C83A8 /* Photo.storyboard */; };
+		D074E66B21BDE43D003C83A8 /* Hours.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D074E66A21BDE43D003C83A8 /* Hours.storyboard */; };
+		D074E66D21BDE465003C83A8 /* Review.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D074E66C21BDE465003C83A8 /* Review.storyboard */; };
+		D074E66F21BDE49B003C83A8 /* DetailMap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D074E66E21BDE49B003C83A8 /* DetailMap.storyboard */; };
+		D074E67121BDE535003C83A8 /* Campground.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D074E67021BDE535003C83A8 /* Campground.storyboard */; };
+		D074E67321BDE5A6003C83A8 /* Boondocking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D074E67221BDE5A6003C83A8 /* Boondocking.storyboard */; };
+		D074E67521BDE5CE003C83A8 /* Hiking.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D074E67421BDE5CE003C83A8 /* Hiking.storyboard */; };
+		D074E67921BDE662003C83A8 /* Travel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D074E67821BDE662003C83A8 /* Travel.storyboard */; };
 		D0763E20213304E100EE5210 /* GoogleGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0763E1F213304E100EE5210 /* GoogleGeocoding.swift */; };
 		D07BBC77219E5355000B6B33 /* UpdateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07BBC76219E5355000B6B33 /* UpdateHelper.swift */; };
 		D07BBC79219E589D000B6B33 /* AppUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07BBC78219E589D000B6B33 /* AppUpdate.swift */; };
@@ -69,7 +78,7 @@
 		D0AD4AE6211343F4001EB1B6 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD4AE5211343F4001EB1B6 /* DoubleExtension.swift */; };
 		D0B5CEC6215E787500180BBA /* AppRatingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B5CEC5215E787500180BBA /* AppRatingHelper.swift */; };
 		D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E06520F97C0B00210FC1 /* Assets.xcassets */; };
-		D0C5E07D20F97FD900210FC1 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E07C20F97FD900210FC1 /* Home.storyboard */; };
+		D0C5E07D20F97FD900210FC1 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E07C20F97FD900210FC1 /* TabBar.storyboard */; };
 		D0C5E08120F9801300210FC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */; };
 		D0C5E08B20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */; };
 		D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */; };
@@ -183,6 +192,15 @@
 		D066C0F92106C44100B71E41 /* HikingTrailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikingTrailController.swift; sourceTree = "<group>"; };
 		D066C0FB210762A300B71E41 /* HikingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HikingDetailViewController.swift; path = "Model Controllers/HikingDetailViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampgroundPhotosViewController.swift; path = Views/CampgroundPhotosViewController.swift; sourceTree = SOURCE_ROOT; };
+		D074E66421BDD07C003C83A8 /* Weather.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Weather.storyboard; sourceTree = "<group>"; };
+		D074E66821BDE404003C83A8 /* Photo.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Photo.storyboard; sourceTree = "<group>"; };
+		D074E66A21BDE43D003C83A8 /* Hours.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Hours.storyboard; sourceTree = "<group>"; };
+		D074E66C21BDE465003C83A8 /* Review.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Review.storyboard; sourceTree = "<group>"; };
+		D074E66E21BDE49B003C83A8 /* DetailMap.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DetailMap.storyboard; sourceTree = "<group>"; };
+		D074E67021BDE535003C83A8 /* Campground.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Campground.storyboard; sourceTree = "<group>"; };
+		D074E67221BDE5A6003C83A8 /* Boondocking.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Boondocking.storyboard; sourceTree = "<group>"; };
+		D074E67421BDE5CE003C83A8 /* Hiking.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Hiking.storyboard; sourceTree = "<group>"; };
+		D074E67821BDE662003C83A8 /* Travel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Travel.storyboard; sourceTree = "<group>"; };
 		D0763E1F213304E100EE5210 /* GoogleGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleGeocoding.swift; sourceTree = "<group>"; };
 		D07BBC76219E5355000B6B33 /* UpdateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateHelper.swift; sourceTree = "<group>"; };
 		D07BBC78219E589D000B6B33 /* AppUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdate.swift; sourceTree = "<group>"; };
@@ -202,7 +220,7 @@
 		D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0C5E06520F97C0B00210FC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0C5E06A20F97C0B00210FC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D0C5E07C20F97FD900210FC1 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
+		D0C5E07C20F97FD900210FC1 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterResultsTableViewCell.swift; sourceTree = "<group>"; };
 		D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Views/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -499,8 +517,17 @@
 		D0C5E07420F97C3D00210FC1 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				D0C5E07C20F97FD900210FC1 /* Home.storyboard */,
 				D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */,
+				D0C5E07C20F97FD900210FC1 /* TabBar.storyboard */,
+				D074E67021BDE535003C83A8 /* Campground.storyboard */,
+				D074E67221BDE5A6003C83A8 /* Boondocking.storyboard */,
+				D074E67821BDE662003C83A8 /* Travel.storyboard */,
+				D074E66E21BDE49B003C83A8 /* DetailMap.storyboard */,
+				D074E67421BDE5CE003C83A8 /* Hiking.storyboard */,
+				D074E66C21BDE465003C83A8 /* Review.storyboard */,
+				D074E66A21BDE43D003C83A8 /* Hours.storyboard */,
+				D074E66821BDE404003C83A8 /* Photo.storyboard */,
+				D074E66421BDD07C003C83A8 /* Weather.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -661,11 +688,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D074E66F21BDE49B003C83A8 /* DetailMap.storyboard in Resources */,
+				D074E66521BDD07C003C83A8 /* Weather.storyboard in Resources */,
 				D098E07220FD0C5100DB4866 /* CampgroundMarkerView.xib in Resources */,
+				D074E66B21BDE43D003C83A8 /* Hours.storyboard in Resources */,
+				D074E66921BDE404003C83A8 /* Photo.storyboard in Resources */,
+				D074E67121BDE535003C83A8 /* Campground.storyboard in Resources */,
+				D074E67921BDE662003C83A8 /* Travel.storyboard in Resources */,
+				D074E67321BDE5A6003C83A8 /* Boondocking.storyboard in Resources */,
 				D0D2C8102146B5480003C883 /* AmenityMarkerView.xib in Resources */,
+				D074E67521BDE5CE003C83A8 /* Hiking.storyboard in Resources */,
 				D0C5E08120F9801300210FC1 /* LaunchScreen.storyboard in Resources */,
 				D0EAF86C21581C9500086643 /* BoondockingMarkerView.xib in Resources */,
-				D0C5E07D20F97FD900210FC1 /* Home.storyboard in Resources */,
+				D0C5E07D20F97FD900210FC1 /* TabBar.storyboard in Resources */,
+				D074E66D21BDE465003C83A8 /* Review.storyboard in Resources */,
 				D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
