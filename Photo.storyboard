@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6MK-9b-RJf">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,18 +15,18 @@
             <objects>
                 <viewController id="6MK-9b-RJf" customClass="CampgroundPhotosViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b1G-s7-LJy">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ujm-nM-VGg">
-                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="photoCell" rowHeight="304" id="Jp5-SM-EqH" customClass="PhotoTableViewCell" customModule="TheCampersToolkit" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="304"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoTableViewCell" rowHeight="304" id="Jp5-SM-EqH" customClass="PhotoTableViewCell" customModule="TheCampersToolkit" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="304"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jp5-SM-EqH" id="SnQ-tE-SKD">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="303.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jp5-SM-EqH" id="SnQ-tE-SKD">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="303.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z9B-gj-w9Z">
@@ -41,7 +45,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="headerImageView" destination="z9B-gj-w9Z" id="wed-xd-pzm"/>
-                                            <segue destination="4wx-gN-FdQ" kind="show" identifier="toPhotoDetail" id="cez-x6-CJD"/>
+                                            <segue destination="4wx-gN-FdQ" kind="show" identifier="toPhotoDetailViewController" id="cez-x6-CJD"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -69,11 +73,11 @@
             <objects>
                 <viewController id="4wx-gN-FdQ" customClass="PhotoDetailViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b1O-Bu-iO4">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zfQ-tJ-u8o">
-                                <rect key="frame" x="-20" y="44" width="360" height="495"/>
+                                <rect key="frame" x="-20" y="0.0" width="415" height="687"/>
                                 <subviews>
                                     <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fW6-xh-0Yi">
                                         <rect key="frame" x="20" y="20" width="320" height="455"/>

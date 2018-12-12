@@ -76,11 +76,11 @@
 		D0A63BDA210B9B5700DC5850 /* PhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A63BD9210B9B5700DC5850 /* PhotoTableViewCell.swift */; };
 		D0A991E72103992400698EF1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A991E62103992400698EF1 /* Constants.swift */; };
 		D0AD4AE6211343F4001EB1B6 /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD4AE5211343F4001EB1B6 /* DoubleExtension.swift */; };
+		D0B00C5E21BF489300CBBF23 /* UITableViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B00C5D21BF489300CBBF23 /* UITableViewCellExtension.swift */; };
 		D0B5CEC6215E787500180BBA /* AppRatingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B5CEC5215E787500180BBA /* AppRatingHelper.swift */; };
 		D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E06520F97C0B00210FC1 /* Assets.xcassets */; };
 		D0C5E07D20F97FD900210FC1 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E07C20F97FD900210FC1 /* TabBar.storyboard */; };
 		D0C5E08120F9801300210FC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */; };
-		D0C5E08B20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */; };
 		D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */; };
 		D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */; };
 		D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */; };
@@ -97,6 +97,7 @@
 		D0EAF86C21581C9500086643 /* BoondockingMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EAF86B21581C9500086643 /* BoondockingMarkerView.xib */; };
 		D0EAF86E2158242F00086643 /* BoondockingMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF86D2158242F00086643 /* BoondockingMarkerView.swift */; };
 		D0EAF87021583C6A00086643 /* BoondockingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF86F21583C6A00086643 /* BoondockingDetailViewController.swift */; };
+		D0F8A66221C0BCB400D64C13 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F8A66121C0BCB400D64C13 /* UIViewControllerExtension.swift */; };
 		D7A732D64A335AF81DEE748C /* Pods_TheCampersToolkit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */; };
 /* End PBXBuildFile section */
 
@@ -215,6 +216,7 @@
 		D0A63BD9210B9B5700DC5850 /* PhotoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoTableViewCell.swift; sourceTree = "<group>"; };
 		D0A991E62103992400698EF1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D0AD4AE5211343F4001EB1B6 /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
+		D0B00C5D21BF489300CBBF23 /* UITableViewCellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtension.swift; sourceTree = "<group>"; };
 		D0B5CEC5215E787500180BBA /* AppRatingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRatingHelper.swift; sourceTree = "<group>"; };
 		D0C5E05B20F97C0A00210FC1 /* TheCampersToolkit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheCampersToolkit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0C5E05E20F97C0A00210FC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -222,7 +224,6 @@
 		D0C5E06A20F97C0B00210FC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0C5E07C20F97FD900210FC1 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterResultsTableViewCell.swift; sourceTree = "<group>"; };
 		D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Views/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoondockingViewController.swift; path = Views/BoondockingViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampgroundDetailViewController.swift; path = Views/CampgroundDetailViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -240,6 +241,7 @@
 		D0EAF86B21581C9500086643 /* BoondockingMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoondockingMarkerView.xib; sourceTree = "<group>"; };
 		D0EAF86D2158242F00086643 /* BoondockingMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoondockingMarkerView.swift; sourceTree = "<group>"; };
 		D0EAF86F21583C6A00086643 /* BoondockingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoondockingDetailViewController.swift; path = Views/BoondockingDetailViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0F8A66121C0BCB400D64C13 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -444,6 +446,7 @@
 				D0C5E07320F97C3400210FC1 /* Views */,
 				D0C5E07220F97C2B00210FC1 /* Resources */,
 				D0C5E07120F97C1C00210FC1 /* XML Parsers */,
+				D0F8A65621C031E800D64C13 /* Protocols */,
 				D0C5E07020F97C1400210FC1 /* Extensions */,
 				D0B5CEC4215E783900180BBA /* Helpers */,
 				D0C5E05D20F97C0A00210FC1 /* TheCampersToolkit */,
@@ -475,6 +478,8 @@
 			isa = PBXGroup;
 			children = (
 				D0AD4AE5211343F4001EB1B6 /* DoubleExtension.swift */,
+				D0B00C5D21BF489300CBBF23 /* UITableViewCellExtension.swift */,
+				D0F8A66121C0BCB400D64C13 /* UIViewControllerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -498,7 +503,6 @@
 		D0C5E07320F97C3400210FC1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D0C5E08A20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift */,
 				D0EAF86B21581C9500086643 /* BoondockingMarkerView.xib */,
 				D098E07120FD0C5100DB4866 /* CampgroundMarkerView.xib */,
 				D0D2C80F2146B5480003C883 /* AmenityMarkerView.xib */,
@@ -584,6 +588,14 @@
 			);
 			name = "View Controllers";
 			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		D0F8A65621C031E800D64C13 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Protocols;
+			path = Extensions/Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -798,6 +810,7 @@
 				D0026CAF2160747900DA8693 /* GMUStyle.m in Sources */,
 				D066C0F22106206E00B71E41 /* ReviewDetailViewController.swift in Sources */,
 				D022B1E420FD23420012025A /* GoogleDetail.swift in Sources */,
+				D0F8A66221C0BCB400D64C13 /* UIViewControllerExtension.swift in Sources */,
 				D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */,
 				D03DAD2821324E63009B4DAB /* ForecastedWeatherController.swift in Sources */,
 				D0D6298E217BBB06008AE91A /* AlertHelper.swift in Sources */,
@@ -835,7 +848,6 @@
 				D0026CA52160747900DA8693 /* GMUGradient.m in Sources */,
 				D0026CB42160747900DA8693 /* GQTPointQuadTree.m in Sources */,
 				D066C0FA2106C44100B71E41 /* HikingTrailController.swift in Sources */,
-				D0C5E08B20F9A6BC00210FC1 /* FilterResultsTableViewCell.swift in Sources */,
 				D02A1BA921822C70007F0553 /* OpenUrlHelper.swift in Sources */,
 				D0D885052169A6CD002425DB /* ForecastCollectionViewCell.swift in Sources */,
 				D098E07420FD0C7900DB4866 /* CampgroundMarkerView.swift in Sources */,
@@ -855,6 +867,7 @@
 				D0026CA62160747900DA8693 /* GMUHeatmapTileLayer.m in Sources */,
 				D066C0FC210762A300B71E41 /* HikingDetailViewController.swift in Sources */,
 				D0026CA22160747900DA8693 /* GMUDefaultClusterIconGenerator.m in Sources */,
+				D0B00C5E21BF489300CBBF23 /* UITableViewCellExtension.swift in Sources */,
 				D06AA8412105295C00B74FCB /* CampgroundPhotosViewController.swift in Sources */,
 				D0026CA92160747900DA8693 /* GMUGeometryCollection.m in Sources */,
 			);

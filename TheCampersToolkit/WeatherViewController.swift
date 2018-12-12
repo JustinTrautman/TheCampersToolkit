@@ -261,7 +261,7 @@ class WeatherViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toForecastDetailVC" {
+        if segue.identifier == ForecastDetailViewController.segueIdentifier {
             guard let destinationVC = segue.destination as? ForecastDetailViewController,
                 let weatherData = forecastedWeatherData,
                 let weatherProperties = weatherData.properties,

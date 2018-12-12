@@ -26,7 +26,7 @@
                                 <rect key="frame" x="0.0" y="76" width="375" height="542"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="hikingCell" rowHeight="162" id="NUt-4R-pCs" customClass="HikingTableViewCell" customModule="TheCampersToolkit" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HikingTableViewCell" rowHeight="162" id="NUt-4R-pCs" customClass="HikingTableViewCell" customModule="TheCampersToolkit" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="162"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NUt-4R-pCs" id="iSi-IL-Z8X">
@@ -42,15 +42,15 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="goA-uE-Hly">
-                                                    <rect key="frame" x="109" y="24" width="196" height="72"/>
+                                                    <rect key="frame" x="109" y="24" width="251" height="72"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="(Trail name)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K37-8g-A0W">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Trail name)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K37-8g-A0W">
                                                             <rect key="frame" x="0.0" y="0.0" width="98.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="(Trail location)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ppe-g2-RfC">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Trail location)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ppe-g2-RfC">
                                                             <rect key="frame" x="0.0" y="25.5" width="109" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -80,7 +80,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No summary available" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNK-GY-gg2">
-                                                    <rect key="frame" x="109" y="100" width="196" height="51"/>
+                                                    <rect key="frame" x="109" y="100" width="251" height="51"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="51" id="Qmd-eA-z78"/>
                                                     </constraints>
@@ -124,7 +124,7 @@
                                             <outlet property="trailLocationLabel" destination="Ppe-g2-RfC" id="Wlw-ty-8FU"/>
                                             <outlet property="trailNameLabel" destination="K37-8g-A0W" id="VDO-Mp-c5W"/>
                                             <outlet property="voteCounterLabel" destination="qYu-zJ-xwu" id="0rQ-3H-eFo"/>
-                                            <segue destination="GtD-Nf-rrk" kind="show" identifier="hikingDetail" id="BzT-xi-oWh"/>
+                                            <segue destination="GtD-Nf-rrk" kind="show" identifier="toHikingDetailViewController" id="BzT-xi-oWh"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

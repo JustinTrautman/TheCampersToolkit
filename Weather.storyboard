@@ -392,7 +392,7 @@
                                                     <outlet property="moreArrowImageView" destination="Zui-TV-SYl" id="NNo-Se-nIA"/>
                                                     <outlet property="temperatureLabel" destination="Yth-28-JwG" id="JhS-WA-kls"/>
                                                     <outlet property="weatherImageView" destination="ZPM-4n-rN3" id="GMx-5I-hwf"/>
-                                                    <segue destination="P17-ec-YNt" kind="show" identifier="toForecastDetailVC" id="ecE-0q-eTG"/>
+                                                    <segue destination="P17-ec-YNt" kind="show" identifier="toForecastDetailViewController" id="ecE-0q-eTG"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>

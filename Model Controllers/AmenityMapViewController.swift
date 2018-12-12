@@ -34,6 +34,7 @@ class AmenityMapViewController: UIViewController {
                 
         locationManager.delegate = self
         mapView.delegate = self
+        mapView.settings.myLocationButton = false
         
         locationManager.requestWhenInUseAuthorization()
     }
@@ -137,7 +138,7 @@ class AmenityMapViewController: UIViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toAmenityDetail" {
+        if segue.identifier == AmenityDetailViewController.segueIdentifier {
             guard let detailVC = segue.destination as? AmenityDetailViewController else { return }
             
             detailVC.selectedAmenity = selectedAmenity
@@ -209,7 +210,7 @@ extension AmenityMapViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         let amenityMarker = marker as? AmenityMarker
-        performSegue(withIdentifier: "toAmenityDetail", sender: amenityMarker?.googlePlace)
+        performSegue(withIdentifier: AmenityDetailViewController.segueIdentifier, sender: amenityMarker?.googlePlace)
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {

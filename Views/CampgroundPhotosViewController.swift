@@ -58,7 +58,7 @@ class CampgroundPhotosViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toPhotoDetail" {
+        if segue.identifier == PhotoDetailViewController.segueIdentifier {
             if let indexPath = self.photosTableView.indexPathForSelectedRow {
                 guard let detailVC = segue.destination as? PhotoDetailViewController else {
                     return
@@ -79,7 +79,7 @@ extension CampgroundPhotosViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "photoCell", for: indexPath) as? PhotoTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotoTableViewCell.identifier, for: indexPath) as? PhotoTableViewCell else {
             return UITableViewCell()
         }
         

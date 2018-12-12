@@ -210,7 +210,7 @@ extension BoondockingViewController: CLLocationManagerDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toBoondockDetail" {
+        if segue.identifier == BoondockingDetailViewController.segueIdentifier {
             guard let detailVC = segue.destination as? BoondockingDetailViewController else { return }
             
             detailVC.boondockingLocations = boondockingLocations
@@ -219,7 +219,7 @@ extension BoondockingViewController: CLLocationManagerDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        performSegue(withIdentifier: "toBoondockDetail", sender: BoondockingMarker.self)
+        performSegue(withIdentifier: BoondockingDetailViewController.segueIdentifier, sender: BoondockingMarker.self)
     }
 }
 

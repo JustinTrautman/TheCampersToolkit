@@ -13,7 +13,7 @@
         <!--Travel View Controller-->
         <scene sceneID="87K-dA-7iJ">
             <objects>
-                <viewController storyboardIdentifier="UIViewController-hAB-3h-V7o" id="hAB-3h-V7o" customClass="TravelViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UIViewController-hAB-3h-V7o" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hAB-3h-V7o" customClass="TravelViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dRt-z3-HrW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -265,7 +265,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="NXX-WJ-J6c" id="hYS-sK-YMh"/>
-                        <segue destination="UOL-Hn-Sc1" kind="show" identifier="toAmenityDetail" id="aEu-an-7w7"/>
+                        <segue destination="UOL-Hn-Sc1" kind="show" identifier="toAmenityDetailViewController" id="aEu-an-7w7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0cd-Oe-RHi" userLabel="First Responder" sceneMemberID="firstResponder"/>

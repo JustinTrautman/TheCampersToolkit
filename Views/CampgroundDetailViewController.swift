@@ -61,7 +61,6 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
         
         OpenUrlHelper.openWebsite(with: url, on: self)
     }
-    
 
     @IBAction func directionsButtonTapped(_ sender: Any) {
         guard let address = campgroundDetails?.formattedAddress,
@@ -232,9 +231,32 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
         }
     }
     
+    // Gesture recogizer for phone number label. Presents the user with a prompt to complete the call.
+    @objc func tapFunction(sender: UITapGestureRecognizer) {
+        guard let numberToCall = phoneNumberLabel.text?.replacingOccurrences(of: " ", with: "") else { return }
+        
+        OpenUrlHelper.call(phoneNumber: numberToCall)
+    }
+    
+    func showNoPhotosAlert() {
+        if let campgroundName = campgroundDetails?.name {
+            let noPhotosAlert = UIAlertController(title: nil, message: "\(campgroundName) doesn't have any photos", preferredStyle: .alert)
+            noPhotosAlert.addAction(UIAlertAction(title: "Back", style: .default, handler: nil))
+            
+            self.present(noPhotosAlert, animated: true)
+        }
+    }
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "reviewDetail" {
+        guard let identifier = segue.identifier,
+            let segueCases = CampgroundDetailSegue(rawValue: identifier) else {
+                assertionFailure("Could not map segue identifier to segue case")
+                return
+        }
+        
+        switch segueCases {
+        case .toReviewDetail:
             if let indexPath = self.reviewTableView.indexPathForSelectedRow {
                 guard let detailVC = segue.destination as?
                     ReviewDetailViewController else { return }
@@ -251,17 +273,15 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
                     detailVC.reviews = selectedReview
                 }
             }
-        }
-        
-        if segue.identifier == "toWeatherDetail" {
+            
+        case .toWeatherDetail:
             guard let detailVC = segue.destination as?
                 WeatherViewController else { return }
             detailVC.campgroundDetails = sender as? Result
             detailVC.currentWeatherData = sender as? CampgroundWeatherData
             detailVC.address = campgroundDetails?.formattedAddress
-        }
-        
-        if segue.identifier == "toHikingTrails" {
+            
+        case .toHikingVC:
             guard let detailVC = segue.destination as? HikingViewController,
                 let searchText = campgroundAddressLabel.text else { return }
             
@@ -280,26 +300,23 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
                     }
                 }
             }
-        }
-        
-        if segue.identifier == "toPhotosDetail" {
+            
+        case .toPhotosDetail:
             guard let detailVC = segue.destination as? CampgroundPhotosViewController else { return }
-    
+            
             detailVC.photoReferences = photosArray
             
             if campgroundDetails?.photos?.count == nil {
                 showNoPhotosAlert()
             }
-        }
-        
-        if segue.identifier == "toHoursVC" {
+            
+        case .toHoursVC:
             guard let detailVC = segue.destination as?
                 CampgroundHoursViewController else { return }
             
             detailVC.hours = campgroundDetails
-        }
-        
-        if segue.identifier == "toCamgroundAmenityVC" {
+            
+        case .toAmenityVC:
             guard let detailVC = segue.destination as? TravelViewController,
                 let selectedCampground = selectedCampground else { return }
             
@@ -309,28 +326,13 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
             
             detailVC.campgroundAmmenities = true
             detailVC.campgroundCoordinates = coordinates
-        }
-        
-        if segue.identifier == "toCampgroundMapView" {
+            
+        case .toMapView:
             guard let detailVC = segue.destination as? SatelliteViewController else { return }
-            
             detailVC.selectedCampground = selectedCampground
-        }
-    }
-    
-    // Gesture recogizer for phone number label. Presents the user with a prompt to complete the call.
-    @objc func tapFunction(sender: UITapGestureRecognizer) {
-        guard let numberToCall = phoneNumberLabel.text?.replacingOccurrences(of: " ", with: "") else { return }
-        
-        OpenUrlHelper.call(phoneNumber: numberToCall)
-    }
-    
-    func showNoPhotosAlert() {
-        if let campgroundName = campgroundDetails?.name {
-            let noPhotosAlert = UIAlertController(title: nil, message: "\(campgroundName) doesn't have any photos", preferredStyle: .alert)
-            noPhotosAlert.addAction(UIAlertAction(title: "Back", style: .default, handler: nil))
             
-            self.present(noPhotosAlert, animated: true)
+        default:
+            assertionFailure("Did not recognize the storyboard identifier. Did you forget to add a new case to the enum?")
         }
     }
 }
@@ -356,7 +358,7 @@ extension CampgroundDetailViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "reviewCell", for: indexPath) as?
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CampgroundReviewCell.identifier, for: indexPath) as?
             CampgroundReviewCell else { return UITableViewCell() }
         
         if shouldReloadReviews == true {

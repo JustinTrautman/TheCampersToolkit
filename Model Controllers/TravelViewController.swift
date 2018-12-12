@@ -51,6 +51,8 @@ class TravelViewController: UIViewController {
             selectedType = "supermarket"
         case .carRepairMap:
             selectedType = "car_repair"
+        case .unnamed:
+            assertionFailure("The provided segue identifier was empty. Please verify all segues have identifiers.")
         }
         
         detailVC.selectedType = selectedType

@@ -15,6 +15,7 @@
 
 import Foundation
 
+// MARK: - Weather Enums
 enum WeatherType : String {
     case clear = "Clear"
     case clouds = "Clouds"
@@ -38,13 +39,27 @@ enum TemperatureRange : Double {
 //
 //}
 
+// MARK: - Segue Enums
 enum AmenitySegue : String {
     case gasMap = "toGasMap"
     case propaneMap = "toPropaneMap"
     case storeMap = "toStoreMap"
     case carRepairMap = "toCarRepairMap"
+    case unnamed = ""
 }
 
+enum CampgroundDetailSegue : String {
+    case toReviewDetail = "toReviewDetail"
+    case toWeatherDetail = "toWeatherDetail"
+    case toHikingVC = "toHikingTrails"
+    case toPhotosDetail = "toPhotosDetail"
+    case toHoursVC = "toHoursVC"
+    case toAmenityVC = "toAmenityViewController"
+    case toMapView = "toCampgroundMapView"
+    case unnamed = ""
+}
+
+// MARK: - Hour Enums
 enum DayOfTheWeek : String {
     case sunday = "Sunday"
     case monday = "Monday"

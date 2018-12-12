@@ -54,7 +54,7 @@ class HikingViewController: UIViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "hikingDetail" {
+        if segue.identifier == HikingDetailViewController.segueIdentifier {
             if let indexPath = self.hikingTableView.indexPathForSelectedRow {
                 guard let detailVC = segue.destination as? HikingDetailViewController,
                     let trails = trails else { return }
@@ -138,7 +138,7 @@ extension HikingViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "hikingCell", for: indexPath) as? HikingTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HikingTableViewCell.identifier, for: indexPath) as? HikingTableViewCell else { return UITableViewCell() }
         
         guard let trails = trails else { return UITableViewCell() }
         

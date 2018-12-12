@@ -205,7 +205,7 @@ extension HomeViewController: GMSMapViewDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "campgroundDetail" {
+        if segue.identifier == CampgroundDetailViewController.segueIdentifier {
             guard let detailVC = segue.destination as? CampgroundDetailViewController else { return }
             detailVC.campgroundDetails = campgroundDetails
             detailVC.selectedCampground = selectedCampground
@@ -221,7 +221,7 @@ extension HomeViewController: GMSMapViewDelegate {
         
         let campgroundMarker = marker as? CampgroundMarker
 
-        performSegue(withIdentifier: "campgroundDetail", sender: campgroundMarker?.place)
+        performSegue(withIdentifier: CampgroundDetailViewController.segueIdentifier, sender: campgroundMarker?.place)
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {

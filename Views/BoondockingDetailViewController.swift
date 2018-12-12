@@ -224,7 +224,7 @@ class BoondockingDetailViewController: UIViewController, GMSMapViewDelegate, GAD
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toSatelliteVC" {
+        if segue.identifier == SatelliteViewController.segueIdentifier {
             guard let detailVC = segue.destination as?  SatelliteViewController else { return }
             guard let latitude = selectedBoondock?.latitude,
                 let longitude = selectedBoondock?.longitude else { return }

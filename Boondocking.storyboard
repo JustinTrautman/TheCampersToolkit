@@ -151,7 +151,7 @@
                         <outlet property="mapView" destination="nqX-ul-Sya" id="aem-fn-fV0"/>
                         <outlet property="navigationBar" destination="PP0-u7-gZT" id="2Qs-78-yIP"/>
                         <outlet property="searchButton" destination="c71-dd-Fso" id="2QK-rl-JBx"/>
-                        <segue destination="xZy-Z3-PV8" kind="show" identifier="toBoondockDetail" id="8QA-5I-WFH"/>
+                        <segue destination="xZy-Z3-PV8" kind="show" identifier="toBoondockingDetailViewController" id="8QA-5I-WFH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OOJ-2G-0PC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -223,7 +223,7 @@
                                                         </constraints>
                                                         <state key="normal" title="Button" image="fullScreenMap"/>
                                                         <connections>
-                                                            <segue destination="52A-cW-mvi" kind="show" identifier="toSatelliteVC" id="lDI-ul-xia"/>
+                                                            <segue destination="52A-cW-mvi" kind="show" identifier="toSatelliteViewController" id="lDI-ul-xia"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>

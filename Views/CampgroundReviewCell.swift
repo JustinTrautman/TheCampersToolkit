@@ -22,7 +22,7 @@ class CampgroundReviewCell: UITableViewCell {
     @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var reviewTimestampLabel: UILabel!
     @IBOutlet weak var reviewTextLabel: UILabel!
-    
+        
     var reviews: Reviews? {
         didSet {
             updateViews()
