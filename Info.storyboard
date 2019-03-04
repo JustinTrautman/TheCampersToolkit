@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zZq-NI-Iqc">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Information View Controller-->
+        <scene sceneID="rRD-nc-SXX">
+            <objects>
+                <viewController id="zZq-NI-Iqc" customClass="InformationViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Jg7-nb-kQA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Foh-dV-jQK">
+                                <rect key="frame" x="43.5" y="265" width="288" height="157"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mIx-vT-IBL">
+                                        <rect key="frame" x="0.0" y="0.0" width="129" height="157"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1WQ-58-eqI">
+                                                <rect key="frame" x="0.0" y="0.0" width="129" height="128"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="128" id="e3T-5B-l62"/>
+                                                    <constraint firstAttribute="width" secondItem="1WQ-58-eqI" secondAttribute="height" multiplier="129:128" id="hAl-0V-fxG"/>
+                                                    <constraint firstAttribute="width" constant="129" id="i9l-6z-moX"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="termsofService"/>
+                                                <connections>
+                                                    <action selector="termsOfServiceButtonTapped:" destination="zZq-NI-Iqc" eventType="touchUpInside" id="ZYW-j6-dEL"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terms of Service" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1kw-sj-m2F">
+                                                <rect key="frame" x="0.0" y="136" width="129" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="1kw-sj-m2F" secondAttribute="height" multiplier="43:7" id="Q9z-Bk-6qk"/>
+                                                    <constraint firstAttribute="width" constant="129" id="gpr-4i-fTo"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PcF-3g-FUU">
+                                        <rect key="frame" x="159" y="0.0" width="129" height="157"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Li-Qb-rkN">
+                                                <rect key="frame" x="0.0" y="0.0" width="129" height="128"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="128" id="8fi-3P-8iG"/>
+                                                    <constraint firstAttribute="width" constant="129" id="a0O-Sv-R5L"/>
+                                                    <constraint firstAttribute="width" secondItem="5Li-Qb-rkN" secondAttribute="height" multiplier="129:128" id="iAu-3b-GQ4"/>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="support"/>
+                                                <connections>
+                                                    <action selector="supportButtonTapped:" destination="zZq-NI-Iqc" eventType="touchUpInside" id="uix-26-cKI"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfC-aJ-lsu">
+                                                <rect key="frame" x="0.0" y="136" width="129" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="lfC-aJ-lsu" secondAttribute="height" multiplier="43:7" id="7nS-7c-r4M"/>
+                                                    <constraint firstAttribute="width" constant="129" id="qvl-gL-2pU"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Foh-dV-jQK" firstAttribute="centerY" secondItem="Oib-q6-Xz9" secondAttribute="centerY" id="eId-aN-fku"/>
+                            <constraint firstItem="Foh-dV-jQK" firstAttribute="centerX" secondItem="Oib-q6-Xz9" secondAttribute="centerX" id="hIq-oy-7F3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Oib-q6-Xz9"/>
+                    </view>
+                    <connections>
+                        <outlet property="supportButton" destination="5Li-Qb-rkN" id="z9J-mI-7Zm"/>
+                        <outlet property="termsOfServiceButton" destination="1WQ-58-eqI" id="fEU-r0-qmO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CEX-dF-69L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1090" y="-788"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="support" width="102.40000152587891" height="102.40000152587891"/>
+        <image name="termsofService" width="102.40000152587891" height="102.40000152587891"/>
+    </resources>
+</document>

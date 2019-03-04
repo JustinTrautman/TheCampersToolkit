@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Increment app launched counter
         AppRatingHelper.incrementAppLaunchedCounter()
         
+        // Prompt user to update if new version is available
         UpdateHelper.checkVersion()
         
         return true

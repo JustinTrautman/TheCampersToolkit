@@ -44,7 +44,7 @@ class ForeCastedWeaterController {
             let jsonDecoder = JSONDecoder()
             
             do {
-                let forecastedWeather = try  jsonDecoder.decode(ForecastedWeatherData.self, from: data)
+                let forecastedWeather = try jsonDecoder.decode(ForecastedWeatherData.self, from: data)
                 self.forecastedWeatherData = forecastedWeather
                 completion(forecastedWeather)
             } catch let error {

@@ -278,7 +278,7 @@ class WeatherViewController: UIViewController {
     }
 }
 
-extension WeatherViewController : UICollectionViewDelegate, UICollectionViewDataSource {
+extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let weatherData = forecastedWeatherData,

@@ -12,6 +12,7 @@
  */
 
 import UIKit
+import Cosmos
 
 class HikingTableViewCell: UITableViewCell {
     
@@ -19,7 +20,7 @@ class HikingTableViewCell: UITableViewCell {
     @IBOutlet weak var trailImageView: UIImageView!
     @IBOutlet weak var trailNameLabel: UILabel!
     @IBOutlet weak var trailLocationLabel: UILabel!
-    @IBOutlet weak var starRatingImageView: UIImageView!
+    @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var voteCounterLabel: UILabel!
     @IBOutlet weak var summaryLabel: UILabel!
     @IBOutlet weak var difficultyLabel: UILabel!
@@ -66,28 +67,26 @@ class HikingTableViewCell: UITableViewCell {
         let roundedRating = Double(trailRating).roundToClosestHalf()
         
         switch roundedRating {
-        case 0:
-            self.starRatingImageView.image = UIImage(named: "0Stars")
         case 1:
-            self.starRatingImageView.image = UIImage(named: "1Stars")
+            self.ratingView.rating = 1
         case 1.5:
-            self.starRatingImageView.image = UIImage(named: "1.5Stars")
+            self.ratingView.rating = 1.5
         case 2:
-            self.starRatingImageView.image = UIImage(named: "2Stars")
+            self.ratingView.rating = 2
         case 2.5:
-            self.starRatingImageView.image = UIImage(named: "2.5Stars")
+            self.ratingView.rating = 2.5
         case 3:
-            self.starRatingImageView.image = UIImage(named: "3Stars")
+            self.ratingView.rating = 3
         case 3.5:
-            self.starRatingImageView.image = UIImage(named: "3.5Stars")
+            self.ratingView.rating = 3.5
         case 4:
-            self.starRatingImageView.image = UIImage(named: "4Stars")
+            self.ratingView.rating = 4
         case 4.5:
-            self.starRatingImageView.image = UIImage(named: "4.5Stars")
+            self.ratingView.rating = 4.5
         case 5:
-            self.starRatingImageView.image = UIImage(named: "5Stars")
+            self.ratingView.rating = 5
         default:
-            self.starRatingImageView.image = UIImage(named: "0Star")
+            self.ratingView.rating = 0
         }
         
         guard let difficulty = trails?.difficulty else { return }

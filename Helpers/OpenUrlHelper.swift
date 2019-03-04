@@ -9,6 +9,7 @@
 import Foundation
 import MapKit
 import SafariServices
+import StoreKit
 
 var coordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
 var markerName: String = ""
@@ -76,6 +77,27 @@ struct OpenUrlHelper {
                 MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: region.span)]
             mapItem.name = markerName
             mapItem.openInMaps(launchOptions: options)
+        }
+    }
+    
+    static func openAppStoreItem(with identifier: String, on vc: UIViewController) {
+        /// Opens a specified App Store link with Store Kit.
+        let storeViewController = SKStoreProductViewController()
+        storeViewController.delegate = vc as? SKStoreProductViewControllerDelegate
+        
+        let parameters = [SKStoreProductParameterITunesItemIdentifier: identifier]
+        storeViewController.loadProduct(withParameters: parameters) { (loaded, error) in
+            if let error = error {
+                // TODO: Create user facing error
+                print("Error loading App Store Product. \(error)")
+                return
+            }
+            
+            if loaded {
+                DispatchQueue.main.async {
+                    vc.present(storeViewController, animated: true, completion: nil)
+                }
+            }
         }
     }
 }

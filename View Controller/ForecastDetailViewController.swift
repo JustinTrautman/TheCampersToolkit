@@ -122,7 +122,7 @@ class ForecastDetailViewController: UIViewController {
 
 extension ForecastDetailViewController : GADBannerViewDelegate {
     
-    func adViewDidReceiveAd(_ bannerView: GADBannerView!) {
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("Ad banner loaded successfully")
         
         addBannerViewToView(bannerView)

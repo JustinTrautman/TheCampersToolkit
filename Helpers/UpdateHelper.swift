@@ -22,7 +22,7 @@ struct UpdateHelper {
                 return nil
         }
         
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
             do {
                 if let error = error { throw error }
                 guard let data = data else { throw VersionError.invalidResponse }

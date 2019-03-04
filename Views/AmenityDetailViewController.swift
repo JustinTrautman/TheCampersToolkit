@@ -13,8 +13,8 @@
 
 import UIKit
 import GoogleMaps
-import MapKit
 import SafariServices
+import Cosmos
 
 class AmenityDetailViewController: UIViewController, SFSafariViewControllerDelegate {
     
@@ -23,7 +23,7 @@ class AmenityDetailViewController: UIViewController, SFSafariViewControllerDeleg
     @IBOutlet weak var placeNameLabel: UILabel!
     @IBOutlet weak var openUntilLabel: UILabel!
     @IBOutlet weak var amenityPhoneNumberButton: UIButton!
-    @IBOutlet weak var amenityRatingImageView: UIImageView!
+    @IBOutlet weak var ratingView: CosmosView!
     @IBOutlet weak var amenityMapView: GMSMapView!
     @IBOutlet weak var takeMeHereButton: UIButton!
     @IBOutlet weak var visitWebsiteButton: UIButton!
@@ -150,28 +150,26 @@ class AmenityDetailViewController: UIViewController, SFSafariViewControllerDeleg
             // TODO: - Move Switch statement off of main thread.
             DispatchQueue.main.async {
                 switch roundedRating {
-                case 0:
-                    self.amenityRatingImageView.image = UIImage(named: "0Stars")
                 case 1:
-                    self.amenityRatingImageView.image = UIImage(named: "1Stars")
+                    self.ratingView.rating = 1
                 case 1.5:
-                    self.amenityRatingImageView.image = UIImage(named: "1.5Stars")
+                    self.ratingView.rating = 1.5
                 case 2:
-                    self.amenityRatingImageView.image = UIImage(named: "2Stars")
+                    self.ratingView.rating = 2
                 case 2.5:
-                    self.amenityRatingImageView.image = UIImage(named: "2.5Stars")
+                    self.ratingView.rating = 2.5
                 case 3:
-                    self.amenityRatingImageView.image = UIImage(named: "3Stars")
+                    self.ratingView.rating = 3
                 case 3.5:
-                    self.amenityRatingImageView.image = UIImage(named: "3.5Stars")
+                    self.ratingView.rating = 3.5
                 case 4:
-                    self.amenityRatingImageView.image = UIImage(named: "4Stars")
+                    self.ratingView.rating = 4
                 case 4.5:
-                    self.amenityRatingImageView.image = UIImage(named: "4.5Stars")
+                    self.ratingView.rating = 4.5
                 case 5:
-                    self.amenityRatingImageView.image = UIImage(named: "5Stars")
+                    self.ratingView.rating = 5
                 default:
-                    self.amenityRatingImageView.image = UIImage(named: "0Stars")
+                    self.ratingView.rating = 0
                 }
             }
         }
@@ -225,7 +223,11 @@ class AmenityDetailViewController: UIViewController, SFSafariViewControllerDeleg
     
     func returnClosingTime(forDay: String) -> String {
         guard let hoursOfOperation = amenitieDetails?.openingHours?.weekdayText,
-            let dayCases = DayOfTheWeek(rawValue: forDay) else { return "" }
+            let dayCases = DayOfTheWeek(rawValue: forDay) else {
+                assertionFailure("Did not get hours from api call")
+                return ""
+        }
+        
         var hoursString: String!
         
         switch dayCases {
@@ -276,14 +278,5 @@ class AmenityDetailViewController: UIViewController, SFSafariViewControllerDeleg
             marker.icon = UIImage(named: "\(selectedType)_pin")
             marker.map = self.amenityMapView
         }
-    }
-}
-
-extension Date {
-    
-    func dayOfWeek() -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: self)
     }
 }

@@ -13,7 +13,7 @@
         <!--Campgrounds-->
         <scene sceneID="w1P-1c-l1G">
             <objects>
-                <viewController id="dal-hB-xCm" userLabel="Campgrounds" customClass="HomeViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dal-hB-xCm" userLabel="Campgrounds" customClass="CampgroundMapViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wdy-Cg-oZL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,7 +78,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1q-H9-8Fc">
                                 <rect key="frame" x="0.0" y="64" width="320" height="1186"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tent" translatesAutoresizingMaskIntoConstraints="NO" id="AGT-4o-qyq">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noCampgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="AGT-4o-qyq">
                                         <rect key="frame" x="8" y="8" width="304" height="197"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="197" id="JLE-PQ-4Ef"/>
@@ -94,13 +94,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Campground Information" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vW2-Hh-i75">
-                                        <rect key="frame" x="32" y="667" width="256.5" height="27.5"/>
+                                        <rect key="frame" x="32" y="687" width="256.5" height="27.5"/>
                                         <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0yw-DF-41T" userLabel="Nearby Amenities Button">
-                                        <rect key="frame" x="8" y="588" width="304" height="39"/>
+                                        <rect key="frame" x="8" y="608" width="304" height="39"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="39" id="DWu-JK-L8J"/>
                                         </constraints>
@@ -140,7 +140,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="BWb-ga-drz">
-                                        <rect key="frame" x="27" y="476" width="266" height="74"/>
+                                        <rect key="frame" x="27" y="496" width="266" height="74"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ffB-TC-WYe">
                                                 <rect key="frame" x="0.0" y="0.0" width="266" height="32"/>
@@ -222,7 +222,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="g6R-4i-oD1">
-                                        <rect key="frame" x="36" y="711" width="248" height="214"/>
+                                        <rect key="frame" x="36" y="731" width="248" height="214"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Dh4-9J-kaG">
                                                 <rect key="frame" x="0.0" y="0.0" width="148" height="214"/>
@@ -333,7 +333,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="NqA-61-P7r">
-                                        <rect key="frame" x="27" y="284" width="266" height="67"/>
+                                        <rect key="frame" x="27" y="299" width="266" height="67"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="Lye-kG-vaz">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="67"/>
@@ -441,7 +441,7 @@
                                         </constraints>
                                     </stackView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iJr-5R-baW">
-                                        <rect key="frame" x="0.0" y="989.5" width="320" height="156"/>
+                                        <rect key="frame" x="0.0" y="1009.5" width="320" height="156"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="156" id="zIj-qa-MZv"/>
@@ -525,13 +525,13 @@
                                         </prototypes>
                                     </tableView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rqn-8a-SOt">
-                                        <rect key="frame" x="117" y="946" width="86" height="27.5"/>
+                                        <rect key="frame" x="117" y="966" width="86" height="27.5"/>
                                         <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="vG2-gU-LCa">
-                                        <rect key="frame" x="8" y="371" width="185" height="32"/>
+                                        <rect key="frame" x="8" y="391" width="185" height="32"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gbI-tj-sO7">
                                                 <rect key="frame" x="0.0" y="0.0" width="93.5" height="32"/>
@@ -560,7 +560,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="od1-Pb-ieU">
-                                        <rect key="frame" x="8" y="414" width="108" height="32"/>
+                                        <rect key="frame" x="8" y="434" width="108" height="32"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addressIcon" translatesAutoresizingMaskIntoConstraints="NO" id="l30-0b-Xnx">
                                                 <rect key="frame" x="0.0" y="0.0" width="33" height="32"/>
@@ -581,7 +581,7 @@
                                         </constraints>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unknown" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hCl-dv-ayR">
-                                        <rect key="frame" x="122" y="408" width="190" height="45"/>
+                                        <rect key="frame" x="122" y="428" width="190" height="45"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -595,6 +595,7 @@
                                     <constraint firstItem="BWb-ga-drz" firstAttribute="top" secondItem="od1-Pb-ieU" secondAttribute="bottom" constant="30" id="5R7-Y1-V3e"/>
                                     <constraint firstItem="od1-Pb-ieU" firstAttribute="top" secondItem="vG2-gU-LCa" secondAttribute="bottom" constant="11" id="5xf-ae-eKP"/>
                                     <constraint firstItem="0yw-DF-41T" firstAttribute="top" secondItem="BWb-ga-drz" secondAttribute="bottom" constant="38" id="7s8-Wf-iCL"/>
+                                    <constraint firstItem="NqA-61-P7r" firstAttribute="top" secondItem="dTn-BP-fa4" secondAttribute="bottom" constant="64" id="9OC-AO-d4x"/>
                                     <constraint firstItem="AGT-4o-qyq" firstAttribute="leading" secondItem="dTn-BP-fa4" secondAttribute="leading" id="9l2-Yu-H1z"/>
                                     <constraint firstItem="0yw-DF-41T" firstAttribute="centerX" secondItem="B1q-H9-8Fc" secondAttribute="centerX" id="BNf-Do-5hJ"/>
                                     <constraint firstItem="dTn-BP-fa4" firstAttribute="leading" secondItem="fBa-xz-NH6" secondAttribute="leading" id="CCO-iQ-HHP"/>
@@ -612,14 +613,13 @@
                                     <constraint firstItem="iJr-5R-baW" firstAttribute="leading" secondItem="B1q-H9-8Fc" secondAttribute="leading" id="WR5-ro-5F8"/>
                                     <constraint firstItem="fBa-xz-NH6" firstAttribute="leading" secondItem="vG2-gU-LCa" secondAttribute="leading" id="XOX-eH-m3c"/>
                                     <constraint firstItem="g6R-4i-oD1" firstAttribute="top" secondItem="vW2-Hh-i75" secondAttribute="bottom" constant="16.5" id="YhX-ZO-hua"/>
-                                    <constraint firstItem="vG2-gU-LCa" firstAttribute="top" secondItem="NqA-61-P7r" secondAttribute="bottom" constant="20" id="ZA8-T9-fM5"/>
+                                    <constraint firstItem="vG2-gU-LCa" firstAttribute="top" secondItem="NqA-61-P7r" secondAttribute="bottom" constant="25" id="ZA8-T9-fM5"/>
                                     <constraint firstItem="BWb-ga-drz" firstAttribute="top" secondItem="hCl-dv-ayR" secondAttribute="bottom" constant="23" id="ZP3-wQ-ddF"/>
                                     <constraint firstAttribute="trailing" secondItem="0yw-DF-41T" secondAttribute="trailing" constant="8" id="aFY-YT-bcw"/>
                                     <constraint firstItem="BWb-ga-drz" firstAttribute="centerX" secondItem="0yw-DF-41T" secondAttribute="centerX" id="haq-H5-vH0"/>
                                     <constraint firstItem="AGT-4o-qyq" firstAttribute="centerX" secondItem="B1q-H9-8Fc" secondAttribute="centerX" id="k0r-oh-4kw"/>
                                     <constraint firstAttribute="trailing" secondItem="iJr-5R-baW" secondAttribute="trailing" id="n15-mY-tZj"/>
                                     <constraint firstItem="vW2-Hh-i75" firstAttribute="centerX" secondItem="B1q-H9-8Fc" secondAttribute="centerX" id="qEL-oH-Wlw"/>
-                                    <constraint firstItem="NqA-61-P7r" firstAttribute="top" secondItem="fBa-xz-NH6" secondAttribute="bottom" constant="12" id="rgS-8i-tJr"/>
                                     <constraint firstItem="fBa-xz-NH6" firstAttribute="top" secondItem="dTn-BP-fa4" secondAttribute="bottom" constant="17" id="rjB-Eg-FqF"/>
                                     <constraint firstItem="NqA-61-P7r" firstAttribute="centerX" secondItem="B1q-H9-8Fc" secondAttribute="centerX" id="tKG-t0-WkP"/>
                                     <constraint firstItem="vG2-gU-LCa" firstAttribute="leading" secondItem="od1-Pb-ieU" secondAttribute="leading" id="tfA-CW-XJh"/>
@@ -669,13 +669,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HMY-0T-Wxh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2660.625" y="-714.08450704225356"/>
+            <point key="canvasLocation" x="2659.1999999999998" y="-714.24287856071965"/>
         </scene>
         <!--Campgrounds-->
         <scene sceneID="9Ta-ug-zI4">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pvf-x6-tlH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Campgrounds" image="Camping" id="dee-9F-fQ6" userLabel="Campgrounds">
+                    <tabBarItem key="tabBarItem" title="Campgrounds" image="campgroundsTab" selectedImage="campgroundsTabSelected" id="dee-9F-fQ6" userLabel="Campgrounds">
                         <color key="badgeColor" red="0.99569717639999999" green="0.99569717639999999" blue="0.99569717639999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -750,19 +750,20 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Camping" width="24" height="24"/>
         <image name="NearbyAmenitiesBanner" width="310" height="45"/>
         <image name="Photos" width="418.90908813476562" height="418.90908813476562"/>
         <image name="Reviews" width="418.90908813476562" height="418.90908813476562"/>
         <image name="Weather" width="384" height="384"/>
         <image name="addressIcon" width="32" height="32"/>
+        <image name="campgroundsTab" width="32" height="32"/>
+        <image name="campgroundsTabSelected" width="32" height="32"/>
         <image name="directionsIcon" width="32" height="32"/>
         <image name="hikingIcon" width="400.69564819335938" height="400.69564819335938"/>
         <image name="hoursIcon" width="32" height="32"/>
         <image name="mapIcon" width="41.890907287597656" height="41.890907287597656"/>
+        <image name="noCampgroundImage" width="409.60000610351562" height="409.60000610351562"/>
         <image name="noImageAvailable" width="220" height="220"/>
         <image name="phoneIcon" width="32" height="32"/>
-        <image name="tent" width="409.60000610351562" height="409.60000610351562"/>
         <image name="websiteIcon" width="32" height="32"/>
     </resources>
 </document>

@@ -39,6 +39,7 @@
 		D022B1E620FD2ADF0012025A /* GoogleDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */; };
 		D0234C15210D00B500038CAF /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0234C14210D00B500038CAF /* XMLParser.swift */; };
 		D0234C17210E22C800038CAF /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0234C16210E22C800038CAF /* PhotoDetailViewController.swift */; };
+		D028732C21C1FD0700858FF3 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D028732B21C1FD0700858FF3 /* DateExtension.swift */; };
 		D02A1BA921822C70007F0553 /* OpenUrlHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02A1BA821822C70007F0553 /* OpenUrlHelper.swift */; };
 		D03DAD26213249FC009B4DAB /* ForecastedWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03DAD25213249FC009B4DAB /* ForecastedWeather.swift */; };
 		D03DAD2821324E63009B4DAB /* ForecastedWeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03DAD2721324E63009B4DAB /* ForecastedWeatherController.swift */; };
@@ -68,7 +69,6 @@
 		D08E5A1D21507E0C0054D370 /* GooglePlaceSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08E5A1C21507E0C0054D370 /* GooglePlaceSearchController.swift */; };
 		D08FD2F921602ACE00AAA098 /* CampgrounHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FD2F821602ACE00AAA098 /* CampgrounHoursViewController.swift */; };
 		D08FDCA0210BF76B007F6C5F /* Boondocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FDC9F210BF76B007F6C5F /* Boondocking.swift */; };
-		D08FDCA2210BF828007F6C5F /* BoondockingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D08FDCA1210BF828007F6C5F /* BoondockingController.swift */; };
 		D098E07020FD0C1E00DB4866 /* CustomMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E06F20FD0C1E00DB4866 /* CustomMarker.swift */; };
 		D098E07220FD0C5100DB4866 /* CampgroundMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D098E07120FD0C5100DB4866 /* CampgroundMarkerView.xib */; };
 		D098E07420FD0C7900DB4866 /* CampgroundMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D098E07320FD0C7900DB4866 /* CampgroundMarkerView.swift */; };
@@ -81,7 +81,7 @@
 		D0C5E06620F97C0B00210FC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E06520F97C0B00210FC1 /* Assets.xcassets */; };
 		D0C5E07D20F97FD900210FC1 /* TabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E07C20F97FD900210FC1 /* TabBar.storyboard */; };
 		D0C5E08120F9801300210FC1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */; };
-		D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */; };
+		D0C5E09120F9A6F900210FC1 /* CampgroundMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09020F9A6F900210FC1 /* CampgroundMapViewController.swift */; };
 		D0C5E09320F9A71500210FC1 /* BoondockingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */; };
 		D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */; };
 		D0D2C80C214600E20003C883 /* AmenityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2C80B214600E20003C883 /* AmenityDetailViewController.swift */; };
@@ -92,11 +92,11 @@
 		D0D885052169A6CD002425DB /* ForecastCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D885042169A6CD002425DB /* ForecastCollectionViewCell.swift */; };
 		D0D88507216A5B8B002425DB /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D88506216A5B8B002425DB /* Enums.swift */; };
 		D0D985D92161781800BAB043 /* InformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D985D82161781800BAB043 /* InformationViewController.swift */; };
+		D0E35F06222C813B0072E510 /* Info.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0E35F05222C813B0072E510 /* Info.storyboard */; };
 		D0E5295D210CAEDC009E6435 /* TravelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5295C210CAEDC009E6435 /* TravelViewController.swift */; };
 		D0E5295F210CB6EE009E6435 /* AmenityMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E5295E210CB6EE009E6435 /* AmenityMapViewController.swift */; };
 		D0EAF86C21581C9500086643 /* BoondockingMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EAF86B21581C9500086643 /* BoondockingMarkerView.xib */; };
 		D0EAF86E2158242F00086643 /* BoondockingMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF86D2158242F00086643 /* BoondockingMarkerView.swift */; };
-		D0EAF87021583C6A00086643 /* BoondockingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EAF86F21583C6A00086643 /* BoondockingDetailViewController.swift */; };
 		D0F8A66221C0BCB400D64C13 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F8A66121C0BCB400D64C13 /* UIViewControllerExtension.swift */; };
 		D7A732D64A335AF81DEE748C /* Pods_TheCampersToolkit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB561D47B0019A80F120DEAF /* Pods_TheCampersToolkit.framework */; };
 /* End PBXBuildFile section */
@@ -179,6 +179,7 @@
 		D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDetailController.swift; sourceTree = "<group>"; };
 		D0234C14210D00B500038CAF /* XMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLParser.swift; sourceTree = "<group>"; };
 		D0234C16210E22C800038CAF /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PhotoDetailViewController.swift; path = "XML Parsers/PhotoDetailViewController.swift"; sourceTree = SOURCE_ROOT; };
+		D028732B21C1FD0700858FF3 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		D02A1BA821822C70007F0553 /* OpenUrlHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenUrlHelper.swift; sourceTree = "<group>"; };
 		D03DAD25213249FC009B4DAB /* ForecastedWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastedWeather.swift; sourceTree = "<group>"; };
 		D03DAD2721324E63009B4DAB /* ForecastedWeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastedWeatherController.swift; sourceTree = "<group>"; };
@@ -208,7 +209,6 @@
 		D08E5A1C21507E0C0054D370 /* GooglePlaceSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlaceSearchController.swift; sourceTree = "<group>"; };
 		D08FD2F821602ACE00AAA098 /* CampgrounHoursViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CampgrounHoursViewController.swift; path = "View Controller/CampgrounHoursViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D08FDC9F210BF76B007F6C5F /* Boondocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boondocking.swift; sourceTree = "<group>"; };
-		D08FDCA1210BF828007F6C5F /* BoondockingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoondockingController.swift; sourceTree = "<group>"; };
 		D098E06F20FD0C1E00DB4866 /* CustomMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarker.swift; sourceTree = "<group>"; };
 		D098E07120FD0C5100DB4866 /* CampgroundMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CampgroundMarkerView.xib; sourceTree = "<group>"; };
 		D098E07320FD0C7900DB4866 /* CampgroundMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampgroundMarkerView.swift; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 		D0C5E06A20F97C0B00210FC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0C5E07C20F97FD900210FC1 /* TabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TabBar.storyboard; sourceTree = "<group>"; };
 		D0C5E08020F9801300210FC1 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewController.swift; path = Views/HomeViewController.swift; sourceTree = SOURCE_ROOT; };
+		D0C5E09020F9A6F900210FC1 /* CampgroundMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampgroundMapViewController.swift; path = Views/CampgroundMapViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoondockingViewController.swift; path = Views/BoondockingViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CampgroundDetailViewController.swift; path = Views/CampgroundDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0D2C80B214600E20003C883 /* AmenityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AmenityDetailViewController.swift; path = Views/AmenityDetailViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -236,11 +236,11 @@
 		D0D885042169A6CD002425DB /* ForecastCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCollectionViewCell.swift; sourceTree = "<group>"; };
 		D0D88506216A5B8B002425DB /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		D0D985D82161781800BAB043 /* InformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationViewController.swift; sourceTree = "<group>"; };
+		D0E35F05222C813B0072E510 /* Info.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Info.storyboard; sourceTree = "<group>"; };
 		D0E5295C210CAEDC009E6435 /* TravelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TravelViewController.swift; path = "Model Controllers/TravelViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D0E5295E210CB6EE009E6435 /* AmenityMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AmenityMapViewController.swift; path = "Model Controllers/AmenityMapViewController.swift"; sourceTree = SOURCE_ROOT; };
 		D0EAF86B21581C9500086643 /* BoondockingMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BoondockingMarkerView.xib; sourceTree = "<group>"; };
 		D0EAF86D2158242F00086643 /* BoondockingMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoondockingMarkerView.swift; sourceTree = "<group>"; };
-		D0EAF86F21583C6A00086643 /* BoondockingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoondockingDetailViewController.swift; path = Views/BoondockingDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 		D0F8A66121C0BCB400D64C13 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -480,6 +480,7 @@
 				D0AD4AE5211343F4001EB1B6 /* DoubleExtension.swift */,
 				D0B00C5D21BF489300CBBF23 /* UITableViewCellExtension.swift */,
 				D0F8A66121C0BCB400D64C13 /* UIViewControllerExtension.swift */,
+				D028732B21C1FD0700858FF3 /* DateExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -532,6 +533,7 @@
 				D074E66A21BDE43D003C83A8 /* Hours.storyboard */,
 				D074E66821BDE404003C83A8 /* Photo.storyboard */,
 				D074E66421BDD07C003C83A8 /* Weather.storyboard */,
+				D0E35F05222C813B0072E510 /* Info.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -557,7 +559,6 @@
 				D022B1E520FD2ADF0012025A /* GoogleDetailController.swift */,
 				D04D3FEC2105413F00629B02 /* CurrentWeatherController.swift */,
 				D066C0F92106C44100B71E41 /* HikingTrailController.swift */,
-				D08FDCA1210BF828007F6C5F /* BoondockingController.swift */,
 				D03DAD2721324E63009B4DAB /* ForecastedWeatherController.swift */,
 				D08E5A1C21507E0C0054D370 /* GooglePlaceSearchController.swift */,
 			);
@@ -567,7 +568,7 @@
 		D0C5E07720F97C5700210FC1 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D0C5E09020F9A6F900210FC1 /* HomeViewController.swift */,
+				D0C5E09020F9A6F900210FC1 /* CampgroundMapViewController.swift */,
 				D0C5E09220F9A71500210FC1 /* BoondockingViewController.swift */,
 				D0C5E09420F9A86A00210FC1 /* CampgroundDetailViewController.swift */,
 				D06AA8402105295C00B74FCB /* CampgroundPhotosViewController.swift */,
@@ -579,7 +580,6 @@
 				D0E5295E210CB6EE009E6435 /* AmenityMapViewController.swift */,
 				D0234C16210E22C800038CAF /* PhotoDetailViewController.swift */,
 				D0D2C80B214600E20003C883 /* AmenityDetailViewController.swift */,
-				D0EAF86F21583C6A00086643 /* BoondockingDetailViewController.swift */,
 				D0D39BD9215DCE42006F1CF8 /* CampgrounHoursViewController.swift */,
 				D0D39BDB215DCF1B006F1CF8 /* SatelliteViewController.swift */,
 				D08FD2F821602ACE00AAA098 /* CampgrounHoursViewController.swift */,
@@ -702,6 +702,7 @@
 			files = (
 				D074E66F21BDE49B003C83A8 /* DetailMap.storyboard in Resources */,
 				D074E66521BDD07C003C83A8 /* Weather.storyboard in Resources */,
+				D0E35F06222C813B0072E510 /* Info.storyboard in Resources */,
 				D098E07220FD0C5100DB4866 /* CampgroundMarkerView.xib in Resources */,
 				D074E66B21BDE43D003C83A8 /* Hours.storyboard in Resources */,
 				D074E66921BDE404003C83A8 /* Photo.storyboard in Resources */,
@@ -801,7 +802,7 @@
 				D0C5E09520F9A86A00210FC1 /* CampgroundDetailViewController.swift in Sources */,
 				D0026CB22160747900DA8693 /* GMULineString.m in Sources */,
 				D04D3FE9210536AD00629B02 /* WeatherViewController.swift in Sources */,
-				D0C5E09120F9A6F900210FC1 /* HomeViewController.swift in Sources */,
+				D0C5E09120F9A6F900210FC1 /* CampgroundMapViewController.swift in Sources */,
 				D0026CA72160747900DA8693 /* GMUKMLParser.m in Sources */,
 				D0026CA12160747900DA8693 /* GMUDefaultClusterRenderer.m in Sources */,
 				D053DB102148866E00254629 /* AmenityMarkerView.swift in Sources */,
@@ -831,10 +832,8 @@
 				D0E5295F210CB6EE009E6435 /* AmenityMapViewController.swift in Sources */,
 				D04D3FED2105413F00629B02 /* CurrentWeatherController.swift in Sources */,
 				D010EE372104FE0D007EE483 /* CampgroundReviewCell.swift in Sources */,
-				D08FDCA2210BF828007F6C5F /* BoondockingController.swift in Sources */,
 				D07BBC79219E589D000B6B33 /* AppUpdate.swift in Sources */,
 				D098E07020FD0C1E00DB4866 /* CustomMarker.swift in Sources */,
-				D0EAF87021583C6A00086643 /* BoondockingDetailViewController.swift in Sources */,
 				D0026CA42160747900DA8693 /* GMUWeightedLatLng.m in Sources */,
 				D08FDCA0210BF76B007F6C5F /* Boondocking.swift in Sources */,
 				D04D3FEB21053A7C00629B02 /* CurrentWeather.swift in Sources */,
@@ -844,6 +843,7 @@
 				D0A991E72103992400698EF1 /* Constants.swift in Sources */,
 				D0026CAC2160747900DA8693 /* GMUStyleMap.m in Sources */,
 				D0026CB52160747900DA8693 /* GQTPointQuadTreeChild.m in Sources */,
+				D028732C21C1FD0700858FF3 /* DateExtension.swift in Sources */,
 				D07BBC77219E5355000B6B33 /* UpdateHelper.swift in Sources */,
 				D0026CA52160747900DA8693 /* GMUGradient.m in Sources */,
 				D0026CB42160747900DA8693 /* GQTPointQuadTree.m in Sources */,

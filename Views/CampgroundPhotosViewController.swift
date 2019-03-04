@@ -38,7 +38,11 @@ class CampgroundPhotosViewController: UIViewController {
         }
         
         photoReferences.forEach { (photoRef) in
-            let referenceString = photoRef.photoReference ?? ""
+            guard let referenceString = photoRef.photoReference else {
+                assertionFailure("Error getting reference string to fetch photo")
+                return
+            }
+            
             GoogleDetailController.fetchPlacePhotoWith(photoReference: referenceString, completion: { (image) in
                 if let image = image {
                     self.images.append(image)

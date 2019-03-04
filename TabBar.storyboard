@@ -20,8 +20,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="Oa0-8H-OTY" kind="relationship" relationship="viewControllers" id="FS2-Qv-5Ns"/>
-                        <segue destination="QHz-UM-lRC" kind="relationship" relationship="viewControllers" id="vMg-sB-HcY"/>
                         <segue destination="UDL-M4-HbZ" kind="relationship" relationship="viewControllers" id="9dw-9l-M2U"/>
+                        <segue destination="QHz-UM-lRC" kind="relationship" relationship="viewControllers" id="vMg-sB-HcY"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rJ3-aq-tOH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -32,7 +32,7 @@
         <scene sceneID="LKS-Le-XOv">
             <objects>
                 <viewControllerPlaceholder storyboardName="Campground" id="Oa0-8H-OTY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="3NW-IV-wKb"/>
+                    <tabBarItem key="tabBarItem" title="Campgrounds" image="campgroundsTab-1" id="3NW-IV-wKb"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bQO-KY-7LT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -42,21 +42,26 @@
         <scene sceneID="eZ6-56-Dep">
             <objects>
                 <viewControllerPlaceholder storyboardName="Boondocking" id="QHz-UM-lRC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="wie-Ey-3hW"/>
+                    <tabBarItem key="tabBarItem" title="Boondocking" image="boondockingTab" id="wie-Ey-3hW"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jey-GE-HQH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-569" y="452"/>
+            <point key="canvasLocation" x="-340" y="451"/>
         </scene>
         <!--Travel-->
         <scene sceneID="Nrr-7h-aCA">
             <objects>
                 <viewControllerPlaceholder storyboardName="Travel" id="UDL-M4-HbZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="5WP-j7-4bV"/>
+                    <tabBarItem key="tabBarItem" title="Travel" image="travelTab" id="5WP-j7-4bV"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GlY-Ji-ATb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-335" y="452"/>
+            <point key="canvasLocation" x="-569" y="451"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="boondockingTab" width="32" height="32"/>
+        <image name="campgroundsTab-1" width="32" height="32"/>
+        <image name="travelTab" width="32" height="32"/>
+    </resources>
 </document>

@@ -77,7 +77,6 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
     var campgroundsXml: [Campgroundxml]?
     var campgroundPhoto: UIImage?
     var photosArray: [Photos]?
-    
     let geoCoder = CLGeocoder()
     
     // MARK: - View Lifecycle
@@ -88,9 +87,9 @@ class CampgroundDetailViewController: UIViewController, SFSafariViewControllerDe
         reviewTableView.dataSource = self
         
         updateViews()
-        fetchFromActiveApi()
         loadReviews()
         listenForUnwindSegue()
+        fetchFromActiveApi()
         
         // Buttons are only enabled when data is available
         visitWebsiteButton.isEnabled = false

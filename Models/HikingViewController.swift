@@ -76,7 +76,7 @@ class HikingViewController: UIViewController {
 // MARK: - Google adView Protocol Methods
 extension HikingViewController: GADBannerViewDelegate {
     
-    func adViewDidReceiveAd(_ bannerView: GADBannerView!) {
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
         print("Ad banner loaded successfully")
         
         // Reposition the banner ad to create a slide down effect
@@ -88,8 +88,8 @@ extension HikingViewController: GADBannerViewDelegate {
         }
     }
     
-    func adView(_ bannerView: GADBannerView!, didFailToReceiveAdWithError error: GADRequestError!) {
-        print("Failed to receive ads. Exiting with error \(error) \(error.localizedDescription)")
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Failed to receive ads. Exiting with error \(error.localizedDescription) \(error.localizedDescription)")
     }
 }
 

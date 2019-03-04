@@ -32,9 +32,8 @@ struct AppRatingHelper {
         let appLaunchCount = UserDefaults.standard.integer(forKey: "launchCount")
         
         if beenAsked == false {
-            
             switch appLaunchCount {
-            case 10, 18, 20, 50, 80:
+            case 10, 18, 20, 50, 80, 100, 145, 195:
                 AppRatingHelper().requestReview()
                 beenAsked = true
             default:
