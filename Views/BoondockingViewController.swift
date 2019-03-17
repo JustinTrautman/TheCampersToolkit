@@ -13,13 +13,15 @@
 
 import UIKit
 import GoogleMaps
+import Lottie
+import SafariServices
 
-class BoondockingViewController: UIViewController, GMSMapViewDelegate {
+class BoondockingViewController: UIViewController {
     
     // MARK: - Outlets
-    @IBOutlet weak var mapView: GMSMapView!
-    @IBOutlet weak var navigationBar: UINavigationItem!
-    @IBOutlet weak var searchButton: UIBarButtonItem!
+    @IBOutlet weak private var mapView: GMSMapView!
+    @IBOutlet weak private var navigationBar: UINavigationItem!
+    @IBOutlet weak private var searchButton: UIBarButtonItem!
     
     // MARK: - Actions
     @IBAction func searchButtonTapped(_ sender: Any) {
@@ -29,30 +31,41 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
     // MARK: - Properties
     private let locationManager = CLLocationManager()
     
-    var boondockingLocations: [Boondocking]?
-    var selectedBoondock: Boondocking?
-    var beenAlerted = UserDefaults.standard.bool(forKey: "Alerted")
+    private var boondockingLocations: [Boondocking]?
+    private var selectedBoondock: Boondocking?
+    private var agreedToToU = UserDefaults.standard.bool(forKey: "Alerted")
+    
+    // Layout Properties
+    private let loadingOverlay: UIView = {
+        let loadingView = UIView()
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.backgroundColor = .clear
+        return loadingView
+    }()
+    
+    private let loadingAnimation: LOTAnimationView = {
+        let animation = LOTAnimationView(name: "mapLoading")
+        animation.translatesAutoresizingMaskIntoConstraints = false
+        animation.layer.masksToBounds = true
+        return animation
+    }()
     
     // MARK: - View Lifecylce
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationManager.delegate = self
         mapView.delegate = self
-        
+        mapView.settings.rotateGestures = false
+        locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
-        if !beenAlerted {
-            AlertHelper.showAgreementAlert(on: self) // User must agree to accuracy terms before using.
-            
-            UserDefaults.standard.setValue("True", forKey: "Alerted")
-            UserDefaults.standard.synchronize()
-            
+        listenForAgreement()
+        
+        if !agreedToToU {
+            AlertHelper.showAgreementAlert(on: self) // User must agree to Terms of Use before using.
+        } else {
             fetchBoondockingLocations()
         }
-        
-        // If user has already agreed, fetch locations
-        fetchBoondockingLocations()
     }
     
     func openSearchWindow() {
@@ -67,10 +80,15 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
         
         let searchAction = UIAlertAction(title: "Search", style: .default) { (search) in
             guard let searchText = searchTextField?.text, !searchText.isEmpty else { return }
-            self.navigationBar.title = searchText
+            self.navigationBar.title = searchText.capitalized
             
             let geoCoder = CLGeocoder()
             geoCoder.geocodeAddressString(searchText) { (placemarks, error) in
+                if let _ = error {
+                    AlertHelper.showCustomAlert(on: self, title: "No Search Results", message: "We couldn't find any results for '\(searchText)'. Please check spelling and try again.")
+                    return
+                }
+                
                 guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
                 
                 let latitude = location.latitude
@@ -85,10 +103,18 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
         searchWindow.addAction(cancelAction)
         searchWindow.addAction(searchAction)
         
-        self.present(searchWindow, animated: true)
+        DispatchQueue.main.async {
+            self.present(searchWindow, animated: true)
+        }
     }
     
     func fetchBoondockingLocations() {
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            self.disableInterfaceInteraction()
+            self.showLoadingOverlay()
+        }
+        
         BoondockingController.fetchAllBoondockingLocations { (boondocking) in
             if let foundBoondocks = boondocking {
                 let usersLocation = self.locationManager.location?.coordinate
@@ -98,21 +124,76 @@ class BoondockingViewController: UIViewController, GMSMapViewDelegate {
                 DispatchQueue.main.async {
                     for boondock in foundBoondocks {
                         let marker = BoondockingMarker(boondocking: [boondock])
-                        
                         self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 7, bearing: 0, viewingAngle: 0)
-                        
                         marker.map = self.mapView
                     }
                 }
+                
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    self.loadingOverlay.removeFromSuperview()
+                    self.mapView.alpha = 1.0
+                    self.enableInterfaceInteraction()
+                }
             }
         }
+    }
+    
+    func showLoadingOverlay() {
+        self.mapView.addSubview(loadingOverlay)
+        self.mapView.bringSubviewToFront(loadingOverlay)
+        
+        loadingOverlay.translatesAutoresizingMaskIntoConstraints = false
+        loadingOverlay.centerXAnchor.constraint(equalTo: mapView.centerXAnchor).isActive = true
+        loadingOverlay.centerYAnchor.constraint(equalTo: mapView.centerYAnchor).isActive = true
+        loadingOverlay.widthAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: 1/2).isActive = true
+        loadingOverlay.heightAnchor.constraint(equalTo: mapView.heightAnchor, multiplier: 1/3).isActive = true
+        
+        loadingOverlay.addSubview(loadingAnimation)
+        loadingAnimation.translatesAutoresizingMaskIntoConstraints = false
+        loadingAnimation.centerXAnchor.constraint(equalTo: loadingOverlay.centerXAnchor).isActive = true
+        loadingAnimation.centerYAnchor.constraint(equalTo: loadingOverlay.centerYAnchor).isActive = true
+        loadingAnimation.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        loadingAnimation.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        DispatchQueue.main.async {
+            self.mapView.alpha = 0.8
+            self.loadingAnimation.play()
+            self.loadingAnimation.loopAnimation = true
+        }
+    }
+    
+    func enableInterfaceInteraction() {
+        navigationController?.navigationBar.isUserInteractionEnabled = true
+        mapView.isUserInteractionEnabled = true
+        tabBarController?.tabBar.isUserInteractionEnabled = true
+    }
+    
+    func disableInterfaceInteraction() {
+        navigationController?.navigationBar.isUserInteractionEnabled = false
+        mapView.isUserInteractionEnabled = false
+        tabBarController?.tabBar.isUserInteractionEnabled = false
+    }
+    
+    func listenForAgreement() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleToUAgreement), name: Constants.agreeKey, object: nil)
+    }
+    
+    @objc func handleToUAgreement() {
+        // If user has agreed, fetch boondocking locations and never ask again.
+        fetchBoondockingLocations()
+    }
+    
+    // MARK: - Navigation
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        performSegue(withIdentifier: BoondockDetailViewController.segueIdentifier, sender: BoondockingMarker.self)
     }
 }
 
 extension BoondockingViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        guard status == .authorizedWhenInUse else {
+        guard status == .authorizedWhenInUse || status == .authorizedAlways else {
             return
         }
         
@@ -162,16 +243,21 @@ extension BoondockingViewController: CLLocationManagerDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toBoondockDetail" {
-            guard let detailVC = segue.destination as? BoondockingDetailViewController else { return }
+        if segue.identifier == BoondockDetailViewController.segueIdentifier {
+            guard let detailVC = segue.destination as? BoondockDetailViewController else { return }
             
             detailVC.boondockingLocations = boondockingLocations
             detailVC.selectedBoondock = selectedBoondock
         }
     }
-    
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        performSegue(withIdentifier: "toBoondockDetail", sender: BoondockingMarker.self)
+}
+
+extension BoondockingViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+            AlertHelper.showAgreementAlert(on: self)
+        }
     }
 }
 

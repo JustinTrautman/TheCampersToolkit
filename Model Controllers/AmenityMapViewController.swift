@@ -13,61 +13,16 @@
 
 import UIKit
 import GoogleMaps
+import Lottie
 
 class AmenityMapViewController: UIViewController {
-        
+    
     // MARK: - Outlets
-    @IBOutlet weak var mapView: GMSMapView!
-    
-    // MARK: - Properties
-    private var locationManager = CLLocationManager()
-    private var searchRadius: Double = 8047
-    
-    var selectedType: String?
-    var results: [Results]?
-    var selectedAmenity: String?
-    var campgroundCoordinates: CLLocationCoordinate2D?
-    
-    // MARK: - View Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-                
-        locationManager.delegate = self
-        mapView.delegate = self
-        
-        locationManager.requestWhenInUseAuthorization()
-    }
-    
-    func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
-        mapView.clear()
-        guard let selectedType = self.selectedType else { return }
-        
-        var coordinates = coordinate
-        
-        if campgroundCoordinates != nil {
-            coordinates = campgroundCoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
-        }
-        
-        GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinates.latitude)", longitude: "\(coordinates.longitude)", radius: searchRadius, type: selectedType) { (places) in
-            
-            if let places = places {
-                DispatchQueue.main.async {
-                    for place in places {
-                        let marker = AmenityMarker(googlePlace: place)
-                        marker.map = self.mapView
-                        self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 13, bearing: 0, viewingAngle: 0)
-                        self.results = places
-                    }
-                }
-                
-                if places.count == 0 {
-                    self.showNoAmenitiesAlert()
-                }
-            }
-        }
-    }
+    @IBOutlet weak private var navigationBar: UINavigationItem!
+    @IBOutlet weak private var mapView: GMSMapView!
     
     // MARK: - Actions
+    // TODO: Refactor this action
     @IBAction func searchRadiusButtonTapped(_ sender: Any) {
         let searchRadiusActionSheet = UIAlertController(title: "Search Radius", message: nil, preferredStyle: .actionSheet)
         searchRadiusActionSheet.view.tintColor = .blue
@@ -106,25 +61,144 @@ class AmenityMapViewController: UIViewController {
         searchRadiusActionSheet.addAction(tenMileRadius)
         searchRadiusActionSheet.addAction(twentyMileRadius)
         
-        present(searchRadiusActionSheet, animated: true)
+        DispatchQueue.main.async {
+            self.present(searchRadiusActionSheet, animated: true)
+        }
     }
     
-    func stringFormatter(originalString: String) -> String {
-        let formattedString = originalString.replacingOccurrences(of: "_", with: " ")
+    // MARK: - Properties
+    private var locationManager = CLLocationManager()
+    private var searchRadius: Double = 8047
+    
+    var selectedType: String?
+    var results: [Results]?
+    var selectedAmenity: String?
+    var campgroundCoordinates: CLLocationCoordinate2D?
+    
+    // Layout Properties
+    let loadingOverlay: UIView = {
+        let loadingView = UIView()
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.backgroundColor = .clear
+        return loadingView
+    }()
+    
+    let loadingAnimation: LOTAnimationView = {
+        let animation = LOTAnimationView(name: "mapLoading")
+        animation.translatesAutoresizingMaskIntoConstraints = false
+        animation.layer.masksToBounds = true
+        return animation
+    }()
+    
+    // MARK: - View Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        if formattedString == "car repair" {
-            return "car repair shop"
+        locationManager.delegate = self
+        mapView.delegate = self
+        mapView.settings.rotateGestures = false
+        
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
+        DispatchQueue.main.async {
+            self.mapView.clear()
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            self.disableInterfaceInteraction()
+            self.showLoadingOverlay()
         }
         
-        if formattedString == "store" {
-            return "propane service"
+        guard let selectedType = self.selectedType else { return }
+        
+        var coordinates = coordinate
+        
+        if campgroundCoordinates != nil {
+            coordinates = campgroundCoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
         }
         
-        return formattedString
+        GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinates.latitude)", longitude: "\(coordinates.longitude)", radius: searchRadius, keyword: selectedType) { (places) in
+            
+            if let places = places {
+                DispatchQueue.main.async {
+                    for place in places {
+                        let marker = AmenityMarker(googlePlace: place)
+                        marker.map = self.mapView
+                        self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 13, bearing: 0, viewingAngle: 0)
+                        self.results = places
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    self.loadingOverlay.removeFromSuperview()
+                    self.mapView.alpha = 1.0
+                    self.enableInterfaceInteraction()
+                    self.navigationBar.title = "\(self.format(amenityType: selectedType).capitalized) Near You"
+                }
+                
+                if places.count == 0 {
+                    self.showNoAmenitiesAlert()
+                }
+            }
+        }
+    }
+    
+    func showLoadingOverlay() {
+        self.mapView.addSubview(loadingOverlay)
+        self.mapView.bringSubviewToFront(loadingOverlay)
+        
+        loadingOverlay.translatesAutoresizingMaskIntoConstraints = false
+        loadingOverlay.centerXAnchor.constraint(equalTo: mapView.centerXAnchor).isActive = true
+        loadingOverlay.centerYAnchor.constraint(equalTo: mapView.centerYAnchor).isActive = true
+        loadingOverlay.widthAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: 1/2).isActive = true
+        loadingOverlay.heightAnchor.constraint(equalTo: mapView.heightAnchor, multiplier: 1/3).isActive = true
+        
+        loadingOverlay.addSubview(loadingAnimation)
+        loadingAnimation.translatesAutoresizingMaskIntoConstraints = false
+        loadingAnimation.centerXAnchor.constraint(equalTo: loadingOverlay.centerXAnchor).isActive = true
+        loadingAnimation.centerYAnchor.constraint(equalTo: loadingOverlay.centerYAnchor).isActive = true
+        loadingAnimation.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        loadingAnimation.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        DispatchQueue.main.async {
+            self.mapView.alpha = 0.8
+            self.loadingAnimation.play()
+            self.loadingAnimation.loopAnimation = true
+        }
+    }
+    
+    func enableInterfaceInteraction() {
+        navigationController?.navigationBar.isUserInteractionEnabled = true
+        mapView.isUserInteractionEnabled = true
+        tabBarController?.tabBar.isUserInteractionEnabled = true
+    }
+    
+    func disableInterfaceInteraction() {
+        navigationController?.navigationBar.isUserInteractionEnabled = false
+        mapView.isUserInteractionEnabled = false
+        tabBarController?.tabBar.isUserInteractionEnabled = false
+    }
+    
+    func format(amenityType: String) -> String {
+        let formattedString = amenityType.replacingOccurrences(of: "_", with: " ")
+        
+        switch formattedString {
+        case "car repair":
+            return "car repair shops"
+        case "store":
+            return "propane services"
+        case "supermarket":
+            return "stores"
+        case "gas station":
+            return "gas stations"
+        default:
+            return formattedString
+        }
     }
     
     func showNoAmenitiesAlert() {
-        let noAmenitiesAlert = UIAlertController(title: nil, message: "There are no \(stringFormatter(originalString: selectedType!))s within the specified radius. You can try adjusting the search radius", preferredStyle: .alert)
+        let noAmenitiesAlert = UIAlertController(title: nil, message: "There are no \(format(amenityType: selectedType!)) within the specified radius. You can try adjusting the search radius", preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
             // Go back to previous ViewController. Disabled in Version 1.5
@@ -132,12 +206,15 @@ class AmenityMapViewController: UIViewController {
         }
         
         noAmenitiesAlert.addAction(okAction)
-        self.present(noAmenitiesAlert, animated: true)
+        
+        DispatchQueue.main.async {
+            self.present(noAmenitiesAlert, animated: true)
+        }
     }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toAmenityDetail" {
+        if segue.identifier == AmenityDetailViewController.segueIdentifier {
             guard let detailVC = segue.destination as? AmenityDetailViewController else { return }
             
             detailVC.selectedAmenity = selectedAmenity
@@ -195,6 +272,7 @@ extension AmenityMapViewController: GMSMapViewDelegate {
         let distanceInMiles = Double(distanceInMeters) * 0.000621371
         
         infoView.milesAwayLabel.text = "\(distanceInMiles.roundToPlaces(places: 2)) miles away"
+        infoView.amenityImageView.image = UIImage(named: "blackMoreArrow")
         
         return infoView
     }
@@ -209,7 +287,7 @@ extension AmenityMapViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         let amenityMarker = marker as? AmenityMarker
-        performSegue(withIdentifier: "toAmenityDetail", sender: amenityMarker?.googlePlace)
+        performSegue(withIdentifier: AmenityDetailViewController.segueIdentifier, sender: amenityMarker?.googlePlace)
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {

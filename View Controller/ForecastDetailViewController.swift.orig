@@ -1,0 +1,113 @@
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ WeatherDetailViewController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 10/6/18.
+ Copyright © 2018 Modular Mobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
+
+import UIKit
+
+class ForecastDetailViewController: UIViewController {
+    
+    // MARK: - Outlets
+    @IBOutlet private var parentView: UIView!
+    @IBOutlet weak private var dayNameLabel: UILabel!
+    @IBOutlet weak private var dayTypeImageView: UIImageView!
+    @IBOutlet weak private var temperatureLabel: UILabel!
+    @IBOutlet weak private var elevationLabel: UILabel!
+    @IBOutlet weak private var windSpeedLabel: UILabel!
+    @IBOutlet weak private var weatherDescriptionLabel: UILabel!
+    
+    // MARK: - Properties
+    var forecastedWeatherData: ForecastedWeatherData.Periods?
+    var locationElevation: ForecastedWeatherData?
+    
+    private let darkTheme = UIColor(red: 0.13, green: 0.13, blue: 0.14, alpha: 1.0)
+    
+    // MARK: - View Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        updateViews()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if isMovingFromParent {
+            navigationController?.navigationBar.barStyle = .default
+            tabBarController?.tabBar.barStyle = .default
+        }
+    }
+    
+    func updateViews() {
+        guard let forecastedWeatherData = forecastedWeatherData else { return }
+        
+        guard let name = forecastedWeatherData.name,
+            let temperature = forecastedWeatherData.temperature,
+            let windSpeed = forecastedWeatherData.windSpeed,
+            let windDirection = forecastedWeatherData.windDirection,
+            let weatherDescription = forecastedWeatherData.detailedForecast,
+            let forecastProperties = locationElevation?.properties,
+            let elevation = forecastProperties.elevation?.value,
+            let isDay = forecastedWeatherData.isDaytime else {
+                return
+        }
+        
+        let elevationInFeet = elevation * 3.2808
+        
+        DispatchQueue.main.async {
+            switch isDay {
+            case false:
+                self.setNightTheme()
+            default:
+                self.dayTypeImageView.image = UIImage(named: "sunnyBig")
+            }
+            
+            self.dayNameLabel.text = name
+            self.temperatureLabel.text = "\(temperature) ℉"
+            self.windSpeedLabel.text = "The expected wind speed is \(windSpeed) \(windDirection)"
+            self.weatherDescriptionLabel.text = weatherDescription
+            self.elevationLabel.text = "Elevation: \(elevationInFeet.roundToClosestHalf()) ft."
+        }
+    }
+    
+    func setNightTheme() {
+        parentView.backgroundColor = darkTheme
+        navigationController?.navigationBar.barStyle = .black
+        tabBarController?.tabBar.barStyle = .black
+        dayNameLabel.textColor = .white
+        dayTypeImageView.image = UIImage(named: "moonBig")
+        temperatureLabel.textColor = .white
+        elevationLabel.textColor = .white
+        windSpeedLabel.textColor = .white
+        weatherDescriptionLabel.textColor = .white
+    }
+}
+
+<<<<<<< HEAD
+extension ForecastDetailViewController : GADBannerViewDelegate {
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("Ad banner loaded successfully")
+        
+        addBannerViewToView(bannerView)
+        
+        // Reposition the banner ad to create a slide down effect
+        DispatchQueue.main.async {
+            bannerView.alpha = 0
+            UIView.animate(withDuration: 0.5, animations: {
+                bannerView.alpha = 1
+            })
+        }
+    }
+}
+=======
+>>>>>>> f7d45690284dd1baa88d1d4e28b90439fe4c1ca0
+

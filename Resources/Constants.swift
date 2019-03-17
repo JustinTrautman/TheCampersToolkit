@@ -19,25 +19,27 @@ struct Constants {
     
     // API Keys
     static let googleApiKey = "apikey"
-    //  static let googleApiKey = "BOGUS"
     static let openWeatherApiKey = "apikey"
     static let activeApiKey = "apikey"
     static let gasFeedApiKey = "apikey"
     
-    // Databases
-    static let boondockingDatabase = "database"
     
     // Google ad IDs
-    static let applicationID = "appID"
+    static let applicationID = "appId"
     
     // Real Ad Unit ID
-    static let bannerAdUnitID = "unitID"
-    static let interstitialAdUnitID = "unitID"
+//    static let bannerAdUnitID = "unitId"
+//    static let interstitialAdUnitID = "unitId"
     
     // Testing ad Unit ID
-    //    static let interstitialAdUnitID = "unitID"
-    //    static let bannerAdUnitID = "unitID"
+    static let interstitialAdUnitID = "unitId"
+    static let bannerAdUnitID = "unitId"
+    
+    // Strings
+    static let photosBaseURL = URL(string: "https://maps.googleapis.com/maps/api/place/photo?maxwidth=700?maxHeight=700&photoreference=")
     
     // Notification Keys
     static let updateReviewsKey = Notification.Name("net.modularmobile.updateReviews")
+    static let agreeKey = Notification.Name("net.modularmobile.tctTerms")
+    static let networkRefreshKey = Notification.Name("net.modularmobile.networkRefresh")
 }

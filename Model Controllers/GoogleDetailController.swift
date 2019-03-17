@@ -105,30 +105,30 @@ class GoogleDetailController {
             }.resume()
     }
     
-    static func fetchPlacePhotoWith(photoReference: String, completion: @escaping ((UIImage)?) -> Void) {
-        guard let url = photosBaseURL else { completion(nil) ; return }
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        
-        let photoreferenceQuery = URLQueryItem(name: "photoreference", value: photoReference)
-        let maxWidthQuery = URLQueryItem(name: "maxwidth", value: "700") // In pixels
-        let maxHeightQuery = URLQueryItem(name: "maxheight", value: "700")
-        let apiKeyQuery = URLQueryItem(name: "key", value: Constants.googleApiKey)
-        
-        let queryArray = [photoreferenceQuery, maxWidthQuery, maxHeightQuery, apiKeyQuery]
-        components?.queryItems = queryArray
-        
-        guard let completeURL = components?.url else { completion(nil) ; return }
-        
-        URLSession.shared.dataTask(with: completeURL) { (data, _, error) in
-            if let error = error {
-                print("DataTask had an issue reaching the network. Exiting with error: \(error) \(error.localizedDescription)")
-                completion(nil) ; return
-            }
-            
-            guard let data = data else { completion(nil) ; return }
-            
-            let image = UIImage(data: data)
-            completion(image)
-            }.resume()
-    }
+//    static func fetchPlacePhotoWith(photoReference: String, completion: @escaping ((UIImage)?) -> Void) {
+//        guard let url = photosBaseURL else { completion(nil) ; return }
+//        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+//        
+//        let photoreferenceQuery = URLQueryItem(name: "photoreference", value: photoReference)
+//        let maxWidthQuery = URLQueryItem(name: "maxwidth", value: "700") // In pixels
+//        let maxHeightQuery = URLQueryItem(name: "maxheight", value: "700")
+//        let apiKeyQuery = URLQueryItem(name: "key", value: Constants.googleApiKey)
+//        
+//        let queryArray = [photoreferenceQuery, maxWidthQuery, maxHeightQuery, apiKeyQuery]
+//        components?.queryItems = queryArray
+//        
+//        guard let completeURL = components?.url else { completion(nil) ; return }
+//        
+//        URLSession.shared.dataTask(with: completeURL) { (data, _, error) in
+//            if let error = error {
+//                print("DataTask had an issue reaching the network. Exiting with error: \(error) \(error.localizedDescription)")
+//                completion(nil) ; return
+//            }
+//            
+//            guard let data = data else { completion(nil) ; return }
+//            
+//            let image = UIImage(data: data)
+//            completion(image)
+//            }.resume()
+//    }
 }

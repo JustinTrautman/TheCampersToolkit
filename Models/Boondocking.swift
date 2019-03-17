@@ -20,20 +20,20 @@ struct Boondocking : Codable {
     let description : String?
     let website: String?
     let phone: String?
-    let fireRing : String?
-    let flat : String?
-    let flushToilet : String?
-    let grill : String?
-    let latitude : String?
-    let length : String?
-    let longitude : String?
-    let nonPotableWater : String?
-    let pOIID : String?
-    let picnicTable : String?
-    let pitToilet : String?
-    let portableWater : String?
-    let registrationRequired : String?
-    let width : String?
+    let fireRing : Bool?
+    let flat : Bool?
+    let flushToilet : Bool?
+    let grill : Bool?
+    let latitude : Double?
+    let length : Double?
+    let longitude : Double?
+    let nonPotableWater : Bool?
+    let poiid : Int?
+    let picnicTable : Bool?
+    let pitToilet : Bool?
+    let potableWater : Bool?
+    let registrationRequired : Bool?
+    let width : Double?
     
     enum CodingKeys: String, CodingKey {
         
@@ -49,10 +49,10 @@ struct Boondocking : Codable {
         case length = "Length"
         case longitude = "Longitude"
         case nonPotableWater = "NonPotableWater"
-        case pOIID = "POIID"
+        case poiid = "POIID"
         case picnicTable = "PicnicTable"
         case pitToilet = "PitToilet"
-        case portableWater = "PortableWater"
+        case potableWater = "PotableWater"
         case registrationRequired = "RegistrationRequired"
         case width = "Width"
     }
@@ -63,19 +63,19 @@ struct Boondocking : Codable {
         description = try values.decodeIfPresent(String.self, forKey: .description)
         website = try values.decodeIfPresent(String.self, forKey: .website)
         phone = try values.decodeIfPresent(String.self, forKey: .phone)
-        fireRing = try values.decodeIfPresent(String.self, forKey: .fireRing)
-        flat = try values.decodeIfPresent(String.self, forKey: .flat)
-        flushToilet = try values.decodeIfPresent(String.self, forKey: .flushToilet)
-        grill = try values.decodeIfPresent(String.self, forKey: .grill)
-        latitude = try values.decodeIfPresent(String.self, forKey: .latitude)
-        length = try values.decodeIfPresent(String.self, forKey: .length)
-        longitude = try values.decodeIfPresent(String.self, forKey: .longitude)
-        nonPotableWater = try values.decodeIfPresent(String.self, forKey: .nonPotableWater)
-        pOIID = try values.decodeIfPresent(String.self, forKey: .pOIID)
-        picnicTable = try values.decodeIfPresent(String.self, forKey: .picnicTable)
-        pitToilet = try values.decodeIfPresent(String.self, forKey: .pitToilet)
-        portableWater = try values.decodeIfPresent(String.self, forKey: .portableWater)
-        registrationRequired = try values.decodeIfPresent(String.self, forKey: .registrationRequired)
-        width = try values.decodeIfPresent(String.self, forKey: .width)
+        fireRing = try values.decodeIfPresent(Bool.self, forKey: .fireRing)
+        flat = try values.decodeIfPresent(Bool.self, forKey: .flat)
+        flushToilet = try values.decodeIfPresent(Bool.self, forKey: .flushToilet)
+        grill = try values.decodeIfPresent(Bool.self, forKey: .grill)
+        latitude = try values.decodeIfPresent(Double.self, forKey: .latitude)
+        length = try values.decodeIfPresent(Double.self, forKey: .length)
+        longitude = try values.decodeIfPresent(Double.self, forKey: .longitude)
+        nonPotableWater = try values.decodeIfPresent(Bool.self, forKey: .nonPotableWater)
+        poiid = try values.decodeIfPresent(Int.self, forKey: .poiid)
+        picnicTable = try values.decodeIfPresent(Bool.self, forKey: .picnicTable)
+        pitToilet = try values.decodeIfPresent(Bool.self, forKey: .pitToilet)
+        potableWater = try values.decodeIfPresent(Bool.self, forKey: .potableWater)
+        registrationRequired = try values.decodeIfPresent(Bool.self, forKey: .registrationRequired)
+        width = try values.decodeIfPresent(Double.self, forKey: .width)
     }
 }

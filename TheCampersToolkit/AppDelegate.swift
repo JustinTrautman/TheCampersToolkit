@@ -15,6 +15,7 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 import GoogleMobileAds
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,11 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey("\(Constants.googleApiKey)")
         GMSPlacesClient.provideAPIKey("\(Constants.googleApiKey)")
         
+        // Initialize Firebase
+        FirebaseApp.configure()
+        
         // Initialize the Google Mobile Ads SDK.
         GADMobileAds.configure(withApplicationID: Constants.applicationID)
         
         // Increment app launched counter
         AppRatingHelper.incrementAppLaunchedCounter()
+        
+        // Prompt user to update if new version is available
+        UpdateHelper.checkVersion()
         
         return true
     }

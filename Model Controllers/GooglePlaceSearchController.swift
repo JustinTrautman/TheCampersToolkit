@@ -10,7 +10,8 @@
  
  Google Place Search API: https://developers.google.com/places/web-service/search
  
- ----------------------------------------------------------------------------------------
+ TODO: Version 2.0 - Tell user that the map couldn't populate because they were offline and give them an option to refresh.
+  ----------------------------------------------------------------------------------------
  */
 
 import Foundation
@@ -21,22 +22,22 @@ class GooglePlaceSearchController {
     static var googlePlaces: [Results]?
     static var selectedType: String?
     
-    static func fetchPlacesNearby(latitude: String, longitude: String, radius: Double, type: String, completion: @escaping ([Results]?) -> Void) {
+    static func fetchPlacesNearby(latitude: String, longitude: String, radius: Double, keyword: String, completion: @escaping ([Results]?) -> Void) {
         
         guard let url = googlePlaceBaseURL else { completion(nil) ; return }
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
         
         let locationQuery = URLQueryItem(name: "location", value: "\(latitude),\(longitude)")
-        let typeQuery = URLQueryItem(name: "type", value: type)
+        let typeQuery = URLQueryItem(name: "type", value: keyword)
         let radiusQuery = URLQueryItem(name: "radius", value: "\(radius)")
         let rankByQuery = URLQueryItem(name: "rankby", value: "prominence")
         let apiQuery = URLQueryItem(name: "key", value: Constants.googleApiKey)
         
         var queryArray = [locationQuery, typeQuery, radiusQuery, rankByQuery, apiQuery]
         
-        self.selectedType = type
+        self.selectedType = keyword
         
-        if type == "store" {
+        if keyword == "store" {
             let keywordQuery = URLQueryItem(name: "keyword", value: "propane refill")
             queryArray.insert(keywordQuery, at: 2)
         }

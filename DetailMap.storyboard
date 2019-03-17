@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zTd-sb-PKm">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Map-->
+        <scene sceneID="31l-um-zhi">
+            <objects>
+                <viewController id="zTd-sb-PKm" customClass="SatelliteViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ybx-p4-oWo">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7LJ-Qb-2bn" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="7LJ-Qb-2bn" firstAttribute="leading" secondItem="FMf-YW-qeA" secondAttribute="leading" id="2IU-um-fDh"/>
+                            <constraint firstItem="FMf-YW-qeA" firstAttribute="trailing" secondItem="7LJ-Qb-2bn" secondAttribute="trailing" id="9PU-Jl-FjO"/>
+                            <constraint firstItem="FMf-YW-qeA" firstAttribute="bottom" secondItem="7LJ-Qb-2bn" secondAttribute="bottom" id="noh-ra-t6X"/>
+                            <constraint firstItem="7LJ-Qb-2bn" firstAttribute="top" secondItem="FMf-YW-qeA" secondAttribute="top" id="t66-8H-l9U"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FMf-YW-qeA"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Map" id="hHT-ly-gG4">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="mapTypeIcon" id="5ab-TH-9k6">
+                            <connections>
+                                <action selector="mapPinTapped:" destination="zTd-sb-PKm" id="wH7-63-dhR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="7LJ-Qb-2bn" id="mi6-YL-jP6"/>
+                        <outlet property="navigationBar" destination="hHT-ly-gG4" id="Kzi-Wo-uHa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xdu-NU-d48" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5473" y="-1340"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="mapTypeIcon" width="25.600000381469727" height="25.600000381469727"/>
+    </resources>
+</document>

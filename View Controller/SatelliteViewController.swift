@@ -12,6 +12,7 @@
  */
 
 import UIKit
+import GoogleMaps
 
 class SatelliteViewController: UIViewController, GMSMapViewDelegate {
     
@@ -22,7 +23,7 @@ class SatelliteViewController: UIViewController, GMSMapViewDelegate {
     // MARK: - Properties
     var selectedCampground: Results?
     var boondockCoordinates: CLLocationCoordinate2D?
-    var mapType: GMSMapViewType?
+    private var mapType: GMSMapViewType?
     
     // MARK: - View lifecycle
     override func viewDidLoad() {
@@ -82,11 +83,12 @@ class SatelliteViewController: UIViewController, GMSMapViewDelegate {
         mapTypeActionSheet.addAction(terrainAction)
         mapTypeActionSheet.addAction(cancelAction)
         
-        present(mapTypeActionSheet, animated: true)
+        DispatchQueue.main.async {
+            self.present(mapTypeActionSheet, animated: true)
+        }
     }
     
     func setupMapView() {
-        
         if boondockCoordinates != nil {
             let coordinates = boondockCoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
             
