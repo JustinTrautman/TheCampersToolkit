@@ -12,49 +12,38 @@
  */
 
 import UIKit
-import GoogleMobileAds
 
 class ForecastDetailViewController: UIViewController {
     
     // MARK: - Outlets
-    @IBOutlet var parentView: UIView!
-    @IBOutlet weak var navigationBar: UINavigationBar!
-    @IBOutlet weak var dayNameLabel: UILabel!
-    @IBOutlet weak var dayTypeImageView: UIImageView!
-    @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var elevationLabel: UILabel!
-    @IBOutlet weak var windSpeedLabel: UILabel!
-    @IBOutlet weak var weatherDescriptionLabel: UILabel!
+    @IBOutlet private var parentView: UIView!
+    @IBOutlet weak private var dayNameLabel: UILabel!
+    @IBOutlet weak private var dayTypeImageView: UIImageView!
+    @IBOutlet weak private var temperatureLabel: UILabel!
+    @IBOutlet weak private var elevationLabel: UILabel!
+    @IBOutlet weak private var windSpeedLabel: UILabel!
+    @IBOutlet weak private var weatherDescriptionLabel: UILabel!
     
     // MARK: - Properties
     var forecastedWeatherData: ForecastedWeatherData.Periods?
     var locationElevation: ForecastedWeatherData?
     
-    // Banner Ad Setup
-    var bannerView: GADBannerView!
-    
-    lazy var adBannerView: GADBannerView = {
-        
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = Constants.bannerAdUnitID
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
+    private let darkTheme = UIColor(red: 0.13, green: 0.13, blue: 0.14, alpha: 1.0)
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         updateViews()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
-        // Setup Ad Banner
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-        addBannerViewToView(bannerView)
-        
-        // Load Ad Banner
-        adBannerView.load(GADRequest())
+        if isMovingFromParent {
+            navigationController?.navigationBar.barStyle = .default
+            tabBarController?.tabBar.barStyle = .default
+        }
     }
     
     func updateViews() {
@@ -66,29 +55,33 @@ class ForecastDetailViewController: UIViewController {
             let windDirection = forecastedWeatherData.windDirection,
             let weatherDescription = forecastedWeatherData.detailedForecast,
             let forecastProperties = locationElevation?.properties,
-            let elevation = forecastProperties.elevation?.value else { return }
-        
-        if let isDay = forecastedWeatherData.isDaytime {
-            if isDay == false {
-                setNightTheme()
-            } else {
-                dayTypeImageView.image = UIImage(named: "sunnyBig")
-            }
+            let elevation = forecastProperties.elevation?.value,
+            let isDay = forecastedWeatherData.isDaytime else {
+                return
         }
-        
-        dayNameLabel.text = name
-        temperatureLabel.text = "\(temperature) ℉"
-        windSpeedLabel.text = "The expected wind speed is \(windSpeed) \(windDirection)"
-        weatherDescriptionLabel.text = weatherDescription
         
         let elevationInFeet = elevation * 3.2808
         
-        elevationLabel.text = "Elevation: \(elevationInFeet.roundToClosestHalf()) ft."
+        DispatchQueue.main.async {
+            switch isDay {
+            case false:
+                self.setNightTheme()
+            default:
+                self.dayTypeImageView.image = UIImage(named: "sunnyBig")
+            }
+            
+            self.dayNameLabel.text = name
+            self.temperatureLabel.text = "\(temperature) ℉"
+            self.windSpeedLabel.text = "The expected wind speed is \(windSpeed) \(windDirection)"
+            self.weatherDescriptionLabel.text = weatherDescription
+            self.elevationLabel.text = "Elevation: \(elevationInFeet.roundToClosestHalf()) ft."
+        }
     }
     
     func setNightTheme() {
-        parentView.backgroundColor = .black
-        navigationBar.barStyle = UIBarStyle.black
+        parentView.backgroundColor = darkTheme
+        navigationController?.navigationBar.barStyle = .black
+        tabBarController?.tabBar.barStyle = .black
         dayNameLabel.textColor = .white
         dayTypeImageView.image = UIImage(named: "moonBig")
         temperatureLabel.textColor = .white
@@ -96,44 +89,6 @@ class ForecastDetailViewController: UIViewController {
         windSpeedLabel.textColor = .white
         weatherDescriptionLabel.textColor = .white
     }
-    
-    // TODO: Separate this function into helper file
-    func addBannerViewToView(_ bannerView: GADBannerView) {
-        bannerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bannerView)
-        view.addConstraints(
-            [NSLayoutConstraint(item: bannerView,
-                                attribute: .bottom,
-                                relatedBy: .equal,
-                                toItem: bottomLayoutGuide, // TODO: Update deprecated code
-                attribute: .top,
-                multiplier: 1,
-                constant: 0),
-             NSLayoutConstraint(item: bannerView,
-                                attribute: .centerX,
-                                relatedBy: .equal,
-                                toItem: view,
-                                attribute: .centerX,
-                                multiplier: 1,
-                                constant: 0)
-            ])
-    }
 }
 
-extension ForecastDetailViewController : GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("Ad banner loaded successfully")
-        
-        addBannerViewToView(bannerView)
-        
-        // Reposition the banner ad to create a slide down effect
-        DispatchQueue.main.async {
-            bannerView.alpha = 0
-            UIView.animate(withDuration: 0.5, animations: {
-                bannerView.alpha = 1
-            })
-        }
-    }
-}
 

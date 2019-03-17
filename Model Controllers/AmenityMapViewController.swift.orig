@@ -1,0 +1,303 @@
+/*
+ ----------------------------------------------------------------------------------------
+ 
+ AmenityMapViewController.swift
+ TheCampersToolkit
+ 
+ Created by Justin Trautman on 7/28/18.
+ Copyright © 2018 ModularMobile LLC. All rights reserved.
+ Justin@modularmobile.net
+ 
+ ----------------------------------------------------------------------------------------
+ */
+
+import UIKit
+import GoogleMaps
+import Lottie
+
+class AmenityMapViewController: UIViewController {
+    
+    // MARK: - Outlets
+    @IBOutlet weak private var navigationBar: UINavigationItem!
+    @IBOutlet weak private var mapView: GMSMapView!
+    
+    // MARK: - Actions
+    // TODO: Refactor this action
+    @IBAction func searchRadiusButtonTapped(_ sender: Any) {
+        let searchRadiusActionSheet = UIAlertController(title: "Search Radius", message: nil, preferredStyle: .actionSheet)
+        searchRadiusActionSheet.view.tintColor = .blue
+        
+        let fiveMileRadius = UIAlertAction(title: "5 Miles", style: .default) { (five) in
+            self.searchRadius = 8047
+            self.fetchNearbyPlaces(coordinate: self.locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+        }
+        
+        let tenMileRadius = UIAlertAction(title: "10 Miles", style: .default) { (twenty) in
+            self.searchRadius = 16092
+            self.fetchNearbyPlaces(coordinate: self.locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+        }
+        
+        let twentyMileRadius = UIAlertAction(title: "20 Miles", style: .default) { (fifty) in
+            self.searchRadius = 32187
+            self.fetchNearbyPlaces(coordinate: self.locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        if searchRadius == 8047 {
+            fiveMileRadius.isEnabled = false
+        }
+        
+        if searchRadius == 16092 {
+            tenMileRadius.isEnabled = false
+        }
+        
+        if searchRadius == 32187 {
+            twentyMileRadius.isEnabled = false
+        }
+        
+        searchRadiusActionSheet.addAction(cancelAction)
+        searchRadiusActionSheet.addAction(fiveMileRadius)
+        searchRadiusActionSheet.addAction(tenMileRadius)
+        searchRadiusActionSheet.addAction(twentyMileRadius)
+        
+        DispatchQueue.main.async {
+            self.present(searchRadiusActionSheet, animated: true)
+        }
+    }
+    
+    // MARK: - Properties
+    private var locationManager = CLLocationManager()
+    private var searchRadius: Double = 8047
+    
+    var selectedType: String?
+    var results: [Results]?
+    var selectedAmenity: String?
+    var campgroundCoordinates: CLLocationCoordinate2D?
+    
+    // Layout Properties
+    let loadingOverlay: UIView = {
+        let loadingView = UIView()
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.backgroundColor = .clear
+        return loadingView
+    }()
+    
+    let loadingAnimation: LOTAnimationView = {
+        let animation = LOTAnimationView(name: "mapLoading")
+        animation.translatesAutoresizingMaskIntoConstraints = false
+        animation.layer.masksToBounds = true
+        return animation
+    }()
+    
+    // MARK: - View Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        locationManager.delegate = self
+        mapView.delegate = self
+<<<<<<< HEAD
+        mapView.settings.myLocationButton = false
+=======
+        mapView.settings.rotateGestures = false
+>>>>>>> f7d45690284dd1baa88d1d4e28b90439fe4c1ca0
+        
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func fetchNearbyPlaces(coordinate: CLLocationCoordinate2D) {
+        DispatchQueue.main.async {
+            self.mapView.clear()
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            self.disableInterfaceInteraction()
+            self.showLoadingOverlay()
+        }
+        
+        guard let selectedType = self.selectedType else { return }
+        
+        var coordinates = coordinate
+        
+        if campgroundCoordinates != nil {
+            coordinates = campgroundCoordinates ?? CLLocationCoordinate2D(latitude: 0, longitude: 0)
+        }
+        
+        GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinates.latitude)", longitude: "\(coordinates.longitude)", radius: searchRadius, keyword: selectedType) { (places) in
+            
+            if let places = places {
+                DispatchQueue.main.async {
+                    for place in places {
+                        let marker = AmenityMarker(googlePlace: place)
+                        marker.map = self.mapView
+                        self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 13, bearing: 0, viewingAngle: 0)
+                        self.results = places
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    self.loadingOverlay.removeFromSuperview()
+                    self.mapView.alpha = 1.0
+                    self.enableInterfaceInteraction()
+                    self.navigationBar.title = "\(self.format(amenityType: selectedType).capitalized) Near You"
+                }
+                
+                if places.count == 0 {
+                    self.showNoAmenitiesAlert()
+                }
+            }
+        }
+    }
+    
+    func showLoadingOverlay() {
+        self.mapView.addSubview(loadingOverlay)
+        self.mapView.bringSubviewToFront(loadingOverlay)
+        
+        loadingOverlay.translatesAutoresizingMaskIntoConstraints = false
+        loadingOverlay.centerXAnchor.constraint(equalTo: mapView.centerXAnchor).isActive = true
+        loadingOverlay.centerYAnchor.constraint(equalTo: mapView.centerYAnchor).isActive = true
+        loadingOverlay.widthAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: 1/2).isActive = true
+        loadingOverlay.heightAnchor.constraint(equalTo: mapView.heightAnchor, multiplier: 1/3).isActive = true
+        
+        loadingOverlay.addSubview(loadingAnimation)
+        loadingAnimation.translatesAutoresizingMaskIntoConstraints = false
+        loadingAnimation.centerXAnchor.constraint(equalTo: loadingOverlay.centerXAnchor).isActive = true
+        loadingAnimation.centerYAnchor.constraint(equalTo: loadingOverlay.centerYAnchor).isActive = true
+        loadingAnimation.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        loadingAnimation.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        DispatchQueue.main.async {
+            self.mapView.alpha = 0.8
+            self.loadingAnimation.play()
+            self.loadingAnimation.loopAnimation = true
+        }
+    }
+    
+    func enableInterfaceInteraction() {
+        navigationController?.navigationBar.isUserInteractionEnabled = true
+        mapView.isUserInteractionEnabled = true
+        tabBarController?.tabBar.isUserInteractionEnabled = true
+    }
+    
+    func disableInterfaceInteraction() {
+        navigationController?.navigationBar.isUserInteractionEnabled = false
+        mapView.isUserInteractionEnabled = false
+        tabBarController?.tabBar.isUserInteractionEnabled = false
+    }
+    
+    func format(amenityType: String) -> String {
+        let formattedString = amenityType.replacingOccurrences(of: "_", with: " ")
+        
+        switch formattedString {
+        case "car repair":
+            return "car repair shops"
+        case "store":
+            return "propane services"
+        case "supermarket":
+            return "stores"
+        case "gas station":
+            return "gas stations"
+        default:
+            return formattedString
+        }
+    }
+    
+    func showNoAmenitiesAlert() {
+        let noAmenitiesAlert = UIAlertController(title: nil, message: "There are no \(format(amenityType: selectedType!)) within the specified radius. You can try adjusting the search radius", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
+            // Go back to previous ViewController. Disabled in Version 1.5
+            // self.navigationController?.popToRootViewController(animated: true)
+        }
+        
+        noAmenitiesAlert.addAction(okAction)
+        
+        DispatchQueue.main.async {
+            self.present(noAmenitiesAlert, animated: true)
+        }
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == AmenityDetailViewController.segueIdentifier {
+            guard let detailVC = segue.destination as? AmenityDetailViewController else { return }
+            
+            detailVC.selectedAmenity = selectedAmenity
+        }
+    }
+}
+
+extension AmenityMapViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        guard status == .authorizedWhenInUse else { return }
+        
+        locationManager.startUpdatingLocation()
+        mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else {
+            return
+        }
+        
+        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 11, bearing: 0, viewingAngle: 0)
+        locationManager.stopUpdatingLocation()
+        fetchNearbyPlaces(coordinate: location.coordinate)
+    }
+}
+
+extension AmenityMapViewController: GMSMapViewDelegate {
+    
+    func mapView(_ mapView: GMSMapView, markerInfoContents marker: GMSMarker) -> UIView? {
+        guard let amenityMarker = marker as? AmenityMarker else { return nil }
+        
+        guard let infoView = UIView.viewFromNibName("AmenityMarkerView") as? AmenityMarkerView else {
+            return nil
+        }
+        
+        guard let selectedType = selectedType,
+            let usersLatitude = locationManager.location?.coordinate.latitude,
+            let usersLongitude = locationManager.location?.coordinate.longitude,
+            let destinationLatitude = amenityMarker.googlePlace.geometry?.location?.lat,
+            let destinationLongitude = amenityMarker.googlePlace.geometry?.location?.lng else { return nil }
+        
+        infoView.amenityNameLabel.text = amenityMarker.googlePlace.name
+        infoView.amenityImageView.image = UIImage(named: "\(selectedType)_pin")
+        
+        // Calculates distance to amenity
+        var usersLocation = CLLocation(latitude: usersLatitude, longitude: usersLongitude)
+        if campgroundCoordinates != nil {
+            let coordinates = CLLocation(latitude: campgroundCoordinates?.latitude ?? 0, longitude: campgroundCoordinates?.longitude ?? 0)
+            usersLocation = coordinates
+        }
+        let destination = CLLocation(latitude: destinationLatitude, longitude: destinationLongitude)
+        let distanceInMeters = usersLocation.distance(from: destination)
+        let distanceInMiles = Double(distanceInMeters) * 0.000621371
+        
+        infoView.milesAwayLabel.text = "\(distanceInMiles.roundToPlaces(places: 2)) miles away"
+        infoView.amenityImageView.image = UIImage(named: "blackMoreArrow")
+        
+        return infoView
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        guard let amenityMarker = marker as? AmenityMarker else { return false }
+        let selectedAmenity = amenityMarker.googlePlace.placeID
+        self.selectedAmenity = selectedAmenity
+        
+        return false
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        let amenityMarker = marker as? AmenityMarker
+        performSegue(withIdentifier: AmenityDetailViewController.segueIdentifier, sender: amenityMarker?.googlePlace)
+    }
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        mapView.selectedMarker = nil
+        fetchNearbyPlaces(coordinate: locationManager.location?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
+        
+        return false
+    }
+}

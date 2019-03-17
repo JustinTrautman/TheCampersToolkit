@@ -12,7 +12,7 @@
  */
 
 import UIKit
-import Cosmos
+import Kingfisher
 
 class CampgroundReviewCell: UITableViewCell {
     
@@ -38,37 +38,12 @@ class CampgroundReviewCell: UITableViewCell {
         
         guard let rating = reviews.rating,
             let profilePhotoUrl = reviews.profilePhotoUrl else { return }
-        let reviewRating = Double(rating)
+        let reviewRating = Double(rating).roundToClosestHalf()
         
-        switch reviewRating {
-        case 1:
-            self.ratingView.rating = 1
-        case 1.5:
-            self.ratingView.rating = 1.5
-        case 2:
-            self.ratingView.rating = 2
-        case 2.5:
-            self.ratingView.rating = 2.5
-        case 3:
-            self.ratingView.rating = 3
-        case 3.5:
-            self.ratingView.rating = 3.5
-        case 4:
-            self.ratingView.rating = 4
-        case 4.5:
-            self.ratingView.rating = 4.5
-        case 5:
-            self.ratingView.rating = 5
-        default:
-            self.ratingView.rating = 0
-        }
-        
-        GoogleDetailController.fetchReviewerProfilePhotoWith(photoUrl: profilePhotoUrl) { (image) in
-            guard let fetchedImage = image else { return }
-            
-            DispatchQueue.main.async {
-                self.reviewerProfileImageView.image = fetchedImage
-            }
+        DispatchQueue.main.async {
+            self.reviewRatingImageView.image = StarRatingHelper.returnStarFrom(rating: reviewRating)
+            self.reviewerProfileImageView.kf.indicatorType = .activity
+            self.reviewerProfileImageView.kf.setImage(with: URL(string: profilePhotoUrl), options: [.transition(ImageTransition.fade(0.2))])
         }
     }
 }

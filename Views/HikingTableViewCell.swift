@@ -12,7 +12,7 @@
  */
 
 import UIKit
-import Cosmos
+import Kingfisher
 
 class HikingTableViewCell: UITableViewCell {
     
@@ -34,19 +34,15 @@ class HikingTableViewCell: UITableViewCell {
     
     func updateViews() {
         guard let voteCounter = trails?.starVotes,
-            let trailRating = trails?.stars,
-            let trailPhotoUrl = trails?.imgMedium else { return }
+            let trailRating = trails?.stars else { return }
         
-        HikingTrailController.fetchTrailImageWith(photoURL: trailPhotoUrl) { (image) in
-            if let image = image {
-                DispatchQueue.main.async {
-                    self.trailImageView.image = image
-                }
-            }
-            
-            if trailPhotoUrl == "" {
-                self.trailImageView.image = UIImage(named: "hikingDefault")
-            }
+        let trailPhotoUrl = URL(string: trails?.imgMedium ?? "")
+        let defaultImage = UIImage(named: "hikingDefault")
+        let transition = ImageTransition.fade(0.2)
+        
+        DispatchQueue.main.async {
+            self.trailImageView.kf.indicatorType = .activity
+            self.trailImageView.kf.setImage(with: trailPhotoUrl, placeholder: defaultImage, options: [.transition(transition)])
         }
         
         trailNameLabel.text = trails?.name
@@ -66,27 +62,8 @@ class HikingTableViewCell: UITableViewCell {
         
         let roundedRating = Double(trailRating).roundToClosestHalf()
         
-        switch roundedRating {
-        case 1:
-            self.ratingView.rating = 1
-        case 1.5:
-            self.ratingView.rating = 1.5
-        case 2:
-            self.ratingView.rating = 2
-        case 2.5:
-            self.ratingView.rating = 2.5
-        case 3:
-            self.ratingView.rating = 3
-        case 3.5:
-            self.ratingView.rating = 3.5
-        case 4:
-            self.ratingView.rating = 4
-        case 4.5:
-            self.ratingView.rating = 4.5
-        case 5:
-            self.ratingView.rating = 5
-        default:
-            self.ratingView.rating = 0
+        DispatchQueue.main.async {
+            self.starRatingImageView.image = StarRatingHelper.returnStarFrom(rating: roundedRating)
         }
         
         guard let difficulty = trails?.difficulty else { return }

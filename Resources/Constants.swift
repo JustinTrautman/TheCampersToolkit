@@ -18,8 +18,7 @@ import Foundation
 struct Constants {
     
     // API Keys
-     static let googleApiKey = "apikey"
-//      static let googleApiKey = "BOGUS"
+    static let googleApiKey = "apikey"
     static let openWeatherApiKey = "apikey"
     static let activeApiKey = "apikey"
     static let gasFeedApiKey = "apikey"
@@ -36,6 +35,11 @@ struct Constants {
     static let interstitialAdUnitID = "unitId"
     static let bannerAdUnitID = "unitId"
     
+    // Strings
+    static let photosBaseURL = URL(string: "https://maps.googleapis.com/maps/api/place/photo?maxwidth=700?maxHeight=700&photoreference=")
+    
     // Notification Keys
     static let updateReviewsKey = Notification.Name("net.modularmobile.updateReviews")
+    static let agreeKey = Notification.Name("net.modularmobile.tctTerms")
+    static let networkRefreshKey = Notification.Name("net.modularmobile.networkRefresh")
 }

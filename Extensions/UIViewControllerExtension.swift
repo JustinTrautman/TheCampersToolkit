@@ -2,14 +2,14 @@
 //  UIViewControllerExtension.swift
 //  TheCampersToolkit
 //
-//  Created by Justin Trautman on 12/11/18.
-//  Copyright © 2018 Justin Trautman. All rights reserved.
+//  Created by Justin Trautman on 3/13/19.
+//  Copyright © 2019 Justin Trautman. All rights reserved.
 //
 
 import UIKit
 
 extension UIViewController {
-    /// Returns a 'toClassName' String for identifying segues
+    /// Returns a 'toClassName' string for segue identifiers
     class var segueIdentifier: String {
         return String(describing: "to\(self)")
     }

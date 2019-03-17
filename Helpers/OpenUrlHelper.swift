@@ -18,10 +18,15 @@ struct OpenUrlHelper {
     
     static func openWebsite(with url: String, on vc: UIViewController) {
         if let url = URL(string: url) {
-            let safariVC = SFSafariViewController(url: url)
-            
-            DispatchQueue.main.async {
-                vc.present(safariVC, animated: true)
+            UIApplication.shared.open(url, options: [.universalLinksOnly: true]) { (success) in
+                if !success {
+                    let safariVC = SFSafariViewController(url: url)
+                    safariVC.delegate = vc as? SFSafariViewControllerDelegate
+                    
+                    DispatchQueue.main.async {
+                        vc.present(safariVC, animated: true)
+                    }
+                }
             }
         }
     }
@@ -80,24 +85,36 @@ struct OpenUrlHelper {
         }
     }
     
+    static func openAppSettings() {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                assertionFailure("This app is running on an unsupported platform")
+            }
+        }
+    }
+    
+    /// Opens a specified App Store link with Store Kit.
     static func openAppStoreItem(with identifier: String, on vc: UIViewController) {
-        /// Opens a specified App Store link with Store Kit.
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
         let storeViewController = SKStoreProductViewController()
         storeViewController.delegate = vc as? SKStoreProductViewControllerDelegate
         
         let parameters = [SKStoreProductParameterITunesItemIdentifier: identifier]
-        storeViewController.loadProduct(withParameters: parameters) { (loaded, error) in
-            if let error = error {
-                // TODO: Create user facing error
-                print("Error loading App Store Product. \(error)")
-                return
+        storeViewController.loadProduct(withParameters: parameters) { (_, error) in
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                vc.present(storeViewController, animated: true, completion: nil)
             }
             
-            if loaded {
-                DispatchQueue.main.async {
-                    vc.present(storeViewController, animated: true, completion: nil)
-                }
+            if error != nil {
+                // TODO: Create user facing error
+                return
             }
         }
     }
 }
+

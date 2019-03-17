@@ -13,36 +13,37 @@
 
 import UIKit
 import GoogleMaps
-import SafariServices
-import Cosmos
+import Kingfisher
 
 class AmenityDetailViewController: UIViewController, SFSafariViewControllerDelegate {
     
     // MARK: - Outlets
-    @IBOutlet weak var amenityImageView: UIImageView!
-    @IBOutlet weak var placeNameLabel: UILabel!
-    @IBOutlet weak var openUntilLabel: UILabel!
-    @IBOutlet weak var amenityPhoneNumberButton: UIButton!
-    @IBOutlet weak var ratingView: CosmosView!
-    @IBOutlet weak var amenityMapView: GMSMapView!
-    @IBOutlet weak var takeMeHereButton: UIButton!
-    @IBOutlet weak var visitWebsiteButton: UIButton!
+    @IBOutlet weak private var amenityImageView: UIImageView!
+    @IBOutlet weak private var placeNameLabel: UILabel!
+    @IBOutlet weak var phoneNumberLabel: UILabel!
+    @IBOutlet weak private var websiteLabel: UILabel!
+    @IBOutlet weak private var ratingImageView: UIImageView!
+    @IBOutlet weak private var openUntilLabel: UILabel!
+    @IBOutlet weak private var viewMoreHoursButton: UIButton!
+    @IBOutlet weak private var amenityMapView: GMSMapView!
+    @IBOutlet weak private var takeMeHereButton: UIButton!
     
     // MARK: - Properties
     var amenitieDetails: Result?
     var photoReference: String?
     var selectedAmenity: String?
     
-    let geoCoder = CLGeocoder()
+    private let geoCoder = CLGeocoder()
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Button will be disabled unless amenity has a url from Google
-        visitWebsiteButton.isEnabled = false
-        
         fetchAmenityDetails()
+        
+        phoneNumberLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handlePhoneLabelTap)))
+        websiteLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleWebsiteLabelTap)))
+        amenityImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleAmenityImageTap)))
     }
     
     // MARK: - Actions
@@ -53,18 +54,6 @@ class AmenityDetailViewController: UIViewController, SFSafariViewControllerDeleg
         OpenUrlHelper.openNavigationApp(withAddress: address, orCoordinates: nil, mapItemName: amenityName)
     }
     
-    @IBAction func phoneNumberButtonTapped(_ sender: Any) {
-        guard let numberToCall = amenityPhoneNumberButton.currentTitle?.replacingOccurrences(of: " ", with: "") else { return }
-        if let phoneURL = URL(string: "telprompt://\(numberToCall)") {
-            UIApplication.shared.canOpenURL(phoneURL)
-            UIApplication.shared.open(phoneURL)
-        }
-    }
-    
-    @IBAction func websiteButtonTapped(_ sender: Any) {
-        guard let url = amenitieDetails?.website else { return }
-        OpenUrlHelper.openWebsite(with: url, on: self)
-    }
     
     func fetchAmenityDetails() {
         guard let placeID = selectedAmenity else { return }
@@ -74,11 +63,10 @@ class AmenityDetailViewController: UIViewController, SFSafariViewControllerDeleg
                 self.amenitieDetails = details
                 
                 if let photos = details.photos {
-                    for photo in photos {
-                        self.photoReference = photo.photoReference
-                    }
+                    self.photoReference = photos.first?.photoReference
                 }
                 
+                self.fetchAmenityPhoto()
                 self.updateViews()
                 self.loadMiniMap()
             }
@@ -86,178 +74,67 @@ class AmenityDetailViewController: UIViewController, SFSafariViewControllerDeleg
     }
     
     func fetchAmenityPhoto() {
-        guard let selectedType = GooglePlaceSearchController.selectedType else { return }
-        
         if let photoReference = photoReference {
-            GoogleDetailController.fetchPlacePhotoWith(photoReference: photoReference) { (fetchedImage) in
-                DispatchQueue.main.async {
-                    if let fetchedImage = fetchedImage {
-                        DispatchQueue.main.async {
-                            self.amenityImageView.image = fetchedImage
-                        }
-                    }
-                }
-            }
-        } else {
+            let photoUrl = String().googlePhotosUrl(photoRef: photoReference, maxWidth: 300)
+            let defaultImage = UIImage(named: "noImageAvailable")
+            let transition = ImageTransition.fade(0.2)
+            
             DispatchQueue.main.async {
-                self.amenityImageView.image = UIImage(named: "\(selectedType)"+"PlaceholderImage")
+                self.amenityImageView.kf.indicatorType = .activity
+                self.amenityImageView.kf.setImage(with: photoUrl, placeholder: defaultImage, options: [.transition(transition)])
+                self.amenityImageView.isUserInteractionEnabled = true
             }
         }
     }
     
     func updateViews() {
-        // Take me here button setup
+        guard let amenity = amenitieDetails else {
+            assertionFailure()
+            return
+        }
+        
+        let name = amenity.name ?? "Unknown Name"
+        let phoneNumber = amenity.formattedPhoneNumber ?? "No phone number"
+        let website = amenity.website ?? "No website"
+        let starRating = amenity.rating?.roundToClosestHalf() ?? 0
+        let todaysDate = Date().dayOfWeek()!
+        let businessHours = amenity.openingHours?.weekdayText ?? ["Business hours unknown"]
+        
         DispatchQueue.main.async {
-            self.takeMeHereButton.layer.cornerRadius = 10.0
-            self.takeMeHereButton.clipsToBounds = true
-            self.takeMeHereButton.layer.shadowRadius = 3.0
-            self.takeMeHereButton?.layer.shadowColor = UIColor.black.cgColor
-            self.takeMeHereButton?.layer.shadowOpacity = 1.0
-            self.takeMeHereButton?.layer.shadowOffset = CGSize(width: 5, height: 5)
-            self.takeMeHereButton?.layer.masksToBounds = false
-            self.takeMeHereButton?.backgroundColor = UIColor(displayP3Red: 0.07, green: 0.68, blue: 0.63, alpha: 1.00)
-            self.takeMeHereButton?.setTitle("Take me here", for: .normal)
-            self.takeMeHereButton?.setTitleColor(.white, for: .normal)
-            self.takeMeHereButton?.titleLabel?.font = UIFont(name: "Helvetica", size: 18)
-        }
-        
-        // UI updated from network configuration
-        self.fetchAmenityPhoto()
-        
-        if let name = amenitieDetails?.name {
-            DispatchQueue.main.async {
-                self.placeNameLabel.text = name
-            }
-        }
-        
-        if let phoneNumber = amenitieDetails?.formattedPhoneNumber {
-            DispatchQueue.main.async {
-                self.amenityPhoneNumberButton.setTitle(phoneNumber, for: .normal)
-                self.amenityPhoneNumberButton.setTitleColor(.blue, for: .normal)
-            }
-        }
-        
-        if let _ = amenitieDetails?.website {
-            DispatchQueue.main.async {
-                self.visitWebsiteButton.isEnabled = true
-                self.visitWebsiteButton.setTitleColor(.black, for: .normal)
-            }
-        }
-        
-        if let amenityRating = amenitieDetails?.rating {
-            let roundedRating = Double(amenityRating).roundToClosestHalf()
+            self.placeNameLabel.text = name
+            self.phoneNumberLabel.text = phoneNumber
+            self.ratingImageView.image = StarRatingHelper.returnStarFrom(rating: starRating)
+            self.openUntilLabel.text = HoursHelper.returnClosingTime(for: businessHours, on: todaysDate)
+            self.takeMeHereButton.applyGreenTheme(buttonTitle: "Take me here")
             
-            // TODO: - Move Switch statement off of main thread.
-            DispatchQueue.main.async {
-                switch roundedRating {
-                case 1:
-                    self.ratingView.rating = 1
-                case 1.5:
-                    self.ratingView.rating = 1.5
-                case 2:
-                    self.ratingView.rating = 2
-                case 2.5:
-                    self.ratingView.rating = 2.5
-                case 3:
-                    self.ratingView.rating = 3
-                case 3.5:
-                    self.ratingView.rating = 3.5
-                case 4:
-                    self.ratingView.rating = 4
-                case 4.5:
-                    self.ratingView.rating = 4.5
-                case 5:
-                    self.ratingView.rating = 5
-                default:
-                    self.ratingView.rating = 0
-                }
+            // Enable website and more hours labels if infomation is present
+            switch phoneNumber {
+            case "No phone number":
+                self.phoneNumberLabel.textColor = .gray
+            default:
+                self.phoneNumberLabel.textColor = .blue
+                self.phoneNumberLabel.isUserInteractionEnabled = true
+            }
+            
+            switch website {
+            case "No website", "":
+                self.websiteLabel.text = "No website"
+                self.websiteLabel.textColor = .gray
+                break
+            default:
+                self.websiteLabel.text = "Visit website"
+                self.websiteLabel.textColor = .blue
+                self.websiteLabel.isUserInteractionEnabled = true
+            }
+            
+            switch businessHours {
+            case ["Business hours unknown"]:
+                return
+            default:
+                self.viewMoreHoursButton.isUserInteractionEnabled = true
+                self.viewMoreHoursButton.setTitleColor(.blue, for: .normal)
             }
         }
-        
-        guard let hoursOfOperation = amenitieDetails?.openingHours else { return }
-        
-        let dayOfWeek = Date().dayOfWeek()!
-        
-        if let _ = hoursOfOperation.weekdayText {
-            guard let dayCases = DayOfTheWeek(rawValue: dayOfWeek) else { return }
-            
-            switch dayCases {
-            case .sunday:
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            case .monday:
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            case .tuesday:
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            case.wednesday:
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            case .thursday:
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            case .friday:
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            case .saturday:
-                let closingTime = returnClosingTime(forDay: dayOfWeek)
-                DispatchQueue.main.async {
-                    self.openUntilLabel.text = "\(closingTime)"
-                }
-            }
-        }
-    }
-    
-    func returnClosingTime(forDay: String) -> String {
-        guard let hoursOfOperation = amenitieDetails?.openingHours?.weekdayText,
-            let dayCases = DayOfTheWeek(rawValue: forDay) else {
-                assertionFailure("Did not get hours from api call")
-                return ""
-        }
-        
-        var hoursString: String!
-        
-        switch dayCases {
-        case .monday:
-            hoursString = "\(hoursOfOperation[0])"
-        case .tuesday:
-            hoursString = "\(hoursOfOperation[1])"
-        case .wednesday:
-            hoursString = "\(hoursOfOperation[2])"
-        case .thursday:
-            hoursString = "\(hoursOfOperation[3])"
-        case .friday:
-            hoursString = "\(hoursOfOperation[4])"
-        case .saturday:
-            hoursString = "\(hoursOfOperation[5])"
-        case .sunday:
-            hoursString = "\(hoursOfOperation[6])"
-        }
-        
-        if let hours = hoursString.range(of: "– ") {
-            let closingHour = hoursString[hours.upperBound...]
-            
-            return "Open until \(closingHour)"
-        }
-        
-        if hoursString.contains("Open 24 hours") {
-            return "Open 24 hours"
-        }
-        
-        return hoursString
     }
     
     func loadMiniMap() {
@@ -279,4 +156,26 @@ class AmenityDetailViewController: UIViewController, SFSafariViewControllerDeleg
             marker.map = self.amenityMapView
         }
     }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case PhotoDetailViewController.segueIdentifier:
+            guard let destinationVC = segue.destination as? PhotoDetailViewController else {
+                return
+            }
+            destinationVC.photo = amenityImageView.image
+            
+        case HoursViewController.segueIdentifier:
+            guard let destinationVC = segue.destination as? HoursViewController,
+                let hours = amenitieDetails?.openingHours else {
+                    return
+            }
+            destinationVC.hours = hours
+            
+        default:
+            preconditionFailure("Segue identifier: \(String(describing: segue.identifier)) not found or incorrectly implemented.")
+        }
+    }
 }
+

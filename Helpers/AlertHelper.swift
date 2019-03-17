@@ -19,16 +19,45 @@ struct AlertHelper {
         }
     }
     
+    static func showNetworkConnectivityErrorAlert(vc: UIViewController) {
+        let alertController = UIAlertController(title: "Network Error", message: "A network error prevented us from completing the request. Please refresh and we'll get it sorted out.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Refresh", style: .default, handler: { (refresh) in
+            // Notify controller that the user would like to retry request.
+            NotificationCenter.default.post(name: Constants.networkRefreshKey, object: nil)
+        }))
+        
+        DispatchQueue.main.async {
+            vc.present(alertController, animated: true)
+        }
+    }
+    
     static func showNoCampgroundsAlert(on vc: UIViewController) {
-        showCustomAlert(on: vc, title: "There were no campgrounds found within 31 miles. Try searching another area.", message: "")
+        showCustomAlert(on: vc, title: "There were no campgrounds found within 30 miles. Try searching another area.", message: "")
+    }
+    
+    static func showNoReviewsFound(for campground: String, on vc: UIViewController) {
+        showCustomAlert(on: vc, title: "\(campground) doesn't have any reviews.", message: "")
+    }
+    
+    static func showNoPhotosFound(for campground: String, on vc: UIViewController) {
+        showCustomAlert(on: vc, title: "\(campground) doesn't have any photos", message: "")
     }
     
     static func showAgreementAlert(on vc: UIViewController) {
-        showCustomAlert(on: vc, title: "By using the boondocking feature of this app you understand and agree to the ToS in the information section of this screen.", message: "")
-    }
-    
-    static func showBoondockingTerms(on vc: UIViewController) {
-        showCustomAlert(on: vc, title: "The boondocking information found within this app is supported by public submission and its accuracy cannot be gauranteed. Please research indivdual sites using the included phone number and website if available. Always check with local authorities to verify the legality of sites before boondocking. I agree that Modular Mobile LLC and its developers are not responsible for any inaccuracies of boondocking infomation", message: "")
+        let alertController = UIAlertController(title: "Please agree to ToU", message: "By using the boondocking feature of this app, you argee to the boondocking Terms of Use.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Read ToU", style: .default, handler: { (read) in
+            OpenUrlHelper.openWebsite(with: "https://modularmobile.net/boondocker-terms-of-use/", on: vc)
+        }))
+        alertController.addAction(UIAlertAction(title: "I Agree", style: .default, handler: { (agree) in
+            UserDefaults.standard.setValue("True", forKey: "Alerted")
+            UserDefaults.standard.synchronize()
+            
+            NotificationCenter.default.post(name: Constants.agreeKey, object: nil)
+        }))
+        
+        DispatchQueue.main.async {
+            vc.present(alertController, animated: true)
+        }
     }
     
     static func showSupportAlert(on vc: UIViewController) {

@@ -1,0 +1,25 @@
+//
+//  UIViewControllerExtension.swift
+//  TheCampersToolkit
+//
+<<<<<<< HEAD
+//  Created by Justin Trautman on 12/11/18.
+//  Copyright © 2018 Justin Trautman. All rights reserved.
+=======
+//  Created by Justin Trautman on 3/13/19.
+//  Copyright © 2019 Justin Trautman. All rights reserved.
+>>>>>>> f7d45690284dd1baa88d1d4e28b90439fe4c1ca0
+//
+
+import UIKit
+
+extension UIViewController {
+<<<<<<< HEAD
+    /// Returns a 'toClassName' String for identifying segues
+=======
+    /// Returns a 'toClassName' string for segue identifiers
+>>>>>>> f7d45690284dd1baa88d1d4e28b90439fe4c1ca0
+    class var segueIdentifier: String {
+        return String(describing: "to\(self)")
+    }
+}

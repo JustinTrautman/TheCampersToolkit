@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Campground Photos View Controller-->
+        <!--Photos View Controller-->
         <scene sceneID="QOp-rQ-aLI">
             <objects>
-                <viewController id="6MK-9b-RJf" customClass="CampgroundPhotosViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6MK-9b-RJf" customClass="PhotosViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b1G-s7-LJy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,15 +22,15 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PhotoTableViewCell" rowHeight="304" id="Jp5-SM-EqH" customClass="PhotoTableViewCell" customModule="TheCampersToolkit" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="photoCell" rowHeight="304" id="Jp5-SM-EqH" customClass="PhotoTableViewCell" customModule="TheCampersToolkit" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="304"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jp5-SM-EqH" id="SnQ-tE-SKD">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jp5-SM-EqH" id="SnQ-tE-SKD">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="303.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z9B-gj-w9Z">
-                                                    <rect key="frame" x="15" y="11" width="290" height="273"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z9B-gj-w9Z">
+                                                    <rect key="frame" x="42" y="15" width="290" height="273"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="290" id="H3f-FH-o6t"/>
                                                         <constraint firstAttribute="width" secondItem="z9B-gj-w9Z" secondAttribute="height" multiplier="345:154" constant="-321.59090909090912" id="fBs-Kj-Oi0"/>
@@ -38,9 +38,9 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="z9B-gj-w9Z" firstAttribute="top" secondItem="SnQ-tE-SKD" secondAttribute="top" constant="11" id="X0J-8d-q7h"/>
-                                                <constraint firstItem="z9B-gj-w9Z" firstAttribute="leading" secondItem="SnQ-tE-SKD" secondAttribute="leading" constant="15" id="d0z-fG-jem"/>
-                                                <constraint firstAttribute="trailing" secondItem="z9B-gj-w9Z" secondAttribute="trailing" constant="15" id="duA-w5-ubc"/>
+                                                <constraint firstItem="z9B-gj-w9Z" firstAttribute="top" secondItem="SnQ-tE-SKD" secondAttribute="top" constant="15" id="X0J-8d-q7h"/>
+                                                <constraint firstItem="z9B-gj-w9Z" firstAttribute="leading" secondItem="SnQ-tE-SKD" secondAttribute="leading" constant="42" id="d0z-fG-jem"/>
+                                                <constraint firstAttribute="trailing" secondItem="z9B-gj-w9Z" secondAttribute="trailing" constant="43" id="duA-w5-ubc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -71,7 +71,7 @@
         <!--Photo Detail View Controller-->
         <scene sceneID="cXm-5F-HhK">
             <objects>
-                <viewController id="4wx-gN-FdQ" customClass="PhotoDetailViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="photoDetail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4wx-gN-FdQ" customClass="PhotoDetailViewController" customModule="TheCampersToolkit" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b1O-Bu-iO4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

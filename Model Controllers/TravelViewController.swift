@@ -16,11 +16,166 @@ import CoreLocation
 
 class TravelViewController: UIViewController {
     
-    // MARK: - Outlets
-    @IBOutlet weak var gasStationButton: UIButton!
-    @IBOutlet weak var propaneButton: UIButton!
-    @IBOutlet weak var supermarketButton: UIButton!
-    @IBOutlet weak var carRepairButton: UIButton!
+    // MARK: - Properties
+    var selectedType = ""
+    var campgroundAmmenities: Bool = false
+    private var amenityMarker: AmenityMarker?
+    var campgroundCoordinates: CLLocationCoordinate2D?
+    
+    // Layout Properties
+    private let greetingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "What would you like to find?"
+        label.font = UIFont(name: "AmericanTypewriter-CondensedBold", size: 30)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let containerStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.distribution = .equalSpacing
+        return stackView
+    }()
+    
+    private let gasStationStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 10.0
+        return stackView
+    }()
+    
+    private let gasStationButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "gasStation"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(handleGasStationButtonTap), for: .touchUpInside)
+        return button
+    }()
+    
+    private let gasStationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Gas Station"
+        label.font = UIFont(name: "system", size: 17)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let propaneStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 10.0
+        return stackView
+    }()
+    
+    private let propaneButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "propane"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(handlePropaneButtonTap), for: .touchUpInside)
+        return button
+    }()
+    
+    private let propaneLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Propane"
+        label.font = UIFont(name: "system", size: 17)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let topHalfStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = 50.0
+        return stackView
+    }()
+    
+    private let storeStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 10.0
+        return stackView
+    }()
+    
+    private let storeButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "store"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(handleStoreButtonTap), for: .touchUpInside)
+        return button
+    }()
+    
+    private let storeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Store"
+        label.font = UIFont(name: "system", size: 17)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let carRepairStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 10.0
+        return stackView
+    }()
+    
+    private let carRepairLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Car Repair"
+        label.font = UIFont(name: "system", size: 17)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let carRepairButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "carRepair"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(handleCarRepairButtonTap), for: .touchUpInside)
+        return button
+    }()
+    
+    private  let bottomHalfStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = 50.0
+        return stackView
+    }()
+    
+    // MARK: View Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupGasStationStackView()
+        setupPropaneStackView()
+        setupTopHalfStackView()
+        setupStoreStackView()
+        setupCarRepairStackView()
+        setupBottomHalfStackView()
+        setupContainerStackView()
+        setupGreetingLabel()
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -30,35 +185,116 @@ class TravelViewController: UIViewController {
         }
     }
     
-    // MARK: - Properties
-    var selectedType = ""
-    var amenityMarker: AmenityMarker?
-    var campgroundCoordinates: CLLocationCoordinate2D?
-    var campgroundAmmenities: Bool = false
+    func setupGreetingLabel() {
+        view.addSubview(greetingLabel)
+        greetingLabel.translatesAutoresizingMaskIntoConstraints = false
+        greetingLabel.bottomAnchor.constraint(equalTo: containerStackView.topAnchor, constant: -20).isActive = true
+        greetingLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        greetingLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -10).isActive = true
+        greetingLabel.heightAnchor.constraint(equalToConstant: 35).isActive = true
+    }
+    
+    func setupGasStationStackView() {
+        view.addSubview(gasStationStackView)
+        gasStationStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        gasStationStackView.addArrangedSubview(gasStationButton)
+        gasStationButton.translatesAutoresizingMaskIntoConstraints = false
+        gasStationButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
+        gasStationButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/5).isActive = true
+        
+        gasStationStackView.addArrangedSubview(gasStationLabel)
+        gasStationLabel.translatesAutoresizingMaskIntoConstraints = false
+        gasStationLabel.widthAnchor.constraint(equalTo: gasStationButton.widthAnchor).isActive = true
+        gasStationLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+    }
+    
+    func setupPropaneStackView() {
+        view.addSubview(propaneStackView)
+        propaneStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        propaneStackView.addArrangedSubview(propaneButton)
+        propaneButton.translatesAutoresizingMaskIntoConstraints = false
+        propaneButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
+        propaneButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/5).isActive = true
+        
+        propaneStackView.addArrangedSubview(propaneLabel)
+        propaneLabel.translatesAutoresizingMaskIntoConstraints = false
+        propaneLabel.widthAnchor.constraint(equalTo: propaneButton.widthAnchor).isActive = true
+        propaneLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+    }
+    
+    func setupTopHalfStackView() {
+        view.addSubview(topHalfStackView)
+        topHalfStackView.translatesAutoresizingMaskIntoConstraints = false
+        topHalfStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        topHalfStackView.addArrangedSubview(gasStationStackView)
+        topHalfStackView.addArrangedSubview(propaneStackView)
+    }
+    
+    func setupStoreStackView() {
+        view.addSubview(storeStackView)
+        storeStackView.translatesAutoresizingMaskIntoConstraints = true
+        
+        storeStackView.addArrangedSubview(storeButton)
+        storeButton.translatesAutoresizingMaskIntoConstraints = false
+        storeButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
+        storeButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/5).isActive = true
+        
+        storeStackView.addArrangedSubview(storeLabel)
+        storeLabel.translatesAutoresizingMaskIntoConstraints = false
+        storeLabel.widthAnchor.constraint(equalTo: gasStationButton.widthAnchor).isActive = true
+        storeLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+    }
+    
+    func setupCarRepairStackView() {
+        view.addSubview(carRepairStackView)
+        carRepairStackView.translatesAutoresizingMaskIntoConstraints = true
+        
+        carRepairStackView.addArrangedSubview(carRepairButton)
+        carRepairButton.translatesAutoresizingMaskIntoConstraints = false
+        carRepairButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/3).isActive = true
+        carRepairButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/5).isActive = true
+        
+        carRepairStackView.addArrangedSubview(carRepairLabel)
+        carRepairLabel.translatesAutoresizingMaskIntoConstraints = false
+        carRepairLabel.widthAnchor.constraint(equalTo: gasStationButton.widthAnchor)
+        carRepairLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+    }
+    
+    func setupBottomHalfStackView() {
+        view.addSubview(bottomHalfStackView)
+        bottomHalfStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        bottomHalfStackView.addArrangedSubview(storeStackView)
+        bottomHalfStackView.addArrangedSubview(carRepairStackView)
+        
+        bottomHalfStackView.topAnchor.constraint(equalTo: topHalfStackView.bottomAnchor, constant: 30).isActive = true
+        bottomHalfStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    }
+    
+    func setupContainerStackView() {
+        view.addSubview(containerStackView)
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerStackView.addArrangedSubview(topHalfStackView)
+        containerStackView.addArrangedSubview(bottomHalfStackView)
+        containerStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        containerStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let detailVC = segue.destination as? AmenityMapViewController else { return }
-        
-        guard let segueToPrepare = AmenitySegue(rawValue: segue.identifier ?? "") else { return }
-        
-        switch segueToPrepare {
-        case .gasMap:
-            selectedType = "gas_station"
-        case .propaneMap:
-            selectedType = "store"
-        case .storeMap:
-            selectedType = "supermarket"
-        case .carRepairMap:
-            selectedType = "car_repair"
-        case .unnamed:
-            assertionFailure("The provided segue identifier was empty. Please verify all segues have identifiers.")
-        }
-        
-        detailVC.selectedType = selectedType
-        
-        if campgroundAmmenities == true {
-            detailVC.campgroundCoordinates = campgroundCoordinates
+        if segue.identifier == AmenityMapViewController.segueIdentifier {
+            guard let detailVC = segue.destination as? AmenityMapViewController else {
+                return
+            }
+            
+            detailVC.selectedType = selectedType
+            
+            if campgroundAmmenities == true {
+                detailVC.campgroundCoordinates = campgroundCoordinates
+            }
         }
     }
 }

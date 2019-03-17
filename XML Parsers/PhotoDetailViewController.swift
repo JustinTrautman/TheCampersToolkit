@@ -16,8 +16,8 @@ import UIKit
 class PhotoDetailViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Outlets
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var detailImageView: UIImageView!
+    @IBOutlet weak private var scrollView: UIScrollView!
+    @IBOutlet weak private var detailImageView: UIImageView!
     
     // MARK: - Properties
     var photo: UIImage?
@@ -27,7 +27,6 @@ class PhotoDetailViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         
         scrollView.delegate = self
-        
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 6.0
         
@@ -43,7 +42,6 @@ class PhotoDetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-    
         return detailImageView
     }
 }

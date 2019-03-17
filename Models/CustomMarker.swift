@@ -69,13 +69,8 @@ class BoondockingMarker: GMSMarker {
             guard let latitude = boondocks.latitude,
                 let longitude = boondocks.longitude else { return }
             
-            if let lat = Double(latitude) {
-                if let lon = Double(longitude) {
-                    
-                    let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                    position = coordinates
-                }
-            }
+            let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            position = coordinates
         }
         icon = UIImage(named: "boondocking_pin")
         
