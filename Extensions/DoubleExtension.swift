@@ -26,4 +26,12 @@ extension Double {
     func roundToClosestHalf() -> Double {
         return Double(Int(self * 2)) / 2
     }
+    
+    func dropZero() -> String {
+        let formatter = NumberFormatter()
+        let number = NSNumber(value: self)
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = 16 // Maximum decimals Doubles allow
+        return String(formatter.string(from: number) ?? "unknown")
+    }
 }

@@ -13,60 +13,40 @@
 
 import UIKit
 import GoogleMaps
-import GoogleMobileAds
+import Lottie
 
-class WeatherViewController: UIViewController {
+class WeatherViewController: UIViewController { // TODO: Refactor this class
     
     // MARK: - Outlets
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var weatherImageView: UIImageView!
-    @IBOutlet weak var weatherDescriptionLabel: UILabel!
-    @IBOutlet weak var thermometerImageView: UIImageView!
-    @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var highTempLabel: UILabel!
-    @IBOutlet weak var lowTempLabel: UILabel!
-    @IBOutlet weak var humidityLabel: UILabel!
-    @IBOutlet weak var windLabel: UILabel!
-    @IBOutlet weak var windSpeedImageView: UIImageView!
-    @IBOutlet weak var sunriseLabel: UILabel!
-    @IBOutlet weak var sunsetLabel: UILabel!
-    @IBOutlet weak var cloudStatusImageView: UIImageView!
-    @IBOutlet weak var cloudStatusLabel: UILabel!
-    @IBOutlet weak var forecastCollectionView: UICollectionView!
+    @IBOutlet weak private var addressLabel: UILabel!
+    @IBOutlet weak private var weatherImageView: UIImageView!
+    @IBOutlet weak private var weatherDescriptionLabel: UILabel!
+    @IBOutlet weak private var thermometerImageView: UIImageView!
+    @IBOutlet weak private var temperatureLabel: UILabel!
+    @IBOutlet weak private var highTempLabel: UILabel!
+    @IBOutlet weak private var lowTempLabel: UILabel!
+    @IBOutlet weak private var humidityLabel: UILabel!
+    @IBOutlet weak private var windLabel: UILabel!
+    @IBOutlet weak private var windSpeedImageView: UIImageView!
+    @IBOutlet weak private var sunriseLabel: UILabel!
+    @IBOutlet weak private var sunsetLabel: UILabel!
+    @IBOutlet weak private var cloudStatusImageView: UIImageView!
+    @IBOutlet weak private var cloudStatusLabel: UILabel!
+    @IBOutlet weak private var forecastCollectionView: UICollectionView!
     
     // MARK: - Properties
     var campgroundDetails: Result?
     var address: String?
     var currentWeatherData: CampgroundWeatherData?
-    var forecastedWeatherData: ForecastedWeatherData?
-    var selectedForecast: ForecastedWeatherData.Periods?
+    private var forecastedWeatherData: ForecastedWeatherData?
+    private var selectedForecast: ForecastedWeatherData.Periods?
     
-    let geoCoder = CLGeocoder()
-    
-    // Banner Ad Setup
-    var bannerView: GADBannerView!
-    
-    lazy var adBannerView: GADBannerView = {
-        
-        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        adBannerView.adUnitID = Constants.bannerAdUnitID
-        adBannerView.delegate = self
-        adBannerView.rootViewController = self
-        
-        return adBannerView
-    }()
+    private let geoCoder = CLGeocoder()
+    private let animation = LOTAnimationView(name: "loadingWheel")
     
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Setup Ad Banner
-//        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-        
-//        addBannerViewToView(bannerView)
-        
-        // Load Ad Banner
-//        adBannerView.load(GADRequest())
         
         updateViews()
         fetchForecastedWeather()
@@ -216,6 +196,11 @@ class WeatherViewController: UIViewController {
     }
     
     func fetchForecastedWeather() {
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            self.showLoadingAnimation()
+        }
+        
         if let campgroundsAddress = address {
             geoCoder.geocodeAddressString(campgroundsAddress) { (placemarks, error) in
                 guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
@@ -227,11 +212,12 @@ class WeatherViewController: UIViewController {
                     if let forecast = forecast {
                         self.forecastedWeatherData = forecast
                         
-                        
                         DispatchQueue.main.async {
                             self.forecastCollectionView.delegate = self
                             self.forecastCollectionView.dataSource = self
                             self.forecastCollectionView.reloadData()
+                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                            self.animation.removeFromSuperview()
                         }
                     }
                 }
@@ -239,29 +225,23 @@ class WeatherViewController: UIViewController {
         }
     }
     
-    func addBannerViewToView(_ bannerView: GADBannerView) {
-        bannerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bannerView)
-        view.addConstraints(
-            [NSLayoutConstraint(item: bannerView,
-                                attribute: .bottom,
-                                relatedBy: .equal,
-                                toItem: bottomLayoutGuide,
-                                attribute: .top,
-                                multiplier: 1,
-                                constant: 0),
-             NSLayoutConstraint(item: bannerView,
-                                attribute: .centerX,
-                                relatedBy: .equal,
-                                toItem: view,
-                                attribute: .centerX,
-                                multiplier: 1,
-                                constant: 0)
-            ])
+    func showLoadingAnimation() {
+        animation.translatesAutoresizingMaskIntoConstraints = false
+        animation.clipsToBounds = true
+        
+        forecastCollectionView.addSubview(animation)
+        animation.centerXAnchor.constraint(equalTo: forecastCollectionView.centerXAnchor).isActive = true
+        animation.centerYAnchor.constraint(equalTo: forecastCollectionView.centerYAnchor).isActive = true
+        animation.widthAnchor.constraint(equalToConstant: 300).isActive = true
+        animation.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        
+        animation.play()
+        animation.loopAnimation = true
     }
     
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toForecastDetailVC" {
+        if segue.identifier == ForecastDetailViewController.segueIdentifier {
             guard let destinationVC = segue.destination as? ForecastDetailViewController,
                 let weatherData = forecastedWeatherData,
                 let weatherProperties = weatherData.properties,
@@ -322,19 +302,3 @@ extension WeatherViewController : UICollectionViewDelegate, UICollectionViewData
     }
 }
 
-extension WeatherViewController : GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView!) {
-        print("Ad banner loaded successfully")
-        
-        addBannerViewToView(bannerView)
-        
-        // Reposition the banner ad to create a slide down effect
-        DispatchQueue.main.async {
-            bannerView.alpha = 0
-            UIView.animate(withDuration: 0.5, animations: {
-                bannerView.alpha = 1
-            })
-        }
-    }
-}

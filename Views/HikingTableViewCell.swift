@@ -12,6 +12,7 @@
  */
 
 import UIKit
+import Kingfisher
 
 class HikingTableViewCell: UITableViewCell {
     
@@ -33,19 +34,15 @@ class HikingTableViewCell: UITableViewCell {
     
     func updateViews() {
         guard let voteCounter = trails?.starVotes,
-            let trailRating = trails?.stars,
-            let trailPhotoUrl = trails?.imgMedium else { return }
+            let trailRating = trails?.stars else { return }
         
-        HikingTrailController.fetchTrailImageWith(photoURL: trailPhotoUrl) { (image) in
-            if let image = image {
-                DispatchQueue.main.async {
-                    self.trailImageView.image = image
-                }
-            }
-            
-            if trailPhotoUrl == "" {
-                self.trailImageView.image = UIImage(named: "hikingDefault")
-            }
+        let trailPhotoUrl = URL(string: trails?.imgMedium ?? "")
+        let defaultImage = UIImage(named: "hikingDefault")
+        let transition = ImageTransition.fade(0.2)
+        
+        DispatchQueue.main.async {
+            self.trailImageView.kf.indicatorType = .activity
+            self.trailImageView.kf.setImage(with: trailPhotoUrl, placeholder: defaultImage, options: [.transition(transition)])
         }
         
         trailNameLabel.text = trails?.name
@@ -65,29 +62,8 @@ class HikingTableViewCell: UITableViewCell {
         
         let roundedRating = Double(trailRating).roundToClosestHalf()
         
-        switch roundedRating {
-        case 0:
-            self.starRatingImageView.image = UIImage(named: "0Stars")
-        case 1:
-            self.starRatingImageView.image = UIImage(named: "1Stars")
-        case 1.5:
-            self.starRatingImageView.image = UIImage(named: "1.5Stars")
-        case 2:
-            self.starRatingImageView.image = UIImage(named: "2Stars")
-        case 2.5:
-            self.starRatingImageView.image = UIImage(named: "2.5Stars")
-        case 3:
-            self.starRatingImageView.image = UIImage(named: "3Stars")
-        case 3.5:
-            self.starRatingImageView.image = UIImage(named: "3.5Stars")
-        case 4:
-            self.starRatingImageView.image = UIImage(named: "4Stars")
-        case 4.5:
-            self.starRatingImageView.image = UIImage(named: "4.5Stars")
-        case 5:
-            self.starRatingImageView.image = UIImage(named: "5Stars")
-        default:
-            self.starRatingImageView.image = UIImage(named: "0Star")
+        DispatchQueue.main.async {
+            self.starRatingImageView.image = StarRatingHelper.returnStarFrom(rating: roundedRating)
         }
         
         guard let difficulty = trails?.difficulty else { return }

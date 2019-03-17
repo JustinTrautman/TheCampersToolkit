@@ -12,6 +12,7 @@
  */
 
 import UIKit
+import Kingfisher
 
 class CampgroundReviewCell: UITableViewCell {
     
@@ -37,37 +38,12 @@ class CampgroundReviewCell: UITableViewCell {
         
         guard let rating = reviews.rating,
             let profilePhotoUrl = reviews.profilePhotoUrl else { return }
-        let reviewRating = Double(rating)
+        let reviewRating = Double(rating).roundToClosestHalf()
         
-        switch reviewRating {
-        case 1:
-            reviewRatingImageView.image = UIImage(named: "1Stars")
-        case 1.5:
-            reviewRatingImageView.image = UIImage(named: "1.5Stars")
-        case 2:
-            reviewRatingImageView.image = UIImage(named: "2Stars")
-        case 2.5:
-            reviewRatingImageView.image = UIImage(named: "2.5Stars")
-        case 3:
-            reviewRatingImageView.image = UIImage(named: "3Stars")
-        case 3.5:
-            reviewRatingImageView.image = UIImage(named: "3.5Stars")
-        case 4:
-            reviewRatingImageView.image = UIImage(named: "4Stars")
-        case 4.5:
-            reviewRatingImageView.image = UIImage(named: "4.5Stars")
-        case 5:
-            reviewRatingImageView.image = UIImage(named: "5Stars")
-        default:
-            reviewRatingImageView.image = UIImage(named: "0Stars")
-        }
-        
-        GoogleDetailController.fetchReviewerProfilePhotoWith(photoUrl: profilePhotoUrl) { (image) in
-            guard let fetchedImage = image else { return }
-            
-            DispatchQueue.main.async {
-                self.reviewerProfileImageView.image = fetchedImage
-            }
+        DispatchQueue.main.async {
+            self.reviewRatingImageView.image = StarRatingHelper.returnStarFrom(rating: reviewRating)
+            self.reviewerProfileImageView.kf.indicatorType = .activity
+            self.reviewerProfileImageView.kf.setImage(with: URL(string: profilePhotoUrl), options: [.transition(ImageTransition.fade(0.2))])
         }
     }
 }

@@ -14,84 +14,97 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
+import Lottie
+import Kingfisher
 
 class HomeViewController: UIViewController {
     
     // MARK: - Outlets
-    @IBOutlet weak var mapView: GMSMapView!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak private var navigationBar: UINavigationItem!
+    @IBOutlet weak private var searchButton: UIBarButtonItem!
+    @IBOutlet weak private var mapView: GMSMapView!
+    @IBOutlet private var noLocationView: NoLocationView!
     
     // MARK: - Actions
     @IBAction func searchIconTapped(_ sender: UIBarButtonItem) {
-        navigationController?.isNavigationBarHidden = true
-        searchBar.isHidden = false
+        openSearchWindow()
     }
     
     // MARK: - Properties
     private var searchType = "campground"
+    private var shownNoLocationView = false
     private let locationManager = CLLocationManager()
     private let searchRadius: Double = 50000 // <<< 31 miles. Max allowed by Google.
     private let placesClient = GMSPlacesClient()
-    let geoCoder = CLGeocoder()
+    private let geoCoder = CLGeocoder()
     
-    var fetcher: GMSAutocompleteFetcher?
     var campgroundDetails: Result?
     var googlePlaces: [Results]? // All campgrounds
     var selectedCampground: Results? // Selected campground passed to detailVC
-    var campgroundPhoto: UIImage?
-    var photosArray: [Photos]?
+    
+    // Layout Properties
+    let loadingOverlay: UIView = {
+        let loadingView = UIView()
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.backgroundColor = .clear
+        return loadingView
+    }()
+    
+    let loadingAnimation: LOTAnimationView = {
+        let animation = LOTAnimationView(name: "mapLoading")
+        animation.translatesAutoresizingMaskIntoConstraints = false
+        animation.layer.masksToBounds = true
+        return animation
+    }()
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationManager.delegate = self
         mapView.delegate = self
-        searchBar.delegate = self
-        
+        mapView.settings.rotateGestures = false
+        locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
     }
     
     // MARK: - Fetcher Functions
-    func fetchCampgroundsAround(coordinate: CLLocationCoordinate2D) {
-        mapView.clear()
+    func fetchCampgroundsAround(coordinates: CLLocationCoordinate2D?) {
+        guard let location = locationManager.location?.coordinate else {
+            return
+        }
+        resetMapView()
         
-        guard var searchText = searchBar.text,
-            let location = locationManager.location?.coordinate else { return }
+        let latitude = coordinates?.latitude ?? location.latitude
+        let longitude = coordinates?.longitude ?? location.longitude
         
-        if searchText == "" {
-            searchText = "\(location.latitude) \(location.longitude)"
+        DispatchQueue.main.async {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            self.disableInterfaceInteraction()
+            self.showLoadingOverlay()
+            self.mapView.camera = GMSCameraPosition(target: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), zoom: 10, bearing: 0, viewingAngle: 0)
         }
         
-        geoCoder.geocodeAddressString(searchText) { (placemarks, error) in
-            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
-            
-            let latitude = location.latitude
-            let longitude = location.longitude
-            
-            var coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            
-            if searchText == "" {
-                coordinates = location
-            }
-            
-            GooglePlaceSearchController.fetchPlacesNearby(latitude: "\(coordinates.latitude)", longitude: "\(coordinates.longitude)", radius: self.searchRadius, type: self.searchType, completion: { (places) in
-                if let places = places {
-                    DispatchQueue.main.async {
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-                        places.forEach {
-                            let marker = CampgroundMarker(place: $0)
-                            marker.map = self.mapView
-                            self.mapView.camera = GMSCameraPosition(target: coordinates, zoom: 10, bearing: 0, viewingAngle: 0)
-                        }
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        GooglePlaceSearchController.fetchPlacesNearby(latitude: String(latitude), longitude: String(longitude), radius: self.searchRadius, type: self.searchType, completion: { (places) in
+            if let places = places {
+                DispatchQueue.main.async {
+                    places.forEach {
+                        let marker = CampgroundMarker(place: $0)
+                        marker.map = self.mapView
                     }
                 }
-                if places?.count == 0 {
-                    AlertHelper.showNoCampgroundsAlert(on: self)
-                }
-            })
-        }
+            }
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.loadingOverlay.removeFromSuperview()
+                self.mapView.alpha = 1.0
+                self.enableInterfaceInteraction()
+            }
+            
+            if places?.count == 0 {
+                AlertHelper.showNoCampgroundsAlert(on: self)
+            }
+        })
     }
     
     func fetchCampgroundDetails() {
@@ -101,21 +114,120 @@ class HomeViewController: UIViewController {
             if let campgroundDetails = details {
                 self.campgroundDetails = campgroundDetails
             }
-            self.fetchCampgroundPhoto()
         }
     }
     
-    func fetchCampgroundPhoto() {
-        guard let campgroundDetails = campgroundDetails,
-            let campgroundPhotos = campgroundDetails.photos,
-            let photoReference = campgroundPhotos[0].photoReference else { return }
+    func openSearchWindow() {
+        let searchWindow = UIAlertController(title: nil, message: "Enter any location to find nearby campgrounds", preferredStyle: .alert)
         
-        photosArray = campgroundPhotos
+        var searchTextField: UITextField?
         
-        GoogleDetailController.fetchPlacePhotoWith(photoReference: photoReference) { (photo) in
-            if let photo = photo {
-                self.campgroundPhoto = photo
-            }
+        searchWindow.addTextField { (textField) in
+            searchTextField?.placeholder = "City or Attraction"
+            searchTextField = textField
+        }
+        
+        let searchAction = UIAlertAction(title: "Search", style: .default) { (search) in
+            guard let searchText = searchTextField?.text?.capitalized, !searchText.isEmpty else { return }
+            self.resetMapView()
+            self.navigationBar.title = searchText
+            
+            // TODO: Move to extension
+            let geocoder = CLGeocoder()
+            geocoder.geocodeAddressString(searchText, completionHandler: { (placemarks, error) in
+                if let _ = error {
+                    AlertHelper.showCustomAlert(on: self, title: "No Search Results", message: "We couldn't find any results for '\(searchText)'. Please check spelling and try again.")
+                    return
+                }
+                
+                guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
+                
+                let coordinates = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+                self.fetchCampgroundsAround(coordinates: coordinates)
+            })
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        searchWindow.addAction(searchAction)
+        searchWindow.addAction(cancelAction)
+        
+        DispatchQueue.main.async {
+            self.present(searchWindow, animated: true)
+        }
+    }
+    
+    func resetMapView() {
+        DispatchQueue.main.async {
+            self.mapView.selectedMarker = nil
+            self.mapView.clear()
+        }
+    }
+    
+    func showLoadingOverlay() {
+        self.mapView.addSubview(loadingOverlay)
+        self.mapView.bringSubviewToFront(loadingOverlay)
+        
+        loadingOverlay.translatesAutoresizingMaskIntoConstraints = false
+        loadingOverlay.centerXAnchor.constraint(equalTo: mapView.centerXAnchor).isActive = true
+        loadingOverlay.centerYAnchor.constraint(equalTo: mapView.centerYAnchor).isActive = true
+        loadingOverlay.widthAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: 1/2).isActive = true
+        loadingOverlay.heightAnchor.constraint(equalTo: mapView.heightAnchor, multiplier: 1/3).isActive = true
+        
+        loadingOverlay.addSubview(loadingAnimation)
+        loadingAnimation.translatesAutoresizingMaskIntoConstraints = false
+        loadingAnimation.centerXAnchor.constraint(equalTo: loadingOverlay.centerXAnchor).isActive = true
+        loadingAnimation.centerYAnchor.constraint(equalTo: loadingOverlay.centerYAnchor).isActive = true
+        loadingAnimation.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        loadingAnimation.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        
+        DispatchQueue.main.async {
+            self.mapView.alpha = 0.8
+            self.loadingAnimation.play()
+            self.loadingAnimation.loopAnimation = true
+        }
+    }
+    
+    func showNoLocationAccessWindow() {
+        navigationController?.navigationBar.isUserInteractionEnabled = false
+        tabBarController?.tabBar.isUserInteractionEnabled = false
+        
+        mapView.addSubview(noLocationView)
+        mapView.bringSubviewToFront(noLocationView)
+        
+        noLocationView.translatesAutoresizingMaskIntoConstraints = false
+        noLocationView.isOpaque = true
+        noLocationView.alpha = 1.0
+        
+        noLocationView.centerXAnchor.constraint(equalTo: self.mapView.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        noLocationView.centerYAnchor.constraint(equalTo: self.mapView.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        noLocationView.widthAnchor.constraint(equalTo: self.mapView.safeAreaLayoutGuide.widthAnchor, constant: -90).isActive = true
+        noLocationView.heightAnchor.constraint(equalTo: self.mapView.heightAnchor, multiplier: 1/2).isActive = true
+        
+        shownNoLocationView = true
+    }
+    
+    func enableInterfaceInteraction() {
+        DispatchQueue.main.async {
+            self.searchButton.isEnabled = true
+            self.mapView.isUserInteractionEnabled = true
+            self.tabBarController?.tabBar.isUserInteractionEnabled = true
+        }
+    }
+    
+    func disableInterfaceInteraction() {
+        DispatchQueue.main.async {
+            self.searchButton.isEnabled = false
+            self.mapView.isUserInteractionEnabled = false
+            self.tabBarController?.tabBar.isUserInteractionEnabled = false
+        }
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == CampgroundDetailViewController.segueIdentifier {
+            guard let detailVC = segue.destination as? CampgroundDetailViewController else { return }
+            detailVC.campgroundDetails = campgroundDetails
+            detailVC.selectedCampground = selectedCampground
         }
     }
 }
@@ -123,8 +235,14 @@ class HomeViewController: UIViewController {
 // MARK: - CLLocationManagerDelegate
 extension HomeViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        guard status == .authorizedWhenInUse else {
+        guard status != .denied else {
+            showNoLocationAccessWindow()
             return
+        }
+        
+        if shownNoLocationView {
+            noLocationView.removeFromSuperview()
+            enableInterfaceInteraction()
         }
         
         locationManager.startUpdatingLocation()
@@ -137,9 +255,8 @@ extension HomeViewController: CLLocationManagerDelegate {
             return
         }
         
-        mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 10, bearing: 0, viewingAngle: 0)
+        fetchCampgroundsAround(coordinates: location.coordinate)
         locationManager.stopUpdatingLocation()
-        fetchCampgroundsAround(coordinate: location.coordinate)
     }
 }
 
@@ -160,9 +277,9 @@ extension HomeViewController: GMSMapViewDelegate {
         fetchCampgroundDetails()
         
         infoView.nameLabel.text = campgroundMarker.place.name
-        infoView.placePhoto.image = UIImage(named: "campground_pin")
+        infoView.placePhoto.image = UIImage(named: "blackMoreArrow")
         
-        // Calculates distance to amenity
+        // Calculate distance to amenity
         let usersLocation = CLLocation(latitude: usersLatitude, longitude: usersLongitude)
         let destination = CLLocation(latitude: destinationLatitude, longitude: destinationLongitude)
         let distanceInMeters = usersLocation.distance(from: destination)
@@ -180,77 +297,18 @@ extension HomeViewController: GMSMapViewDelegate {
         return false
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "campgroundDetail" {
-            guard let detailVC = segue.destination as? CampgroundDetailViewController else { return }
-            detailVC.campgroundDetails = campgroundDetails
-            detailVC.selectedCampground = selectedCampground
-            detailVC.campgroundPhoto = campgroundPhoto
-            detailVC.photosArray = photosArray
-            
-            campgroundPhoto = nil // Reset to no photo after it has been passed to detailVC
-        }
-    }
-    
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         self.navigationController?.isNavigationBarHidden = false
-        
         let campgroundMarker = marker as? CampgroundMarker
-
-        performSegue(withIdentifier: "campgroundDetail", sender: campgroundMarker?.place)
+        performSegue(withIdentifier: CampgroundDetailViewController.segueIdentifier, sender: campgroundMarker?.place)
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
         guard let coordinate = locationManager.location?.coordinate else { return false }
         
-        mapView.selectedMarker = nil
-        searchBar.text = ""
-        fetchCampgroundsAround(coordinate: coordinate)
+        navigationBar.title = "Campgrounds Near You"
+        fetchCampgroundsAround(coordinates: coordinate)
         
         return false
-    }
-    
-    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        print("Changed Position")
-        // TODO: Version 2. Allow user to update their search based on where they scrolled to on the map (Depends on Api traffic).
-    }
-    
-    func placeAutoComplete() {
-        guard let searchText = searchBar.text else { return }
-        let filter = GMSAutocompleteFilter()
-        filter.type = .noFilter
-        placesClient.autocompleteQuery(searchText, bounds: nil, filter: filter) { (results, error) in
-            if let error = error {
-                print("Autocomplete error \(error); \(error.localizedDescription)")
-            }
-        }
-    }
-}
-
-extension HomeViewController: UISearchBarDelegate {
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-        self.navigationController?.isNavigationBarHidden = false
-        searchBar.isHidden = true
-        
-        guard let searchText = searchBar.text else { return }
-        
-        geoCoder.geocodeAddressString(searchText) { (placemarks, error) in
-            guard let placemarks = placemarks, let location = placemarks.first?.location?.coordinate else { return }
-            
-            let latitude = location.latitude
-            let longitude = location.longitude
-            let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            
-            self.fetchCampgroundsAround(coordinate: coordinates)
-            self.navigationItem.title = searchText
-        }
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.navigationController?.isNavigationBarHidden = false
-        searchBar.resignFirstResponder()
-        searchBar.isHidden = true
     }
 }
